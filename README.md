@@ -6,11 +6,11 @@ Trabajo Práctico número 2 de la materia Algoritmos y Programación III de FIUB
 
 ## Grupo {N}
 
-* **Integrante 1** - [integrante1](https://github.com/alejo-marino)
-* **Integrante 2** - [integrante2](https://github.com/juanicolombo97)
-* **Integrante 3** - [integrante3](https://github.com/jm-velazquez)
-* **Integrante 4** - [integrante4](https://github.com/miniatimat)
-* **Integrante 5** - [integrante5](https://github.com/MartinScazzola)
+* **Integrante 1** - [Alejo Tomás Mariño](https://github.com/alejo-marino) (Padron: 105645)
+* **Integrante 2** - [Juan Ignacio Colombo](https://github.com/juanicolombo97) (Padron: 103471)
+* **Integrante 3** - [Joaquín Matías Velazquez](https://github.com/jm-velazquez) (Padron: 105980)
+* **Integrante 4** - [Mateo Miniati](https://github.com/miniatimat) (Padron: 106153)
+* **Integrante 5** - [Martin Scazzola](https://github.com/MartinScazzola) (Padron: 106403)
 
 Corrector: **{Corrector}**
 
