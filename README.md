@@ -4,7 +4,7 @@
 
 Trabajo Práctico número 2 de la materia Algoritmos y Programación III de FIUBA
 
-## Grupo {N}
+## Grupo {N°17}
 
 * **Integrante 1** - [Alejo Tomás Mariño](https://github.com/alejo-marino) (Padron: 105645)
 * **Integrante 2** - [Juan Ignacio Colombo](https://github.com/juanicolombo97) (Padron: 103471)
@@ -12,7 +12,8 @@ Trabajo Práctico número 2 de la materia Algoritmos y Programación III de FIUB
 * **Integrante 4** - [Mateo Miniati](https://github.com/miniatimat) (Padron: 106153)
 * **Integrante 5** - [Martin Scazzola](https://github.com/MartinScazzola) (Padron: 106403)
 
-Corrector: **{Corrector}**
+Corrector: **{Thiago}**
+2do corrector: **{Joaquin G}**
 
 ## Aplicación
 
