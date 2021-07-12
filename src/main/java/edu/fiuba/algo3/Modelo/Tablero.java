@@ -6,7 +6,8 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 
 public class Tablero {
-    private Dictionary<String,  Pais> listaPaisesOcupados;
+
+    public Dictionary<String,  Pais> listaPaisesOcupados;
 
     public Tablero() {
         listaPaisesOcupados = new Hashtable<String, Pais>();

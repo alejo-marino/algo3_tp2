@@ -7,7 +7,7 @@ import java.util.Dictionary;
 import java.util.Hashtable;
 
 public class Juego {
-    private Dictionary<String, Jugador> jugadoresActuales;
+    public Dictionary<String, Jugador> jugadoresActuales;
     private ArrayList<String> listaJugadores;
     private int cantidadJugadores;
     private Tablero tableroActual;

@@ -15,4 +15,8 @@ public class Pais {
         return numeroEjercitos;
     }
 
+    public String getPaisOcupadoPor() {
+        return paisOcupadoPor;
+    }
+
 }

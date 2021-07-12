@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Enumeration;
+import java.util.Hashtable;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -124,23 +125,52 @@ public class TestJuego {
         }
         assertTrue(cantidadEjercitosIncorrecta);
     }
-/*
+
     @Test
     public void test09CreoUnJuegoYLeAsigno2JugadoresYInicioElJuegoYLosPaisesFueronRepartidosEquitativamente(){
         Juego juego = new Juego();
 
-        juego.agregarJugadores(2);
-        juego.inicializarJuego;
-        Tablero tablero = obtenerTablero(juego);
-        for (int i=0; i < len(tablero.listaJugadores); i++) {
-            if (cantPaises(tablero.listaJugadores[i]) != 25) {
-                cantidadPaisesIncorrecta = true;
-                break;
+        ArrayList<String> listaJugadores = new ArrayList<String>();
+        listaJugadores.add("077bb");
+        listaJugadores.add("cc3311");
+
+        ArrayList<String> listaPaises = new ArrayList<>();
+        listaPaises.add("Argentina");
+        listaPaises.add("Paris");
+        listaPaises.add("Chile");
+        listaPaises.add("Uruguay");
+
+        Dictionary<String, Integer> paisesJugadores = new Hashtable<>();
+        paisesJugadores.put("077bb", 0);
+        paisesJugadores.put("cc3311", 0);
+
+        juego.agregarJugadores(6);
+        juego.asignarJugadores(listaJugadores);
+        juego.inicializarJuego(listaPaises);
+        Tablero tablero = juego.obtenerTablero();
+
+        Dictionary<String, Pais> paises = juego.obtenerPaises();
+
+        Enumeration enumeration = paises.keys();
+
+        while (enumeration.hasMoreElements()) {
+            Pais pais = paises.get(enumeration.nextElement());
+            String jugador = pais.getPaisOcupadoPor();
+            Integer cantidadPaises = paisesJugadores.get(jugador);
+            cantidadPaises++;
+            paisesJugadores.put(jugador, cantidadPaises);
+        }
+
+        Enumeration paisesDeJugador = paisesJugadores.keys();
+        boolean jugadoresTienen2Paises = true;
+        while (paisesDeJugador.hasMoreElements()) {
+            if (paisesJugadores.get(paisesDeJugador.nextElement()) != 2) {
+                jugadoresTienen2Paises = false;
             }
         }
-        assertTrue(cantidadPaisesIncorrecta);
+        assertTrue(jugadoresTienen2Paises);
     }
-
+/*
     @Test
     public test10CreoUnJuegoYLeAsigno3JugadoresYInicioElJuegoYLosPaisesFueronRepartidosEquitativamente (){
         Juego juego = Juego();
