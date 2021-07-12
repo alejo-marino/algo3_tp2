@@ -1,7 +1,9 @@
 package edu.fiuba.algo3.Modelo;
 
 public class TestPais {
-    public class pruebasPais {
+
+        /*
+    }
         @Test
         public void test01CreoUnPaisYNoEsNull (){
             Pais pais = new Pais;
@@ -57,4 +59,7 @@ public class TestPais {
         }
 
         // agregar checkeo de correcto funcionamiento de pais1.conquistar(pais2)
-}
+
+         */
+
+    }

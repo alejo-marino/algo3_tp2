@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.Modelo;
 
 public class TestDadosDeSeisCaras {
+    /*
     public void test01CreoUnDadosDeSeisCarasYNoEsNull () {
         DadosDeSeisCaras dados = new DadosDeSeisCaras();
         assertNotNull(dados);
@@ -23,4 +24,5 @@ public class TestDadosDeSeisCaras {
         List tirada = dados.tirarDados(7);
         assertEquals(tirada.size(), 7);
     }
+    */
 }

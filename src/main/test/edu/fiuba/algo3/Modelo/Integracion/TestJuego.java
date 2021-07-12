@@ -1,30 +1,35 @@
 package edu.fiuba.algo3.Modelo.Integracion;
 
 import edu.fiuba.algo3.Modelo.Juego;
+import edu.fiuba.algo3.Modelo.excepciones.CantidadErroneaDeJugadoresError;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestJuego {
     @Test
     public void test01CreoUnJuegoYNoEsNull(){
         Juego juego = new Juego();
-        Assertions.assertNotNull(juego);
+        assertNotNull(juego);
     }
 
     @Test
-    public test02CreoUnJuegoYLeAsigno3JugadoresYTiene3Jugadores(){
+    public void test02CreoUnJuegoYLeAsigno3JugadoresYTiene3Jugadores(){
         Juego juego = new Juego();
-        agregarJugadores(3);
+        juego.agregarJugadores(3);
 
-        assertEquals(obtenerCantJugadores(juego), 3)
+        assertEquals(juego.obtenerCantJugadores(), 3);
     }
 
     @Test
-    public test03CreoUnJuegoYLeAsigno1JugadoresYLaCantidadNoEsValida (){
-        Juego juego = Juego();
-        assertThrows(CantidadErroneaDeJugadores.class, () -> juego.agregarJugadores(1));
+    public void test03CreoUnJuegoYLeAsigno1JugadoresYLaCantidadNoEsValida(){
+        Juego juego = new Juego();
+        try {
+            juego.agregarJugadores(1);
+        }catch (CantidadErroneaDeJugadoresError error) {
+            assertEquals("El numero de jugadores debe estar entre 2-6",error.getMessage());
+        }
     }
-
+/*
     @Test
     public test04CreoUnJuegoYLeAsigno7JugadoresYLaCantidadNoEsValida (){
         Juego juego = Juego();
@@ -324,6 +329,6 @@ public class TestJuego {
         Pais paisDefensor = listaLimitrofesAtacante[0];
         assertTrue()
     }
-
+*/
 }
 
