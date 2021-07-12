@@ -60,6 +60,14 @@ public class TestPais {
 
         // agregar checkeo de correcto funcionamiento de pais1.conquistar(pais2)
 
+        @Test
+        public void test06Pais1ConquistaAPais2YPais2EsAliadoDePais1{
+            Jugador jugador1 = new Jugador("000000");
+            Jugador jugador2 = new Jugador("ffffff");
+            Pais pais1 = new Pais(jugador1);
+            Pais pais2 = new Pais(jugador2);
+            pais1.conquistar(pais2);
+            assertTrue(pais1.);
+        }
          */
-
     }

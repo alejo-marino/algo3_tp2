@@ -8,21 +8,31 @@ import java.util.Hashtable;
 public class Juego {
     private Dictionary<String, Jugador> listaJugadores;
     private int cantidadJugadores;
+    private Tablero tableroActual;
 
     public Juego() {
         cantidadJugadores = 0;
         listaJugadores = new Hashtable<String, Jugador>();
     }
 
-    public void agregarJugadores(int i) {
+    public void agregarJugadores(int cantidadJugadores) {
         // Se agrega un jugador nuevo al juego.
-        if (cantidadJugadores < 2 && cantidadJugadores > 7 ) {
+        if (cantidadJugadores < 2 | cantidadJugadores > 6 ) {
             throw new CantidadErroneaDeJugadoresError("El numero de jugadores debe estar entre 2-6");
         }
-        cantidadJugadores += i;
+        this.cantidadJugadores += cantidadJugadores;
     }
 
-    public int obtenerCantJugadores() {
+    public int obtenerCantidadJugadores() {
         return cantidadJugadores;
+    }
+
+    public void inicializarJuego(String[] listaPaises) {
+        tableroActual = new Tablero();
+        tableroActual.iniciarTablero(listaPaises, cantidadJugadores);
+    }
+
+    public Tablero obtenerTablero() {
+        return tableroActual;
     }
 }

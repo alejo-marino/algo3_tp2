@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.Modelo.Integracion;
 
 import edu.fiuba.algo3.Modelo.Juego;
+import edu.fiuba.algo3.Modelo.Tablero;
 import edu.fiuba.algo3.Modelo.excepciones.CantidadErroneaDeJugadoresError;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,48 +18,62 @@ public class TestJuego {
         Juego juego = new Juego();
         juego.agregarJugadores(3);
 
-        assertEquals(juego.obtenerCantJugadores(), 3);
+        assertEquals(juego.obtenerCantidadJugadores(), 3);
     }
 
     @Test
     public void test03CreoUnJuegoYLeAsigno1JugadoresYLaCantidadNoEsValida(){
         Juego juego = new Juego();
+        String mensajeError = "";
         try {
             juego.agregarJugadores(1);
         }catch (CantidadErroneaDeJugadoresError error) {
-            assertEquals("El numero de jugadores debe estar entre 2-6",error.getMessage());
+            mensajeError = error.getMessage();
         }
+        assertEquals("El numero de jugadores debe estar entre 2-6",mensajeError);
+    }
+
+    @Test
+    public void test04CreoUnJuegoYLeAsigno7JugadoresYLaCantidadNoEsValida(){
+        Juego juego = new Juego();
+        String mensajeError = "";
+        try {
+            juego.agregarJugadores(7);
+        }catch (CantidadErroneaDeJugadoresError error) {
+            mensajeError = error.getMessage();
+        }
+        assertEquals("El numero de jugadores debe estar entre 2-6",mensajeError);
+    }
+
+    @Test
+    public void test05CreoUnJuegoYLeAsigno6JugadoresYLaCantidadEsValida(){
+        Juego juego = new Juego();
+        juego.agregarJugadores(6);
+        assertEquals(juego.obtenerCantidadJugadores(), 6);
+    }
+
+    @Test
+    public void test06CreoUnJuegoYLeAsigno300JugadoresYLaCantidadNoEsValida(){
+        Juego juego = new Juego();
+        String mensajeError = "";
+        try {
+            juego.agregarJugadores(300);
+        }catch (CantidadErroneaDeJugadoresError error) {
+            mensajeError = error.getMessage();
+        }
+        assertEquals("El numero de jugadores debe estar entre 2-6",mensajeError);
+    }
+
+    @Test
+    public void test07CreoUnJuegoYLeAsignoJugadoresYInicioElJuegoYTodosLosPaisesTienenDueño(){
+        Juego juego = new Juego();
+        String[] listaPaises = {"Argentina", "Paris", "Chile"};
+        juego.agregarJugadores(6);
+        juego.inicializarJuego(listaPaises);
+        Tablero tablero = juego.obtenerTablero();
+        assertEquals(tablero.cantidadPaisesOcupados(), 3);
     }
 /*
-    @Test
-    public test04CreoUnJuegoYLeAsigno7JugadoresYLaCantidadNoEsValida (){
-        Juego juego = Juego();
-        assertThrows(CantidadErroneaDeJugadores.class, () -> juego.agregarJugadores(7));
-    }
-
-    @Test
-    public test05CreoUnJuegoYLeAsigno6JugadoresYLaCantidadEsValida (){
-        Juego juego = Juego();
-        assertEquals(obtenerCantJugadores(juego), 6);
-    }
-
-    @Test
-    public test06CreoUnJuegoYLeAsigno300JugadoresYLaCantidadNoEsValida (){
-        Juego juego = Juego();
-        assertThrows(CantidadErroneaDeJugadores.class, () -> juego.agregarJugadores(300));
-    }
-
-    @Test
-    public test07CreoUnJuegoYLeAsignoJugadoresYInicioElJuegoYTodosLosPaisesTienenDueño (){
-        Juego juego = Juego();
-
-        juego.agregarJugadores(6);
-        juego.inicializarJuego;
-        Tablero tablero = obtenerTablero(juego);
-
-        assertEquals(len(tablero.listaPaisesVacios, 0)
-    }
-
     @Test
     public test08CreoUnJuegoYLeAsignoJugadoresYInicioElJuegoYTodosLosPaisesTienen1Ejercito (){
         Juego juego = Juego();
