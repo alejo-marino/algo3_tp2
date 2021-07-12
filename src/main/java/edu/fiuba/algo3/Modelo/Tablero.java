@@ -2,34 +2,20 @@ package edu.fiuba.algo3.Modelo;
 
 import java.util.ArrayList;
 import java.util.Dictionary;
+import java.util.Enumeration;
 import java.util.Hashtable;
 
 public class Tablero {
-    private Dictionary<Integer, ArrayList<Pais>> listaPaisesOcupados;
+    private Dictionary<String,  Pais> listaPaisesOcupados;
 
     public Tablero() {
-        listaPaisesOcupados = new Hashtable<Integer, ArrayList<Pais>>();
+        listaPaisesOcupados = new Hashtable<String, Pais>();
     }
 
-    public void iniciarTablero(String[] listaPaises, int cantidadJugadores) {
-        iniciarJugadores(cantidadJugadores);
-        repartirPaises(listaPaises, cantidadJugadores);
-    }
-
-    private void iniciarJugadores(int cantidadJugadores) {
-        for (int x = 0; x < cantidadJugadores; x++) {
-            listaPaisesOcupados.put(x, new ArrayList<>());
-        }
-    }
-
-    private void repartirPaises(String[] listaPaises, int cantidadJugadores) {
+    public void iniciarTablero(ArrayList<String> listaPaises,ArrayList<String> listaJugadores) {
         int contador = 0;
         for (String pais: listaPaises) {
-            int jugador = contador % cantidadJugadores;
-
-            ArrayList<Pais> paisesJugador = listaPaisesOcupados.get(jugador);
-            paisesJugador.add(new Pais(pais, jugador));
-            listaPaisesOcupados.put(jugador, paisesJugador);
+            listaPaisesOcupados.put(pais, new Pais(listaJugadores.get(contador % listaJugadores.size())));
             contador++;
         }
     }
@@ -38,7 +24,7 @@ public class Tablero {
         return listaPaisesOcupados.size();
     }
 
-    public Dictionary<Integer, ArrayList<Pais>> obtenerPaisesOcupados() {
+    public Dictionary<String, Pais> obtenerPaisesOcupados() {
         return listaPaisesOcupados;
     }
 }

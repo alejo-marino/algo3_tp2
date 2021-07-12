@@ -21,6 +21,8 @@ public class TestJuego {
 
     @Test
     public void test02CreoUnJuegoYLeAsigno3JugadoresYTiene3Jugadores(){
+
+
         Juego juego = new Juego();
         juego.agregarJugadores(3);
 
@@ -73,39 +75,59 @@ public class TestJuego {
     @Test
     public void test07CreoUnJuegoYLeAsignoJugadoresYInicioElJuegoYTodosLosPaisesTienenDueño(){
         Juego juego = new Juego();
+        ArrayList<String> listaJugadores = new ArrayList<String>();
+        listaJugadores.add("077bb");
+        listaJugadores.add("cc3311");
+        listaJugadores.add("ee7733");
 
-        String[] listaPaises = {"Argentina", "Paris", "Chile"};
+        ArrayList<String> listaPaises = new ArrayList<>();
+        listaPaises.add("Argentina");
+        listaPaises.add("Paris");
+        listaPaises.add("Chile");
+        listaPaises.add("Uruguay");
+
         juego.agregarJugadores(6);
+        juego.asignarJugadores(listaJugadores);
         juego.inicializarJuego(listaPaises);
         Tablero tablero = juego.obtenerTablero();
-        assertEquals(tablero.cantidadPaisesOcupados(), 3);
+        assertEquals(tablero.cantidadPaisesOcupados(), 4);
     }
 
     @Test
     public void test08CreoUnJuegoYLeAsignoJugadoresYInicioElJuegoYTodosLosPaisesTienen1Ejercito(){
         Juego juego = new Juego();
 
-        String[] listaPaises = {"Argentina", "Paris", "Chile"};
+        ArrayList<String> listaJugadores = new ArrayList<String>();
+        listaJugadores.add("077bb");
+        listaJugadores.add("cc3311");
+        listaJugadores.add("ee7733");
+
+        ArrayList<String> listaPaises = new ArrayList<>();
+        listaPaises.add("Argentina");
+        listaPaises.add("Paris");
+        listaPaises.add("Chile");
+        listaPaises.add("Uruguay");
+
         juego.agregarJugadores(6);
+        juego.asignarJugadores(listaJugadores);
         juego.inicializarJuego(listaPaises);
+
         Tablero tablero = juego.obtenerTablero();
-        Dictionary<Integer, ArrayList<Pais>> listaPaisesOcupados = juego.obtenerPaises();
-        
+        Dictionary<String, Pais> listaPaisesOcupados = juego.obtenerPaises();
+        Enumeration enumeration = listaPaisesOcupados.keys();
         boolean cantidadEjercitosIncorrecta = true;
-        for (int x =0 ; x < 6; x++) {
-            ArrayList<Pais> paisesJugador = listaPaisesOcupados.get(x);
-            for (Pais pais: paisesJugador) {
-                if (pais.cantidadEjercitos() != 1) {
-                    cantidadEjercitosIncorrecta = false;
-                }
+        while (enumeration.hasMoreElements()){
+            Pais pais = listaPaisesOcupados.get(enumeration.nextElement());
+            if (pais.cantidadEjercitos() != 1){
+                cantidadEjercitosIncorrecta = false;
             }
         }
         assertTrue(cantidadEjercitosIncorrecta);
     }
 /*
     @Test
-    public test09CreoUnJuegoYLeAsigno2JugadoresYInicioElJuegoYLosPaisesFueronRepartidosEquitativamente (){
-        Juego juego = Juego();
+    public void test09CreoUnJuegoYLeAsigno2JugadoresYInicioElJuegoYLosPaisesFueronRepartidosEquitativamente(){
+        Juego juego = new Juego();
 
         juego.agregarJugadores(2);
         juego.inicializarJuego;

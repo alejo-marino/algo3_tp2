@@ -7,13 +7,14 @@ import java.util.Dictionary;
 import java.util.Hashtable;
 
 public class Juego {
-    private Dictionary<String, Jugador> listaJugadores;
+    private Dictionary<String, Jugador> jugadoresActuales;
+    private ArrayList<String> listaJugadores;
     private int cantidadJugadores;
     private Tablero tableroActual;
 
     public Juego() {
         cantidadJugadores = 0;
-        listaJugadores = new Hashtable<String, Jugador>();
+        jugadoresActuales = new Hashtable<String, Jugador>();
     }
 
     public void agregarJugadores(int cantidadJugadores) {
@@ -24,18 +25,25 @@ public class Juego {
         this.cantidadJugadores += cantidadJugadores;
     }
 
+    public void asignarJugadores(ArrayList<String> listaJugadores) {
+        this.listaJugadores = listaJugadores;
+        for (String jugadorNuevo: listaJugadores) {
+            this.jugadoresActuales.put(jugadorNuevo, new Jugador(jugadorNuevo));
+        }
+    }
+
     public int obtenerCantidadJugadores() {
         return cantidadJugadores;
     }
 
-    public void inicializarJuego(String[] listaPaises) {
+    public void inicializarJuego(ArrayList<String> listaPaises) {
         tableroActual = new Tablero();
-        tableroActual.iniciarTablero(listaPaises, cantidadJugadores);
+        tableroActual.iniciarTablero(listaPaises, listaJugadores);
     }
 
     public Tablero obtenerTablero() {
         return tableroActual;
     }
 
-    public Dictionary<Integer, ArrayList<Pais>> obtenerPaises() {return tableroActual.obtenerPaisesOcupados();}
+    public Dictionary<String, Pais> obtenerPaises() {return tableroActual.obtenerPaisesOcupados();}
 }
