@@ -170,81 +170,212 @@ public class TestJuego {
         }
         assertTrue(jugadoresTienen2Paises);
     }
-/*
-    @Test
-    public test10CreoUnJuegoYLeAsigno3JugadoresYInicioElJuegoYLosPaisesFueronRepartidosEquitativamente (){
-        Juego juego = Juego();
-
-        juego.agregarJugadores(3);
-        juego.inicializarJuego;
-        Tablero tablero = obtenerTablero(juego);
-        int cont16 = 0;
-        int cont17 = 0;
-
-        for (int i=0; i < len(tablero.listaJugadores); i++) {
-            if (cantPaises(tablero.listaJugadores[i] == 17))
-                cont17++;
-            else if (cantPaises(tablero.listaJugadores[i] == 16))
-                cont16++;
-        }
-        assertTrue(cont16 == 1 && cont17 == 2);
-    }
 
     @Test
-    public test11CreoUnJuegoYLeAsigno4JugadoresYInicioElJuegoYLosPaisesFueronRepartidosEquitativamente (){
-        Juego juego = Juego();
+    public void test10CreoUnJuegoYLeAsigno3JugadoresYInicioElJuegoYLosPaisesFueronRepartidosEquitativamente(){
+        Juego juego = new Juego();
 
-        juego.agregarJugadores(4);
-        juego.inicializarJuego;
-        Tablero tablero = obtenerTablero(juego);
-        int cont12 = 0;
-        int cont13 = 0;
+        ArrayList<String> listaJugadores = new ArrayList<String>();
+        listaJugadores.add("077bb");
+        listaJugadores.add("cc3311");
+        listaJugadores.add("cfdc3311");
 
-        for (int i=0; i < len(tablero.listaJugadores); i++) {
-            if (cantPaises(tablero.listaJugadores[i] == 12))
-                cont12++;
-            else if (cantPaises(tablero.listaJugadores[i] == 13))
-                cont13++;
-        }
-        assertTrue(cont12 == 2 && cont13 == 2);
-    }
+        ArrayList<String> listaPaises = new ArrayList<>();
+        listaPaises.add("Argentina");
+        listaPaises.add("Paris");
+        listaPaises.add("Chile");
+        listaPaises.add("Uruguay");
+        listaPaises.add("Chilesss");
+        listaPaises.add("Uruguawewy");
 
-    @Test
-    public test12CreoUnJuegoYLeAsigno5JugadoresYInicioElJuegoYLosPaisesFueronRepartidosEquitativamente (){
-        Juego juego = Juego();
-
-        juego.agregarJugadores(5);
-        juego.inicializarJuego;
-        Tablero tablero = obtenerTablero(juego);
-
-        for (int i=0; i < len(tablero.listaJugadores); i++) {
-            if (cantPaises(tablero.listaJugadores[i]) != 10) {
-                cantidadPaisesIncorrecta = true;
-                break;
-            }
-        }
-        assertTrue(cantidadPaisesIncorrecta);
-    }
-    @Test
-
-    public test13CreoUnJuegoYLeAsigno6JugadoresYInicioElJuegoYLosPaisesFueronRepartidosEquitativamente (){
-        Juego juego = Juego();
+        Dictionary<String, Integer> paisesJugadores = new Hashtable<>();
+        paisesJugadores.put("077bb", 0);
+        paisesJugadores.put("cc3311", 0);
+        paisesJugadores.put("cfdc3311", 0);
 
         juego.agregarJugadores(6);
-        juego.inicializarJuego;
-        Tablero tablero = obtenerTablero(juego);
-        int cont8 = 0;
-        int cont9 = 0;
+        juego.asignarJugadores(listaJugadores);
+        juego.inicializarJuego(listaPaises);
+        Tablero tablero = juego.obtenerTablero();
 
-        for (int i=0; i < len(tablero.listaJugadores); i++) {
-            if (cantPaises(tablero.listaJugadores[i] == 9))
-                cont9++;
-            else if (cantPaises(tablero.listaJugadores[i] == 8))
-                cont8++;
+        Dictionary<String, Pais> paises = juego.obtenerPaises();
+
+        Enumeration enumeration = paises.keys();
+
+        while (enumeration.hasMoreElements()) {
+            Pais pais = paises.get(enumeration.nextElement());
+            String jugador = pais.getPaisOcupadoPor();
+            Integer cantidadPaises = paisesJugadores.get(jugador);
+            cantidadPaises++;
+            paisesJugadores.put(jugador, cantidadPaises);
         }
-        assertTrue(cont8 == 4 && cont9 == 2);
+
+        Enumeration paisesDeJugador = paisesJugadores.keys();
+        boolean jugadoresTienen3Paises = true;
+        while (paisesDeJugador.hasMoreElements()) {
+            if (paisesJugadores.get(paisesDeJugador.nextElement()) != 2) {
+                jugadoresTienen3Paises = false;
+            }
+        }
+        assertTrue(jugadoresTienen3Paises);
     }
 
+    @Test
+    public void test11CreoUnJuegoYLeAsigno4JugadoresYInicioElJuegoYLosPaisesFueronRepartidosEquitativamente(){
+        Juego juego = new Juego();
+
+        ArrayList<String> listaJugadores = new ArrayList<String>();
+        listaJugadores.add("077bb");
+        listaJugadores.add("cc3311");
+        listaJugadores.add("cfdc3311");
+        listaJugadores.add("cfdc33fwefwe11");
+
+        ArrayList<String> listaPaises = new ArrayList<>();
+        listaPaises.add("Argentina");
+        listaPaises.add("Paris");
+        listaPaises.add("Chile");
+        listaPaises.add("Uruguay");
+
+        Dictionary<String, Integer> paisesJugadores = new Hashtable<>();
+        paisesJugadores.put("077bb", 0);
+        paisesJugadores.put("cc3311", 0);
+        paisesJugadores.put("cfdc3311", 0);
+        paisesJugadores.put("cfdc33fwefwe11", 0);
+
+        juego.agregarJugadores(6);
+        juego.asignarJugadores(listaJugadores);
+        juego.inicializarJuego(listaPaises);
+        Tablero tablero = juego.obtenerTablero();
+
+        Dictionary<String, Pais> paises = juego.obtenerPaises();
+
+        Enumeration enumeration = paises.keys();
+
+        while (enumeration.hasMoreElements()) {
+            Pais pais = paises.get(enumeration.nextElement());
+            String jugador = pais.getPaisOcupadoPor();
+            Integer cantidadPaises = paisesJugadores.get(jugador);
+            cantidadPaises++;
+            paisesJugadores.put(jugador, cantidadPaises);
+        }
+
+        Enumeration paisesDeJugador = paisesJugadores.keys();
+        boolean jugadoresTienen4Paises = true;
+        while (paisesDeJugador.hasMoreElements()) {
+            if (paisesJugadores.get(paisesDeJugador.nextElement()) != 1) {
+                jugadoresTienen4Paises = false;
+            }
+        }
+        assertTrue(jugadoresTienen4Paises);
+    }
+
+    @Test
+    public void test12CreoUnJuegoYLeAsigno5JugadoresYInicioElJuegoYLosPaisesFueronRepartidosEquitativamente(){
+        Juego juego = new Juego();
+
+        ArrayList<String> listaJugadores = new ArrayList<String>();
+        listaJugadores.add("077bb");
+        listaJugadores.add("cc3311");
+        listaJugadores.add("cfdc3311");
+        listaJugadores.add("cfdc33fwefwe11");
+        listaJugadores.add("wefw");
+
+        ArrayList<String> listaPaises = new ArrayList<>();
+        listaPaises.add("Argentina");
+        listaPaises.add("Paris");
+        listaPaises.add("Chile");
+        listaPaises.add("Uruguay");
+        listaPaises.add("Brasil");
+
+        Dictionary<String, Integer> paisesJugadores = new Hashtable<>();
+        paisesJugadores.put("077bb", 0);
+        paisesJugadores.put("cc3311", 0);
+        paisesJugadores.put("cfdc3311", 0);
+        paisesJugadores.put("cfdc33fwefwe11", 0);
+        paisesJugadores.put("wefw", 0);
+
+        juego.agregarJugadores(6);
+        juego.asignarJugadores(listaJugadores);
+        juego.inicializarJuego(listaPaises);
+        Tablero tablero = juego.obtenerTablero();
+
+        Dictionary<String, Pais> paises = juego.obtenerPaises();
+
+        Enumeration enumeration = paises.keys();
+
+        while (enumeration.hasMoreElements()) {
+            Pais pais = paises.get(enumeration.nextElement());
+            String jugador = pais.getPaisOcupadoPor();
+            Integer cantidadPaises = paisesJugadores.get(jugador);
+            cantidadPaises++;
+            paisesJugadores.put(jugador, cantidadPaises);
+        }
+
+        Enumeration paisesDeJugador = paisesJugadores.keys();
+        boolean jugadoresTienen5Paises = true;
+        while (paisesDeJugador.hasMoreElements()) {
+            if (paisesJugadores.get(paisesDeJugador.nextElement()) != 1) {
+                jugadoresTienen5Paises = false;
+            }
+        }
+        assertTrue(jugadoresTienen5Paises);
+    }
+
+    @Test
+    public void test13CreoUnJuegoYLeAsigno6JugadoresYInicioElJuegoYLosPaisesFueronRepartidosEquitativamente(){
+        Juego juego = new Juego();
+
+        ArrayList<String> listaJugadores = new ArrayList<String>();
+        listaJugadores.add("077bb");
+        listaJugadores.add("cc3311");
+        listaJugadores.add("cfdc3311");
+        listaJugadores.add("cfdc33fwefwe11");
+        listaJugadores.add("wefw");
+        listaJugadores.add("fwef");
+
+        ArrayList<String> listaPaises = new ArrayList<>();
+        listaPaises.add("Argentina");
+        listaPaises.add("Paris");
+        listaPaises.add("Chile");
+        listaPaises.add("Uruguay");
+        listaPaises.add("Brasil");
+        listaPaises.add("USA");
+
+        Dictionary<String, Integer> paisesJugadores = new Hashtable<>();
+        paisesJugadores.put("077bb", 0);
+        paisesJugadores.put("cc3311", 0);
+        paisesJugadores.put("cfdc3311", 0);
+        paisesJugadores.put("cfdc33fwefwe11", 0);
+        paisesJugadores.put("wefw", 0);
+        paisesJugadores.put("fwef", 0);
+
+        juego.agregarJugadores(6);
+        juego.asignarJugadores(listaJugadores);
+        juego.inicializarJuego(listaPaises);
+        Tablero tablero = juego.obtenerTablero();
+
+        Dictionary<String, Pais> paises = juego.obtenerPaises();
+
+        Enumeration enumeration = paises.keys();
+
+        while (enumeration.hasMoreElements()) {
+            Pais pais = paises.get(enumeration.nextElement());
+            String jugador = pais.getPaisOcupadoPor();
+            Integer cantidadPaises = paisesJugadores.get(jugador);
+            cantidadPaises++;
+            paisesJugadores.put(jugador, cantidadPaises);
+        }
+
+        Enumeration paisesDeJugador = paisesJugadores.keys();
+        boolean jugadoresTienen5Paises = true;
+        while (paisesDeJugador.hasMoreElements()) {
+            if (paisesJugadores.get(paisesDeJugador.nextElement()) != 1) {
+                jugadoresTienen5Paises = false;
+            }
+        }
+        assertTrue(jugadoresTienen5Paises);
+    }
+/*
     @Test
     public void test14CreoUnJuegoYLeAsigno2JugadoresYInicioElJuegoYElJugador1PoneEjercitosEnUnPaisAjeno (){
         Juego juego = Juego();
