@@ -1,9 +1,15 @@
 package edu.fiuba.algo3.Modelo.Integracion;
 
 import edu.fiuba.algo3.Modelo.Juego;
+import edu.fiuba.algo3.Modelo.Pais;
 import edu.fiuba.algo3.Modelo.Tablero;
 import edu.fiuba.algo3.Modelo.excepciones.CantidadErroneaDeJugadoresError;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Enumeration;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestJuego {
@@ -67,30 +73,36 @@ public class TestJuego {
     @Test
     public void test07CreoUnJuegoYLeAsignoJugadoresYInicioElJuegoYTodosLosPaisesTienenDueño(){
         Juego juego = new Juego();
+
         String[] listaPaises = {"Argentina", "Paris", "Chile"};
         juego.agregarJugadores(6);
         juego.inicializarJuego(listaPaises);
         Tablero tablero = juego.obtenerTablero();
         assertEquals(tablero.cantidadPaisesOcupados(), 3);
     }
-/*
-    @Test
-    public test08CreoUnJuegoYLeAsignoJugadoresYInicioElJuegoYTodosLosPaisesTienen1Ejercito (){
-        Juego juego = Juego();
 
+    @Test
+    public void test08CreoUnJuegoYLeAsignoJugadoresYInicioElJuegoYTodosLosPaisesTienen1Ejercito(){
+        Juego juego = new Juego();
+
+        String[] listaPaises = {"Argentina", "Paris", "Chile"};
         juego.agregarJugadores(6);
-        juego.inicializarJuego;
-        Tablero tablero = obtenerTablero(juego);
-        boolean cantidadEjercitosIncorrecta = false;
-        for (int i=0; i < len(tablero.listaPaises); i++) {
-            if (cantPaises(tablero.listaPaises[i]) != 1) {
-                cantidadEjercitosIncorrecta = true;
-                break;
+        juego.inicializarJuego(listaPaises);
+        Tablero tablero = juego.obtenerTablero();
+        Dictionary<Integer, ArrayList<Pais>> listaPaisesOcupados = juego.obtenerPaises();
+        
+        boolean cantidadEjercitosIncorrecta = true;
+        for (int x =0 ; x < 6; x++) {
+            ArrayList<Pais> paisesJugador = listaPaisesOcupados.get(x);
+            for (Pais pais: paisesJugador) {
+                if (pais.cantidadEjercitos() != 1) {
+                    cantidadEjercitosIncorrecta = false;
+                }
             }
         }
         assertTrue(cantidadEjercitosIncorrecta);
     }
-
+/*
     @Test
     public test09CreoUnJuegoYLeAsigno2JugadoresYInicioElJuegoYLosPaisesFueronRepartidosEquitativamente (){
         Juego juego = Juego();

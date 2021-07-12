@@ -2,6 +2,7 @@ package edu.fiuba.algo3.Modelo;
 
 import edu.fiuba.algo3.Modelo.excepciones.CantidadErroneaDeJugadoresError;
 
+import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
 
@@ -35,4 +36,6 @@ public class Juego {
     public Tablero obtenerTablero() {
         return tableroActual;
     }
+
+    public Dictionary<Integer, ArrayList<Pais>> obtenerPaises() {return tableroActual.obtenerPaisesOcupados();}
 }

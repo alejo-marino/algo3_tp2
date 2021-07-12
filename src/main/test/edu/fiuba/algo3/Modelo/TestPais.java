@@ -58,16 +58,23 @@ public class TestPais {
             assertEquals(pais.getEjercitosParaAtacar(), 3);
         }
 
-        // agregar checkeo de correcto funcionamiento de pais1.conquistar(pais2)
-
         @Test
         public void test06Pais1ConquistaAPais2YPais2EsAliadoDePais1{
             Jugador jugador1 = new Jugador("000000");
             Jugador jugador2 = new Jugador("ffffff");
+
             Pais pais1 = new Pais(jugador1);
             Pais pais2 = new Pais(jugador2);
             pais1.conquistar(pais2);
-            assertTrue(pais1.);
+            assertTrue(pais1.esAliado(pais2));
+        }
+
+        @Test
+        public void test07DosPaisesDeUnJugadorSonAliados {
+            Jugador jugador1 = new Jugador("000000");
+            Pais pais1 = new Pais(jugador1);
+            Pais pais2 = new Pais(jugador1);
+            assertTrue(pais1.esAliado(pais2));
         }
          */
     }

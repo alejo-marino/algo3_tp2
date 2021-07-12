@@ -55,8 +55,9 @@ public class TestContinente{
         Pais pais2 = new Pais(jugador2);
         continente.agregarPais(pais1);
         continente.agregarPais(pais2);
+        pais1.conquistar(pais2);
 
-        assertFalse(continente.esDominadoPor(jugador));
+        assertTrue(continente.esDominadoPor(jugador1));
     }
 
      */
