@@ -4,6 +4,7 @@ import edu.fiuba.algo3.Modelo.Juego;
 import edu.fiuba.algo3.Modelo.Pais;
 import edu.fiuba.algo3.Modelo.Tablero;
 import edu.fiuba.algo3.Modelo.excepciones.CantidadErroneaDeJugadoresError;
+import edu.fiuba.algo3.Modelo.excepciones.ReforzarPaisAjenoError;
 import edu.fiuba.algo3.Modelo.excepciones.TurnoInvalidoError;
 import org.junit.jupiter.api.Test;
 
@@ -531,22 +532,17 @@ public class TestJuego {
         paises.put("Chilesss", new ArrayList<>());
         paises.put("Uruguawewy", new ArrayList<>());
 
-        Dictionary<String, Integer> paisesJugadores = new Hashtable<>();
-        paisesJugadores.put("077bb", 0);
-        paisesJugadores.put("cc3311", 0);
-
         juego.agregarJugadores(6);
         juego.asignarJugadores(listaJugadores);
         juego.inicializarJuego(paises);
 
-
         String mensajeError = "SinError";
         try {
-            juego.agrupar("077bb", "Argentina", 1);
-        }catch (TurnoInvalidoError error) {
+            juego.agrupar("077bb", "Uruguay", 1);
+        }catch (ReforzarPaisAjenoError error) {
             mensajeError = error.getMessage();
         }
-        assertEquals("SinError",mensajeError);
+        assertEquals("Este pais no te pertenece",mensajeError);
     }
 
 /*

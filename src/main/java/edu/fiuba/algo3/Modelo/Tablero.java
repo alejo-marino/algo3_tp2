@@ -31,4 +31,9 @@ public class Tablero {
     public Dictionary<String, Pais> obtenerPaisesOcupados() {
         return listaPaisesOcupados;
     }
+
+    public void agrupar(String pais, String jugador, int cantidadTropas) {
+        Pais paisAgrupar = listaPaisesOcupados.get(pais);
+        paisAgrupar.agrupar(jugador, cantidadTropas);
+    }
 }

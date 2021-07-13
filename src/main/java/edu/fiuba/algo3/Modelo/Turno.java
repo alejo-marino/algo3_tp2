@@ -22,4 +22,9 @@ public class Turno {
         }
 
     }
+
+    public void agrupar(String jugador, String pais, int cantidadTropas) {
+        realizarMovimiento(jugador);
+        juegoActual.agruparA(jugador, pais, cantidadTropas);
+    }
 }

@@ -44,11 +44,16 @@ public class Juego {
     }
 
     public void agrupar(String jugador, String pais, int cantidadTropas){
-        turnoJuego.realizarMovimiento(jugador);
+        turnoJuego.agrupar(jugador, pais, cantidadTropas);
+    }
+    public void agruparA(String jugador, String pais, int cantidadTropas) {
+        tableroActual.agrupar(pais, jugador, cantidadTropas);
     }
     public Tablero obtenerTablero() {
         return tableroActual;
     }
 
     public Dictionary<String, Pais> obtenerPaises() {return tableroActual.obtenerPaisesOcupados();}
+
+
 }
