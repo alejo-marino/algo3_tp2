@@ -11,6 +11,7 @@ public class Juego {
     private ArrayList<String> listaJugadores;
     private int cantidadJugadores;
     private Tablero tableroActual;
+    private Turno turnoJuego;
 
     public Juego() {
         cantidadJugadores = 0;
@@ -30,17 +31,21 @@ public class Juego {
         for (String jugadorNuevo: listaJugadores) {
             this.jugadoresActuales.put(jugadorNuevo, new Jugador(jugadorNuevo));
         }
+        turnoJuego = new Turno(listaJugadores, this);
     }
 
     public int obtenerCantidadJugadores() {
         return cantidadJugadores;
     }
 
-    public void inicializarJuego(ArrayList<String> listaPaises) {
+    public void inicializarJuego(Dictionary<String, ArrayList<String>> listaPaises) {
         tableroActual = new Tablero();
         tableroActual.iniciarTablero(listaPaises, listaJugadores);
     }
 
+    public void agrupar(String jugador, String pais, int cantidadTropas){
+        turnoJuego.realizarMovimiento(jugador);
+    }
     public Tablero obtenerTablero() {
         return tableroActual;
     }

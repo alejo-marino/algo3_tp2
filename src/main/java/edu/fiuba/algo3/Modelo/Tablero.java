@@ -13,10 +13,13 @@ public class Tablero {
         listaPaisesOcupados = new Hashtable<String, Pais>();
     }
 
-    public void iniciarTablero(ArrayList<String> listaPaises,ArrayList<String> listaJugadores) {
+    public void iniciarTablero(Dictionary<String, ArrayList<String>> listaPaises,ArrayList<String> listaJugadores) {
         int contador = 0;
-        for (String pais: listaPaises) {
-            listaPaisesOcupados.put(pais, new Pais(listaJugadores.get(contador % listaJugadores.size())));
+        Enumeration enumeration = listaPaises.keys();
+        while (enumeration.hasMoreElements()) {
+            String pais = (String) enumeration.nextElement();
+            ArrayList<String> paisesLimitrofes = listaPaises.get(pais);
+            listaPaisesOcupados.put(pais, new Pais(listaJugadores.get(contador % listaJugadores.size()), paisesLimitrofes));
             contador++;
         }
     }
