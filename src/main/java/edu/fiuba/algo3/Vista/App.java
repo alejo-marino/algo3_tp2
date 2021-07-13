@@ -1,9 +1,13 @@
 package edu.fiuba.algo3.Vista;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
+import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
+
 import javafx.stage.Stage;
 
 /**
@@ -11,22 +15,23 @@ import javafx.stage.Stage;
  */
 public class App extends Application {
 
+    Button button;
     @Override
     public void start(Stage stage) {
-        /*
-        var javaVersion = SystemInfo.javaVersion();
-        var javafxVersion = SystemInfo.javafxVersion();
+        stage.setTitle("ALGO-TEG");
 
-        var label = new Label("Hello, JavaFX " + javafxVersion + ", running on Java " + javaVersion + ".");
-        var scene = new Scene(new StackPane(label), 640, 480);
+        button = new Button("Empezar Juego");
+
+        StackPane layout = new StackPane();
+        layout.getChildren().add(button);
+
+        Scene scene = new Scene(layout, 300, 300);
         stage.setScene(scene);
         stage.show();
-
-         */
     }
 
     public static void main(String[] args) {
-        launch();
+        launch(args);
     }
 
 }
