@@ -70,7 +70,6 @@ public class Pais {
         int cantEjercitos = this.batallon.getEjercitos();
         if (cantEjercitosAMover < 1 || cantEjercitosAMover > (cantEjercitos - 1)) {
             System.out.println("La cantidad a movilizar es invalida.");
-
             this.conquistar(conquistado);
             return;
         }
