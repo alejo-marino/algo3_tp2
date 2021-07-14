@@ -36,9 +36,7 @@ public class Tablero {
         System.out.println("Pais defensor: ");
         String nombrePaisDefensor = scanner.nextLine();
         Pais defensor = this.seleccionarPais(nombrePaisDefensor);
-        if(atacante.getPaisOcupadoPor()  != jugador){
-            throw new AtaqueConPaisAjenoException("Este país no te pertenece");
-        }
+        atacante.verificar(jugador);
         Combate combate = new Combate(atacante, defensor);
         combate.combatir();
     }
