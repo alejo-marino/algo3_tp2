@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.modelo.excepciones.AtaqueConPaisAjenoException;
 import edu.fiuba.algo3.modelo.excepciones.ReforzarPaisAjenoError;
 
 import java.util.ArrayList;
@@ -57,7 +58,6 @@ public class Pais {
     }
 
 
-
     public boolean esAliado(Pais pais) {
         return this.duenio == pais.getPaisOcupadoPor();
     }
@@ -90,5 +90,11 @@ public class Pais {
 
     public boolean esLimitrofeCon(Pais pais) {
         return this.paisesLimitrofes.contains(pais);
+    }
+
+    public void verificar(Jugador jugador) {
+        if (jugador != duenio) {
+            throw new AtaqueConPaisAjenoException("Este país no te pertenece");
+        }
     }
 }
