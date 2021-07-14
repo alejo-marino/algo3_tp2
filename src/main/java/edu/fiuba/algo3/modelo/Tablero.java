@@ -44,9 +44,7 @@ public class Tablero {
     public void atacarConAPredeterminado(Jugador jugador, String nombrePaisAtacante, String nombrePaisDefensor, ArrayList tiradaAtacante, ArrayList tiradaDefensor) {
         Pais atacante = this.seleccionarPais(nombrePaisAtacante);
         Pais defensor = this.seleccionarPais(nombrePaisDefensor);
-        if (atacante.getPaisOcupadoPor() != jugador) {
-            throw new AtaqueConPaisAjenoException("Este país no te pertenece");
-        }
+        atacante.verificar(jugador);
         Combate combate = new Combate(atacante, defensor);
         combate.combatePredeterminado(tiradaAtacante, tiradaDefensor);
     }
