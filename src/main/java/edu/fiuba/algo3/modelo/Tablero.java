@@ -36,7 +36,7 @@ public class Tablero {
         System.out.println("Pais defensor: ");
         String nombrePaisDefensor = scanner.nextLine();
         Pais defensor = this.seleccionarPais(nombrePaisDefensor);
-        atacante.verificar(jugador);
+        atacante.verificar(jugador, defensor);
         Combate combate = new Combate(atacante, defensor);
         combate.combatir();
     }
@@ -44,7 +44,7 @@ public class Tablero {
     public void atacarConAPredeterminado(Jugador jugador, String nombrePaisAtacante, String nombrePaisDefensor, ArrayList tiradaAtacante, ArrayList tiradaDefensor) {
         Pais atacante = this.seleccionarPais(nombrePaisAtacante);
         Pais defensor = this.seleccionarPais(nombrePaisDefensor);
-        atacante.verificar(jugador);
+        atacante.verificar(jugador, defensor);
         Combate combate = new Combate(atacante, defensor);
         combate.combatePredeterminado(tiradaAtacante, tiradaDefensor);
     }

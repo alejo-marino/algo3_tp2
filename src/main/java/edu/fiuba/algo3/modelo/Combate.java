@@ -17,12 +17,6 @@ public class Combate {
     // dos tiradas de dados, el algoritmo que calcule cuántos ejércitos pierde cada uno dependiendo de las tiradas, remover ejércitos, preguntar si ahora es
     // conquistable el país defensor
     public void combatir() {
-        if (!atacante.esLimitrofeCon(defensor)) {
-            throw new AtaqueAPaisNoLimitrofeException(atacante.toString() + " y " + defensor.toString() + " no son limitrofes.");
-        }
-        if (atacante.esAliado(defensor)) {
-            throw new AtaqueAPaisPropioException(defensor.toString()+ " te pertenece, no podes atacarlo.");
-        }
 
         int cantEjercitosAtacante = this.atacante.getEjercitosParaAtacar();
         int cantEjercitosDefensor = this.defensor.getEjercitos();

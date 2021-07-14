@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.modelo.excepciones.AtaqueAPaisNoLimitrofeException;
+import edu.fiuba.algo3.modelo.excepciones.AtaqueAPaisPropioException;
 import edu.fiuba.algo3.modelo.excepciones.AtaqueConPaisAjenoException;
 import edu.fiuba.algo3.modelo.excepciones.ReforzarPaisAjenoError;
 
@@ -91,9 +93,16 @@ public class Pais {
         return this.paisesLimitrofes.contains(pais);
     }
 
-    public void verificar(Jugador jugador) {
+    public void verificar(Jugador jugador, Pais defensor) {
         if (jugador != duenio) {
             throw new AtaqueConPaisAjenoException("Este país no te pertenece");
         }
+        if (!this.esLimitrofeCon(defensor)) {
+            throw new AtaqueAPaisNoLimitrofeException(this.toString() + " y " + defensor.toString() + " no son limitrofes.");
+        }
+        if (this.esAliado(defensor)) {
+            throw new AtaqueAPaisPropioException(defensor.toString()+ " te pertenece, no podes atacarlo.");
+        }
+
     }
 }

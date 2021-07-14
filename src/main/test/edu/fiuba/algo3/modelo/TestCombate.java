@@ -19,34 +19,6 @@ public class TestCombate {
         assertNotNull(combate);
     }
 
-
-    @Test
-    public void test02SeCreaUnCombateYElJugadorAtacanteEsElMismoQueElDefensor() {
-        Jugador jugadorAtacante = new Jugador("000000");
-        Pais atacante = new Pais("Argentina", jugadorAtacante);
-        Jugador jugadorDefensor = jugadorAtacante;
-        Pais defensor = new Pais("Uruguay", jugadorDefensor);
-        atacante.reforzar(jugadorAtacante, 1);
-        defensor.reforzar(jugadorAtacante, 3);
-        Combate combate = new Combate(atacante, defensor);
-        defensor.hacerLimitrofe(atacante);
-        atacante.hacerLimitrofe(defensor);
-        assertThrows(AtaqueAPaisPropioException.class, combate::combatir);
-    }
-
-    @Test
-    public void test03CreoUnCombateYElPaisAtacadoNoEsLimitrofe() {
-        Jugador jugadorAtacante = new Jugador("000000");
-        Pais atacante = new Pais("Argentina", jugadorAtacante);
-        Jugador jugadorDefensor = new Jugador("ffffff");
-        Pais defensor = new Pais("Uruguay", jugadorDefensor);
-
-        Combate combate = new Combate(atacante, defensor);
-        assertThrows(AtaqueAPaisNoLimitrofeException.class, combate::combatir);
-    }
-
-
-
     @Test
     public void test04CreoUnCombateYElPaisAtacanteIntentaAtacarPeroNoTieneEjercitosSuficientes (){
         Jugador jugadorAtacante = new Jugador("000000");
