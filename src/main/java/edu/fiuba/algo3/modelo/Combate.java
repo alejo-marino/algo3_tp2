@@ -25,23 +25,14 @@ public class Combate {
         ArrayList tiradaAtacante = dados.tirarDados(cantEjercitosAtacante);
         ArrayList tiradaDefensor = dados.tirarDados(cantEjercitosDefensor);
 
-        int encuentros = Math.min(tiradaAtacante.size(), tiradaDefensor.size());
-        int ganaAtacante = 0;
-        int ganaDefensor = 0;
-        for (int i = 0; i < encuentros; i++) {
-            if ((int) tiradaAtacante.get(i) < (int) tiradaDefensor.get(i)) {
-                ganaAtacante++;
-            } else {
-                ganaDefensor++;
-            }
-        }
-
-        this.atacante.disminuirEjercitos(ganaDefensor);
-        this.defensor.disminuirEjercitos(ganaAtacante);
-        defensor.serConquistadoPor(atacante);
+        determinarGanador(tiradaAtacante, tiradaDefensor);
     }
 
     public void combatePredeterminado( ArrayList tiradaAtacante, ArrayList tiradaDefensor) {
+        determinarGanador(tiradaAtacante, tiradaDefensor);
+    }
+
+    private void determinarGanador(ArrayList tiradaAtacante, ArrayList tiradaDefensor) {
         int encuentros = Math.min((tiradaAtacante.size()), (tiradaDefensor.size()));
         int ganaAtacante = 0;
         int ganaDefensor = 0;
