@@ -48,12 +48,7 @@ public class Combate {
         if (tiradaAtacante.size() < 1) {
             throw new EjercitosInsuficientesException("Test");
         }
-        if (!atacante.esLimitrofeCon(defensor)) {
-            throw new AtaqueAPaisNoLimitrofeException(atacante.toString() + " y " + defensor.toString() + " no son limitrofes.");
-        }
-        if (atacante.esAliado(defensor)) {
-            throw new AtaqueAPaisPropioException(defensor.toString()+ " te pertenece, no podes atacarlo.");
-        }
+
         int encuentros = Math.min((tiradaAtacante.size()), (tiradaDefensor.size()));
         int ganaAtacante = 0;
         int ganaDefensor = 0;

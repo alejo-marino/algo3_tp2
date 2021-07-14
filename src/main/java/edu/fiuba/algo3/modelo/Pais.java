@@ -38,7 +38,6 @@ public class Pais {
         return duenio;
     }
 
-
     public void reforzar(Jugador jugador, int cantidadEjercitos) {
         if (jugador != duenio) {
             throw new ReforzarPaisAjenoError("Este pais no te pertenece");
@@ -58,7 +57,6 @@ public class Pais {
     public String toString() {
         return nombre;
     }
-
 
     public boolean esAliado(Pais pais) {
         return this.duenio == pais.getPaisOcupadoPor();
@@ -89,20 +87,25 @@ public class Pais {
         this.paisesLimitrofes.add(pais);
     }
 
-    public boolean esLimitrofeCon(Pais pais) {
-        return this.paisesLimitrofes.contains(pais);
+    public void esLimitrofeCon(Pais pais) {
+        if (!this.paisesLimitrofes.contains(pais)) {
+            throw new AtaqueAPaisNoLimitrofeException(this.toString() + " y " + pais.toString() + " no son limitrofes.");
+        }
     }
 
     public void verificar(Jugador jugador, Pais defensor) {
-        if (jugador != duenio) {
-            throw new AtaqueConPaisAjenoException("Este país no te pertenece");
-        }
-        if (!this.esLimitrofeCon(defensor)) {
-            throw new AtaqueAPaisNoLimitrofeException(this.toString() + " y " + defensor.toString() + " no son limitrofes.");
-        }
+        this.esDuenioPais(jugador);
+        this.esLimitrofeCon(defensor);
+        
         if (this.esAliado(defensor)) {
             throw new AtaqueAPaisPropioException(defensor.toString()+ " te pertenece, no podes atacarlo.");
         }
 
+    }
+
+    private void esDuenioPais(Jugador jugador) {
+        if (jugador != duenio) {
+            throw new AtaqueConPaisAjenoException("Este país no te pertenece");
+        }
     }
 }
