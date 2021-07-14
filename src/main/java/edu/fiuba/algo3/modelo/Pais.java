@@ -96,11 +96,14 @@ public class Pais {
     public void verificar(Jugador jugador, Pais defensor) {
         this.esDuenioPais(jugador);
         this.esLimitrofeCon(defensor);
-        
+        this.esDuenioPaisAtacado(defensor);
+
+    }
+
+    private void esDuenioPaisAtacado(Pais defensor) {
         if (this.esAliado(defensor)) {
             throw new AtaqueAPaisPropioException(defensor.toString()+ " te pertenece, no podes atacarlo.");
         }
-
     }
 
     private void esDuenioPais(Jugador jugador) {
