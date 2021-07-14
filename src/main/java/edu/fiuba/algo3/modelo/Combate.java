@@ -37,7 +37,7 @@ public class Combate {
         int ganaAtacante = 0;
         int ganaDefensor = 0;
         for (int i = 0; i < encuentros; i++) {
-            if ( (int) tiradaDefensor.get(i) < (int) tiradaAtacante.get(i)){
+            if ( ganadorTirada((int) tiradaDefensor.get(i), (int) tiradaAtacante.get(i))){
                 ganaAtacante++;
             }
             else{
@@ -47,5 +47,9 @@ public class Combate {
         this.atacante.disminuirEjercitos(ganaDefensor);
         this.defensor.disminuirEjercitos(ganaAtacante);
         defensor.serConquistadoPor(atacante);
+    }
+
+    private boolean ganadorTirada(int tiradaDefensor, int tiradaAtacante) {
+        return tiradaDefensor < tiradaAtacante;
     }
 }
