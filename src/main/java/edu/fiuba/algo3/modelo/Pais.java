@@ -93,7 +93,7 @@ public class Pais {
         }
     }
 
-    public void verificar(Jugador jugador, Pais defensor) {
+    public void verificarAtaque(Jugador jugador, Pais defensor) {
         this.esDuenioPais(jugador);
         this.esLimitrofeCon(defensor);
         this.esDuenioPaisAtacado(defensor);

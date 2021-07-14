@@ -42,10 +42,6 @@ public class Combate {
     }
 
     public void combatePredeterminado( ArrayList tiradaAtacante, ArrayList tiradaDefensor) {
-        if (tiradaAtacante.size() < 1) {
-            throw new EjercitosInsuficientesException("Test");
-        }
-
         int encuentros = Math.min((tiradaAtacante.size()), (tiradaDefensor.size()));
         int ganaAtacante = 0;
         int ganaDefensor = 0;
