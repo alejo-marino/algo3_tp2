@@ -21,13 +21,6 @@ public class Jugador {
     protected String getNombre() {
         return this.nombreJugador;
     }
-
-    public boolean puedeSeguirAgrupando() {
-        return true;
-    }
-
-    public void reforzar(int cantidadEjercitos) {
-        //...
-    }
+    
 }
 
