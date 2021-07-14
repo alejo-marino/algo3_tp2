@@ -5,7 +5,7 @@ import edu.fiuba.algo3.modelo.excepciones.*;
 import java.util.ArrayList;
 
 public class Turno {
-    public ArrayList<String> listaJugadores;
+    /*public ArrayList<String> listaJugadores;
     public String jugadorActual;
     private Juego juegoActual;
     private int indiceJugador;
@@ -32,5 +32,5 @@ public class Turno {
 
     public void cambiarTurno() {
         indiceJugador = (indiceJugador + 1) % listaJugadores.size();
-    }
+    }*/
 }

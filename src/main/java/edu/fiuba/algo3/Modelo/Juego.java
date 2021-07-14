@@ -7,7 +7,7 @@ import java.util.Dictionary;
 import java.util.Hashtable;
 
 public class Juego {
-    public Dictionary<String, Jugador> jugadoresActuales;
+    /*public Dictionary<String, Jugador> jugadoresActuales;
     private ArrayList<String> listaJugadores;
     private int cantidadJugadores;
     private Tablero tableroActual;
@@ -40,7 +40,7 @@ public class Juego {
 
     public void inicializarJuego(Dictionary<String, ArrayList<String>> listaPaises) {
         tableroActual = new Tablero();
-        tableroActual.iniciarTablero(listaPaises, listaJugadores);
+        //tableroActual.iniciarTablero(listaPaises, listaJugadores);
     }
 
     public void agrupar(String jugador, String pais, int cantidadTropas){
@@ -53,13 +53,13 @@ public class Juego {
     }
 
     public void agruparA(String jugador, String pais, int cantidadTropas) {
-        tableroActual.agrupar(pais, jugador, cantidadTropas);
+        //tableroActual.agrupar(pais, jugador, cantidadTropas);
     }
     public Tablero obtenerTablero() {
         return tableroActual;
     }
 
-    public Dictionary<String, Pais> obtenerPaises() {return tableroActual.obtenerPaisesOcupados();}
+    //public Dictionary<String, Pais> obtenerPaises() {return tableroActual.obtenerPaisesOcupados();}
 
-
+*/
 }

@@ -1,12 +1,9 @@
-package edu.fiuba.algo3.Modelo.Integracion;
+package edu.fiuba.algo3.modelo.Integracion;
 
-import edu.fiuba.algo3.Modelo.Juego;
-import edu.fiuba.algo3.Modelo.Pais;
-import edu.fiuba.algo3.Modelo.Tablero;
-import edu.fiuba.algo3.Modelo.excepciones.CantidadDeTropasNoDisponiblesError;
-import edu.fiuba.algo3.Modelo.excepciones.CantidadErroneaDeJugadoresError;
-import edu.fiuba.algo3.Modelo.excepciones.ReforzarPaisAjenoError;
-import edu.fiuba.algo3.Modelo.excepciones.TurnoInvalidoError;
+import edu.fiuba.algo3.modelo.Juego;
+import edu.fiuba.algo3.modelo.Pais;
+import edu.fiuba.algo3.modelo.Tablero;
+import edu.fiuba.algo3.modelo.excepciones.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -17,6 +14,8 @@ import java.util.Hashtable;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestJuego {
+
+    /*
     @Test
     public void test01CreoUnJuegoYNoEsNull(){
         Juego juego = new Juego();

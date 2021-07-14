@@ -36,6 +36,5 @@ public class Tablero {
         Pais paisReforzar = listaPaisesOcupados.get(pais);
         paisReforzar.reforzar(jugador, cantidadTropas);
     }
-
-     */
+    */
 }

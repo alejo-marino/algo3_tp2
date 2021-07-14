@@ -1,26 +1,23 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.modelo.excepciones.CantidadDeTropasNoDisponiblesError;
-
 public class Jugador {
     private String nombreJugador;
-    private int tropasPrimerRefuerzo;
-    private int tropasSegundoRefuerzo;
 
     public Jugador(String nombreJugador) {
         this.nombreJugador = nombreJugador;
-        this.tropasPrimerRefuerzo = 5;
-        this.tropasSegundoRefuerzo = 3;
     }
 
-    public void agruparTropas(int cantidadTropas) {
-        if (cantidadTropas > tropasPrimerRefuerzo) {
-            throw new CantidadDeTropasNoDisponiblesError("Usted no posee tantas tropas para colocar.");
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Jugador)) {
+            return false;
         }
-        tropasPrimerRefuerzo -= cantidadTropas;
+        Jugador otroJugador = (Jugador) o;
+        return this.nombreJugador.equals(otroJugador.getNombre());
     }
 
-    public boolean puedeSeguirAgrupando() {
-        return tropasPrimerRefuerzo != 0;
+    protected String getNombre() {
+        return this.nombreJugador;
     }
 }
+
