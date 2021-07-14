@@ -39,9 +39,6 @@ public class Combate {
         this.atacante.disminuirEjercitos(ganaDefensor);
         this.defensor.disminuirEjercitos(ganaAtacante);
         defensor.serConquistadoPor(atacante);
-        if (!this.defensor.tengoEjercitos()) {
-
-        }
     }
 
     public void combatePredeterminado( ArrayList tiradaAtacante, ArrayList tiradaDefensor) {
@@ -62,8 +59,6 @@ public class Combate {
         }
         this.atacante.disminuirEjercitos(ganaDefensor);
         this.defensor.disminuirEjercitos(ganaAtacante);
-        if (!this.defensor.tengoEjercitos()) {
-            atacante.conquistar(defensor);
-        }
+        defensor.serConquistadoPor(atacante);
     }
 }
