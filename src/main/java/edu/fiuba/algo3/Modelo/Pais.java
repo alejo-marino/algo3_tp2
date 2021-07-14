@@ -3,6 +3,7 @@ package edu.fiuba.algo3.modelo;
 import edu.fiuba.algo3.modelo.excepciones.ReforzarPaisAjenoError;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Pais {
 
@@ -61,11 +62,28 @@ public class Pais {
         return this.duenio == pais.getPaisOcupadoPor();
     }
 
-    public void conquistar(Pais defensor){
-        defensor.duenio = this.duenio;
-        defensor.reforzar(this.duenio, 1);
+    public void conquistarFinal(Pais conquistado){
+        conquistado.duenio = this.duenio;
+        Scanner input = new Scanner(System.in);
+        System.out.println("Cuantas piezas queres pasar a " + conquistado.toString() + "?");
+        int cantEjercitosAMover = input.nextInt();
+        int cantEjercitos = this.batallon.getEjercitos();
+        if (cantEjercitosAMover < 1 || cantEjercitosAMover > (cantEjercitos - 1)) {
+            System.out.println("La cantidad a movilizar es invalida.");
+
+            this.conquistar(conquistado);
+            return;
+        }
+        this.disminuirEjercitos(cantEjercitosAMover);
+        conquistado.reforzar(this.duenio, cantEjercitosAMover);
+    }
+
+    public void conquistar(Pais conquistado){
+        conquistado.duenio = this.duenio;
+        conquistado.reforzar(this.duenio, 1);
         this.disminuirEjercitos(1);
     }
+
     public void hacerLimitrofe(Pais pais) {
         this.paisesLimitrofes.add(pais);
     }

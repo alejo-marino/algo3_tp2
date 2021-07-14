@@ -22,9 +22,8 @@ public class TestJuego {
 
     @Test
     public void test02CreoUnJuegoYLeAsigno3JugadoresYTiene3Jugadores(){
-
-
         Juego juego = new Juego();
+        //TODO: Cambiar por un ArrayList de strings, con el color de cada jugador.
         juego.agregarJugadores(3);
 
         assertEquals(juego.obtenerCantidadJugadores(), 3);
@@ -39,6 +38,7 @@ public class TestJuego {
         }catch (CantidadErroneaDeJugadoresError error) {
             mensajeError = error.getMessage();
         }
+        //TODO: Cambiar por un assertThrows, ya que el mensaje podría cambiar en el futuro.
         assertEquals("El numero de jugadores debe estar entre 2-6",mensajeError);
     }
 
@@ -51,6 +51,7 @@ public class TestJuego {
         }catch (CantidadErroneaDeJugadoresError error) {
             mensajeError = error.getMessage();
         }
+        //TODO: Cambiar por un assertThrows, ya que el mensaje podría cambiar en el futuro.
         assertEquals("El numero de jugadores debe estar entre 2-6",mensajeError);
     }
 
@@ -70,6 +71,7 @@ public class TestJuego {
         }catch (CantidadErroneaDeJugadoresError error) {
             mensajeError = error.getMessage();
         }
+        //TODO: Cambiar por un assertThrows, ya que el mensaje podría cambiar en el futuro.
         assertEquals("El numero de jugadores debe estar entre 2-6",mensajeError);
     }
 
@@ -115,12 +117,14 @@ public class TestJuego {
         listaPaisesArg.add("Chile");
         listaPaisesArg.add("Uruguay");
 
+        //TODO: No termino de entender para que está el Diccionario.
         Dictionary<String, ArrayList<String>> paises = new Hashtable<>();
         paises.put("Argentina", listaPaisesArg);
         paises.put("Paris", new ArrayList<>());
         paises.put("Chile", new ArrayList<>());
         paises.put("Uruguay", new ArrayList<>());
 
+        //TODO: agregarJugadores y asignarJugadores deberían ser una función.
         juego.agregarJugadores(6);
         juego.asignarJugadores(listaJugadores);
         juego.inicializarJuego(paises);
@@ -131,6 +135,7 @@ public class TestJuego {
         boolean cantidadEjercitosIncorrecta = true;
         while (enumeration.hasMoreElements()){
             Pais pais = listaPaisesOcupados.get(enumeration.nextElement());
+            // TODO: sería getCantidadEjercitos.
             if (pais.cantidadEjercitos() != 1){
                 cantidadEjercitosIncorrecta = false;
             }
