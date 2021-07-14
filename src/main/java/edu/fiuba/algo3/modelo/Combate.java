@@ -38,9 +38,9 @@ public class Combate {
 
         this.atacante.disminuirEjercitos(ganaDefensor);
         this.defensor.disminuirEjercitos(ganaAtacante);
-        
+        defensor.serConquistadoPor(atacante);
         if (!this.defensor.tengoEjercitos()) {
-            atacante.conquistar(defensor);
+
         }
     }
 

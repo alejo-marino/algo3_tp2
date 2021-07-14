@@ -111,4 +111,10 @@ public class Pais {
             throw new AtaqueConPaisAjenoException("Este país no te pertenece");
         }
     }
+
+    public void serConquistadoPor(Pais atacante) {
+        if (!this.tengoEjercitos()) {
+            atacante.conquistar(this);
+        }
+    }
 }
