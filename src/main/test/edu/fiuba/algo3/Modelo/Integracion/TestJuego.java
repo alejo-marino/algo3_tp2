@@ -3,6 +3,7 @@ package edu.fiuba.algo3.Modelo.Integracion;
 import edu.fiuba.algo3.Modelo.Juego;
 import edu.fiuba.algo3.Modelo.Pais;
 import edu.fiuba.algo3.Modelo.Tablero;
+import edu.fiuba.algo3.Modelo.excepciones.CantidadDeTropasNoDisponiblesError;
 import edu.fiuba.algo3.Modelo.excepciones.CantidadErroneaDeJugadoresError;
 import edu.fiuba.algo3.Modelo.excepciones.ReforzarPaisAjenoError;
 import edu.fiuba.algo3.Modelo.excepciones.TurnoInvalidoError;
@@ -545,23 +546,77 @@ public class TestJuego {
         assertEquals("Este pais no te pertenece",mensajeError);
     }
 
-/*
+
     @Test
-    public void test15CreoUnJuegoYLeAsigno2JugadoresYInicioElJuegoYElJugador1PoneMasEjercitosDeLosQuePuedeEnUnPaisPropio (){
-        Juego juego = Juego();
+    public void test17CreoUnJuegoYLeAsigno2JugadoresYInicioElJuegoYElJugador1NoPuedeAgruparMasDe6Tropas(){
+        Juego juego = new Juego();
 
-        juego.agregarJugadores(2);
-        juego.inicializarJuego;
+        ArrayList<String> listaJugadores = new ArrayList<String>();
+        listaJugadores.add("077bb");
+        listaJugadores.add("cc3311");
 
-        List lista_jugadores = juego.getJugadoresList();
-        Jugador jugador1 = lista_jugadores[0];
-        List listaDePaisesJug1 = getPaisesJugador(jugador1);
-        Jugador jugador2 = lista_jugadores[1];
-        List listaDePaisesJug2 = getPaisesJugador(jugador2);
+        ArrayList<String> listaPaisesArg = new ArrayList<>();
+        listaPaisesArg.add("Paris");
+        listaPaisesArg.add("Chile");
+        listaPaisesArg.add("Uruguay");
 
-        assertThrows(CantidadAReforzarInvalidaException.class, () -> jugador1.reforzar(listaDePaisesJug1[0], 6));
+
+        Dictionary<String, ArrayList<String>> paises = new Hashtable<>();
+        paises.put("Argentina", listaPaisesArg);
+        paises.put("Paris", new ArrayList<>());
+        paises.put("Chile", new ArrayList<>());
+        paises.put("Uruguay", new ArrayList<>());
+        paises.put("Chilesss", new ArrayList<>());
+        paises.put("Uruguawewy", new ArrayList<>());
+
+        juego.agregarJugadores(6);
+        juego.asignarJugadores(listaJugadores);
+        juego.inicializarJuego(paises);
+
+        String mensajeError = "SinError";
+        try {
+            juego.agrupar("077bb", "Argentina", 6);
+        }catch (CantidadDeTropasNoDisponiblesError error) {
+            mensajeError = error.getMessage();
+        }
+        assertEquals("Usted no posee tantas tropas para colocar.",mensajeError);
     }
 
+    @Test
+    public void test18CreoUnJuegoYLeAsigno2JugadoresYInicioElJuegoYElJugador1PuedeAgruparTodosLosEjercitos(){
+        Juego juego = new Juego();
+
+        ArrayList<String> listaJugadores = new ArrayList<String>();
+        listaJugadores.add("077bb");
+        listaJugadores.add("cc3311");
+
+        ArrayList<String> listaPaisesArg = new ArrayList<>();
+        listaPaisesArg.add("Paris");
+        listaPaisesArg.add("Chile");
+        listaPaisesArg.add("Uruguay");
+
+
+        Dictionary<String, ArrayList<String>> paises = new Hashtable<>();
+        paises.put("Argentina", listaPaisesArg);
+        paises.put("Paris", new ArrayList<>());
+        paises.put("Chile", new ArrayList<>());
+        paises.put("Uruguay", new ArrayList<>());
+        paises.put("Chilesss", new ArrayList<>());
+        paises.put("Uruguawewy", new ArrayList<>());
+
+        juego.agregarJugadores(6);
+        juego.asignarJugadores(listaJugadores);
+        juego.inicializarJuego(paises);
+
+        String mensajeError = "SinError";
+        try {
+            juego.agrupar("077bb", "Argentina", 5);
+        }catch (CantidadDeTropasNoDisponiblesError error) {
+            mensajeError = error.getMessage();
+        }
+        assertEquals("SinError",mensajeError);
+    }
+/*
     @Test
     public void test16CreoUnJuegoYLeAsigno2JugadoresYInicioElJuegoYElJugador1PoneMasEjercitosDeLosQuePuedeEnUnPaisPropio (){
         Juego juego = Juego();

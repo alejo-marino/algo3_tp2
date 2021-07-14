@@ -16,7 +16,7 @@ public class Batallon {
 
     public int getEjercitosParaAtacar() {
         if (ejercitos - 1 < 1) {
-            throw new EjercitosInsuficientesException();
+            throw new EjercitosInsuficientesException("No hay suficientes ejércitos para atacar");
         }
         if (ejercitos >= 4) {
             return 3;

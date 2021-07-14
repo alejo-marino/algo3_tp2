@@ -24,7 +24,7 @@ public class TestBatallon {
     @Test
     public void test03CreoUnBatallonYLePidoEjercitosParaAtacarYLanzaExcepcion (){
         Batallon batallon = new Batallon();
-        assertThrows(EjercitosInsuficientesException.class, batallon::getEjercitosParaAtacar);
+        assertThrows(EjercitosInsuficientesException.class, () -> batallon.getEjercitosParaAtacar());
     }
 
     @Test

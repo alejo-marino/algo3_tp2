@@ -1,6 +1,6 @@
-package edu.fiuba.algo3.Modelo;
+package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.Modelo.excepciones.CantidadErroneaDeJugadoresError;
+import edu.fiuba.algo3.modelo.excepciones.CantidadErroneaDeJugadoresError;
 
 import java.util.ArrayList;
 import java.util.Dictionary;
@@ -44,8 +44,14 @@ public class Juego {
     }
 
     public void agrupar(String jugador, String pais, int cantidadTropas){
-        turnoJuego.agrupar(jugador, pais, cantidadTropas);
+        Jugador jugadorActual = jugadoresActuales.get(jugador);
+        while (jugadorActual.puedeSeguirAgrupando()) {
+            turnoJuego.agrupar(jugador, pais, cantidadTropas);
+            jugadorActual.agruparTropas(cantidadTropas);
+        }
+        turnoJuego.cambiarTurno();
     }
+
     public void agruparA(String jugador, String pais, int cantidadTropas) {
         tableroActual.agrupar(pais, jugador, cantidadTropas);
     }

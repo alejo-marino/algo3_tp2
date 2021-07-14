@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.Modelo;
+package edu.fiuba.algo3.modelo;
 
 import java.util.ArrayList;
 import java.util.Dictionary;
@@ -7,7 +7,7 @@ import java.util.Hashtable;
 
 public class Tablero {
 
-    public Dictionary<String,  Pais> listaPaisesOcupados;
+    /*public Dictionary<String,  Pais> listaPaisesOcupados;
 
     public Tablero() {
         listaPaisesOcupados = new Hashtable<String, Pais>();
@@ -32,8 +32,10 @@ public class Tablero {
         return listaPaisesOcupados;
     }
 
-    public void agrupar(String pais, String jugador, int cantidadTropas) {
-        Pais paisAgrupar = listaPaisesOcupados.get(pais);
-        paisAgrupar.agrupar(jugador, cantidadTropas);
+    public void agrupar(Pais pais, Jugador jugador, int cantidadTropas) {
+        Pais paisReforzar = listaPaisesOcupados.get(pais);
+        paisReforzar.reforzar(jugador, cantidadTropas);
     }
+
+     */
 }

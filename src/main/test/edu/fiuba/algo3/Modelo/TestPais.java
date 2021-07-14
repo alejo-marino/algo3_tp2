@@ -1,12 +1,16 @@
-package edu.fiuba.algo3.Modelo;
+package edu.fiuba.algo3.modelo;
+
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import edu.fiuba.algo3.modelo.excepciones.*;
 
 public class TestPais {
 
-        /*
-    }
+
         @Test
         public void test01CreoUnPaisYNoEsNull (){
-            Pais pais = new Pais;
+            Jugador jugador = new Jugador("000000");
+            Pais pais = new Pais("Argentina", jugador);
 
             assertNotNull(pais);
         }
@@ -14,67 +18,65 @@ public class TestPais {
         @Test
         public void test02CreoUnPaisYLeAsignoDuenio (){
             Jugador jugador = new Jugador("000000");
-            Pais pais = new Pais;
-            pais.asignarDueño(jugador);
+            Pais pais = new Pais("Argentina", jugador);
 
-            assertNotNull(pais.ObtenerDuenio);
+            assertEquals(pais.getPaisOcupadoPor(), jugador);
         }
 
         @Test
         public void test03CreoUnPaisYTieneUnEjercito (){
             Jugador jugador = new Jugador("000000");
-            Pais pais = new Pais(jugador);
+            Pais pais = new Pais("Argentina", jugador);
             assertEquals(pais.getEjercitos(), 1);
         }
 
         @Test
         public void test04CreoUnPaisYTieneUnEjercitoConElCualNoPuedeAtacar (){
             Jugador jugador = new Jugador("000000");
-            Pais pais = new Pais(jugador);
+            Pais pais = new Pais("Argentina", jugador);
             assertThrows(EjercitosInsuficientesException.class, () -> pais.getEjercitosParaAtacar());
         }
 
         @Test
-        public void test04CreoUnPaisYLoRefuerzoConDosEjercitosYAhoraTieneTresEjercitos (){
+        public void test05CreoUnPaisYLoRefuerzoConDosEjercitosYAhoraTieneTresEjercitos (){
             Jugador jugador = new Jugador("000000");
-            Pais pais = new Pais(jugador);
-            pais.reforzar(2);
+            Pais pais = new Pais("Argentina", jugador);
+            pais.reforzar(jugador,2);
             assertEquals(pais.getEjercitos(), 3);
         }
 
         @Test
-        public void test04CreoUnPaisYLoRefuerzoConDosEjercitosYAhoraTieneDosEjercitosParaAtacar (){
+        public void test06CreoUnPaisYLoRefuerzoConDosEjercitosYAhoraTieneDosEjercitosParaAtacar (){
             Jugador jugador = new Jugador("000000");
-            Pais pais = new Pais(jugador);
-            pais.reforzar(2);
+            Pais pais = new Pais("Argentina", jugador);
+            pais.reforzar(jugador, 2);
             assertEquals(pais.getEjercitosParaAtacar(), 2);
         }
 
         @Test
-        public void test05CreoUnPaisYLoRefuerzoConDiezEjercitosYAhoraTieneTresEjercitosParaAtacar{
+        public void test07CreoUnPaisYLoRefuerzoConDiezEjercitosYAhoraTieneTresEjercitosParaAtacar(){
             Jugador jugador = new Jugador("000000");
-            Pais pais = new Pais(jugador);
-            pais.reforzar(10);
+            Pais pais = new Pais("Argentina", jugador);
+            pais.reforzar(jugador,10);
             assertEquals(pais.getEjercitosParaAtacar(), 3);
         }
 
         @Test
-        public void test06Pais1ConquistaAPais2YPais2EsAliadoDePais1{
+        public void test08Pais1ConquistaAPais2YPais2EsAliadoDePais1(){
             Jugador jugador1 = new Jugador("000000");
             Jugador jugador2 = new Jugador("ffffff");
 
-            Pais pais1 = new Pais(jugador1);
-            Pais pais2 = new Pais(jugador2);
+            Pais pais1 = new Pais("Argentina",jugador1);
+            Pais pais2 = new Pais("Uruguay", jugador2);
             pais1.conquistar(pais2);
             assertTrue(pais1.esAliado(pais2));
         }
 
         @Test
-        public void test07DosPaisesDeUnJugadorSonAliados {
+        public void test09DosPaisesDeUnJugadorSonAliados(){
             Jugador jugador1 = new Jugador("000000");
-            Pais pais1 = new Pais(jugador1);
-            Pais pais2 = new Pais(jugador1);
+            Pais pais1 = new Pais("Argentina",jugador1);
+            Pais pais2 = new Pais("Uruguay", jugador1);
             assertTrue(pais1.esAliado(pais2));
         }
-         */
     }
