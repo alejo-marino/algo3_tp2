@@ -1,6 +1,8 @@
 package edu.fiuba.algo3.Vista;
 
 //import com.sun.org.apache.xpath.internal.operations.Bool;
+import edu.fiuba.algo3.modelo.Juego;
+import edu.fiuba.algo3.modelo.excepciones.CantidadErroneaDeJugadoresError;
 import javafx.application.Application;
 //import javafx.event.EventHandler;
 //import javafx.event.ActionEvent;
@@ -40,7 +42,15 @@ public class App extends Application{
 
         TextField input = new TextField("Cantidad Jugadores");
         Button button2 = new Button("Empezar");
-        button2.setOnAction(e ->System.out.println("CantidadJugadores: " + input.getText()));
+        button2.setOnAction(e ->{
+            try {
+                Juego juegoNuevo = new Juego(Integer.parseInt(input.getText()));
+                SeleccionNombreJugadores.display("Nombre jugadores", Integer.parseInt(input.getText()));
+
+            }catch (CantidadErroneaDeJugadoresError error){
+                AlertBox.display("Error", error.getMessage());
+            }
+        });
 
         VBox layout2 = new VBox(10);
         layout2.setPadding(new Insets(20,20,20,20));

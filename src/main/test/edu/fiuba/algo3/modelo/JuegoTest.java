@@ -11,20 +11,12 @@ public class JuegoTest {
 
     @Test
     public void test01QuieroCrearJuegoCon1JugadorYDaError(){
-        ArrayList listaJugadores = new ArrayList();
-        listaJugadores.add("Juan");
-        assertThrows(CantidadErroneaDeJugadoresError.class, () -> new Juego(listaJugadores));
+
+        assertThrows(CantidadErroneaDeJugadoresError.class, () -> new Juego(1));
     }
     @Test
     public void test02QuieroCrearJuegoCon7JugadoresYDaError(){
-        ArrayList listaJugadores = new ArrayList();
-        listaJugadores.add("Juan");
-        listaJugadores.add("Juan");
-        listaJugadores.add("Juan");
-        listaJugadores.add("Juan");
-        listaJugadores.add("Juan");
-        listaJugadores.add("Juan");
-        listaJugadores.add("Juan");
-        assertThrows(CantidadErroneaDeJugadoresError.class, () -> new Juego(listaJugadores));
+
+        assertThrows(CantidadErroneaDeJugadoresError.class, () -> new Juego(7));
     }
 }

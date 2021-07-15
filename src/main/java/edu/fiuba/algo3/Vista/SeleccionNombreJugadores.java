@@ -3,34 +3,38 @@ package edu.fiuba.algo3.Vista;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.scene.control.Button;
 
+import java.util.ArrayList;
 
-public class AlertBox {
-
+public class SeleccionNombreJugadores {
     static Stage window;
 
-    public static void display(String title, String message) {
+    public static void display(String title, int cantidadJugadores) {
         window = new Stage();
 
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
         window.setMinWidth(300);
 
-        Label label = new Label(message);
+        ArrayList<TextField> listaJugadores = new ArrayList<>();
+        for (int i = 0; i < cantidadJugadores; i++) {
+            TextField jugador1 = new TextField("Nombre jugador " + i);
+            listaJugadores.add(jugador1);
+        }
 
-        Button closeButton = new Button("Ok");
-        closeButton.setOnAction(e -> window.close());
+        Button botonInicio = new Button("Iniciar Juego");
 
         VBox layout = new VBox(10);
-        layout.getChildren().addAll(label, closeButton);
+        layout.getChildren().addAll(listaJugadores);
+        layout.getChildren().add(botonInicio);
         layout.setPadding(new Insets(20,20,20,20));
-        label.setAlignment(Pos.CENTER);
-        closeButton.setAlignment(Pos.CENTER_RIGHT);
+
 
         Scene scene = new Scene(layout);
         window.setOnCloseRequest(e -> {
