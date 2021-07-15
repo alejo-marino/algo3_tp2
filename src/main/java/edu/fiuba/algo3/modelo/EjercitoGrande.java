@@ -10,25 +10,13 @@ public class EjercitoGrande extends Ejercito {
     }
 
     @Override
-    public int obtenerCantidadTropas() {
+    public int obtenerCantidadTropasAtaque() {
         return NUMERO_MAX_TROPAS;
     }
 
     @Override
     public Ejercito agregarTropas(int cantidadTropas) {
         this.cantidadTropas += cantidadTropas;
-        return this;
-    }
-
-    @Override
-    public Ejercito reduccirTropas(int cantidadTropas) {
-        this.cantidadTropas -= cantidadTropas;
-        if (this.cantidadTropas <= 1) {
-            return new EjercitoUnitario();
-        }
-        else if (this.cantidadTropas < 4) {
-            return new EjercitoRegular(this.cantidadTropas);
-        }
         return this;
     }
 }

@@ -6,39 +6,28 @@ public class Batallon {
 
     private int ejercitos;
     private Ejercito ejercito;
+
     public Batallon() {
-        ejercitos = 1;
         ejercito = new EjercitoUnitario();
     }
 
     public int getEjercitos() {
-        return ejercitos;
+        return ejercito.getCantidadTropas();
     }
 
     public int getEjercitosParaAtacar() {
-        if (ejercitos - 1 < 1) {
-            throw new EjercitosInsuficientesException("No hay suficientes ejércitos para atacar");
-        }
-        if (ejercitos >= 4) {
-            return 3;
-        } else {
-            return ejercitos - 1;
-        }
-
+        return ejercito.obtenerCantidadTropasAtaque();
     }
 
     public void agregarEjercitos(int cantidadEjercitos) {
-        ejercitos = ejercitos + cantidadEjercitos;
+        ejercito = ejercito.agregarTropas(cantidadEjercitos);
     }
 
     public boolean tengoEjercitos() {
-        return ejercitos > 0;
+        return ejercito.tengoTropas();
     }
 
     public void disminuirEjercitos(int cantidadEjercitos) {
-        ejercitos = ejercitos - cantidadEjercitos;
-        if (ejercitos < 0) {
-            ejercitos = 0;
-        }
+        ejercito = ejercito.reduccirTropas(cantidadEjercitos);
     }
 }

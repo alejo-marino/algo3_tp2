@@ -29,17 +29,17 @@ public class TestEjercito {
     @Test
     public void test05CreoUnEjercitoUnitarioNoPuedeAtacar() {
         Ejercito ejercito = new EjercitoUnitario();
-        assertThrows(EjercitosInsuficientesException.class, () -> ejercito.obtenerCantidadTropas());
+        assertThrows(EjercitosInsuficientesException.class, () -> ejercito.obtenerCantidadTropasAtaque());
     }
     @Test
     public void test06CreoUnEjercitoRegularCon3TropasYPuedeAtacarConDos() {
         Ejercito ejercito = new EjercitoRegular(3);
-        assertEquals(2,  ejercito.obtenerCantidadTropas());
+        assertEquals(2,  ejercito.obtenerCantidadTropasAtaque());
     }
     @Test
     public void test07CreoUnEjercitoGrandeConMasDe4TropasYPuedeAtacarConTres() {
         Ejercito ejercito = new EjercitoGrande(5);
-        assertEquals(3,  ejercito.obtenerCantidadTropas());
+        assertEquals(3,  ejercito.obtenerCantidadTropasAtaque());
     }
     @Test
     public void test08CreoUnEjercitoUnitarioLeAgregoUnaTropasYSeConvierteEnEjercitoRegular() {
@@ -108,16 +108,39 @@ public class TestEjercito {
         assertEquals(EjercitoGrande.class,  ejercito.getClass());
     }
     @Test
-    public void test16CreoUnEjercitoGrandeConCincoTropasYSiLeSacoTresTengoUnoRegularConDosTropas() {
+    public void test18CreoUnEjercitoGrandeConCincoTropasYSiLeSacoTresTengoUnoRegularConDosTropas() {
         Ejercito ejercito = new EjercitoGrande(5);
         ejercito = ejercito.reduccirTropas(3);
         assertEquals(2, ejercito.getCantidadTropas());
     }
     @Test
-    public void test16CreoUnEjercitoRegularConTresTropasYSiLeSacoUnaTengoUnoRegularConUnaTropa() {
+    public void test19CreoUnEjercitoRegularConTresTropasYSiLeSacoUnaTengoUnoRegularConUnaTropa() {
         Ejercito ejercito = new EjercitoRegular(3);
         ejercito = ejercito.reduccirTropas(1);
         assertEquals(2, ejercito.getCantidadTropas());
     }
-
+    @Test
+    public void test20CreoUnEjercitoUnitarioConUnaTropaLeDisminuyoUnoYTengoUnEjercitoNulo() {
+        Ejercito ejercito = new EjercitoUnitario();
+        ejercito = ejercito.reduccirTropas(1);
+        assertEquals(EjercitoNulo.class, ejercito.getClass());
+    }
+    @Test
+    public void test21CreoUnEjercitoRegularConDosTropasLeDisminuyoDosYTengoUnEjercitoNulo() {
+        Ejercito ejercito = new EjercitoRegular(2);
+        ejercito = ejercito.reduccirTropas(2);
+        assertEquals(EjercitoNulo.class, ejercito.getClass());
+    }
+    @Test
+    public void test22CreoUnEjercitoRegularConTresTropasLeDisminuyoTresYTengoUnEjercitoNulo() {
+        Ejercito ejercito = new EjercitoRegular(3);
+        ejercito = ejercito.reduccirTropas(3);
+        assertEquals(EjercitoNulo.class, ejercito.getClass());
+    }
+    @Test
+    public void test22CreoUnEjercitoGrandeConCuatroTropasLeDisminuyoCuatroYTengoUnEjercitoNulo() {
+        Ejercito ejercito = new EjercitoGrande(4);
+        ejercito = ejercito.reduccirTropas(4);
+        assertEquals(EjercitoNulo.class, ejercito.getClass());
+    }
 }

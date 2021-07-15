@@ -68,19 +68,6 @@ public class TestBatallon {
         assertTrue(batallon.tengoEjercitos());
     }
 
-    @Test
-    public void test10CreoUnBatallonYLeSacoTodosSusEjercitosYNoTengoEjercitos (){
-        Batallon batallon = new Batallon();
-        batallon.disminuirEjercitos(1);
-        assertFalse(batallon.tengoEjercitos());
-    }
-
-    @Test
-    public void test11CreoUnBatallonYLeSacoTodosSusEjercitosYNoTengoEjercitos (){
-        Batallon batallon= new Batallon();
-        batallon.disminuirEjercitos(1);
-        assertFalse(batallon.tengoEjercitos());
-    }
 
     @Test
     public void test12CreoUnBatallonYAgregoCincoEjercitosLeSacoUnEjercitoYTengoTresEjercitosParaAtacar (){
