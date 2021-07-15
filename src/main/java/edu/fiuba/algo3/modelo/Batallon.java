@@ -5,9 +5,10 @@ import edu.fiuba.algo3.modelo.excepciones.EjercitosInsuficientesException;
 public class Batallon {
 
     private int ejercitos;
-
+    private Ejercito ejercito;
     public Batallon() {
         ejercitos = 1;
+        ejercito = new EjercitoUnitario();
     }
 
     public int getEjercitos() {
