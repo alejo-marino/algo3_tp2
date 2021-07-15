@@ -11,10 +11,15 @@ import javafx.scene.control.Button;
 import javafx.scene.Scene;
 //import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.io.FileInputStream;
+import java.io.InputStream;
 
 /**
  * JavaFX App
@@ -27,20 +32,23 @@ public class App extends Application{
 
     @Override
     public void start(Stage stage) {
+
+
         window = stage;
     // Escena 1
-
+   
 
         button = new Button("Empezar Juego");
         button.setOnAction(e -> window.setScene(escenaCantidadJugadores));
 
         StackPane layout = new StackPane();
-        layout.getChildren().add(button);
+        layout.getChildren().addAll(button);
         escenaInicial = new Scene(layout, 300, 300);
 
     //Escena 2
 
         TextField input = new TextField("Cantidad Jugadores");
+        input.setOnMouseClicked(e -> input.clear());
         Button button2 = new Button("Empezar");
         button2.setOnAction(e ->{
             try {
