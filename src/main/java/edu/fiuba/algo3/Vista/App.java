@@ -16,8 +16,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
@@ -36,14 +39,22 @@ public class App extends Application{
 
         window = stage;
     // Escena 1
-   
+        final ImageView imagen = new ImageView("imagenes/mapaMenuInicio.jpeg");
+
 
         button = new Button("Empezar Juego");
         button.setOnAction(e -> window.setScene(escenaCantidadJugadores));
 
         StackPane layout = new StackPane();
-        layout.getChildren().addAll(button);
-        escenaInicial = new Scene(layout, 300, 300);
+        layout.getChildren().addAll(imagen,button);
+
+        Media mediaMenuInicio = new Media(new File("src/main/resources/sonidos/Game-Menu.mp3").toURI().toString());
+        MediaPlayer menuinicio = new MediaPlayer(mediaMenuInicio);
+        menuinicio.play();
+
+        escenaInicial = new Scene(layout, 420, 420);
+        imagen.fitHeightProperty().bind(escenaInicial.heightProperty());
+        imagen.fitWidthProperty().bind(escenaInicial.widthProperty());
 
     //Escena 2
 
