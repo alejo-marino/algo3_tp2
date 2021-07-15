@@ -4,11 +4,14 @@ package edu.fiuba.algo3.Vista;
 import javafx.application.Application;
 //import javafx.event.EventHandler;
 //import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.Scene;
 //import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -35,11 +38,13 @@ public class App extends Application{
 
     //Escena 2
 
-        Button button2 = new Button("Cantidad Jugadores");
-        button2.setOnAction(e ->AlertBox.display("Cantidad De Jugadores", "Se permite un minimo de 2 y maximo de 6 jugadores."));
+        TextField input = new TextField("Cantidad Jugadores");
+        Button button2 = new Button("Empezar");
+        button2.setOnAction(e ->System.out.println("CantidadJugadores: " + input.getText()));
 
-        StackPane layout2 = new StackPane();
-        layout2.getChildren().add(button2);
+        VBox layout2 = new VBox(10);
+        layout2.setPadding(new Insets(20,20,20,20));
+        layout2.getChildren().addAll(input,button2);
         escenaCantidadJugadores = new Scene(layout2, 300, 300);
 
         // Config ventana inicial
