@@ -1,5 +1,6 @@
-package edu.fiuba.algo3.modelo;
+package edu.fiuba.algo3.modelo.ejercito;
 
+import edu.fiuba.algo3.modelo.ejercito.Ejercito;
 import edu.fiuba.algo3.modelo.excepciones.EjercitosInsuficientesException;
 
 public class EjercitoUnitario extends Ejercito {

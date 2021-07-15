@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.modelo.excepciones.EjercitosInsuficientesException;
+import edu.fiuba.algo3.modelo.ejercito.Ejercito;
+import edu.fiuba.algo3.modelo.ejercito.EjercitoUnitario;
 
 public class Batallon {
 
