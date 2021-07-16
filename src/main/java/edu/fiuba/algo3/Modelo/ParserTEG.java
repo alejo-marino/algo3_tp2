@@ -28,7 +28,7 @@ public class ParserTEG {
     private void parsearPais(JSONObject paisJSON, Hashtable<String, Hashtable<String, ArrayList<String>>> diccContinentes) {
         String nombrePais = (String) paisJSON.get("Pais");
         String nombreContinente = (String) paisJSON.get("Continente");
-        ArrayList<String> stringLimitrofes = (paisJSON.get("Limita Con")).split(",");
+        String[] stringLimitrofes = (paisJSON.get("Limita Con")).split(",");
         ArrayList<String> listaLimitrofes = new ArrayList(Arrays.asList(stringLimitrofes));
 
         if (!(diccContinentes.containsKey(nombreContinente))) {
