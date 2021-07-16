@@ -30,5 +30,6 @@ public class Combate {
 
     public void combatePredeterminado( ArrayList<Integer> tiradaAtacante, ArrayList<Integer> tiradaDefensor) {
         determinarGanador(tiradaAtacante, tiradaDefensor);
+
     }
 }
