@@ -5,11 +5,9 @@ import java.io.File;  // Import the File class
 import java.io.FileNotFoundException;  // Import this class to handle errors
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner; // Import the Scanner class to read text files
+import java.lang.reflect.Array;
+import java.util.*;
 
-import java.util.Dictionary;
-import java.util.Hashtable;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -17,45 +15,51 @@ import org.json.simple.parser.ParseException;
 
 
 public class ParserTEG {
-    /*
-    public void parsearTablero(String rutaArchivo) {
-        //File archivoFronteras = new File(rutaArchivo);
-        this.obtenerDiccionariosPaisesYContinentes(String rutaArchivo);
-        this.obtenerDiccionarioCartas(rutaArchivo);
+
+    public ArrayList parsearTablero(String rutaArchivo) {
+        ArrayList datosADevolver = new ArrayList();
+        Hashtable<String, Hashtable<String, ArrayList<String>>> diccContinentes = this.obtenerDiccionariosPaisesYContinentes(rutaArchivo);
+        ArrayList<ArrayList<String>> listaCartas = this.obtenerDiccionarioCartas(rutaArchivo);
+        datosADevolver.add(diccContinentes);
+        datosADevolver.add(listaCartas);
+        return datosADevolver;
     }
 
-    public void parsearPais(JSONObject paisJSON, Hashtable<String, String[]> diccPaises, Hashtable<String, ArrayList> diccContinentes) {
+    private void parsearPais(JSONObject paisJSON, Hashtable<String, Hashtable<String, ArrayList<String>>> diccContinentes) {
+        String nombrePais = (String) paisJSON.get("Pais");
+        String nombreContinente = (String) paisJSON.get("Continente");
+        ArrayList<String> stringLimitrofes = (paisJSON.get("Limita Con")).split(",");
+        ArrayList<String> listaLimitrofes = new ArrayList(Arrays.asList(stringLimitrofes));
 
-        nombrePais = ;
-        nombreContinente = ;
-        String[] stringLimitrofes = (paisJSON.get("Li Con")).split(","));
-
-        diccPaises.put(nombrePais, stringLimitrofes);
         if (!(diccContinentes.containsKey(nombreContinente))) {
-            ArrayList<String> listaPaisesEnContinente = new ArrayList<String>;
-            diccContinentes.put(nombreContinente, listaPaisesEnContinente);
+            Hashtable<String, ArrayList<String>> diccPaisesEnContinente = new Hashtable<String, ArrayList<String>>();
+            diccContinentes.put(nombreContinente, diccPaisesEnContinente);
         }
-        // diccContinentes.get(nombreContinente) devolvera el array de paises en el continente por lo que debo agregar el pais al mismo
-        (diccContinentes.get(nombreContinente)).add(nombrePais);
+        /* diccContinentes.get(nombreContinente) devuelve el diccionario con claves paises que estan en el continente
+        y valores, un array de strings con los paises limitrofes del pais */
+        (diccContinentes.get(nombreContinente)).put(nombrePais, listaLimitrofes);
     }
 
-    public void parsearPais(JSONObject cartasJSON, ArrayList<ArrayList> diccCartas) {
-
-
+    private void parsearCarta(JSONObject cartasJSON, ArrayList<ArrayList<String>> listaCartas) {
+        String nombrePais = (String) paisJSON.get("Pais");
+        String nombreCarta = (String) paisJSON.get("Simbolo");
+        ArrayList<String> arrayCarta = new ArrayList<String>();
+        arrayCarta.add(nombrePais);
+        arrayCarta.add(nombreCarta);
+        listaCartas.add(arrayCarta);
     }
 
-    public void obtenerDiccionariosPaisesYContinentes(String rutaArchivo) {
-
+    private Hashtable<String, Hashtable<String, ArrayList<String>>> obtenerDiccionariosPaisesYContinentes(String rutaArchivo) {
         JSONParser parser = new JSONParser();
-        Hashtable<String, String[]> diccPaises = new Hashtable<String, String[]>();
-        Hashtable<String, ArrayList> diccContinentes = new Hashtable<String, ArrayList>();
+        Hashtable<String, Hashtable<String, ArrayList<String>>> diccContinentes = new Hashtable<String, Hashtable<String, ArrayList<String>>>();
+
         try (FileReader reader = new FileReader(rutaArchivo)) {
 
             Object obj = parser.parse(reader);
 
             JSONArray paisesJSON = (JSONArray) obj;
 
-            paisesJSON.forEach(pais -> parsearPais((JSONObject) pais);
+            paisesJSON.forEach(pais -> parsearPais((JSONObject) pais, diccContinentes));
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -64,18 +68,20 @@ public class ParserTEG {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+        return diccContinentes;
     }
 
-    public void obtenerDiccionarioCartas(String rutaArchivo) {
+    private ArrayList<ArrayList<String>> obtenerDiccionarioCartas(String rutaArchivo) {
         JSONParser parser = new JSONParser();
-        ArrayList<ArrayList> diccCartas = new ArrayList<ArrayList>();
+        ArrayList<ArrayList<String>> listaCartas = new ArrayList<ArrayList<String>>();
         try (FileReader reader = new FileReader(rutaArchivo)) {
 
             Object obj = parser.parse(reader);
 
             JSONArray cartasJSON = (JSONArray) obj;
 
-            cartasJSON.forEach(pais -> parsearCarta((JSONObject) pais);
+            cartasJSON.forEach(pais -> parsearCarta((JSONObject) pais, listaCartas));
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -85,9 +91,9 @@ public class ParserTEG {
             e.printStackTrace();
         }
 
-
+        return listaCartas;
     }
-     */
+
 
 
 }
