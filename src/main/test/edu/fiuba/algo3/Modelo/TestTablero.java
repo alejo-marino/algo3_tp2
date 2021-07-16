@@ -18,7 +18,7 @@ public class TestTablero {
     private Jugador jugador3;
     private ArrayList<Pais> paises;
 
-    /*
+
     @BeforeEach
     public void setUp() {
         Jugador jugador1 = new Jugador("000000");
@@ -33,7 +33,7 @@ public class TestTablero {
         paises.add(uruguay);
         paises.add(brasil);
     }
-    */
+    /*
     @Test
     public void test01SeCreaUnTableroYNoEsNull (){
         Jugador jugador1 = new Jugador("000000");
@@ -247,14 +247,5 @@ public class TestTablero {
         tablero.atacarConAPredeterminado(jugador1, "Argentina", "Uruguay", tiradaAtacante, tiradaDefensor);
         assertTrue(argentina.esAliado(uruguay));
     }
+    */
 }
-
-//Pais argentina = tablero.seleccionarPais("Argentina");
-//estado.realizarAccion(jugador);
-//tablero.atacar(jugador);
-//
-//
-//self.seleccionarPais(argentina)
-//        self.seleccionarPais(input("Pais Defensor: "))
-//
-//argentina.reforzar()

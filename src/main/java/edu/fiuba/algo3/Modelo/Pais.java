@@ -1,9 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.modelo.excepciones.AtaqueAPaisNoLimitrofeException;
-import edu.fiuba.algo3.modelo.excepciones.AtaqueAPaisPropioException;
-import edu.fiuba.algo3.modelo.excepciones.AtaqueConPaisAjenoException;
-import edu.fiuba.algo3.modelo.excepciones.ReforzarPaisAjenoError;
+import edu.fiuba.algo3.modelo.excepciones.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -87,10 +84,12 @@ public class Pais {
         this.paisesLimitrofes.add(pais);
     }
 
-    public void esLimitrofeCon(Pais pais) {
-        if (!this.paisesLimitrofes.contains(pais)) {
-            throw new AtaqueAPaisNoLimitrofeException(this.toString() + " y " + pais.toString() + " no son limitrofes.");
+    public boolean esLimitrofeCon(Pais pais) {
+        if (this.paisesLimitrofes.contains(pais)) {
+            return true;
+            //throw new AtaqueAPaisNoLimitrofeException(this.toString() + " y " + pais.toString() + " no son limitrofes.");
         }
+        return false;
     }
 
     public void verificarAtaque(Jugador jugador, Pais defensor) {
@@ -108,13 +107,21 @@ public class Pais {
 
     private void esDuenioPais(Jugador jugador) {
         if (jugador != duenio) {
-            throw new AtaqueConPaisAjenoException("Este país no te pertenece");
+            throw new PaisNoPerteneceAlJugador("Este país no te pertenece");
         }
     }
 
     public void serConquistadoPor(Pais atacante) {
         if (!this.tengoEjercitos()) {
             atacante.conquistar(this);
+        }
+    }
+
+    public boolean esDuenio(Jugador jugador) {
+        if (jugador == this.duenio) {
+            return true;
+        } else {
+            return false;
         }
     }
 }

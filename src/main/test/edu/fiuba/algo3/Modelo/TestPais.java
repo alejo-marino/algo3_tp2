@@ -79,4 +79,15 @@ public class TestPais {
             Pais pais2 = new Pais("Uruguay", jugador1);
             assertTrue(pais1.esAliado(pais2));
         }
+
+        @Test
+        public void test10CreoUnPaisYVerificoElDuenioConOtroJugadorYLanzaUnError() {
+            Jugador jugador1 = new Jugador("000000");
+            Jugador jugador2 = new Jugador("ffffff");
+            Pais pais = new Pais("Argentina",jugador1);
+            assertThrows(PaisNoPerteneceAlJugador.class, () -> pais.verificarDuenio(jugador2));
+        }
+
+
+
     }

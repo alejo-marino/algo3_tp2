@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestBatallon {
 
+
+
     @Test
     public void test01CreoUnBatallonYNoEsNull() {
         Batallon batallon = new Batallon();

@@ -23,7 +23,6 @@ public class Batallon {
         } else {
             return ejercitos - 1;
         }
-
     }
 
     public void agregarEjercitos(int cantidadEjercitos) {

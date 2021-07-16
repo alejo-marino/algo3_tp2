@@ -11,44 +11,46 @@ import java.util.Scanner;
 
 
 public class Tablero {
-
+    /*
     private ArrayList<Pais> paises;
 
     public Tablero(ArrayList<Pais> paises) {
         this.paises = paises;
     }
 
-    public Pais seleccionarPais(String nombrePais) {
-        Pais pais;
-        for (int i = 0; i < this.paises.size(); i++) {
-            pais = this.paises.get(i);
+    public Pais seleccionarPaisPropio(Jugador jugador, String nombrePais) {
+        Pais paisPropio = null;
+        for (Pais pais: paises) {
             if(pais.toString().equals(nombrePais))
-                return pais;
+                 paisPropio = pais;
         }
-        throw new PaisInexistenteException(nombrePais + " no se encuentra en el tablero.");
+        if (paisPropio == null) {
+            throw new PaisInexistenteException(nombrePais + " no se encuentra en el tablero.");
+        }
+        paisPropio.verificarDuenio(jugador);
+        return paisPropio;
     }
 
-    public void atacarConA(Jugador jugador) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Pais atacante: ");
-        String nombrePaisAtacante = scanner.nextLine();
-        Pais atacante = this.seleccionarPais(nombrePaisAtacante);
-        System.out.println("Pais defensor: ");
-        String nombrePaisDefensor = scanner.nextLine();
-        Pais defensor = this.seleccionarPais(nombrePaisDefensor);
-        if(atacante.getPaisOcupadoPor()  != jugador){
-            throw new AtaqueConPaisAjenoException("Este país no te pertenece");
+    public Pais seleccionarPaisParaAtacar(Jugador jugador, String nombrePais) {
+        Pais paisParaAtacar = null;
+        for (Pais pais: paises) {
+            if(pais.toString().equals(nombrePais))
+                paisPropio = pais;
         }
+        if (paisPropio == null) {
+            throw new PaisInexistenteException(nombrePais + " no se encuentra en el tablero.");
+        }
+        paisPropio.verificarDuenio(jugador);
+        return paisPropio;
+    }
+
+    public void atacarConA(Pais atacante, Pais defensor, int cantEjercitos ) {
+
         Combate combate = new Combate(atacante, defensor);
-        combate.combatir();
+        combate.combatir(cantEjercitos);
     }
 
-    public void atacarConAPredeterminado(Jugador jugador, String nombrePaisAtacante, String nombrePaisDefensor, ArrayList tiradaAtacante, ArrayList tiradaDefensor) {
-        Pais atacante = this.seleccionarPais(nombrePaisAtacante);
-        Pais defensor = this.seleccionarPais(nombrePaisDefensor);
-        if (atacante.getPaisOcupadoPor() != jugador) {
-            throw new AtaqueConPaisAjenoException("Este país no te pertenece");
-        }
+    public void atacarConAPredeterminado(Jugador jugador, Pais atacante, Pais defensor, int cantEjercitos, ArrayList tiradaAtacante, ArrayList tiradaDefensor) {
         Combate combate = new Combate(atacante, defensor);
         combate.combatePredeterminado(tiradaAtacante, tiradaDefensor);
     }

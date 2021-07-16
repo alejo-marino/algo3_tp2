@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
 import edu.fiuba.algo3.modelo.excepciones.*;
 
+
 public class TestCombate {
 
     @Test
@@ -20,45 +21,6 @@ public class TestCombate {
     }
 
 
-    @Test
-    public void test02SeCreaUnCombateYElJugadorAtacanteEsElMismoQueElDefensor() {
-        Jugador jugadorAtacante = new Jugador("000000");
-        Pais atacante = new Pais("Argentina", jugadorAtacante);
-        Jugador jugadorDefensor = jugadorAtacante;
-        Pais defensor = new Pais("Uruguay", jugadorDefensor);
-        atacante.reforzar(jugadorAtacante, 1);
-        defensor.reforzar(jugadorAtacante, 3);
-        Combate combate = new Combate(atacante, defensor);
-        defensor.hacerLimitrofe(atacante);
-        atacante.hacerLimitrofe(defensor);
-        assertThrows(AtaqueAPaisPropioException.class, combate::combatir);
-    }
-
-    @Test
-    public void test03CreoUnCombateYElPaisAtacadoNoEsLimitrofe() {
-        Jugador jugadorAtacante = new Jugador("000000");
-        Pais atacante = new Pais("Argentina", jugadorAtacante);
-        Jugador jugadorDefensor = new Jugador("ffffff");
-        Pais defensor = new Pais("Uruguay", jugadorDefensor);
-
-        Combate combate = new Combate(atacante, defensor);
-        assertThrows(AtaqueAPaisNoLimitrofeException.class, combate::combatir);
-    }
-
-
-
-    @Test
-    public void test04CreoUnCombateYElPaisAtacanteIntentaAtacarPeroNoTieneEjercitosSuficientes (){
-        Jugador jugadorAtacante = new Jugador("000000");
-        Pais atacante = new Pais("Argentina", jugadorAtacante);
-        Jugador jugadorDefensor = new Jugador("ffffff");
-        Pais defensor = new Pais("Uruguay", jugadorDefensor);
-        defensor.hacerLimitrofe(atacante);
-        atacante.hacerLimitrofe(defensor);
-        Combate combate = new Combate(atacante, defensor);
-
-        assertThrows(EjercitosInsuficientesException.class, () -> combate.combatir());
-    }
 
     // 1v1 conquista
     @Test
@@ -81,7 +43,6 @@ public class TestCombate {
         assertEquals(1, defensor.getEjercitos());
         assertEquals(1, atacante.getEjercitos());
     }
-
 
     // 1v1 pierde atacante
     @Test
@@ -354,7 +315,7 @@ public class TestCombate {
         assertEquals(2, defensor.getEjercitos());
     }
 
-/*
+
 
 // Atacar3v3 Conquista
     /*
@@ -382,8 +343,8 @@ public class TestCombate {
         assertEquals(0, defensor.getEjercitos());
     }
 
- */
-/*
+
+
     // Atacar 3v3 Gana2Pierde1
     public void test18CreoUnCombateYElPaisAtacanteAtacaCon3EjercitosAPaisQueDefiendeCon3EjercitoYGana2Pierde1(){
         Jugador jugadorAtacante = new Jugador("000000");
@@ -408,7 +369,7 @@ public class TestCombate {
         assertEquals(3, atacante.getEjercitos());
         assertEquals(1, defensor.getEjercitos());
     }
-/*
+
     // Atacar 3v3 Gana1Pierde2
     public void test19CreoUnCombateYElPaisAtacanteAtacaCon3EjercitosAPaisQueDefiendeCon3EjercitoYGana1Pierde2(){
         Jugador jugadorAtacante = new Jugador("000000");
@@ -432,7 +393,7 @@ public class TestCombate {
         assertEquals(3, atacante.getEjercitos());
         assertEquals(1, defensor.getEjercitos());
     }
-/*
+
     // Atacar3v3 Pierde3
      public void test20CreoUnCombateYElPaisAtacanteAtacaCon3EjercitosAPaisQueDefiendeCon3EjercitoYPierdeTodas(){
         Jugador jugadorAtacante = new Jugador("000000");
@@ -456,7 +417,7 @@ public class TestCombate {
         assertEquals(3, atacante.getEjercitos());
         assertEquals(1, defensor.getEjercitos());
      }
-/*
+
     //13 Atacar1v3 Gana
     public void test21CreoUnCombateYElPaisAtacanteAtacaCon1EjercitoAPaisQueDefiendeCon3EjercitoYGana(){
         Jugador jugadorAtacante = new Jugador("000000");
@@ -479,7 +440,7 @@ public class TestCombate {
         assertEquals(3, atacante.getEjercitos());
         assertEquals(1, defensor.getEjercitos());
     }
-/*
+
     //Atacar 1v3 Pierde
     public void test22CreoUnCombateYElPaisAtacanteAtacaCon1EjercitoAPaisQueDefiendeCon3EjercitoYGana(){
         Jugador jugadorAtacante = new Jugador("000000");
@@ -502,7 +463,7 @@ public class TestCombate {
         assertEquals(3, atacante.getEjercitos());
         assertEquals(1, defensor.getEjercitos());
     }
-/*
+
     // Atacar2v3 Gana
     public void test23CreoUnCombateYElPaisAtacanteAtacaCon2EjercitosAPaisQueDefiendeCon3EjercitoYGana(){
         Jugador jugadorAtacante = new Jugador("000000");
@@ -525,7 +486,7 @@ public class TestCombate {
         assertEquals(3, atacante.getEjercitos());
         assertEquals(1, defensor.getEjercitos());
     }
-/*
+
     //Atacar2v3 Gana1Pierde1
      public void test24CreoUnCombateYElPaisAtacanteAtacaCon2EjercitosAPaisQueDefiendeCon3EjercitoYGana1Pierde1(){
         Jugador jugadorAtacante = new Jugador("000000");
