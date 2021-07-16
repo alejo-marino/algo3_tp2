@@ -6,8 +6,8 @@ import edu.fiuba.algo3.modelo.excepciones.*;
 
 
 public class Combate {
-    private Pais atacante;
-    private Pais defensor;
+    private final Pais atacante;
+    private final Pais defensor;
 
     public Combate(Pais paisAtacante, Pais paisDefensor){
         this.atacante = paisAtacante;
@@ -22,34 +22,13 @@ public class Combate {
         int cantEjercitosDefensor = this.defensor.getEjercitos();
 
         DadosDeSeisCaras dados = new DadosDeSeisCaras();
-        ArrayList tiradaAtacante = dados.tirarDados(cantEjercitosAtacante);
-        ArrayList tiradaDefensor = dados.tirarDados(cantEjercitosDefensor);
+        ArrayList<Integer> tiradaAtacante = dados.tirarDados(cantEjercitosAtacante);
+        ArrayList<Integer> tiradaDefensor = dados.tirarDados(cantEjercitosDefensor);
 
         determinarGanador(tiradaAtacante, tiradaDefensor);
     }
 
-    public void combatePredeterminado( ArrayList tiradaAtacante, ArrayList tiradaDefensor) {
+    public void combatePredeterminado( ArrayList<Integer> tiradaAtacante, ArrayList<Integer> tiradaDefensor) {
         determinarGanador(tiradaAtacante, tiradaDefensor);
-    }
-
-    private void determinarGanador(ArrayList tiradaAtacante, ArrayList tiradaDefensor) {
-        int encuentros = Math.min((tiradaAtacante.size()), (tiradaDefensor.size()));
-        int ganaAtacante = 0;
-        int ganaDefensor = 0;
-        for (int i = 0; i < encuentros; i++) {
-            if ( ganadorTirada((int) tiradaDefensor.get(i), (int) tiradaAtacante.get(i))){
-                ganaAtacante++;
-            }
-            else{
-                ganaDefensor++;
-            }
-        }
-        this.atacante.disminuirEjercitos(ganaDefensor);
-        this.defensor.disminuirEjercitos(ganaAtacante);
-        defensor.serConquistadoPor(atacante);
-    }
-
-    private boolean ganadorTirada(int tiradaDefensor, int tiradaAtacante) {
-        return tiradaDefensor < tiradaAtacante;
     }
 }

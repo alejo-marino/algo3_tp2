@@ -94,79 +94,7 @@ public class TestTablero {
         Tablero tablero = new Tablero(paises);
         assertThrows(PaisInexistenteException.class, () -> tablero.seleccionarPais("Chile"));
     }
-
-    @Test
-    public void test04SeCreaUnTableroYAtacoConUnPaisQueNoMePerteneceYLanzaUnaExcepcion() {
-        Jugador jugador1 = new Jugador("000000");
-        Jugador jugador2 = new Jugador("ffffff");
-        Jugador jugador3 = new Jugador("ff0000");
-
-        Pais argentina = new Pais("Argentina",jugador1);
-        Pais uruguay = new Pais("Uruguay",jugador2);
-        Pais china = new Pais("China",jugador3);
-        ArrayList<Pais> paises = new ArrayList<>();
-        paises.add(argentina);
-        paises.add(uruguay);
-        paises.add(china);
-        argentina.hacerLimitrofe(uruguay);
-        uruguay.hacerLimitrofe(argentina);
-
-        Tablero tablero = new Tablero(paises);
-        ArrayList<Integer> tiradaAtacante = new ArrayList<>();
-        tiradaAtacante.add(6);
-        ArrayList<Integer> tiradaDefensor = new ArrayList<>();
-        tiradaDefensor.add(1);
-        assertThrows(AtaqueConPaisAjenoException.class, () -> tablero.atacarConAPredeterminado(jugador2, "Argentina", "Uruguay", tiradaAtacante, tiradaDefensor));
-    }
-
-    @Test
-    public void test05SeCreaUnTableroYAtacoConUnPaisAOtroQueNoEsLimitrofeYLanzaUnaExcepcion() {
-        Jugador jugador1 = new Jugador("000000");
-        Jugador jugador2 = new Jugador("ffffff");
-        Jugador jugador3 = new Jugador("ff0000");
-
-        Pais argentina = new Pais("Argentina",jugador1);
-        Pais uruguay = new Pais("Uruguay",jugador2);
-        Pais china = new Pais("China",jugador3);
-        ArrayList<Pais> paises = new ArrayList<>();
-        paises.add(argentina);
-        paises.add(uruguay);
-        paises.add(china);
-        argentina.hacerLimitrofe(uruguay);
-        uruguay.hacerLimitrofe(argentina);
-        ArrayList tiradaAtacante = new ArrayList<Integer>();
-        tiradaAtacante.add(1);
-        ArrayList tiradaDefensor = new ArrayList<Integer>();
-        tiradaDefensor.add(3);
-
-        Tablero tablero = new Tablero(paises);
-        assertThrows(AtaqueAPaisNoLimitrofeException.class, () -> tablero.atacarConAPredeterminado(jugador1, "Argentina", "China", tiradaAtacante, tiradaDefensor));
-    }
-
-    @Test
-    public void test06SeCreaUnTableroYAtacoConUnPaisAOtroQueEsPropioYLanzaUnaExcepcion() {
-        Jugador jugador1 = new Jugador("000000");
-        Jugador jugador2 = new Jugador("ffffff");
-        Jugador jugador3 = new Jugador("ff0000");
-
-        Pais argentina = new Pais("Argentina", jugador1);
-        Pais uruguay = new Pais("Uruguay", jugador1);
-        Pais china = new Pais("China", jugador3);
-        ArrayList<Pais> paises = new ArrayList<>();
-        paises.add(argentina);
-        paises.add(uruguay);
-        paises.add(china);
-        argentina.hacerLimitrofe(uruguay);
-        uruguay.hacerLimitrofe(argentina);
-        ArrayList tiradaAtacante = new ArrayList<Integer>();
-        tiradaAtacante.add(1);
-        ArrayList tiradaDefensor = new ArrayList<Integer>();
-        tiradaDefensor.add(3);
-
-        Tablero tablero = new Tablero(paises);
-        assertThrows(AtaqueAPaisPropioException.class, () -> tablero.atacarConAPredeterminado(jugador1, "Argentina", "Uruguay", tiradaAtacante, tiradaDefensor));
-    }
-
+    /* Refactor Ya No sirven.
     @Test
     public void test07SeCreaUnTableroYRefuerzoUnPaisConUnEjercito() {
         Jugador jugador1 = new Jugador("000000");
@@ -246,15 +174,5 @@ public class TestTablero {
         tablero.reforzarPredeterminado(jugador1,"Argentina", 1);
         tablero.atacarConAPredeterminado(jugador1, "Argentina", "Uruguay", tiradaAtacante, tiradaDefensor);
         assertTrue(argentina.esAliado(uruguay));
-    }
+    }*/
 }
-
-//Pais argentina = tablero.seleccionarPais("Argentina");
-//estado.realizarAccion(jugador);
-//tablero.atacar(jugador);
-//
-//
-//self.seleccionarPais(argentina)
-//        self.seleccionarPais(input("Pais Defensor: "))
-//
-//argentina.reforzar()

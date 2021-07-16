@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class DadosDeSeisCaras {
-    public ArrayList tirarDados(int cantidadDeTiradas) {
-        ArrayList tiradas = new ArrayList<Integer>();
+    public ArrayList<Integer> tirarDados(int cantidadDeTiradas) {
+        ArrayList<Integer> tiradas = new ArrayList<>();
         Random ran = new Random();
         double aux;
         int tirada;
