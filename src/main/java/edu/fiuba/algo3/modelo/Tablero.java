@@ -21,21 +21,4 @@ public class Tablero {
         throw new PaisInexistenteException(nombrePais + " no se encuentra en el tablero.");
     }
 
-//    public void atacarConA(Pais atacante, Pais defensor) {
-//        Combate combate = new Combate(atacante, defensor);
-//        combate.combatir(cantidadEjercitos);
-//    }
-//
-//    public void atacarConAPredeterminado(Pais atacante, Pais defensor, ArrayList tiradaAtacante, ArrayList tiradaDefensor) {
-//        Combate combate = new Combate(atacante, defensor);
-//        combate.combatePredeterminado(tiradaAtacante, tiradaDefensor);
-//    }
-//
-//    public void reforzar(Pais pais, int cantDeEjercitosAReforzar) {
-//        pais.reforzar(cantDeEjercitosAReforzar);
-//    }
-//
-//    public void reforzarPredeterminado(Pais pais, int ejercitos){
-//        pais.reforzar(ejercitos);
-//    }
 }

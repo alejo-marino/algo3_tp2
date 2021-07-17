@@ -2,11 +2,9 @@ package edu.fiuba.algo3.modelo;
 
 public class Jugador {
     private String nombreJugador;
-    private Batallon batallon;
 
     public Jugador(String nombreJugador) {
         this.nombreJugador = nombreJugador;
-        this.batallon = new Batallon();
     }
 
     @Override
@@ -22,12 +20,5 @@ public class Jugador {
         return this.nombreJugador;
     }
 
-    public boolean puedeSeguirAgrupando() {
-        return true;
-    }
-
-    public void reforzar(int cantidadEjercitos) {
-        //...
-    }
 }
 

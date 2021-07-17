@@ -34,14 +34,14 @@ public class TestPais {
         public void test04CreoUnPaisYTieneUnEjercitoConElCualNoPuedeAtacar (){
             Jugador jugador = new Jugador("000000");
             Pais pais = new Pais("Argentina", jugador);
-            assertThrows(EjercitosInsuficientesException.class, () -> pais.getEjercitosParaAtacar());
+            assertThrows(EjercitosInsuficientesException.class, pais::getEjercitosParaAtacar);
         }
 
         @Test
         public void test05CreoUnPaisYLoRefuerzoConDosEjercitosYAhoraTieneTresEjercitos (){
             Jugador jugador = new Jugador("000000");
             Pais pais = new Pais("Argentina", jugador);
-            pais.reforzar(jugador,2);
+            pais.reforzar(2);
             assertEquals(pais.getEjercitos(), 3);
         }
 
@@ -49,7 +49,7 @@ public class TestPais {
         public void test06CreoUnPaisYLoRefuerzoConDosEjercitosYAhoraTieneDosEjercitosParaAtacar (){
             Jugador jugador = new Jugador("000000");
             Pais pais = new Pais("Argentina", jugador);
-            pais.reforzar(jugador, 2);
+            pais.reforzar(2);
             assertEquals(pais.getEjercitosParaAtacar(), 2);
         }
 
@@ -57,7 +57,7 @@ public class TestPais {
         public void test07CreoUnPaisYLoRefuerzoConDiezEjercitosYAhoraTieneTresEjercitosParaAtacar(){
             Jugador jugador = new Jugador("000000");
             Pais pais = new Pais("Argentina", jugador);
-            pais.reforzar(jugador,10);
+            pais.reforzar(10);
             assertEquals(pais.getEjercitosParaAtacar(), 3);
         }
 
