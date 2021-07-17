@@ -1,38 +1,43 @@
 package edu.fiuba.algo3.modelo;
 
-public class TestContinente{
-    // por ahora vacio, debera checkear que todos los paises contenidos en el mismo esten o no conquistados por un mismo jugador
-    /*
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class TestContinente {
+
     @Test
-    public void test01SeCreaUnContinenteYNoEsNull{
+    public void test01SeCreaUnContinenteYNoEsNull () {
         Continente continente = new Continente("America Del Sur");
         assertNotNull(continente);
     }
 
-    public void test02SeCreaUnContinenteConUnPaisYVerificaQueElDueñoDeEsePaisDomineElContinente{
+    @Test
+    public void test02SeCreaUnContinenteConUnPaisYVerificaQueElDuenioDeEsePaisDomineElContinente () {
         Continente continente = new Continente("America Del Sur");
         Jugador jugador = new Jugador("000000");
-        Pais pais = new Pais(jugador);
+        Pais pais = new Pais("Argentina", jugador);
         continente.agregarPais(pais);
         assertTrue(continente.esDominadoPor(jugador));
     }
 
-    public void test03SeCreaUnContinenteConDosPaisesConUnMismoDueñoYVerificaQueEseDueñoDomineElContinente{
+    @Test
+    public void test03SeCreaUnContinenteConDosPaisesConUnMismoDuenioYVerificaQueEseDuenioDomineElContinente () {
         Continente continente = new Continente("America Del Sur");
         Jugador jugador = new Jugador("000000");
-        Pais pais1 = new Pais(jugador);
-        Pais pais2 = new Pais(jugador);
-        continente.agregarPais(pais1);
-        continente.agregarPais(pais2);
+        Pais argentina = new Pais("Argentina", jugador);
+        Pais uruguay = new Pais("Uruguay", jugador);
+        continente.agregarPais(argentina);
+        continente.agregarPais(uruguay);
         assertTrue(continente.esDominadoPor(jugador));
     }
 
-    public void test04SeCreaUnContinenteConDosPaisesConDistintoDueñoYVerificaQueNingunoDomineElContinente{
+    @Test
+    public void test04SeCreaUnContinenteConDosPaisesConDistintoDuenioYVerificaQueNingunoDomineElContinente () {
         Continente continente = new Continente("America Del Sur");
         Jugador jugador1 = new Jugador("000000");
         Jugador jugador2 = new Jugador("ffffff");
-        Pais pais1 = new Pais(jugador1);
-        Pais pais2 = new Pais(jugador2);
+        Pais pais1 = new Pais("Argentina", jugador1);
+        Pais pais2 = new Pais("Uruguay", jugador2);
         continente.agregarPais(pais1);
         continente.agregarPais(pais2);
 
@@ -40,19 +45,21 @@ public class TestContinente{
         assertFalse(continente.esDominadoPor(jugador2));
     }
 
-    public void test05SeCreaUnContinenteSinPaisesYVerificaQueUnJugadorNoDomineElContinente{
+    @Test
+    public void test05SeCreaUnContinenteSinPaisesYVerificaQueUnJugadorNoDomineElContinente () {
         Continente continente = new Continente("America Del Sur");
         Jugador jugador = new Jugador("000000");
 
         assertFalse(continente.esDominadoPor(jugador));
     }
 
-    public void test06SeCreaContinenteCon2PaisesDeDistintoDueñoYUnPaisConquistaAlOtroYVerificaQueElDueñoDeEsePaisDomineElContinente{
+    @Test
+    public void test06SeCreaContinenteCon2PaisesDeDistintoDuenioYUnPaisConquistaAlOtroYVerificaQueElDuenioDeEsePaisDomineElContinente () {
         Continente continente = new Continente("America Del Sur");
         Jugador jugador1 = new Jugador("000000");
         Jugador jugador2 = new Jugador("ffffff");
-        Pais pais1 = new Pais(jugador1);
-        Pais pais2 = new Pais(jugador2);
+        Pais pais1 = new Pais("Argentina", jugador1);
+        Pais pais2 = new Pais("Argentina", jugador2);
         continente.agregarPais(pais1);
         continente.agregarPais(pais2);
         pais1.conquistar(pais2);
@@ -60,5 +67,11 @@ public class TestContinente{
         assertTrue(continente.esDominadoPor(jugador1));
     }
 
-     */
+    @Test
+    public void test07SeCreaContinenteConNombreYDevuelveElNombreCorrecto () {
+        String nombre = "America Del Sur";
+        Continente continente = new Continente(nombre);
+        assertEquals(nombre, continente.toString());
+    }
+
 }

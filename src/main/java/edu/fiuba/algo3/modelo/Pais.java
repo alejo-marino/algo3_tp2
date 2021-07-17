@@ -32,7 +32,7 @@ public class Pais {
         return paisesLimitrofes;
     }
 
-    public Jugador getPaisOcupadoPor() {
+    public Jugador getDuenio() {
         return duenio;
     }
 
@@ -54,7 +54,7 @@ public class Pais {
     }
 
     public boolean esAliado(Pais pais) {
-        return this.duenio == pais.getPaisOcupadoPor();
+        return this.duenio == pais.getDuenio();
     }
 
 /*    public void conquistarFinal(Pais conquistado){

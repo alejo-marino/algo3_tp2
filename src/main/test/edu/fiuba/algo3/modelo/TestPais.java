@@ -20,7 +20,7 @@ public class TestPais {
             Jugador jugador = new Jugador("000000");
             Pais pais = new Pais("Argentina", jugador);
 
-            assertEquals(pais.getPaisOcupadoPor(), jugador);
+            assertEquals(pais.getDuenio(), jugador);
         }
 
         @Test
