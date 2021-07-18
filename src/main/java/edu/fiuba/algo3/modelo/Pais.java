@@ -86,14 +86,14 @@ public class Pais {
         }
     }
 
-    public void verificarAtaque(Jugador jugador, Pais defensor) {
+/*    public void verificarAtaque(Jugador jugador, Pais defensor) {
         this.esDuenioPais(jugador);
         this.esLimitrofeCon(defensor);
         this.esDuenioPaisAtacado(defensor);
 
-    }
+    }*/
 
-    private void esDuenioPaisAtacado(Pais defensor) {
+/*    private void esDuenioPaisAtacado(Pais defensor) {
         if (this.esAliado(defensor)) {
             throw new AtaqueAPaisPropioException(defensor + " te pertenece, no podes atacarlo.");
         }
@@ -104,7 +104,7 @@ public class Pais {
             throw new AtaqueConPaisAjenoException("Este país no te pertenece");
         }
     }
-
+*/
     public void serConquistadoPor(Pais atacante) {
         if (!this.tengoEjercitos()) {
             atacante.conquistar(this);
