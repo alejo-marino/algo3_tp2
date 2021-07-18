@@ -25,6 +25,21 @@ public class Tablero {
         }
         throw new PaisInexistenteException(nombrePais + " no se encuentra en el tablero.");
     }
+    public Dictionary obtenerPaisesSegunJugador() {
+        Hashtable<Jugador, ArrayList> paisesSegunJugador = new Hashtable();
+        for (Pais paisActual : paises) {
+            Jugador jugadorActual = paisActual.getPaisOcupadoPor();
+            if (!paisesSegunJugador.containsKey(jugadorActual)) {
+                ArrayList paisesDeJugador = new ArrayList();
+                paisesDeJugador.add(paisActual);
+                paisesSegunJugador.put(jugadorActual,paisesDeJugador);
+            }
+            else {
+                paisesSegunJugador.get(jugadorActual).add(paisActual);
+            }
+        }
+        return paisesSegunJugador;
+    }
 
 //    public void atacarConA(Pais atacante, Pais defensor) {
 //        Combate combate = new Combate(atacante, defensor);
