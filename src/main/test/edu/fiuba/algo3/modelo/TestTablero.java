@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Dictionary;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -246,6 +247,28 @@ public class TestTablero {
         tablero.reforzarPredeterminado(jugador1,"Argentina", 1);
         tablero.atacarConAPredeterminado(jugador1, "Argentina", "Uruguay", tiradaAtacante, tiradaDefensor);
         assertTrue(argentina.esAliado(uruguay));
+    }
+    @Test
+    public void test10SeCreaUnTableroYObtengoLosPaisesPorJugadorCorrectamente() {
+        Jugador jugador1 = new Jugador("000000");
+        Jugador jugador2 = new Jugador("ffffff");
+        Jugador jugador3 = new Jugador("ff0000");
+
+        Pais argentina = new Pais("Argentina", jugador1);
+        Pais uruguay = new Pais("Uruguay", jugador2);
+        Pais china = new Pais("China", jugador3);
+
+        ArrayList<Pais> paises = new ArrayList<>();
+        paises.add(argentina);
+        paises.add(uruguay);
+        paises.add(china);
+        argentina.hacerLimitrofe(uruguay);
+        uruguay.hacerLimitrofe(argentina);
+
+        Tablero tablero = new Tablero(paises);
+
+        Dictionary paisesPorJugador = tablero.obtenerPaisesSegunJugador();
+        System.out.println(paisesPorJugador);
     }
 }
 

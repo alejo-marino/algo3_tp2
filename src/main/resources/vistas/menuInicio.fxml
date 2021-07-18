@@ -43,14 +43,14 @@
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: black;" VBox.vgrow="ALWAYS">
       <children>
-            <Button fx:id="botonInicioJuego" layoutX="218.0" layoutY="177.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="182.0" style="-fx-background-color: grey;" text="Empezar Juego" textFill="#e80808" />
+            <Button fx:id="botonInicioJuego" layoutX="218.0" layoutY="177.0" mnemonicParsing="false" onAction="#hanldeBotonEmpezarJuego" prefHeight="46.0" prefWidth="182.0" style="-fx-background-color: grey;" text="Empezar Juego" textFill="#e80808" />
             <Label alignment="CENTER" layoutX="86.0" layoutY="46.0" prefHeight="60.0" prefWidth="308.0" text="ALGO" textFill="#cd0c0c">
                <font>
                   <Font size="67.0" />
                </font>
             </Label>
-            <Button layoutX="219.0" layoutY="247.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="182.0" style="-fx-background-color: grey;" text="Reglas" textFill="#e80b0b" />
-            <Button layoutX="219.0" layoutY="313.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="182.0" style="-fx-background-color: grey;" text="Salir" textFill="#cd0b0b" />
+            <Button fx:id="botonReglas" layoutX="219.0" layoutY="247.0" mnemonicParsing="false" onAction="#handleBotonReglas" prefHeight="46.0" prefWidth="182.0" style="-fx-background-color: grey;" text="Reglas" textFill="#e80b0b" />
+            <Button fx:id="botonSalir" layoutX="219.0" layoutY="313.0" mnemonicParsing="false" onAction="#handleBotonSalir" prefHeight="46.0" prefWidth="182.0" style="-fx-background-color: grey;" text="Salir" textFill="#cd0b0b" />
             <Label layoutX="343.0" layoutY="46.0" text="T.E.G" textFill="#41e80e">
                <font>
                   <Font size="67.0" />
