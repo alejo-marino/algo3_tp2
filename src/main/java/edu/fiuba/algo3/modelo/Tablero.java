@@ -28,7 +28,7 @@ public class Tablero {
     public Dictionary obtenerPaisesSegunJugador() {
         Hashtable<Jugador, ArrayList> paisesSegunJugador = new Hashtable();
         for (Pais paisActual : paises) {
-            Jugador jugadorActual = paisActual.getPaisOcupadoPor();
+            Jugador jugadorActual = paisActual.getDuenio();
             if (!paisesSegunJugador.containsKey(jugadorActual)) {
                 ArrayList paisesDeJugador = new ArrayList();
                 paisesDeJugador.add(paisActual);
