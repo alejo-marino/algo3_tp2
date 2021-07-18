@@ -21,7 +21,7 @@ public class Continente {
             return false;
         }
         for (Pais pais: paises) {
-            if (pais.getDuenio() != jugador) {
+            if (pais.getPaisOcupadoPor() != jugador) {
                 return false;
             }
         }
