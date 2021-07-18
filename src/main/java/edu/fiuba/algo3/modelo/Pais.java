@@ -62,7 +62,7 @@ public class Pais {
         return this.duenio == pais.getPaisOcupadoPor();
     }
 
-    public void conquistarFinal(Pais conquistado){
+/*    public void conquistarFinal(Pais conquistado){
         conquistado.duenio = this.duenio;
         Scanner input = new Scanner(System.in);
         System.out.println("Cuantas piezas queres pasar a " + conquistado.toString() + "?");
@@ -75,7 +75,7 @@ public class Pais {
         }
         this.disminuirEjercitos(cantEjercitosAMover);
         conquistado.reforzar(this.duenio, cantEjercitosAMover);
-    }
+    }*/
 
     public void conquistar(Pais conquistado){
         conquistado.duenio = this.duenio;
@@ -87,31 +87,32 @@ public class Pais {
         this.paisesLimitrofes.add(pais);
     }
 
+/*
     public void esLimitrofeCon(Pais pais) {
         if (!this.paisesLimitrofes.contains(pais)) {
             throw new AtaqueAPaisNoLimitrofeException(this.toString() + " y " + pais.toString() + " no son limitrofes.");
         }
     }
+*/
 
-    public void verificarAtaque(Jugador jugador, Pais defensor) {
+/*    public void verificarAtaque(Jugador jugador, Pais defensor) {
         this.esDuenioPais(jugador);
         this.esLimitrofeCon(defensor);
         this.esDuenioPaisAtacado(defensor);
-
     }
 
     private void esDuenioPaisAtacado(Pais defensor) {
         if (this.esAliado(defensor)) {
             throw new AtaqueAPaisPropioException(defensor.toString()+ " te pertenece, no podes atacarlo.");
         }
-    }
-
+    }*/
+/*
     private void esDuenioPais(Jugador jugador) {
         if (jugador != duenio) {
             throw new AtaqueConPaisAjenoException("Este país no te pertenece");
         }
     }
-
+*/
     public void serConquistadoPor(Pais atacante) {
         if (!this.tengoEjercitos()) {
             atacante.conquistar(this);
