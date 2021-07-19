@@ -8,6 +8,8 @@ import java.util.Queue;
 public class RondaInicial implements TipoDeRonda {
 
     private Queue<Integer> colaRefuerzo;
+    Integer ejercitosAColocar;
+    Tablero tablero;
 
     public RondaInicial(Queue<Integer> colaDeNumerosDeRefuerzoPorRonda, Tablero referenciaTablero) {
         colaRefuerzo = colaDeNumerosDeRefuerzoPorRonda;

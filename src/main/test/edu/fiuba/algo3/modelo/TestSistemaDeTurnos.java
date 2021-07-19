@@ -195,7 +195,8 @@ public class TestSistemaDeTurnos {
         Tablero tablero = new Tablero(paises);
 
         SistemaDeTurnos sistema = new SistemaDeTurnos(listaJugadores, tablero, cola);
-        sistema.reforzar(argentina, 5);
+        Pais unPais = sistema.seleccionarPais("Argentina");
+        sistema.reforzar(unPais, 5);
         sistema.siguienteTurno();
         assertEquals(jugador2, sistema.turnoDe());
     }
@@ -227,11 +228,14 @@ public class TestSistemaDeTurnos {
         Tablero tablero = new Tablero(paises);
 
         SistemaDeTurnos sistema = new SistemaDeTurnos(listaJugadores, tablero,cola );
-        sistema.reforzar(argentina, 5);
+        Pais unPais = sistema.seleccionarPais("Argentina");
+        sistema.reforzar(unPais, 5);
         sistema.siguienteTurno();
-        sistema.reforzar(uruguay, 5);
+        Pais unPais1 = sistema.seleccionarPais("Uruguay");
+        sistema.reforzar(unPais1, 5);
         sistema.siguienteTurno();
-        sistema.reforzar(china, 5);
+        Pais unPais2 = sistema.seleccionarPais("China");
+        sistema.reforzar(unPais2, 5);
         sistema.siguienteTurno();
         assertEquals(jugador1, sistema.turnoDe());
     }
@@ -263,7 +267,8 @@ public class TestSistemaDeTurnos {
         Tablero tablero = new Tablero(paises);
 
         SistemaDeTurnos sistema = new SistemaDeTurnos(listaJugadores,tablero, cola);
-        sistema.reforzar(argentina, 5);
+        Pais unPais = sistema.seleccionarPais("Argentina");
+        sistema.reforzar(unPais, 5);
         assertEquals(6, argentina.getEjercitos());
     }
 
@@ -294,7 +299,8 @@ public class TestSistemaDeTurnos {
         Tablero tablero = new Tablero(paises);
 
         SistemaDeTurnos sistema = new SistemaDeTurnos(listaJugadores,tablero, cola);
-        sistema.reforzar(argentina, 2);
+        Pais unPais = sistema.seleccionarPais("Argentina");
+        sistema.reforzar(unPais, 2);
         assertThrows(NoPuedeColocarTantosEjercitosException.class, () -> sistema.reforzar(argentina, 4));
 
     }
@@ -325,11 +331,16 @@ public class TestSistemaDeTurnos {
         Tablero tablero = new Tablero(paises);
 
         SistemaDeTurnos sistema = new SistemaDeTurnos(listaJugadores,tablero, cola);
-        sistema.reforzar(argentina, 5);
+        Pais unPais = sistema.seleccionarPais("Argentina");
+        sistema.reforzar(unPais, 5);
         sistema.siguienteTurno();
-        sistema.reforzar(uruguay, 5);
+        Pais unPais1 = sistema.seleccionarPais("Uruguay");
+
+        sistema.reforzar(unPais1, 5);
         sistema.siguienteTurno();
-        sistema.reforzar(china, 5);
+        Pais unPais2 = sistema.seleccionarPais("China");
+
+        sistema.reforzar(unPais, 5);
 
         int cantidadTropasTotales = 0;
         cantidadTropasTotales += argentina.getEjercitos();

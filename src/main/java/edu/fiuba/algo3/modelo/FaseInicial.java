@@ -9,8 +9,7 @@ import java.util.Queue;
 public class FaseInicial implements Fase {
 
     RondaInicial rondaInicial;
-    Tablero tablero;
-    Integer ejercitosAColocar;
+
 
     public FaseInicial(Queue<Integer> colaDeNumerosDeRefuerzoPorRonda, Tablero referenciaTablero) {   // {5, 3}
         this.rondaInicial = new RondaInicial(colaDeNumerosDeRefuerzoPorRonda, referenciaTablero);
@@ -19,28 +18,21 @@ public class FaseInicial implements Fase {
     public Fase siguienteRonda() {
         if (this.rondaInicial.puedeContinuar()) {
             rondaInicial.siguienteRonda();
-            this.ejercitosAColocar = ejercitosAColocar();
             return this;
         }
 
-        return new FaseDeJuego();
+        return new FaseDeJuego(rondaInicial.pedirTablero());
     }
 
 
-    public Integer ejercitosAColocar() {
-        return rondaInicial.cantidadRefuerzo();
-    }
 
     @Override
     public String getFaseActual(){
         return "Fase inicial";
     }
 
-    public void siguienteTurno(){
-        if (this.ejercitosAColocar > 0) {
-            throw new NoReforzoTodosLosEjercitosException();
-        }
-        ejercitosAColocar = rondaInicial.cantidadRefuerzo();
+    public void siguienteTurno() {
+        this.rondaInicial.siguienteTurno();
     }
 
 
@@ -49,11 +41,7 @@ public class FaseInicial implements Fase {
     }
 
     public void reforzar(Pais pais, int cantidadEjercitos) {
-        if (this.ejercitosAColocar < cantidadEjercitos) {
-            throw new NoPuedeColocarTantosEjercitosException("Solo disponde de " + ejercitosAColocar + " fichas.");
-        }
-        this.ejercitosAColocar -= cantidadEjercitos;
-        pais.reforzar(cantidadEjercitos);
+        this.rondaInicial.reforzar(pais, cantidadEjercitos);
     }
 
     @Override

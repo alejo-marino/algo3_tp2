@@ -45,6 +45,10 @@ public class SistemaDeTurnos {
     public void reforzar(Pais argentina, int cantidadEjercitos) {
         faseActual.reforzar(argentina, cantidadEjercitos);
     }
+
+    public Pais seleccionarPais(String nombrePais) {
+        return faseActual.seleccionarPais(nombrePais, this.turnoDe());
+    }
     /*
     int numeroDeFase = 1;
 
