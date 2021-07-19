@@ -557,8 +557,8 @@ public class TestCombate {
         tiradaDefensor.add(6);
         tiradaDefensor.add(6);
         tiradaDefensor.add(1);
-
-        Combate combate = new Combate(atacante, defensor);
+        Integer cantEjercitosAtacantes = atacante.getEjercitosParaAtacar();
+        Combate combate = new Combate(atacante, defensor, cantEjercitosAtacantes);
         combate.combatePredeterminado(tiradaAtacante, tiradaDefensor);
         assertFalse(atacante.esAliado(defensor));
         assertEquals(1, atacante.getEjercitos());
