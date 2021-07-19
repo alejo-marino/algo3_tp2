@@ -24,9 +24,10 @@ public class Pais {
         return batallon.getEjercitosParaAtacar();
     }
 
-/*    public ArrayList<Pais> getPaisesLimitrofes() {
-        return paisesLimitrofes;
-    }*/
+    public boolean puedeAtacar() {
+        return this.getEjercitosParaAtacar() > 0;
+    }
+
 
     public Jugador getDuenio() {
         return duenio;
@@ -53,18 +54,6 @@ public class Pais {
         return this.duenio == pais.getDuenio();
     }
 
-/*    public void conquistarFinal(Pais conquistado){
-        conquistado.duenio = this.duenio;
-        int cantEjercitosAMover = input.nextInt();
-        int cantEjercitos = this.batallon.getEjercitos();
-        if (cantEjercitosAMover < 1 || cantEjercitosAMover > (cantEjercitos - 1)) {
-            System.out.println("La cantidad a movilizar es invalida.");
-            this.conquistar(conquistado);
-            return;
-        }
-        this.disminuirEjercitos(cantEjercitosAMover);
-        conquistado.reforzar(cantEjercitosAMover);
-    }*/
 
     public void conquistar(Pais conquistado) {
         conquistado.duenio = this.duenio;
@@ -75,32 +64,7 @@ public class Pais {
     public void hacerLimitrofe(Pais pais) {
         this.paisesLimitrofes.add(pais);
     }
-/*
-    public void esLimitrofeCon(Pais pais) {
-        if (!this.paisesLimitrofes.contains(pais)) {
-            throw new AtaqueAPaisNoLimitrofeException(this + " y " + pais.toString() + " no son limitrofes.");
-        }
-    }
 
-    public void verificarAtaque(Jugador jugador, Pais defensor) {
-        this.esDuenioPais(jugador);
-        this.esLimitrofeCon(defensor);
-        this.esDuenioPaisAtacado(defensor);
-
-    }*/
-/*
-    private void esDuenioPaisAtacado(Pais defensor) {
-        if (this.esAliado(defensor)) {
-            throw new AtaqueAPaisPropioException(defensor + " te pertenece, no podes atacarlo.");
-        }
-    }
-
-    private void esDuenioPais(Jugador jugador) {
-        if (jugador != duenio) {
-            throw new AtaqueConPaisAjenoException("Este país no te pertenece");
-        }
-    }
-*/
     public void serConquistadoPor(Pais atacante) {
         if (!this.tengoEjercitos()) {
             atacante.conquistar(this);
@@ -108,6 +72,6 @@ public class Pais {
     }
 
     public boolean esDuenio(Jugador jugador) {
-        return (jugador == duenio);
+        return (jugador ==duenio);
     }
 }
