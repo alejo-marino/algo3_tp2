@@ -55,5 +55,9 @@ public class FaseInicial implements Fase {
         this.ejercitosAColocar -= cantidadEjercitos;
         pais.reforzar(cantidadEjercitos);
     }
-    // this.fase = fase.siguiente();
+
+    @Override
+    public Pais seleccionarPais(String nombrePais, Jugador jugador) {
+        return rondaInicial.seleccionarPais(nombrePais, jugador);
+    }
 }

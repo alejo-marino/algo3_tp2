@@ -106,4 +106,8 @@ public class Pais {
             atacante.conquistar(this);
         }
     }
+
+    public boolean esDuenio(Jugador jugador) {
+        return (jugador == duenio);
+    }
 }
