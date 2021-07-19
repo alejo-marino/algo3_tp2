@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 
 
 import java.awt.image.AreaAveragingScaleFilter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class SeleccionNombreJugadores {
@@ -35,7 +36,13 @@ public class SeleccionNombreJugadores {
         }
 
         Button empezar = new Button("Empezar");
-        empezar.setOnAction(event -> Inicio.display(nombreJugadores));
+        empezar.setOnAction(event -> {
+            try {
+                Inicio.display(nombreJugadores);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
         layout.getChildren().addAll(nombreJugadores);
         layout.getChildren().add(empezar);
