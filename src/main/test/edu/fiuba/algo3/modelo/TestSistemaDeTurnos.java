@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.modelo.excepciones.AtaqueAPaisPropioException;
 import edu.fiuba.algo3.modelo.excepciones.NoPuedeColocarTantosEjercitosException;
 import edu.fiuba.algo3.modelo.excepciones.NoReforzoTodosLosEjercitosException;
 import edu.fiuba.algo3.modelo.excepciones.SeleccionaPaisAjenoException;

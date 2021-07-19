@@ -7,8 +7,6 @@ import java.util.LinkedList;
 public class SistemaDeTurnos {
 
     Queue<Jugador> colaJugadores;
-    Tablero tablero;
-    Integer cantidadJugadores;
     Integer movimientos;
     Fase faseActual;
 
