@@ -17,7 +17,7 @@ public class Pais {
         this.nombre = nombre;
         this.duenio = duenio;
         this.batallon = new Batallon();
-        this.paisesLimitrofes = new ArrayList<>();
+        this.paisesLimitrofes = new ArrayList<Pais>();
     }
 
     public int getEjercitos() {
@@ -28,9 +28,9 @@ public class Pais {
         return batallon.getEjercitosParaAtacar();
     }
 
-    public ArrayList<Pais> getPaisesLimitrofes() {
+/*    public ArrayList<Pais> getPaisesLimitrofes() {
         return paisesLimitrofes;
-    }
+    }*/
 
     public Jugador getDuenio() {
         return duenio;
@@ -79,7 +79,7 @@ public class Pais {
     public void hacerLimitrofe(Pais pais) {
         this.paisesLimitrofes.add(pais);
     }
-
+/*
     public void esLimitrofeCon(Pais pais) {
         if (!this.paisesLimitrofes.contains(pais)) {
             throw new AtaqueAPaisNoLimitrofeException(this + " y " + pais.toString() + " no son limitrofes.");
@@ -91,8 +91,8 @@ public class Pais {
         this.esLimitrofeCon(defensor);
         this.esDuenioPaisAtacado(defensor);
 
-    }
-
+    }*/
+/*
     private void esDuenioPaisAtacado(Pais defensor) {
         if (this.esAliado(defensor)) {
             throw new AtaqueAPaisPropioException(defensor + " te pertenece, no podes atacarlo.");
@@ -104,7 +104,7 @@ public class Pais {
             throw new AtaqueConPaisAjenoException("Este país no te pertenece");
         }
     }
-
+*/
     public void serConquistadoPor(Pais atacante) {
         if (!this.tengoEjercitos()) {
             atacante.conquistar(this);
