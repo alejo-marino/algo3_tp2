@@ -26,7 +26,6 @@ public class SistemaDeTurnos {
 
     public SistemaDeTurnos(ArrayList<Jugador> listaJugadores, Tablero tablero, Queue colaDeNumerosDeRefuerzoPorRonda) {
         this.colaJugadores = this.crearColaDeLista(listaJugadores);
-        this.tablero = tablero;
         this.movimientos = 0;
         this.faseActual = new FaseInicial(colaDeNumerosDeRefuerzoPorRonda, tablero);
     }

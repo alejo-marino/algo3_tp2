@@ -6,7 +6,7 @@ public interface TipoDeRonda {
 
     public void reagrupar();
 
-    public void reforzar();
+    public void reforzar(Pais paisAReforzar, Integer ejercitosAReforzar);
 
-    public void seleccionarPais();
+    public Pais seleccionarPais(String nombrePais, Jugador jugador);
 }

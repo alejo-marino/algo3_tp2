@@ -1,6 +1,5 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.modelo.excepciones.AtaqueConPaisAjenoException;
 import edu.fiuba.algo3.modelo.excepciones.PaisInexistenteException;
 
 import java.util.ArrayList;

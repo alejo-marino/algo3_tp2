@@ -14,8 +14,10 @@ public class RondaInicial implements TipoDeRonda {
     public boolean puedeContinuar() {
         return colaRefuerzo.size() != 1;
     }
-    public Integer siguienteRonda() {
-        return colaRefuerzo.remove();
+
+    public void siguienteRonda() {
+        colaRefuerzo.remove();
+        this.ejercitosAColocar = this.cantidadRefuerzo();
     }
 
     public Integer cantidadRefuerzo() {
@@ -26,7 +28,9 @@ public class RondaInicial implements TipoDeRonda {
         return "Colocando " + this.cantidadRefuerzo() + " ejercitos";
     }
 
-    public void atacar() {}
+    public void atacar() {
+        throw new AtaqueInvalidoException("No es posible atacar en un turno de refuerzo inicial");
+    }
 
     public void reagrupar() {}
 

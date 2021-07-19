@@ -13,13 +13,8 @@ public class FaseInicial implements Fase {
     Integer ejercitosAColocar;
 
     public FaseInicial(Queue<Integer> colaDeNumerosDeRefuerzoPorRonda, Tablero referenciaTablero) {   // {5, 3}
-        this.rondaInicial = new RondaInicial(colaDeNumerosDeRefuerzoPorRonda);
-        this.tablero = referenciaTablero;
-        this.ejercitosAColocar = rondaInicial.cantidadRefuerzo();
+        this.rondaInicial = new RondaInicial(colaDeNumerosDeRefuerzoPorRonda, referenciaTablero);
     }
-
-
-
 
     public Fase siguienteRonda() {
         if (this.rondaInicial.puedeContinuar()) {

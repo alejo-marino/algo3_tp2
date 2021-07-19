@@ -20,11 +20,15 @@ public class FaseDeJuego implements Fase {
     public String getFaseActual() {
         return "Fase de juego";
     }
+
+    @Override
+    public Pais seleccionarPais(String nombrePais, Jugador jugador) {
+        return null;
+    }
+
     public void atacar() {}
 
     public void reagrupar() {}
-
-    public void seleccionarPais() {}
 
     public void reforzar() {}
 }

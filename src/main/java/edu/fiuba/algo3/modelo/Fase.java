@@ -8,4 +8,6 @@ public interface Fase {
     Fase siguienteRonda();
 
     String getFaseActual();
+
+    Pais seleccionarPais(String nombrePais, Jugador jugador);
 }

@@ -1,9 +1,5 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.modelo.excepciones.AtaqueAPaisNoLimitrofeException;
-import edu.fiuba.algo3.modelo.excepciones.AtaqueAPaisPropioException;
-import edu.fiuba.algo3.modelo.excepciones.AtaqueConPaisAjenoException;
-
 import java.util.ArrayList;
 
 public class Pais {
