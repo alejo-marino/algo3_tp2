@@ -267,8 +267,8 @@ public class TestTablero {
 
         Tablero tablero = new Tablero(paises);
 
-        Dictionary paisesPorJugador = tablero.obtenerPaisesSegunJugador();
-        System.out.println(paisesPorJugador);
+       /* Dictionary paisesPorJugador = tablero.obtenerPaisesSegunJugador();
+        System.out.println(paisesPorJugador);*/
     }
 }
 
