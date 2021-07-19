@@ -3,12 +3,10 @@ package edu.fiuba.algo3.modelo;
 public class FaseDeJuego implements Fase {
 
     TipoDeRonda rondaDeJuego;   // empieza en ataque, al hacer siguienteRonda pasa a ser de refuerzo y asi sucesivamente.
-    Tablero tablero;
     Integer numeroDeRonda;
 
     public FaseDeJuego (Tablero tablero) {
-        this.tablero = tablero;
-        rondaDeJuego = new RondaDeAtaque();
+        rondaDeJuego = new RondaDeAtaque(tablero);
         this.numeroDeRonda = 1;
     }
 

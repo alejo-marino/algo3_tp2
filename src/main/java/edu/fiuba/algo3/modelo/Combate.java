@@ -8,10 +8,12 @@ import edu.fiuba.algo3.modelo.excepciones.*;
 public class Combate {
     private final Pais atacante;
     private final Pais defensor;
+    private final Integer cantEjercitosAtacantes;
 
-    public Combate(Pais paisAtacante, Pais paisDefensor){
+    public Combate(Pais paisAtacante, Pais paisDefensor, Integer cantEjercitosAtacantes){
         this.atacante = paisAtacante;
         this.defensor = paisDefensor;
+        this.cantEjercitosAtacantes = cantEjercitosAtacantes;
     }
     //Ssi es así,
     // dos tiradas de dados, el algoritmo que calcule cuántos ejércitos pierde cada uno dependiendo de las tiradas, remover ejércitos, preguntar si ahora es
@@ -21,8 +23,8 @@ public class Combate {
         int cantEjercitosDefensores = this.defensor.getEjercitos();
 
         DadosDeSeisCaras dados = new DadosDeSeisCaras();
-        ArrayList<Integer> tiradaAtacante = dados.tirarDados(cantEjercitosAtacante);
-        ArrayList<Integer> tiradaDefensor = dados.tirarDados(cantEjercitosDefensor);
+        ArrayList<Integer> tiradaAtacante = dados.tirarDados(this.cantEjercitosAtacantes);
+        ArrayList<Integer> tiradaDefensor = dados.tirarDados(cantEjercitosDefensores);
 
         determinarGanador(tiradaAtacante, tiradaDefensor);
     }

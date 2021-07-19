@@ -36,10 +36,26 @@ public class RondaDeAtaque implements TipoDeRonda {
     }
 
     public void reforzar(Pais paisAReforzar, Integer ejercitosAReforzar) {
-
+        throw new RefuerzoInvalidoException("No es posible reforzar en un turno de ataque");
     }
 
     @Override
-    public Pais seleccionarPais(String nombrePais, Jugador jugador) { return null;
+    public Pais seleccionarPais(String nombrePais, Jugador jugador) {
+        Pais paisSeleccionado = this.tablero.seleccionarPais(nombrePais);
+        if (this.paisAtacante == null) {
+            paisAtacante = paisSeleccionado;
+            if (!paisAtacante.esDuenio(jugador)) {
+                throw new SeleccionaPaisAjenoException("El pais: " + nombrePais + " no te pertenece");
+            }
+            if (paisAtacante.puedeAtacar()) {
+                throw new EjercitosInvalidosException("El pais: " + nombrePais + " no tiene ejercitos suficientes para atacar");
+            }
+            return paisAtacante;
+        }
+        if (paisSeleccionado.esAliado(paisAtacante)) {
+            throw new AtaqueAPaisPropioException("No podes atacar a un pais propio");
+        }
+        this.paisDefensor = paisSeleccionado;
+        return paisSeleccionado;
     }
 }
