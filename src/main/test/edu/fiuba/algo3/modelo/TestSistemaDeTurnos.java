@@ -335,7 +335,7 @@ public class TestSistemaDeTurnos {
 
         sistema.reforzar(unPais1, 5);
         sistema.siguienteTurno();
-        Pais unPais2 = sistema.seleccionarPais("China");
+        //Pais unPais2 = sistema.seleccionarPais("China");
 
         sistema.reforzar(unPais, 5);
 
@@ -503,7 +503,7 @@ public class TestSistemaDeTurnos {
 
         SistemaDeTurnos sistema = new SistemaDeTurnos(listaJugadores,tablero, cola);
         sistema.reforzar(argentina, 2);
-        assertThrows(NoReforzoTodosLosEjercitosException.class, () -> sistema.siguienteTurno());
+        assertThrows(NoReforzoTodosLosEjercitosException.class, sistema::siguienteTurno);
     }
 
     @Test

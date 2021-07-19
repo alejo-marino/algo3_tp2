@@ -2,7 +2,7 @@ package edu.fiuba.algo3.modelo;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import edu.fiuba.algo3.modelo.excepciones.*;
+
 
 public class TestPais {
 
@@ -39,7 +39,7 @@ public class TestPais {
     }
 
     @Test
-    public void test06CreoUnPaisYLoRefuerzoConDosEjercitosYAhoraTieneDosEjercitosParaAtacar (){
+    public void test05CreoUnPaisYLoRefuerzoConDosEjercitosYAhoraTieneDosEjercitosParaAtacar (){
         Jugador jugador = new Jugador("000000");
         Pais pais = new Pais("Argentina", jugador);
         pais.reforzar(2);
@@ -47,7 +47,7 @@ public class TestPais {
     }
 
     @Test
-    public void test07CreoUnPaisYLoRefuerzoConDiezEjercitosYAhoraTieneTresEjercitosParaAtacar(){
+    public void test06CreoUnPaisYLoRefuerzoConDiezEjercitosYAhoraTieneTresEjercitosParaAtacar(){
         Jugador jugador = new Jugador("000000");
         Pais pais = new Pais("Argentina", jugador);
         pais.reforzar(10);
@@ -55,7 +55,7 @@ public class TestPais {
     }
 
     @Test
-    public void test08Pais1ConquistaAPais2YPais2EsAliadoDePais1(){
+    public void test07Pais1ConquistaAPais2YPais2EsAliadoDePais1(){
         Jugador jugador1 = new Jugador("000000");
         Jugador jugador2 = new Jugador("ffffff");
 
@@ -66,7 +66,7 @@ public class TestPais {
     }
 
     @Test
-    public void test09DosPaisesDeUnJugadorSonAliados(){
+    public void test08DosPaisesDeUnJugadorSonAliados(){
         Jugador jugador1 = new Jugador("000000");
         Pais pais1 = new Pais("Argentina",jugador1);
         Pais pais2 = new Pais("Uruguay", jugador1);
