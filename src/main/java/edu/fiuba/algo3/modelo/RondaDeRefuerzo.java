@@ -1,9 +1,9 @@
 package edu.fiuba.algo3.modelo;
 
 public class RondaDeRefuerzo implements TipoDeRonda {
-    public void atacar() {}
+    public void atacar(int cantidadEjercitos) {}
 
-    public void reagrupar() {}
+    public void reagrupar(Pais origen, Pais destino, int cantidadEjercitos) {}
 
     public void reforzar(Pais paisAReforzar, Integer ejercitosAReforzar) { }
 

@@ -1,7 +1,5 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.modelo.excepciones.EjercitosInsuficientesException;
-
 public class Batallon {
 
     private int ejercitos;

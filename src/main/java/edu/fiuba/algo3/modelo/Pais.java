@@ -66,7 +66,7 @@ public class Pais {
         conquistado.reforzar(cantEjercitosAMover);
     }*/
 
-    public void conquistar(Pais conquistado){
+    public void conquistar(Pais conquistado) {
         conquistado.duenio = this.duenio;
         conquistado.reforzar(1);
         this.disminuirEjercitos(1);

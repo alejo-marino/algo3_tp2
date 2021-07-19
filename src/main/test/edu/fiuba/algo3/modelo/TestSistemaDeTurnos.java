@@ -1,9 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.modelo.excepciones.AtaqueAPaisPropioException;
-import edu.fiuba.algo3.modelo.excepciones.NoPuedeColocarTantosEjercitosException;
-import edu.fiuba.algo3.modelo.excepciones.NoReforzoTodosLosEjercitosException;
-import edu.fiuba.algo3.modelo.excepciones.SeleccionaPaisAjenoException;
+import edu.fiuba.algo3.modelo.excepciones.*;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -509,6 +506,68 @@ public class TestSistemaDeTurnos {
         assertThrows(NoReforzoTodosLosEjercitosException.class, () -> sistema.siguienteTurno());
     }
 
+    @Test
+    public void test11CreoUnSistemaDeTurnosYNoPuedoAtacar () {
+        Jugador jugador1 = new Jugador("000000");
+        Jugador jugador2 = new Jugador("ffffff");
+        Jugador jugador3 = new Jugador("ff0000");
+
+        Pais argentina = new Pais("Argentina",jugador1);
+        Pais uruguay = new Pais("Uruguay",jugador2);
+        Pais china = new Pais("China",jugador3);
+        ArrayList<Jugador> listaJugadores = new ArrayList<>();
+
+        Queue<Integer> cola = new LinkedList<>();
+        cola.add(5);
+        cola.add(3);
+
+        listaJugadores.add(jugador1);
+        listaJugadores.add(jugador2);
+        listaJugadores.add(jugador3);
+        ArrayList<Pais> paises = new ArrayList<>();
+        paises.add(argentina);
+        paises.add(uruguay);
+        paises.add(china);
+        argentina.hacerLimitrofe(uruguay);
+        uruguay.hacerLimitrofe(argentina);
+        Tablero tablero = new Tablero(paises);
+
+        SistemaDeTurnos sistema = new SistemaDeTurnos(listaJugadores,tablero, cola);
+        sistema.reforzar(argentina, 2);
+        assertThrows(AtaqueInvalidoException.class, () -> sistema.atacar(argentina, uruguay, 3));
+    }
+
+    @Test
+    public void test12CreoUnSistemaDeTurnosYNoPuedoReagrupar () {
+        Jugador jugador1 = new Jugador("000000");
+        Jugador jugador2 = new Jugador("ffffff");
+        Jugador jugador3 = new Jugador("ff0000");
+
+        Pais argentina = new Pais("Argentina",jugador1);
+        Pais uruguay = new Pais("Uruguay",jugador2);
+        Pais china = new Pais("China",jugador3);
+        ArrayList<Jugador> listaJugadores = new ArrayList<>();
+
+        Queue<Integer> cola = new LinkedList<>();
+        cola.add(5);
+        cola.add(3);
+
+        listaJugadores.add(jugador1);
+        listaJugadores.add(jugador2);
+        listaJugadores.add(jugador3);
+        ArrayList<Pais> paises = new ArrayList<>();
+        paises.add(argentina);
+        paises.add(uruguay);
+        paises.add(china);
+        argentina.hacerLimitrofe(uruguay);
+        uruguay.hacerLimitrofe(argentina);
+        Tablero tablero = new Tablero(paises);
+
+        SistemaDeTurnos sistema = new SistemaDeTurnos(listaJugadores,tablero, cola);
+        sistema.reforzar(argentina, 2);
+        assertThrows(ReagrupeInvalidoException.class, () -> sistema.reagrupar(argentina, uruguay, 3));
+    }
+
 
 //    @Test
 //    public void test12CreoUnSistemaDeTurnosYJugadorNoPuedeColocarMenosDeCincoFichas () {
@@ -581,13 +640,3 @@ public class TestSistemaDeTurnos {
         assertEquals("Fase inicial", sistema.getFaseActual());
     }*/
 }
-
-/*
-    Fase inicial
-        - Refuerzo de 5
-        - Refuerzo de 3
-    Fase de Juego
-        - Ataque normal
-        - Refuerzo normal
-        -
- */

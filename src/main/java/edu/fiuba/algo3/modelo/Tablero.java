@@ -24,6 +24,8 @@ public class Tablero {
         }
         throw new PaisInexistenteException(nombrePais + " no se encuentra en el tablero.");
     }
+
+
     public Dictionary obtenerPaisesSegunJugador() {
         Hashtable<Jugador, ArrayList> paisesSegunJugador = new Hashtable();
         for (Pais paisActual : paises) {

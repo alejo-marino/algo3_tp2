@@ -37,9 +37,9 @@ public class FaseDeJuego implements Fase {
         return null;
     }
 
-    public void atacar() {}
+    public void atacar(Pais atacante, Pais defensor, int cantidadEjercitos) {}
 
-    public void reagrupar() {}
+    public void reagrupar(Pais origen, Pais destino, int cantidadEjercitos) {}
 
     public void reforzar() {}
 }

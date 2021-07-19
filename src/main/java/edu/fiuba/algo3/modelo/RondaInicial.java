@@ -2,7 +2,6 @@ package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.excepciones.*;
 
-import java.util.LinkedList;
 import java.util.Queue;
 
 public class RondaInicial implements TipoDeRonda {
@@ -34,11 +33,11 @@ public class RondaInicial implements TipoDeRonda {
         return "Colocando " + this.cantidadRefuerzo() + " ejercitos";
     }
 
-    public void atacar() {
+    public void atacar(int cantidadEjercitos) {
         throw new AtaqueInvalidoException("No es posible atacar en un turno de refuerzo inicial");
     }
 
-    public void reagrupar() {
+    public void reagrupar(Pais origen, Pais destino, int cantidadEjercitos) {
         throw new ReagrupeInvalidoException("No es posible reagrupar en un turno de refuerzo inicial");
     }
 

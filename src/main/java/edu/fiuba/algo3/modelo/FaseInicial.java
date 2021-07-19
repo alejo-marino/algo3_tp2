@@ -1,9 +1,5 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.modelo.excepciones.NoPuedeColocarTantosEjercitosException;
-import edu.fiuba.algo3.modelo.excepciones.NoReforzoTodosLosEjercitosException;
-
-import java.util.NoSuchElementException;
 import java.util.Queue;
 
 public class FaseInicial implements Fase {
@@ -47,5 +43,15 @@ public class FaseInicial implements Fase {
     @Override
     public Pais seleccionarPais(String nombrePais, Jugador jugador) {
         return rondaInicial.seleccionarPais(nombrePais, jugador);
+    }
+
+    @Override
+    public void atacar(Pais atacante, Pais defensor, int cantidadEjercitos) {
+        rondaInicial.atacar(cantidadEjercitos);
+    }
+
+    @Override
+    public void reagrupar(Pais origen, Pais destino, int cantidadEjercitos) {
+        rondaInicial.reagrupar(origen, destino, cantidadEjercitos);
     }
 }

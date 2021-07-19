@@ -10,4 +10,8 @@ public interface Fase {
     String getFaseActual();
 
     Pais seleccionarPais(String nombrePais, Jugador jugador);
+
+    void atacar(Pais atacante, Pais defensor, int cantidadEjercitos);
+
+    void reagrupar(Pais origen, Pais destino, int cantidadEjercitos);
 }

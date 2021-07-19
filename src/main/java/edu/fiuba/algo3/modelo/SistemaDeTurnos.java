@@ -49,6 +49,14 @@ public class SistemaDeTurnos {
     public Pais seleccionarPais(String nombrePais) {
         return faseActual.seleccionarPais(nombrePais, this.turnoDe());
     }
+
+    public void atacar(Pais atacante, Pais defensor, int cantidadEjercitos) {
+        faseActual.atacar(atacante, defensor, cantidadEjercitos);
+    }
+
+    public void reagrupar(Pais origen, Pais destino, int cantidadEjercitos) {
+        faseActual.reagrupar(origen, destino, cantidadEjercitos);
+    }
     /*
     int numeroDeFase = 1;
 
