@@ -40,7 +40,7 @@ public class ConfirmBox {
             window.close();
         });
         window.setScene(scene);
-        window.showAndWait();
+        window.show();
         return respuesta;
     }
 }
