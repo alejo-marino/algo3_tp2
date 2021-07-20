@@ -51,4 +51,5 @@ public class TurnoRefuerzo implements EstadoTurno {
     public void reforzar(int cantidadEjercitosAReforzar) {
         paisRefuerzo.reforzar(cantidadEjercitosAReforzar);
     }
+
 }

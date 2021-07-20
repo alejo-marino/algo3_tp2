@@ -65,6 +65,7 @@ public class TestRondaDeRefuerzo {
 
         assertEquals(argentina, paisSeleccionado);
     }
+
     @Test
     public void test04CreoUnaRondaDeRefuerzoYPuedoReforzarUnPaisPropio(){
         Pais paisSeleccionado = ronda.seleccionarPais("Argentina", jugador1);

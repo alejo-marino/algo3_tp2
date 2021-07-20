@@ -36,6 +36,7 @@ public class RondaDeRefuerzo implements TipoDeRonda {
 
     @Override
     public void siguienteTurno(){
+
         estadoturno.cambiarEstado();
     }
 }
