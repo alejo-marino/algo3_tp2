@@ -38,6 +38,7 @@ public class Combate {
         int encuentros = Math.min((tiradaAtacante.size()), (tiradaDefensor.size()));
         int ganaAtacante = 0;
         int ganaDefensor = 0;
+
         for (int i = 0; i < encuentros; i++) {
             if ( ganadorTirada( tiradaDefensor.get(i), tiradaAtacante.get(i))){
                 ganaAtacante++;
