@@ -6,15 +6,26 @@ import edu.fiuba.algo3.modelo.excepciones.*;
 public class RondaDeAtaqueYReagrupe implements TipoDeRonda {
 
     private final Tablero tablero;
-    private Pais paisAtacante;
-    private Pais paisDefensor;
+    private EstadoTurno estadoTurno;
 
     public RondaDeAtaqueYReagrupe(Tablero tablero) {
         this.tablero = tablero;
+        estadoTurno = new TurnoAtaque(tablero);
     }
 
-    public void terminarAtaque(Tablero tablero) {
-        //return RondaDeReagrupe(tablero);
+    // se llamara a este metodo cuando se termine la parte de ataque del turno, el jugador podra reagrupar antes de terminar su turno.
+    public void terminarAtaque() {
+        //estadoTurno.cancelarAccion();
+        estadoTurno = estadoTurno.cambiarEstado();
+    }
+
+    // se llamara a este metodo cuando se termine la parte de reagrupe del turno, el proximo jugador podra atacar cuando empieze su turno.
+    public void siguienteTurno() {
+        estadoTurno = estadoTurno.cambiarEstado();
+    }
+
+    public TipoDeRonda siguienteRonda() {
+        return new RondaDeRefuerzo(tablero);
     }
 
     public void atacar(int cantidadEjercitos) {
