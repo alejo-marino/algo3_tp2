@@ -18,7 +18,6 @@ public class Batallon {
         } else {
             return ejercitos - 1;
         }
-
     }
 
     public void agregarEjercitos(int cantidadEjercitos) {
@@ -34,5 +33,12 @@ public class Batallon {
         if (ejercitos < 0) {
             ejercitos = 0;
         }
+    }
+
+    public int getEjercitosParaDefender() {
+        if (ejercitos > 3) {
+            return 3;
+        }
+        return ejercitos;
     }
 }

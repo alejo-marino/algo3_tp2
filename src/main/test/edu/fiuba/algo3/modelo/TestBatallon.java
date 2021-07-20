@@ -89,4 +89,17 @@ public class TestBatallon {
         batallon.disminuirEjercitos(2);
         assertEquals(batallon.getEjercitos(), 0);
     }
+
+    @Test
+    public void test13CreoUnBatallonYAgrego5EjercitosYTengo3EjercitosParaDefender (){
+        Batallon batallon = new Batallon();
+        batallon.agregarEjercitos(5);
+        assertEquals(batallon.getEjercitosParaDefender(), 3);
+    }
+
+    @Test
+    public void test14CreoUnBatallonYTengo1EjercitoParaDefender (){
+        Batallon batallon = new Batallon();
+        assertEquals(batallon.getEjercitosParaDefender(), 1);
+    }
 }

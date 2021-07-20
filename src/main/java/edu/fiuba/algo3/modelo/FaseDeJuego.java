@@ -6,7 +6,7 @@ public class FaseDeJuego implements Fase {
     Integer numeroDeRonda;
 
     public FaseDeJuego (Tablero tablero) {
-        rondaDeJuego = new RondaDeAtaque(tablero);
+        rondaDeJuego = new RondaDeAtaqueYReagrupe(tablero);
         this.numeroDeRonda = 1;
     }
 

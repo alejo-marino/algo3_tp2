@@ -42,20 +42,20 @@ public class SistemaDeTurnos {
         return faseActual.getFaseActual();
     }
 
-    public void reforzar(Pais argentina, int cantidadEjercitos) {
-        faseActual.reforzar(argentina, cantidadEjercitos);
+    public void reforzar(int cantidadEjercitos) {
+        faseActual.reforzar(cantidadEjercitos);
     }
 
     public Pais seleccionarPais(String nombrePais) {
         return faseActual.seleccionarPais(nombrePais, this.turnoDe());
     }
 
-    public void atacar(Pais atacante, Pais defensor, int cantidadEjercitos) {
-        faseActual.atacar(atacante, defensor, cantidadEjercitos);
+    public void atacar(int cantidadEjercitos) {
+        faseActual.atacar(cantidadEjercitos);
     }
 
-    public void reagrupar(Pais origen, Pais destino, int cantidadEjercitos) {
-        faseActual.reagrupar(origen, destino, cantidadEjercitos);
+    public void reagrupar(int cantidadEjercitos) {
+        faseActual.reagrupar(cantidadEjercitos);
     }
     /*
     int numeroDeFase = 1;

@@ -74,4 +74,8 @@ public class Pais {
     public boolean esDuenio(Jugador jugador) {
         return (jugador ==duenio);
     }
+
+    public int getEjercitosParaDefender() {
+        return this.batallon.getEjercitosParaDefender();
+    }
 }

@@ -9,6 +9,7 @@ public class RondaInicial implements TipoDeRonda {
     private Queue<Integer> colaRefuerzo;
     Integer ejercitosAColocar;
     Tablero tablero;
+    private Pais paisAReforzar;
 
     public RondaInicial(Queue<Integer> colaDeNumerosDeRefuerzoPorRonda, Tablero referenciaTablero) {
         colaRefuerzo = colaDeNumerosDeRefuerzoPorRonda;
@@ -37,7 +38,8 @@ public class RondaInicial implements TipoDeRonda {
         throw new AtaqueInvalidoException("No es posible atacar en un turno de refuerzo inicial");
     }
 
-    public void reagrupar(Pais origen, Pais destino, int cantidadEjercitos) {
+    @Override
+    public void reagrupar(int cantidadEjercitos) {
         throw new ReagrupeInvalidoException("No es posible reagrupar en un turno de refuerzo inicial");
     }
 
@@ -54,15 +56,17 @@ public class RondaInicial implements TipoDeRonda {
         if (!paisASeleccionar.esDuenio(jugador)) {
             throw new SeleccionaPaisAjenoException("El pais: " + nombrePais + " no te pertenece.");
         }
+        this.paisAReforzar = paisASeleccionar;
         return paisASeleccionar;
     }
+
     @Override
-    public void reforzar(Pais paisAReforzar, Integer ejercitosAReforzar) {
+    public void reforzar(Integer ejercitosAReforzar) {
         if (this.ejercitosAColocar < ejercitosAReforzar) {
             throw new NoPuedeColocarTantosEjercitosException("Solo disponde de " + ejercitosAReforzar + " fichas.");
         }
         this.ejercitosAColocar -= ejercitosAReforzar;
-        paisAReforzar.reforzar(ejercitosAReforzar);
+        this.paisAReforzar.reforzar(ejercitosAReforzar);
     }
 
     public Tablero pedirTablero() {

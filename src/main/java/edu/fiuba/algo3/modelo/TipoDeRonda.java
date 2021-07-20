@@ -4,9 +4,9 @@ public interface TipoDeRonda {
 
     public void atacar(int cantidadEjercitos);
 
-    public void reagrupar(Pais origen, Pais destino, int cantidadEjercitos);
+    public void reagrupar(int cantidadEjercitos);
 
-    public void reforzar(Pais paisAReforzar, Integer ejercitosAReforzar);
+    public void reforzar(Integer ejercitosAReforzar);
 
     public Pais seleccionarPais(String nombrePais, Jugador jugador);
 }

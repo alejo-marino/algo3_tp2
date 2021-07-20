@@ -72,4 +72,19 @@ public class TestPais {
         Pais pais2 = new Pais("Uruguay", jugador1);
         assertTrue(pais1.esAliado(pais2));
     }
+
+    @Test
+    public void test09CreoUnPaisYRefuerzo5YTiene3EjercitosParaDefender(){
+        Jugador jugador1 = new Jugador("000000");
+        Pais argentina = new Pais("Argentina",jugador1);
+        argentina.reforzar(5);
+        assertEquals(3, argentina.getEjercitosParaDefender());
+    }
+
+    @Test
+    public void test10CreoUnPaisYTiene1EjercitoParaDefender(){
+        Jugador jugador1 = new Jugador("000000");
+        Pais argentina = new Pais("Argentina",jugador1);
+        assertEquals(1, argentina.getEjercitosParaDefender());
+    }
 }

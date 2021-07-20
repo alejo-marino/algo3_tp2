@@ -20,7 +20,7 @@ public class Combate {
     // conquistable el país defensor
     public void combatir() {
 
-        int cantEjercitosDefensores = this.defensor.getEjercitos();
+        int cantEjercitosDefensores = this.defensor.getEjercitosParaDefender();
 
         DadosDeSeisCaras dados = new DadosDeSeisCaras();
         ArrayList<Integer> tiradaAtacante = dados.tirarDados(this.cantEjercitosAtacantes);

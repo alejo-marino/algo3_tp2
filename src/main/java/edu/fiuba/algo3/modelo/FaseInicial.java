@@ -51,7 +51,7 @@ public class FaseInicial implements Fase {
     }
 
     @Override
-    public void reagrupar(Pais origen, Pais destino, int cantidadEjercitos) {
-        rondaInicial.reagrupar(origen, destino, cantidadEjercitos);
+    public void reagrupar(int cantidadEjercitos) {
+        rondaInicial.reagrupar( cantidadEjercitos);
     }
 }
