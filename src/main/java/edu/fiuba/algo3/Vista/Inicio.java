@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 public class Inicio {
 
+    public static ArrayList jugadores;
     public static void display(ArrayList<TextField> nombreJugadores) throws IOException {
         Stage stage = new Stage();
 
@@ -30,16 +31,14 @@ public class Inicio {
         for (TextField nombre : nombreJugadores) {
             nombreDeJugadores.add(nombre.getText());
         }
-
+        jugadores = nombreDeJugadores;
         System.out.println(nombreDeJugadores);
 
 
         FXMLLoader loader = new FXMLLoader();
         URL fxmlLocation = Inicio.class.getClassLoader().getResource("vistas/Tablero.fxml");
         loader.setLocation(fxmlLocation);
-        System.out.println(fxmlLocation);
-        TableroController tableroController = new TableroController(nombreDeJugadores);
-        loader.setController(tableroController);
+
         Pane content = loader.load();
 
 
