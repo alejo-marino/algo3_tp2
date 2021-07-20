@@ -9,4 +9,10 @@ public interface TipoDeRonda {
     public void reforzar(Integer ejercitosAReforzar);
 
     public Pais seleccionarPais(String nombrePais, Jugador jugador);
+
+    void cancelarAccion();
+
+    TipoDeRonda siguienteRonda();
+
+    void siguienteTurno();
 }

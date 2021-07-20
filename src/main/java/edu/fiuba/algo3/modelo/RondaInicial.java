@@ -21,9 +21,10 @@ public class RondaInicial implements TipoDeRonda {
         return colaRefuerzo.size() != 1;
     }
 
-    public void siguienteRonda() {
+    public TipoDeRonda siguienteRonda() {
         colaRefuerzo.remove();
         this.ejercitosAColocar = this.cantidadRefuerzo();
+        return this;
     }
 
     public Integer cantidadRefuerzo() {
@@ -69,7 +70,13 @@ public class RondaInicial implements TipoDeRonda {
         this.paisAReforzar.reforzar(ejercitosAReforzar);
     }
 
+    @Override
+    public void cancelarAccion() {
+        this.paisAReforzar = null;
+    }
+
     public Tablero pedirTablero() {
         return tablero;
     }
+
 }

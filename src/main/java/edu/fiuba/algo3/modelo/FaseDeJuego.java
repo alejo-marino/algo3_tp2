@@ -12,16 +12,13 @@ public class FaseDeJuego implements Fase {
 
     @Override
     public void siguienteTurno() {
-
+        rondaDeJuego.siguienteTurno();
     }
 
-    @Override
-    public void reforzar(Pais argentina, int cantidadEjercitos) {
-
-    }
 
     @Override
     public Fase siguienteRonda() {
+        rondaDeJuego = rondaDeJuego.siguienteRonda();
         return this;
     }
 
@@ -32,12 +29,21 @@ public class FaseDeJuego implements Fase {
 
     @Override
     public Pais seleccionarPais(String nombrePais, Jugador jugador) {
-        return null;
+        return rondaDeJuego.seleccionarPais(nombrePais, jugador);
+    }
+    @Override
+    public void atacar(int cantidadEjercitos) {   // las variables atacante y defensor son innecesarias
+        rondaDeJuego.atacar(cantidadEjercitos);
     }
 
-    public void atacar(Pais atacante, Pais defensor, int cantidadEjercitos) {}
+    @Override
+    public void reagrupar(int cantidadEjercitos) {
+        rondaDeJuego.reagrupar(cantidadEjercitos);
+    }
 
-    public void reagrupar(Pais origen, Pais destino, int cantidadEjercitos) {}
+    @Override
+    public void reforzar(int cantidadEjercitosAAgregar) {
+        rondaDeJuego.reforzar(cantidadEjercitosAAgregar);
+    }
 
-    public void reforzar() {}
 }
