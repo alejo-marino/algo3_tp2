@@ -1,379 +1,126 @@
 package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.excepciones.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
-
-
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
 public class TestSistemaDeTurnos {
-        @Test
-        public void test01CreoUnSistemaDeTurnosYNoEsNull () {
-            Jugador jugador1 = new Jugador("000000");
-            Jugador jugador2 = new Jugador("ffffff");
-            Jugador jugador3 = new Jugador("ff0000");
+    private Jugador jugador1;
+    private Jugador jugador2;
+    private Jugador jugador3;
+    private Pais argentina;
+    private Pais uruguay;
+    private Pais china;
+    private SistemaDeTurnos sistema;
 
-            Queue<Integer> cola = new LinkedList<>();
-            cola.add(5);    // Primera Ronda Inicial dejara a cada jugador poner 5 ejercitos en sus paises.
-            cola.add(3);    // Segunda Ronda Inicial dejara a cada jugador poner 3 ejercitos en sus paises. Luego de esta Ronda, comenzara la Fase De Juego.
-
-            Pais argentina = new Pais("Argentina",jugador1);
-            Pais uruguay = new Pais("Uruguay",jugador2);
-            Pais china = new Pais("China",jugador3);
-            ArrayList<Jugador> listaJugadores = new ArrayList<>();
-
-            listaJugadores.add(jugador1);
-            listaJugadores.add(jugador2);
-            listaJugadores.add(jugador3);
-            ArrayList<Pais> paises = new ArrayList<>();
-            paises.add(argentina);
-            paises.add(uruguay);
-            paises.add(china);
-            argentina.hacerLimitrofe(uruguay);
-            uruguay.hacerLimitrofe(argentina);
-            Tablero tablero = new Tablero(paises);
-
-            SistemaDeTurnos sistema = new SistemaDeTurnos(listaJugadores, tablero, cola);
-            assertNotNull(sistema);
-        }
-
-    @Test
-    public void test02CreoUnSistemaDeTurnosYComienzaElJugadorCorrecto () {
-        Jugador jugador1 = new Jugador("000000");
-        Jugador jugador2 = new Jugador("ffffff");
-        Jugador jugador3 = new Jugador("ff0000");
-
-        Pais argentina = new Pais("Argentina",jugador1);
-        Pais uruguay = new Pais("Uruguay",jugador2);
-        Pais china = new Pais("China",jugador3);
+    @BeforeEach
+    void setUp() {
+        this.jugador1 = new Jugador("000000");
+        this.jugador2 = new Jugador("ffffff");
+        this.jugador3 = new Jugador("fff000");
         ArrayList<Jugador> listaJugadores = new ArrayList<>();
-
-        Queue<Integer> cola = new LinkedList<>();
-        cola.add(5);
-        cola.add(3);
-
         listaJugadores.add(jugador1);
         listaJugadores.add(jugador2);
         listaJugadores.add(jugador3);
+
+        Queue<Integer> cola = new LinkedList<>();
+        cola.add(5);    // Primera Ronda Inicial dejara a cada jugador poner 5 ejercitos en sus paises.
+        cola.add(3);    // Segunda Ronda Inicial dejara a cada jugador poner 3 ejercitos en sus paises. Luego de esta Ronda, comenzara la Fase De Juego.
+
+        this.argentina = new Pais("Argentina", jugador1);
+        this.uruguay = new Pais("Uruguay", jugador2);
+        this.china = new Pais("China", jugador3);
+        argentina.hacerLimitrofe(uruguay);
+        uruguay.hacerLimitrofe(argentina);
         ArrayList<Pais> paises = new ArrayList<>();
         paises.add(argentina);
         paises.add(uruguay);
         paises.add(china);
-        argentina.hacerLimitrofe(uruguay);
-        uruguay.hacerLimitrofe(argentina);
-        Tablero tablero = new Tablero(paises);
 
-        SistemaDeTurnos sistema = new SistemaDeTurnos(listaJugadores, tablero, cola);
+        Tablero tablero = new Tablero(paises);
+        this.sistema = new SistemaDeTurnos(listaJugadores, tablero, cola);
+    }
+
+    @Test
+    public void test01CreoUnSistemaDeTurnosYNoEsNull() {
+        assertNotNull(sistema);
+    }
+
+    @Test
+    public void test02CreoUnSistemaDeTurnosYComienzaElJugadorCorrecto() {
         assertEquals(jugador1, sistema.turnoDe());
     }
 
     @Test
-    public void test03CreoUnSistemaDeTurnosYJugadorNoPuedeSeleccionarUnPaisAjeno () {
-        Jugador jugador1 = new Jugador("000000");
-        Jugador jugador2 = new Jugador("ffffff");
-        Jugador jugador3 = new Jugador("ff0000");
-
-        Pais argentina = new Pais("Argentina",jugador1);
-        Pais uruguay = new Pais("Uruguay",jugador2);
-        Pais china = new Pais("China",jugador3);
-        ArrayList<Jugador> listaJugadores = new ArrayList<>();
-
-        Queue<Integer> cola = new LinkedList<>();
-        cola.add(5);
-        cola.add(3);
-
-        listaJugadores.add(jugador1);
-        listaJugadores.add(jugador2);
-        listaJugadores.add(jugador3);
-        ArrayList<Pais> paises = new ArrayList<>();
-        paises.add(argentina);
-        paises.add(uruguay);
-        paises.add(china);
-        argentina.hacerLimitrofe(uruguay);
-        uruguay.hacerLimitrofe(argentina);
-        Tablero tablero = new Tablero(paises);
-
-        SistemaDeTurnos sistema = new SistemaDeTurnos(listaJugadores,tablero, cola);
+    public void test03CreoUnSistemaDeTurnosYJugadorNoPuedeSeleccionarUnPaisAjeno() {
         assertThrows(SeleccionaPaisAjenoException.class, () -> sistema.seleccionarPais("Uruguay"));
     }
 
     @Test
-    public void test04CreoUnSistemaDeTurnosYJugadorPuedeSeleccionarUnPaisPropio () {
-        Jugador jugador1 = new Jugador("000000");
-        Jugador jugador2 = new Jugador("ffffff");
-        Jugador jugador3 = new Jugador("ff0000");
-
-        Pais argentina = new Pais("Argentina",jugador1);
-        Pais uruguay = new Pais("Uruguay",jugador2);
-        Pais china = new Pais("China",jugador3);
-        ArrayList<Jugador> listaJugadores = new ArrayList<>();
-
-        Queue<Integer> cola = new LinkedList<>();
-        cola.add(5);
-        cola.add(3);
-
-        listaJugadores.add(jugador1);
-        listaJugadores.add(jugador2);
-        listaJugadores.add(jugador3);
-        ArrayList<Pais> paises = new ArrayList<>();
-        paises.add(argentina);
-        paises.add(uruguay);
-        paises.add(china);
-        argentina.hacerLimitrofe(uruguay);
-        uruguay.hacerLimitrofe(argentina);
-        Tablero tablero = new Tablero(paises);
-
-        SistemaDeTurnos sistema = new SistemaDeTurnos(listaJugadores,tablero, cola);
+    public void test04CreoUnSistemaDeTurnosYJugadorPuedeSeleccionarUnPaisPropio() {
         Pais unPais = sistema.seleccionarPais("Argentina");
-        assertEquals(unPais,argentina);
+
+        assertEquals(unPais, argentina);
     }
 
     @Test
-    public void test05CreoUnSistemaDeTurnosYPasoDeTurnoYJugador2NoPuedeSeleccionarPaisDeJugador1 () {
-        Jugador jugador1 = new Jugador("000000");
-        Jugador jugador2 = new Jugador("ffffff");
-        Jugador jugador3 = new Jugador("ff0000");
-
-        Pais argentina = new Pais("Argentina",jugador1);
-        Pais uruguay = new Pais("Uruguay",jugador2);
-        Pais china = new Pais("China",jugador3);
-        ArrayList<Jugador> listaJugadores = new ArrayList<>();
-
-        Queue<Integer> cola = new LinkedList<>();
-        cola.add(5);
-        cola.add(3);
-
-        listaJugadores.add(jugador1);
-        listaJugadores.add(jugador2);
-        listaJugadores.add(jugador3);
-        ArrayList<Pais> paises = new ArrayList<>();
-        paises.add(argentina);
-        paises.add(uruguay);
-        paises.add(china);
-        argentina.hacerLimitrofe(uruguay);
-        uruguay.hacerLimitrofe(argentina);
-        Tablero tablero = new Tablero(paises);
-
-        SistemaDeTurnos sistema = new SistemaDeTurnos(listaJugadores,tablero, cola);
+    public void test05CreoUnSistemaDeTurnosYPasoDeTurnoYJugador2NoPuedeSeleccionarPaisDeJugador1() {
         sistema.seleccionarPais("Argentina");
         sistema.reforzar(5);
         sistema.siguienteTurno();
+
         assertThrows(SeleccionaPaisAjenoException.class, () -> sistema.seleccionarPais("Argentina"));
     }
 
-   @Test
-    public void test05CreoUnSistemaDeTurnosYCambiaElTurnoCorrectamente () {
-        Jugador jugador1 = new Jugador("000000");
-        Jugador jugador2 = new Jugador("ffffff");
-        Jugador jugador3 = new Jugador("ff0000");
-
-        Pais argentina = new Pais("Argentina",jugador1);
-        Pais uruguay = new Pais("Uruguay",jugador2);
-        Pais china = new Pais("China",jugador3);
-        ArrayList<Jugador> listaJugadores = new ArrayList<>();
-
-        Queue<Integer> cola = new LinkedList<>();
-        cola.add(5);
-        cola.add(3);
-
-        listaJugadores.add(jugador1);
-        listaJugadores.add(jugador2);
-        listaJugadores.add(jugador3);
-        ArrayList<Pais> paises = new ArrayList<>();
-        paises.add(argentina);
-        paises.add(uruguay);
-        paises.add(china);
-        argentina.hacerLimitrofe(uruguay);
-        uruguay.hacerLimitrofe(argentina);
-        Tablero tablero = new Tablero(paises);
-
-        SistemaDeTurnos sistema = new SistemaDeTurnos(listaJugadores, tablero, cola);
-        Pais unPais = sistema.seleccionarPais("Argentina");
-        sistema.reforzar( 5);
+    @Test
+    public void test05CreoUnSistemaDeTurnosYCambiaElTurnoCorrectamente() {
+        sistema.seleccionarPais("Argentina");
+        sistema.reforzar(5);
         sistema.siguienteTurno();
+
         assertEquals(jugador2, sistema.turnoDe());
     }
 
     @Test
-    public void test04CreoUnSistemaDeTurnosYHagoUnaRondaCompletaYVuelveAlPrimerJugador () {
-        Jugador jugador1 = new Jugador("000000");
-        Jugador jugador2 = new Jugador("ffffff");
-        Jugador jugador3 = new Jugador("ff0000");
-
-        Pais argentina = new Pais("Argentina",jugador1);
-        Pais uruguay = new Pais("Uruguay",jugador2);
-        Pais china = new Pais("China",jugador3);
-        ArrayList<Jugador> listaJugadores = new ArrayList<>();
-
-        Queue<Integer> cola = new LinkedList<>();
-        cola.add(5);
-        cola.add(3);
-
-        listaJugadores.add(jugador1);
-        listaJugadores.add(jugador2);
-        listaJugadores.add(jugador3);
-        ArrayList<Pais> paises = new ArrayList<>();
-        paises.add(argentina);
-        paises.add(uruguay);
-        paises.add(china);
-        argentina.hacerLimitrofe(uruguay);
-        uruguay.hacerLimitrofe(argentina);
-        Tablero tablero = new Tablero(paises);
-
-        SistemaDeTurnos sistema = new SistemaDeTurnos(listaJugadores, tablero,cola );
-        Pais unPais = sistema.seleccionarPais("Argentina");
-        sistema.reforzar( 5);
-        sistema.siguienteTurno();
-        Pais unPais1 = sistema.seleccionarPais("Uruguay");
-        sistema.reforzar( 5);
-        sistema.siguienteTurno();
-        Pais unPais2 = sistema.seleccionarPais("China");
+    public void test04CreoUnSistemaDeTurnosYHagoUnaRondaCompletaYVuelveAlPrimerJugador() {
+        sistema.seleccionarPais("Argentina");
         sistema.reforzar(5);
         sistema.siguienteTurno();
+        sistema.seleccionarPais("Uruguay");
+        sistema.reforzar(5);
+        sistema.siguienteTurno();
+        sistema.seleccionarPais("China");
+        sistema.reforzar(5);
+        sistema.siguienteTurno();
+
         assertEquals(jugador1, sistema.turnoDe());
     }
 
     @Test
-    public void test05CreoUnSistemaDeTurnosYJugadorColocanCincoEjercitosCorrectamente () {
-        Jugador jugador1 = new Jugador("000000");
-        Jugador jugador2 = new Jugador("ffffff");
-        Jugador jugador3 = new Jugador("ff0000");
+    public void test05CreoUnSistemaDeTurnosYJugadorColocanCincoEjercitosCorrectamente() {
+        sistema.seleccionarPais("Argentina");
+        sistema.reforzar(5);
 
-        Pais argentina = new Pais("Argentina",jugador1);
-        Pais uruguay = new Pais("Uruguay",jugador2);
-        Pais china = new Pais("China",jugador3);
-        ArrayList<Jugador> listaJugadores = new ArrayList<>();
-
-        Queue<Integer> cola = new LinkedList<>();
-        cola.add(5);
-        cola.add(3);
-
-        listaJugadores.add(jugador1);
-        listaJugadores.add(jugador2);
-        listaJugadores.add(jugador3);
-        ArrayList<Pais> paises = new ArrayList<>();
-        paises.add(argentina);
-        paises.add(uruguay);
-        paises.add(china);
-        argentina.hacerLimitrofe(uruguay);
-        uruguay.hacerLimitrofe(argentina);
-        Tablero tablero = new Tablero(paises);
-
-        SistemaDeTurnos sistema = new SistemaDeTurnos(listaJugadores,tablero, cola);
-        Pais unPais = sistema.seleccionarPais("Argentina");
-        sistema.reforzar( 5);
         assertEquals(6, argentina.getEjercitos());
     }
 
     @Test
-    public void test06CreoUnSistemaDeTurnosYJugadorNoPuedeColocarMasDeCincoFichas () {
-        Jugador jugador1 = new Jugador("000000");
-        Jugador jugador2 = new Jugador("ffffff");
-        Jugador jugador3 = new Jugador("ff0000");
+    public void test06CreoUnSistemaDeTurnosYJugadorNoPuedeColocarMasDeCincoFichas() {
+        sistema.seleccionarPais("Argentina");
+        sistema.reforzar(2);
 
-        Pais argentina = new Pais("Argentina",jugador1);
-        Pais uruguay = new Pais("Uruguay",jugador2);
-        Pais china = new Pais("China",jugador3);
-        ArrayList<Jugador> listaJugadores = new ArrayList<>();
-
-        Queue<Integer> cola = new LinkedList<>();
-        cola.add(5);
-        cola.add(3);
-
-        listaJugadores.add(jugador1);
-        listaJugadores.add(jugador2);
-        listaJugadores.add(jugador3);
-        ArrayList<Pais> paises = new ArrayList<>();
-        paises.add(argentina);
-        paises.add(uruguay);
-        paises.add(china);
-        argentina.hacerLimitrofe(uruguay);
-        uruguay.hacerLimitrofe(argentina);
-        Tablero tablero = new Tablero(paises);
-
-        SistemaDeTurnos sistema = new SistemaDeTurnos(listaJugadores,tablero, cola);
-        Pais unPais = sistema.seleccionarPais("Argentina");
-        sistema.reforzar( 2);
         assertThrows(NoPuedeColocarTantosEjercitosException.class, () -> sistema.reforzar(4));
 
     }
-    @Test
-    public void test07CreoUnSistemaDeTurnosYJugadoresColocanCincoFichasCorrectamente () {
-        Jugador jugador1 = new Jugador("000000");
-        Jugador jugador2 = new Jugador("ffffff");
-        Jugador jugador3 = new Jugador("ff0000");
-
-        Pais argentina = new Pais("Argentina",jugador1);
-        Pais uruguay = new Pais("Uruguay",jugador2);
-        Pais china = new Pais("China",jugador3);
-        ArrayList<Jugador> listaJugadores = new ArrayList<>();
-
-        Queue<Integer> cola = new LinkedList<>();
-        cola.add(5);
-        cola.add(3);
-
-        listaJugadores.add(jugador1);
-        listaJugadores.add(jugador2);
-        listaJugadores.add(jugador3);
-        ArrayList<Pais> paises = new ArrayList<>();
-        paises.add(argentina);
-        paises.add(uruguay);
-        paises.add(china);
-        argentina.hacerLimitrofe(uruguay);
-        uruguay.hacerLimitrofe(argentina);
-        Tablero tablero = new Tablero(paises);
-
-        SistemaDeTurnos sistema = new SistemaDeTurnos(listaJugadores,tablero, cola);
-        Pais unPais = sistema.seleccionarPais("Argentina");
-        sistema.reforzar( 5);
-        sistema.siguienteTurno();
-        Pais unPais1 = sistema.seleccionarPais("Uruguay");
-
-        sistema.reforzar( 5);
-        sistema.siguienteTurno();
-        //Pais unPais2 = sistema.seleccionarPais("China");
-
-        sistema.reforzar( 5);
-
-        int cantidadTropasTotales = 0;
-        cantidadTropasTotales += argentina.getEjercitos();
-        cantidadTropasTotales += uruguay.getEjercitos();
-        cantidadTropasTotales += china.getEjercitos();
-
-        assertEquals(18, cantidadTropasTotales);
-    }
 
     @Test
-    public void test07CreoUnSistemaDeTurnosYJugadoresColocanCincoYDespuesNoPuedenColocarCinco () {
-        Jugador jugador1 = new Jugador("000000");
-        Jugador jugador2 = new Jugador("ffffff");
-        Jugador jugador3 = new Jugador("ff0000");
-
-        Pais argentina = new Pais("Argentina",jugador1);
-        Pais uruguay = new Pais("Uruguay",jugador2);
-        Pais china = new Pais("China",jugador3);
-        ArrayList<Jugador> listaJugadores = new ArrayList<>();
-
-        Queue<Integer> cola = new LinkedList<>();
-        cola.add(5);
-        cola.add(3);
-
-        listaJugadores.add(jugador1);
-        listaJugadores.add(jugador2);
-        listaJugadores.add(jugador3);
-        ArrayList<Pais> paises = new ArrayList<>();
-        paises.add(argentina);
-        paises.add(uruguay);
-        paises.add(china);
-        argentina.hacerLimitrofe(uruguay);
-        uruguay.hacerLimitrofe(argentina);
-        Tablero tablero = new Tablero(paises);
-
-        SistemaDeTurnos sistema = new SistemaDeTurnos(listaJugadores,tablero, cola);
+    public void test07CreoUnSistemaDeTurnosYJugadoresColocanCincoFichasCorrectamente() {
         sistema.seleccionarPais("Argentina");
         sistema.reforzar(5);
         sistema.siguienteTurno();
@@ -383,6 +130,24 @@ public class TestSistemaDeTurnos {
         sistema.seleccionarPais("China");
         sistema.reforzar(5);
 
+        int cantidadEjercitosTotales = 0;
+        cantidadEjercitosTotales += argentina.getEjercitos();
+        cantidadEjercitosTotales += uruguay.getEjercitos();
+        cantidadEjercitosTotales += china.getEjercitos();
+
+        assertEquals(18, cantidadEjercitosTotales);
+    }
+
+    @Test
+    public void test07CreoUnSistemaDeTurnosYJugadoresColocanCincoYDespuesNoPuedenColocarCinco() {
+        sistema.seleccionarPais("Argentina");
+        sistema.reforzar(5);
+        sistema.siguienteTurno();
+        sistema.seleccionarPais("Uruguay");
+        sistema.reforzar(5);
+        sistema.siguienteTurno();
+        sistema.seleccionarPais("China");
+        sistema.reforzar(5);
         sistema.siguienteTurno();
 
         assertThrows(NoPuedeColocarTantosEjercitosException.class, () -> sistema.reforzar(5));
@@ -390,31 +155,6 @@ public class TestSistemaDeTurnos {
 
     @Test
     public void test08SeColocanTodosLosEjercitosEnLaFaseIncialCorrectamente() {
-        Jugador jugador1 = new Jugador("000000");
-        Jugador jugador2 = new Jugador("ffffff");
-        Jugador jugador3 = new Jugador("ff0000");
-
-        Pais argentina = new Pais("Argentina",jugador1);
-        Pais uruguay = new Pais("Uruguay",jugador2);
-        Pais china = new Pais("China",jugador3);
-        ArrayList<Jugador> listaJugadores = new ArrayList<>();
-
-        Queue<Integer> cola = new LinkedList<>();
-        cola.add(5);
-        cola.add(3);
-
-        listaJugadores.add(jugador1);
-        listaJugadores.add(jugador2);
-        listaJugadores.add(jugador3);
-        ArrayList<Pais> paises = new ArrayList<>();
-        paises.add(argentina);
-        paises.add(uruguay);
-        paises.add(china);
-        argentina.hacerLimitrofe(uruguay);
-        uruguay.hacerLimitrofe(argentina);
-        Tablero tablero = new Tablero(paises);
-
-        SistemaDeTurnos sistema = new SistemaDeTurnos(listaJugadores,tablero, cola);
         sistema.seleccionarPais("Argentina");
         sistema.reforzar(5);
         sistema.siguienteTurno();
@@ -433,41 +173,16 @@ public class TestSistemaDeTurnos {
         sistema.seleccionarPais("China");
         sistema.reforzar(3);
 
-        int cantidadTropasTotales = 0;
-        cantidadTropasTotales += argentina.getEjercitos();
-        cantidadTropasTotales += uruguay.getEjercitos();
-        cantidadTropasTotales += china.getEjercitos();
+        int cantidadEjercitosTotales = 0;
+        cantidadEjercitosTotales += argentina.getEjercitos();
+        cantidadEjercitosTotales += uruguay.getEjercitos();
+        cantidadEjercitosTotales += china.getEjercitos();
 
-        assertEquals(27, cantidadTropasTotales);
-
+        assertEquals(27, cantidadEjercitosTotales);
     }
+
     @Test
     public void test09SeColocanTodosLosEjercitosEnLaFaseIncialCorrectamenteYComienzaLaFaseDeJuego() {
-        Jugador jugador1 = new Jugador("000000");
-        Jugador jugador2 = new Jugador("ffffff");
-        Jugador jugador3 = new Jugador("ff0000");
-
-        Pais argentina = new Pais("Argentina",jugador1);
-        Pais uruguay = new Pais("Uruguay",jugador2);
-        Pais china = new Pais("China",jugador3);
-        ArrayList<Jugador> listaJugadores = new ArrayList<>();
-
-        Queue<Integer> cola = new LinkedList<>();
-        cola.add(5);
-        cola.add(3);
-
-        listaJugadores.add(jugador1);
-        listaJugadores.add(jugador2);
-        listaJugadores.add(jugador3);
-        ArrayList<Pais> paises = new ArrayList<>();
-        paises.add(argentina);
-        paises.add(uruguay);
-        paises.add(china);
-        argentina.hacerLimitrofe(uruguay);
-        uruguay.hacerLimitrofe(argentina);
-        Tablero tablero = new Tablero(paises);
-
-        SistemaDeTurnos sistema = new SistemaDeTurnos(listaJugadores,tablero, cola);
         sistema.seleccionarPais("Argentina");
         sistema.reforzar(5);
         sistema.siguienteTurno();
@@ -491,99 +206,27 @@ public class TestSistemaDeTurnos {
     }
 
     @Test
-    public void test10CreoUnSistemaDeTurnosYJugadorNoPuedeColocarMenosDeCincoEjercitos () {
-        Jugador jugador1 = new Jugador("000000");
-        Jugador jugador2 = new Jugador("ffffff");
-        Jugador jugador3 = new Jugador("ff0000");
-
-        Pais argentina = new Pais("Argentina",jugador1);
-        Pais uruguay = new Pais("Uruguay",jugador2);
-        Pais china = new Pais("China",jugador3);
-        ArrayList<Jugador> listaJugadores = new ArrayList<>();
-
-        Queue<Integer> cola = new LinkedList<>();
-        cola.add(5);
-        cola.add(3);
-
-        listaJugadores.add(jugador1);
-        listaJugadores.add(jugador2);
-        listaJugadores.add(jugador3);
-        ArrayList<Pais> paises = new ArrayList<>();
-        paises.add(argentina);
-        paises.add(uruguay);
-        paises.add(china);
-        argentina.hacerLimitrofe(uruguay);
-        uruguay.hacerLimitrofe(argentina);
-        Tablero tablero = new Tablero(paises);
-
-        SistemaDeTurnos sistema = new SistemaDeTurnos(listaJugadores,tablero, cola);
+    public void test10CreoUnSistemaDeTurnosYJugadorNoPuedeColocarMenosDeCincoEjercitos() {
         sistema.seleccionarPais("Argentina");
         sistema.reforzar(2);
+
         assertThrows(NoReforzoTodosLosEjercitosException.class, sistema::siguienteTurno);
     }
 
     @Test
-    public void test11CreoUnSistemaDeTurnosYNoPuedoAtacar () {
-        Jugador jugador1 = new Jugador("000000");
-        Jugador jugador2 = new Jugador("ffffff");
-        Jugador jugador3 = new Jugador("ff0000");
-
-        Pais argentina = new Pais("Argentina",jugador1);
-        Pais uruguay = new Pais("Uruguay",jugador2);
-        Pais china = new Pais("China",jugador3);
-        ArrayList<Jugador> listaJugadores = new ArrayList<>();
-
-        Queue<Integer> cola = new LinkedList<>();
-        cola.add(5);
-        cola.add(3);
-
-        listaJugadores.add(jugador1);
-        listaJugadores.add(jugador2);
-        listaJugadores.add(jugador3);
-        ArrayList<Pais> paises = new ArrayList<>();
-        paises.add(argentina);
-        paises.add(uruguay);
-        paises.add(china);
-        argentina.hacerLimitrofe(uruguay);
-        uruguay.hacerLimitrofe(argentina);
-        Tablero tablero = new Tablero(paises);
-
-        SistemaDeTurnos sistema = new SistemaDeTurnos(listaJugadores,tablero, cola);
+    public void test11CreoUnSistemaDeTurnosYNoPuedoAtacar() {
         sistema.seleccionarPais("Argentina");
         sistema.reforzar(2);
-        assertThrows(AtaqueInvalidoException.class, () -> sistema.atacar( 1));
+
+        assertThrows(AtaqueInvalidoException.class, () -> sistema.atacar(1));
     }
 
     @Test
-    public void test12CreoUnSistemaDeTurnosYNoPuedoReagrupar () {
-        Jugador jugador1 = new Jugador("000000");
-        Jugador jugador2 = new Jugador("ffffff");
-        Jugador jugador3 = new Jugador("ff0000");
-
-        Pais argentina = new Pais("Argentina",jugador1);
-        Pais uruguay = new Pais("Uruguay",jugador2);
-        Pais china = new Pais("China",jugador3);
-        ArrayList<Jugador> listaJugadores = new ArrayList<>();
-
-        Queue<Integer> cola = new LinkedList<>();
-        cola.add(5);
-        cola.add(3);
-
-        listaJugadores.add(jugador1);
-        listaJugadores.add(jugador2);
-        listaJugadores.add(jugador3);
-        ArrayList<Pais> paises = new ArrayList<>();
-        paises.add(argentina);
-        paises.add(uruguay);
-        paises.add(china);
-        argentina.hacerLimitrofe(uruguay);
-        uruguay.hacerLimitrofe(argentina);
-        Tablero tablero = new Tablero(paises);
-
-        SistemaDeTurnos sistema = new SistemaDeTurnos(listaJugadores,tablero, cola);
+    public void test12CreoUnSistemaDeTurnosYNoPuedoReagrupar() {
         sistema.seleccionarPais("Argentina");
         sistema.reforzar(2);
         sistema.seleccionarPais("Argentina");
+
         assertThrows(ReagrupeInvalidoException.class, () -> sistema.reagrupar(3));
     }
 }
