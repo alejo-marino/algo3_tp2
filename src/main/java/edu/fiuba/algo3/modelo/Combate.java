@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.modelo;
 
 import java.util.ArrayList;
-import edu.fiuba.algo3.modelo.excepciones.*;
+//import edu.fiuba.algo3.modelo.excepciones.*;
 
 
 

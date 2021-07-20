@@ -1,8 +1,8 @@
 package edu.fiuba.algo3.modelo;
 
 public class Jugador {
-    private String nombreJugador;
-    private Batallon batallon;
+    private final String nombreJugador;
+    private final Batallon batallon;
 
     public Jugador(String nombreJugador) {
         this.nombreJugador = nombreJugador;

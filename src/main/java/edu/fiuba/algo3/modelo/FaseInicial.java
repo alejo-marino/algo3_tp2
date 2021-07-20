@@ -36,8 +36,9 @@ public class FaseInicial implements Fase {
         return rondaInicial.getRondaActual();
     }
 
-    public void reforzar(Pais pais, int cantidadEjercitos) {
-        this.rondaInicial.reforzar(pais, cantidadEjercitos);
+    @Override
+    public void reforzar(int cantidadEjercitos) {
+        this.rondaInicial.reforzar( cantidadEjercitos);
     }
 
     @Override
@@ -46,7 +47,7 @@ public class FaseInicial implements Fase {
     }
 
     @Override
-    public void atacar(Pais atacante, Pais defensor, int cantidadEjercitos) {
+    public void atacar( int cantidadEjercitos) {
         rondaInicial.atacar(cantidadEjercitos);
     }
 

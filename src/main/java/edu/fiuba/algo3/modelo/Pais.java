@@ -13,7 +13,7 @@ public class Pais {
         this.nombre = nombre;
         this.duenio = duenio;
         this.batallon = new Batallon();
-        this.paisesLimitrofes = new ArrayList<Pais>();
+        this.paisesLimitrofes = new ArrayList<>();
     }
 
     public int getEjercitos() {

@@ -517,7 +517,8 @@ public class TestSistemaDeTurnos {
         Tablero tablero = new Tablero(paises);
 
         SistemaDeTurnos sistema = new SistemaDeTurnos(listaJugadores,tablero, cola);
-        sistema.reforzar(argentina, 2);
+        sistema.seleccionarPais("Argentina");
+        sistema.reforzar(2);
         assertThrows(NoReforzoTodosLosEjercitosException.class, sistema::siguienteTurno);
     }
 
@@ -548,8 +549,9 @@ public class TestSistemaDeTurnos {
         Tablero tablero = new Tablero(paises);
 
         SistemaDeTurnos sistema = new SistemaDeTurnos(listaJugadores,tablero, cola);
-        sistema.reforzar(argentina, 2);
-        assertThrows(AtaqueInvalidoException.class, () -> sistema.atacar(argentina, uruguay, 3));
+        sistema.seleccionarPais("Argentina");
+        sistema.reforzar(2);
+        assertThrows(AtaqueInvalidoException.class, () -> sistema.atacar( 1));
     }
 
     @Test
