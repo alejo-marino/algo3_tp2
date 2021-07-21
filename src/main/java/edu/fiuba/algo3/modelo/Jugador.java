@@ -44,11 +44,8 @@ public class Jugador {
     }
 
     public Integer canjearTarjetas(ArrayList<Tarjeta> tarjetasACanjear) {
-        for (Tarjeta tarjeta: tarjetasACanjear) {
-            if (!tarjetas.contains(tarjeta)) {
-                throw new CanjeConTarjetaAjenaException("La tarjeta " + tarjeta + " no te pertenece");
-            }
-        }
+        this.tarjetaPerteneceJugador(tarjetasACanjear);
+
         if (tarjetasACanjear.get(0).equals(tarjetasACanjear.get(1))) {
             for (Tarjeta tarjeta: tarjetasACanjear) {
                 if (!tarjeta.equals(tarjetasACanjear.get(0))) {
@@ -77,6 +74,13 @@ public class Jugador {
         return calcularEjercitosCanje();
     }
 
+    private void tarjetaPerteneceJugador(ArrayList<Tarjeta> tarjetasACanjear){
+        for (Tarjeta tarjeta: tarjetasACanjear) {
+            if (!tarjetas.contains(tarjeta)) {
+                throw new CanjeConTarjetaAjenaException("La tarjeta " + tarjeta + " no te pertenece");
+            }
+        }
+    }
     private Integer calcularEjercitosCanje() {
         switch (numeroDeCanje) {
             case 1:
