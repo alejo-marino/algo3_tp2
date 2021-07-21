@@ -11,18 +11,14 @@ public class SistemaDeTurnos {
     Fase faseActual;
 
     private Queue<Jugador> crearColaDeLista(ArrayList<Jugador> lista) {
-        Queue<Jugador> cola = new LinkedList<>();
-        for (Jugador jugador: lista){
-            cola.add(jugador);
-        }
-        return cola;
+        return new LinkedList<>(lista);
     }
 
     public Jugador turnoDe() {
         return colaJugadores.peek();
     }
 
-    public SistemaDeTurnos(ArrayList<Jugador> listaJugadores, Tablero tablero, Queue colaDeNumerosDeRefuerzoPorRonda) {
+    public SistemaDeTurnos(ArrayList<Jugador> listaJugadores, Tablero tablero, Queue<Integer> colaDeNumerosDeRefuerzoPorRonda) {
         this.colaJugadores = this.crearColaDeLista(listaJugadores);
         this.movimientos = 0;
         this.faseActual = new FaseInicial(colaDeNumerosDeRefuerzoPorRonda, tablero);
@@ -57,6 +53,11 @@ public class SistemaDeTurnos {
     public void reagrupar(int cantidadEjercitos) {
         faseActual.reagrupar(cantidadEjercitos);
     }
+
+    public ArrayList<Tarjeta> obtenerTarjetas() {
+        return this.turnoDe().getTarjetas();
+    }
+
     /*
     int numeroDeFase = 1;
 

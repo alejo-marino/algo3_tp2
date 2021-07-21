@@ -76,4 +76,10 @@ public class TestTarjeta {
         assertEquals(tarjetaBarco, tarjetaBarco2);
     }
 
+    @Test
+    public void test09CreoUnaTarjetaYVerificoQueElSimboloSeaElCorrecto () {
+        String simbolo = "Globo";
+        assertEquals(simbolo, tarjetaGlobo.getSimbolo());
+    }
+
 }

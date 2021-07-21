@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.modelo;
 
+import java.util.ArrayList;
+
 public interface Fase {
     void siguienteTurno();
 
@@ -14,5 +16,7 @@ public interface Fase {
     void atacar(int cantidadEjercitos);
 
     void reagrupar(int cantidadEjercitos);
+
+    void canjearTarjetas(ArrayList<Tarjeta> tarjetasACanjear);
 
 }

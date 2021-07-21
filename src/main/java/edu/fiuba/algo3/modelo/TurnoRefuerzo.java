@@ -2,10 +2,13 @@ package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.excepciones.*;
 
+import java.util.ArrayList;
+
 public class TurnoRefuerzo implements EstadoTurno {
 
     private final Tablero tablero;
     private Pais paisRefuerzo;
+    private Integer ejercitosAReforzar;
 
     public TurnoRefuerzo(Tablero tablero) {
         this.tablero = tablero;
@@ -50,6 +53,14 @@ public class TurnoRefuerzo implements EstadoTurno {
     @Override
     public void reforzar(int cantidadEjercitosAReforzar) {
         paisRefuerzo.reforzar(cantidadEjercitosAReforzar);
+    }
+
+    @Override
+    public void canjearTarjetas(ArrayList<Tarjeta> tarjetasACanjear) {
+        int NRO_TARJETAS_PARA_CANJE = 3;
+        if (tarjetasACanjear.size() != NRO_TARJETAS_PARA_CANJE) {
+            throw new CanjeInvalidoException("Cantidad erronea de tarjetas para el canje.");
+        }
     }
 
 }

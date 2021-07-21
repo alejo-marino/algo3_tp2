@@ -2,6 +2,8 @@ package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.excepciones.*;
 
+import java.util.ArrayList;
+
 public class TurnoAtaque implements EstadoTurno {
 
     private Pais paisAtacante;
@@ -72,5 +74,10 @@ public class TurnoAtaque implements EstadoTurno {
     @Override
     public void reforzar(int cantidadEjercitosAReforzar) {
         throw new RefuerzoInvalidoException("No es posible reforzar en un turno de ataque");
+    }
+
+    @Override
+    public void canjearTarjetas(ArrayList<Tarjeta> tarjetasACanjear) {
+        throw new CanjeNoPermitidoException("No se puede canjear en una ronda de ataque y reagrupe");
     }
 }

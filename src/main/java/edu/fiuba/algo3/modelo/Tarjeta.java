@@ -33,6 +33,15 @@ public class Tarjeta {
             return false;
         }
         Tarjeta otraTarjeta = (Tarjeta) obj;
-        return this.simbolo.equals(otraTarjeta.simbolo);
+        return this.simbolo.equals(otraTarjeta.getSimbolo());
+    }
+
+    @Override
+    public String toString() {
+        return pais.toString();
+    }
+
+    public String getSimbolo() {
+        return this.simbolo;
     }
 }

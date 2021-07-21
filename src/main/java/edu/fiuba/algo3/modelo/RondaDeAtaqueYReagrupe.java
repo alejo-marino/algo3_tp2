@@ -2,6 +2,8 @@ package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.excepciones.*;
 
+import java.util.ArrayList;
+
 
 public class RondaDeAtaqueYReagrupe implements TipoDeRonda {
 
@@ -22,6 +24,11 @@ public class RondaDeAtaqueYReagrupe implements TipoDeRonda {
     // se llamara a este metodo cuando se termine la parte de reagrupe del turno, el proximo jugador podra atacar cuando empieze su turno.
     public void siguienteTurno() {
         estadoTurno = estadoTurno.cambiarEstado();
+    }
+
+    @Override
+    public void canjearTarjetas(ArrayList<Tarjeta> tarjetasACanjear) {
+        estadoTurno.canjearTarjetas(tarjetasACanjear);
     }
 
     public TipoDeRonda siguienteRonda() {

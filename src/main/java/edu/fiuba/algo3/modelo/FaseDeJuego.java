@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.modelo;
 
+import java.util.ArrayList;
+
 public class FaseDeJuego implements Fase {
 
     TipoDeRonda rondaDeJuego;   // empieza en ataque, al hacer siguienteRonda pasa a ser de refuerzo y asi sucesivamente.
@@ -39,6 +41,11 @@ public class FaseDeJuego implements Fase {
     @Override
     public void reagrupar(int cantidadEjercitos) {
         rondaDeJuego.reagrupar(cantidadEjercitos);
+    }
+
+    @Override
+    public void canjearTarjetas(ArrayList<Tarjeta> tarjetasACanjear) {
+        rondaDeJuego.canjearTarjetas(tarjetasACanjear);
     }
 
     @Override

@@ -1,16 +1,20 @@
 package edu.fiuba.algo3.modelo;
 
+import java.util.ArrayList;
+
 public interface EstadoTurno {
 
-    public EstadoTurno cambiarEstado();
+    EstadoTurno cambiarEstado();
 
-    public void atacar(int cantidadEjercitosAtacantes);
+    void atacar(int cantidadEjercitosAtacantes);
 
-    public Pais seleccionarPais(String nombrePais, Jugador jugador);
+    Pais seleccionarPais(String nombrePais, Jugador jugador);
 
-    public void cancelarAccion();
+    void cancelarAccion();
 
-    public void reagrupar(int cantidadEjercitos);
+    void reagrupar(int cantidadEjercitos);
 
-    public void reforzar(int cantidadEjercitosAReforzar);
+    void reforzar(int cantidadEjercitosAReforzar);
+
+    void canjearTarjetas(ArrayList<Tarjeta> tarjetasACanjear);
 }

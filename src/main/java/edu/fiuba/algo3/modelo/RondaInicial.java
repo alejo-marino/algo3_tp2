@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.excepciones.*;
 
+import java.util.ArrayList;
 import java.util.Queue;
 
 public class RondaInicial implements TipoDeRonda {
@@ -49,6 +50,11 @@ public class RondaInicial implements TipoDeRonda {
             throw new NoReforzoTodosLosEjercitosException();
         }
         ejercitosAColocar = colaRefuerzo.peek();
+    }
+
+    @Override
+    public void canjearTarjetas(ArrayList<Tarjeta> tarjetasACanjear) {
+        throw new CanjeNoPermitidoException("No se puede canjear en las rondas iniciales");
     }
 
     @Override

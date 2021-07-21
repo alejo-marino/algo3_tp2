@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.modelo;
 
+import java.util.ArrayList;
+
 public class RondaDeRefuerzo implements TipoDeRonda {
 
     private final Tablero tablero;
@@ -38,5 +40,10 @@ public class RondaDeRefuerzo implements TipoDeRonda {
     public void siguienteTurno(){
 
         estadoturno.cambiarEstado();
+    }
+
+    @Override
+    public void canjearTarjetas(ArrayList<Tarjeta> tarjetasACanjear) {
+        estadoturno.canjearTarjetas(tarjetasACanjear);
     }
 }

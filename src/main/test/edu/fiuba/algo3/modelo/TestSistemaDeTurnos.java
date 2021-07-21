@@ -17,6 +17,7 @@ public class TestSistemaDeTurnos {
     private Pais argentina;
     private Pais uruguay;
     private Pais china;
+    private ArrayList<Tarjeta> tarjetas;
     private SistemaDeTurnos sistema;
 
     @BeforeEach
@@ -42,6 +43,17 @@ public class TestSistemaDeTurnos {
         paises.add(argentina);
         paises.add(uruguay);
         paises.add(china);
+
+        Tarjeta tarjeta1 = new Tarjeta(argentina, "Globo");
+        Tarjeta tarjeta2 = new Tarjeta(uruguay, "Canion");
+        Tarjeta tarjeta3 = new Tarjeta(china, "Barco");
+        this.jugador1.agregarTarjeta(tarjeta1);
+        this.jugador1.agregarTarjeta(tarjeta2);
+        this.jugador1.agregarTarjeta(tarjeta3);
+        this.tarjetas = new ArrayList<>();
+        this.tarjetas.add(tarjeta1);
+        this.tarjetas.add(tarjeta2);
+        this.tarjetas.add(tarjeta3);
 
         Tablero tablero = new Tablero(paises);
         this.sistema = new SistemaDeTurnos(listaJugadores, tablero, cola);
@@ -228,5 +240,18 @@ public class TestSistemaDeTurnos {
         sistema.seleccionarPais("Argentina");
 
         assertThrows(ReagrupeInvalidoException.class, () -> sistema.reagrupar(3));
+    }
+
+    @Test
+    public void test13PuedoObtenerLasTarjetasDelJugador1 () {
+        assertEquals(tarjetas, sistema.obtenerTarjetas());
+    }
+
+    @Test
+    public void test14PasoDeTurnoYNoPuedoObtenerLasTarjetasDelJugador1 () {
+        sistema.seleccionarPais("Argentina");
+        sistema.reforzar(5);
+        sistema.siguienteTurno();
+        assertNotEquals(tarjetas, sistema.obtenerTarjetas());
     }
 }

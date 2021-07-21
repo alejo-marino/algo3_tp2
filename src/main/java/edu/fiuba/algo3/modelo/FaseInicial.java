@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
+import java.util.ArrayList;
 import java.util.Queue;
 
 public class FaseInicial implements Fase {
@@ -54,5 +55,10 @@ public class FaseInicial implements Fase {
     @Override
     public void reagrupar(int cantidadEjercitos) {
         rondaInicial.reagrupar( cantidadEjercitos);
+    }
+
+    @Override
+    public void canjearTarjetas(ArrayList<Tarjeta> tarjetasACanjear) {
+        rondaInicial.canjearTarjetas(tarjetasACanjear);
     }
 }
