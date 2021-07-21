@@ -191,4 +191,10 @@ public class TestRondaDeAtaqueYReagrupe {
         ronda.seleccionarPais("Uruguay", jugador1);
         assertThrows(ReagrupeInvalidoException.class, () -> ronda.reagrupar(3));
     }
+
+    @Test
+    public void test20CreoUnaRondaDeAtaqueYReagrupeYNoPuedoCanjearTarjetas() {
+        assertThrows(CanjeNoPermitidoException.class , () -> ronda.canjearTarjetas(null));
+    }
+
 }

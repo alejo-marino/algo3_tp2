@@ -58,6 +58,10 @@ public class SistemaDeTurnos {
         return this.turnoDe().getTarjetas();
     }
 
+    public void canjearTarjetas(ArrayList<Tarjeta> tarjetasACanjear) {
+        faseActual.canjearTarjetas(tarjetasACanjear);
+    }
+
     /*
     int numeroDeFase = 1;
 

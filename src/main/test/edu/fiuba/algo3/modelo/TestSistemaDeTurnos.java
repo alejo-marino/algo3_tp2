@@ -254,4 +254,9 @@ public class TestSistemaDeTurnos {
         sistema.siguienteTurno();
         assertNotEquals(tarjetas, sistema.obtenerTarjetas());
     }
+
+    @Test
+    public void test15CreoUnSistemaDeTurnosYJugadorNoPuedeCanjearTarjetas() {
+        assertThrows(CanjeNoPermitidoException.class, () -> sistema.canjearTarjetas(null));
+    }
 }
