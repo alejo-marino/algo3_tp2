@@ -10,6 +10,7 @@ import java.util.Hashtable;
 public class Tablero {
 
     private ArrayList<Pais> paises;
+    private ArrayList<Continente> continentes;
 
     public Tablero(ArrayList<Pais> paises, ArrayList<Continente> continentes) {
         this.paises = paises;
@@ -40,6 +41,29 @@ public class Tablero {
         }
         return paisesSegunJugador;
     }
+
+
+    public Integer calcularEjercitosDisponibles(Jugador jugador) {
+        int ejercitosAAgregar = 0;
+        Dictionary paisesPorJugador = this.obtenerPaisesSegunJugador();
+
+        // ejercitos a agregar por paises
+        ejercitosAAgregar += (this.numeroPaisesDeJugador(paisesPorJugador, jugador) / 2);
+        // ejercitos a agregar por continentes
+        for (Continente continente: continentes) {
+            ejercitosAAgregar += continente.obtenerBonusDeContinentePara(jugador);
+        }
+        if (ejercitosAAgregar < 3) { ejercitosAAgregar = 3; }
+        return ejercitosAAgregar;
+    }
+
+
+    private Integer numeroPaisesDeJugador(Dictionary<Jugador, ArrayList<Pais>> paisesPorJugador, Jugador jugador) {
+        return (paisesPorJugador.get(jugador)).size();
+    }
+
+
+
 
 //    public void atacarConA(Pais atacante, Pais defensor) {
 //        Combate combate = new Combate(atacante, defensor);

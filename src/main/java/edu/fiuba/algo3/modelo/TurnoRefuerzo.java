@@ -7,10 +7,12 @@ import java.util.ArrayList;
 public class TurnoRefuerzo implements EstadoTurno {
 
     private Pais paisRefuerzo;
-    private Integer ejercitosAReforzar;
+    private Integer ejercitosDisponibles;
+    private Jugador jugador;
 
-    public TurnoRefuerzo(Tablero tablero) {
-        this.tablero = tablero;
+    public TurnoRefuerzo(Jugador jugador, Integer ejercitosAReforzar) {
+        this.jugador = jugador;
+        this.ejercitosDisponibles = ejercitosAReforzar;
     }
 
     @Override
@@ -30,7 +32,7 @@ public class TurnoRefuerzo implements EstadoTurno {
             }
             paisRefuerzo = paisSeleccionado;
         }
-        return  paisRefuerzo;
+        return paisRefuerzo;
     }
 
     @Override
@@ -46,7 +48,11 @@ public class TurnoRefuerzo implements EstadoTurno {
 
     @Override
     public void reforzar(int cantidadEjercitosAReforzar) {
-        paisRefuerzo.reforzar(cantidadEjercitosAReforzar);
+        if (ejercitosDisponibles < cantidadEjercitosAReforzar) {
+            throw new NoPuedeColocarTantosEjercitosException("Solo disponde de " + ejercitosDisponibles + " ejercitos.");
+        }
+        this.ejercitosDisponibles -= cantidadEjercitosAReforzar;
+        this.paisRefuerzo.reforzar(cantidadEjercitosAReforzar);
     }
 
     @Override

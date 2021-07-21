@@ -32,17 +32,17 @@ public class TurnoReagrupe implements EstadoTurno {
     }
 
     @Override
-    public Pais seleccionarPais(String nombrePais, Jugador jugador) {
+    public Pais seleccionarPais(Pais paisSeleccionado, Jugador jugador) {
         if (this.paisOrigen != null && this.paisDestino != null) {
             throw new PaisesYaSeleccionadosException("Los paises origen y destino ya estan seleccionados, apreta 'Reagrupar' o 'Cancelar accion'.");
         }
-        Pais paisSeleccionado = this.tablero.seleccionarPais(nombrePais);
+
         if (this.paisOrigen == null) {
             if (!paisSeleccionado.esDuenio(jugador)) {
-                throw new SeleccionaPaisAjenoException("El pais: " + nombrePais + " no te pertenece");
+                throw new SeleccionaPaisAjenoException("El pais: " + paisSeleccionado + " no te pertenece");
             }
             if (!paisSeleccionado.puedeAtacar()) {    // simplemente checkea que la cantEjercitos del pais sea > 1
-                throw new EjercitosInvalidosException("El pais: " + nombrePais + " no tiene ejercitos suficientes para atacar");
+                throw new EjercitosInvalidosException("El pais: " + paisSeleccionado + " no tiene ejercitos suficientes para atacar");
             }
             paisOrigen = paisSeleccionado;
             return paisOrigen;

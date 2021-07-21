@@ -6,7 +6,7 @@ public interface EstadoTurno {
 
     void atacar(int cantidadEjercitosAtacantes);
 
-    Pais seleccionarPais(String nombrePais, Jugador jugador);
+    Pais seleccionarPais(Pais pais, Jugador jugador);
 
     void cancelarAccion();
 

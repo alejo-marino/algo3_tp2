@@ -9,7 +9,7 @@ public class RondaDeRefuerzo implements Ronda {
 
     public RondaDeRefuerzo(Tablero tablero) {
         this.tablero = tablero;
-        estadoturno = new TurnoRefuerzo(tablero);
+        this.estadoTurno = new TurnoRefuerzo(null, 0);
     }
 
     public void atacar(int cantidadEjercitos) {

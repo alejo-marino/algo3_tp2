@@ -42,13 +42,13 @@ public class TurnoAtaque implements EstadoTurno {
         if (this.paisAtacante != null && this.paisDefensor != null) {
             throw new PaisesYaSeleccionadosException("Los paises atacantes y defensores ya estan seleccionados, apreta 'Atacar' o 'Cancelar accion'.");
         }
-        Pais paisSeleccionado = this.tablero.seleccionarPais(nombrePais);
+
         if (this.paisAtacante == null) {
             if (!paisSeleccionado.esDuenio(jugador)) {
-                throw new SeleccionaPaisAjenoException("El pais: " + nombrePais + " no te pertenece");
+                throw new SeleccionaPaisAjenoException("El pais: " + paisSeleccionado + " no te pertenece");
             }
             if (!paisSeleccionado.puedeAtacar()) {
-                throw new EjercitosInvalidosException("El pais: " + nombrePais + " no tiene ejercitos suficientes para atacar");
+                throw new EjercitosInvalidosException("El pais: " + paisSeleccionado + " no tiene ejercitos suficientes para atacar");
             }
             paisAtacante = paisSeleccionado;
             return paisAtacante;
