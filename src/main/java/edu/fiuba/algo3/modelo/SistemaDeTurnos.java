@@ -9,6 +9,7 @@ public class SistemaDeTurnos {
     Queue<Jugador> colaJugadores;
     Integer movimientos;
     Fase faseActual;
+    boolean esPrimerTurno;
 
     private Queue<Jugador> crearColaDeLista(ArrayList<Jugador> lista) {
         return new LinkedList<>(lista);
@@ -22,16 +23,24 @@ public class SistemaDeTurnos {
         this.colaJugadores = this.crearColaDeLista(listaJugadores);
         this.movimientos = 0;
         this.faseActual = new FaseInicial(colaDeNumerosDeRefuerzoPorRonda, tablero);
+        this.esPrimerTurno = true;
     }
 
-    public void siguienteTurno() {
-        Jugador jugadorAnterior = colaJugadores.remove();
-        faseActual.siguienteTurno();
-        colaJugadores.add(jugadorAnterior);
+    public void empezarTurno() {
         movimientos++;
-        if ((movimientos % colaJugadores.size()) == 0) {
+
+        System.out.println("Movimientos: " + movimientos);
+        System.out.println("If: " + (movimientos % (colaJugadores.size() + 1)));
+        if ((movimientos % (colaJugadores.size() + 1)) == 0) {  // se pasa de ronda
             faseActual = faseActual.siguienteRonda();
+            movimientos++;
         }
+        if (!esPrimerTurno) {
+            Jugador jugadorAnterior = colaJugadores.remove();
+            colaJugadores.add(jugadorAnterior);
+        }
+        faseActual.empezarTurno(this.turnoDe());
+        esPrimerTurno = false;
     }
 
     public String getFaseActual() {

@@ -18,6 +18,8 @@ public class TestRondaDeRefuerzo {
     private Pais china;
     private Pais chile;
     private RondaDeRefuerzo ronda;
+    private Continente americaDelSur;
+    private Continente asia;
 
     @BeforeEach
     void setUp() {
@@ -44,9 +46,20 @@ public class TestRondaDeRefuerzo {
         paises.add(china);
         paises.add(chile);
 
-        Tablero tablero = new Tablero(paises);
-        this.ronda = new RondaDeRefuerzo(tablero);
+        this.americaDelSur = new Continente("America Del Sur", 3);
+        this.asia = new Continente("Asia", 6);
+        this.americaDelSur.agregarPais(argentina);
+        this.americaDelSur.agregarPais(uruguay);
+        this.americaDelSur.agregarPais(chile);
+        this.asia.agregarPais(china);
 
+        ArrayList<Continente> continentes = new ArrayList<>();
+        continentes.add(americaDelSur);
+        continentes.add(asia);
+
+        Tablero tablero = new Tablero(paises, continentes);
+        this.ronda = new RondaDeRefuerzo(tablero);
+        ronda.empezarTurno(jugador1);
     }
 
     @Test

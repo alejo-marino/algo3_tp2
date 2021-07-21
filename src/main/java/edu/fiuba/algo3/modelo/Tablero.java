@@ -4,17 +4,16 @@ import edu.fiuba.algo3.modelo.excepciones.PaisInexistenteException;
 
 import java.util.ArrayList;
 import java.util.Dictionary;
-import java.util.Enumeration;
 import java.util.Hashtable;
-import java.util.Scanner;
 
 
 public class Tablero {
 
     private ArrayList<Pais> paises;
 
-    public Tablero(ArrayList<Pais> paises) {
+    public Tablero(ArrayList<Pais> paises, ArrayList<Continente> continentes) {
         this.paises = paises;
+        this.continentes = continentes;
     }
 
     public Pais seleccionarPais(String nombrePais) {

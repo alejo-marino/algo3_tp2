@@ -2,33 +2,33 @@ package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.excepciones.*;
 
+import javax.rmi.ssl.SslRMIClientSocketFactory;
 import java.util.ArrayList;
 import java.util.Queue;
 
-public class RondaInicial implements TipoDeRonda {
+public class RondaInicial implements Ronda {
 
     private Queue<Integer> colaRefuerzo;
-    Integer ejercitosAColocar;
     Tablero tablero;
-    private Pais paisAReforzar;
+    private TurnoRefuerzo estadoTurno;
 
-    public RondaInicial(Queue<Integer> colaDeNumerosDeRefuerzoPorRonda, Tablero referenciaTablero) {
+    public RondaInicial(Queue<Integer> colaDeNumerosDeRefuerzoPorRonda, Tablero tablero) {
         colaRefuerzo = colaDeNumerosDeRefuerzoPorRonda;
-        this.tablero = referenciaTablero;
-        this.ejercitosAColocar = this.cantidadRefuerzo();
+        this.tablero = tablero;
+        this.estadoTurno = new TurnoRefuerzo(null, 0);
     }
 
     public boolean puedeContinuar() {
         return colaRefuerzo.size() != 1;
     }
 
-    public TipoDeRonda siguienteRonda() {
+    @Override
+    public Ronda siguienteRonda() {
         colaRefuerzo.remove();
-        this.ejercitosAColocar = this.cantidadRefuerzo();
         return this;
     }
 
-    public Integer cantidadRefuerzo() {
+    private Integer cantidadRefuerzo() {
         return colaRefuerzo.peek();
     }
 
@@ -36,53 +36,42 @@ public class RondaInicial implements TipoDeRonda {
         return "Colocando " + this.cantidadRefuerzo() + " ejercitos";
     }
 
-    public void atacar(int cantidadEjercitos) {
-        throw new AtaqueInvalidoException("No es posible atacar en un turno de refuerzo inicial");
-    }
-
     @Override
-    public void reagrupar(int cantidadEjercitos) {
-        throw new ReagrupeInvalidoException("No es posible reagrupar en un turno de refuerzo inicial");
-    }
-
-    public void siguienteTurno() {
-        if (this.ejercitosAColocar > 0) {
+    public void empezarTurno(Jugador jugador) {
+        if (!estadoTurno.reforzoTodo()) {
             throw new NoReforzoTodosLosEjercitosException();
         }
-        ejercitosAColocar = colaRefuerzo.peek();
-    }
-
-    @Override
-    public void canjearTarjetas(ArrayList<Tarjeta> tarjetasACanjear) {
-        throw new CanjeNoPermitidoException("No se puede canjear en las rondas iniciales");
-    }
-
-    @Override
-    public Pais seleccionarPais(String nombrePais, Jugador jugador) {
-        Pais paisASeleccionar = tablero.seleccionarPais(nombrePais);
-        if (!paisASeleccionar.esDuenio(jugador)) {
-            throw new SeleccionaPaisAjenoException("El pais: " + nombrePais + " no te pertenece.");
-        }
-        this.paisAReforzar = paisASeleccionar;
-        return paisASeleccionar;
-    }
-
-    @Override
-    public void reforzar(Integer ejercitosAReforzar) {
-        if (this.ejercitosAColocar < ejercitosAReforzar) {
-            throw new NoPuedeColocarTantosEjercitosException("Solo disponde de " + ejercitosAReforzar + " fichas.");
-        }
-        this.ejercitosAColocar -= ejercitosAReforzar;
-        this.paisAReforzar.reforzar(ejercitosAReforzar);
-    }
-
-    @Override
-    public void cancelarAccion() {
-        this.paisAReforzar = null;
+        System.out.println(this.cantidadRefuerzo());
+        estadoTurno = new TurnoRefuerzo(jugador, this.cantidadRefuerzo());
     }
 
     public Tablero pedirTablero() {
         return tablero;
+    }
+
+    public void atacar(int cantidadEjercitos) {
+        this.estadoTurno.atacar(cantidadEjercitos);
+    }
+
+    public void reagrupar(int cantidadEjercitos) {
+        this.estadoTurno.reagrupar(cantidadEjercitos);
+    }
+
+    public void reforzar(Integer ejercitosAReforzar) {
+        this.estadoTurno.reforzar(ejercitosAReforzar);
+    }
+
+    public Pais seleccionarPais(String nombrePais, Jugador jugador)  {
+        Pais pais = this.tablero.seleccionarPais(nombrePais);
+        return this.estadoTurno.seleccionarPais(pais, jugador);
+    }
+
+    public void cancelarAccion() {
+        this.estadoTurno.cancelarAccion();
+    }
+
+    public void canjearTarjetas(ArrayList<Tarjeta> tarjetasACanjear) {
+        estadoTurno.canjearTarjetas(tarjetasACanjear);
     }
 
 }

@@ -19,6 +19,8 @@ public class TestTablero {
     private Jugador jugador2;
     private Jugador jugador3;
     private Tablero tablero;
+    private Continente asia;
+    private Continente americaDelSur;
 
     @BeforeEach
     void setUp() {
@@ -36,7 +38,17 @@ public class TestTablero {
         paises.add(uruguay);
         paises.add(china);
 
-        this.tablero = new Tablero(paises);
+        this.americaDelSur = new Continente("America Del Sur", 3);
+        this.asia = new Continente("Asia", 6);
+        this.americaDelSur.agregarPais(argentina);
+        this.americaDelSur.agregarPais(uruguay);
+        this.asia.agregarPais(china);
+
+        ArrayList<Continente> continentes = new ArrayList<>();
+        continentes.add(americaDelSur);
+        continentes.add(asia);
+
+        this.tablero = new Tablero(paises, continentes);
     }
 
     @Test

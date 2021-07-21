@@ -44,8 +44,9 @@ public class TestRondaDeAtaqueYReagrupe {
         paises.add(china);
         paises.add(chile);
 
-        Tablero tablero = new Tablero(paises);
+        Tablero tablero = new Tablero(paises, null);
         this.ronda = new RondaDeAtaqueYReagrupe(tablero);
+        ronda.empezarTurno(jugador1);
     }
 
     @Test
@@ -117,14 +118,14 @@ public class TestRondaDeAtaqueYReagrupe {
     public void test11CreoUnaRondaDeAtaqueYReagrupeYTerminoElAtaqueYNoPuedoAtacar() {
         ronda.seleccionarPais("Argentina", jugador1);
         ronda.seleccionarPais("Uruguay", jugador1);
-        ronda.terminarAtaque();
+        ronda.terminarAtaque(jugador1);
 
         assertThrows(AtaqueInvalidoException.class , () -> ronda.atacar(2));
     }
 
     @Test
     public void test12CreoUnaRondaDeAtaqueYReagrupeTerminoElAtaqueYNoPuedoAtacar() {
-        ronda.terminarAtaque();
+        ronda.terminarAtaque(jugador1);
         ronda.seleccionarPais("Argentina", jugador1);
         ronda.seleccionarPais("Chile", jugador1);
 
@@ -133,21 +134,22 @@ public class TestRondaDeAtaqueYReagrupe {
 
     @Test
     public void test13CreoUnaRondaDeAtaqueYReagrupeYReagrupeTerminoElAtaqueYNoPuedoSeleccionarUnPaisAgeno() {
-        ronda.terminarAtaque();
+        ronda.empezarTurno(jugador1);
+        ronda.terminarAtaque(jugador1);
 
         assertThrows(SeleccionaPaisAjenoException.class , () -> ronda.seleccionarPais("Uruguay", jugador1));
     }
 
     @Test
     public void test14CreoUnaRondaDeAtaqueYReagrupeYReagrupeTerminoElAtaqueYPuedoSeleccionarUnPaisPropio() {
-        ronda.terminarAtaque();
+        ronda.terminarAtaque(jugador1);
 
         assertEquals(argentina,ronda.seleccionarPais("Argentina", jugador1));
     }
 
     @Test
     public void test15CreoUnaRondaDeAtaqueYReagrupeYReagrupeTerminoElAtaqueSeleccionoUnPaisPropioYLuegoNoPuedoSeleccionarUnPaisAgeno() {
-        ronda.terminarAtaque();
+        ronda.terminarAtaque(jugador1);
         ronda.seleccionarPais("Argentina", jugador1);
 
         assertThrows(ReagrupeAPaisAjenoException.class, () -> ronda.seleccionarPais("Uruguay",jugador1));
@@ -155,7 +157,7 @@ public class TestRondaDeAtaqueYReagrupe {
 
     @Test
     public void test16CreoUnaRondaDeAtaqueYReagrupeYReagrupeTerminoElAtaqueSeleccionoUnPaisPropioYLuegoSeleccionoOtroPais() {
-        ronda.terminarAtaque();
+        ronda.terminarAtaque(jugador1);
         ronda.seleccionarPais("Argentina", jugador1);
 
         assertEquals(chile, ronda.seleccionarPais("Chile",jugador1));
@@ -163,7 +165,7 @@ public class TestRondaDeAtaqueYReagrupe {
 
     @Test
     public void test17UnPaisConTresEjercitosReagrupaDosHaciaOtroPaisYQuedaCon2Ejercitos() {
-        ronda.terminarAtaque();
+        ronda.terminarAtaque(jugador1);
         ronda.seleccionarPais("Argentina", jugador1);
         ronda.seleccionarPais("Chile",jugador1);
         ronda.reagrupar(2);
@@ -174,7 +176,7 @@ public class TestRondaDeAtaqueYReagrupe {
     @Test
     public void test18UnPaisConTresEjercitosReagrupaDosHaciaOtroPaisConUnEjercitoYEsteQuedaConTres() {
         argentina.reforzar(1);
-        ronda.terminarAtaque();
+        ronda.terminarAtaque(jugador1);
         ronda.seleccionarPais("Argentina", jugador1);
         ronda.seleccionarPais("Chile", jugador1);
         ronda.reagrupar(2);
@@ -185,8 +187,8 @@ public class TestRondaDeAtaqueYReagrupe {
     @Test
     public void test19CreoUnaRondaDeRefuerzoYReagrupeYTerminoElAtaqueYPasoDeTurnoYElJugador2NoPuedeReagrupar() {
         argentina.reforzar(3);
-        ronda.terminarAtaque();
-        ronda.siguienteTurno();
+        ronda.terminarAtaque(jugador1);
+        ronda.empezarTurno(jugador1);
         ronda.seleccionarPais("Argentina", jugador1);
         ronda.seleccionarPais("Uruguay", jugador1);
         assertThrows(ReagrupeInvalidoException.class, () -> ronda.reagrupar(3));

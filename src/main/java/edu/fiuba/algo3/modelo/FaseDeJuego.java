@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class FaseDeJuego implements Fase {
 
-    TipoDeRonda rondaDeJuego;   // empieza en ataque, al hacer siguienteRonda pasa a ser de refuerzo y asi sucesivamente.
+    Ronda rondaDeJuego;   // empieza en ataque, al hacer siguienteRonda pasa a ser de refuerzo y asi sucesivamente.
     Integer numeroDeRonda;
 
     public FaseDeJuego (Tablero tablero) {
@@ -13,8 +13,8 @@ public class FaseDeJuego implements Fase {
     }
 
     @Override
-    public void siguienteTurno() {
-        rondaDeJuego.siguienteTurno();
+    public void empezarTurno(Jugador jugador) {
+        rondaDeJuego.empezarTurno(jugador);
     }
 
 

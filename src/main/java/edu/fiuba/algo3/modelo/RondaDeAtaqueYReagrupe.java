@@ -1,38 +1,16 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.modelo.excepciones.*;
-
 import java.util.ArrayList;
 
 
-public class RondaDeAtaqueYReagrupe implements TipoDeRonda {
+public class RondaDeAtaqueYReagrupe implements Ronda {
 
     private final Tablero tablero;
     private EstadoTurno estadoTurno;
 
     public RondaDeAtaqueYReagrupe(Tablero tablero) {
         this.tablero = tablero;
-        estadoTurno = new TurnoAtaque(tablero);
-    }
-
-    // se llamara a este metodo cuando se termine la parte de ataque del turno, el jugador podra reagrupar antes de terminar su turno.
-    public void terminarAtaque() {
-        //estadoTurno.cancelarAccion();
-        estadoTurno = estadoTurno.cambiarEstado();
-    }
-
-    // se llamara a este metodo cuando se termine la parte de reagrupe del turno, el proximo jugador podra atacar cuando empieze su turno.
-    public void siguienteTurno() {
-        estadoTurno = estadoTurno.cambiarEstado();
-    }
-
-    @Override
-    public void canjearTarjetas(ArrayList<Tarjeta> tarjetasACanjear) {
-        estadoTurno.canjearTarjetas(tarjetasACanjear);
-    }
-
-    public TipoDeRonda siguienteRonda() {
-        return new RondaDeRefuerzo(tablero);
+        this.estadoTurno = new TurnoAtaque(null);
     }
 
     public void atacar(int cantidadEjercitos) {
@@ -47,11 +25,32 @@ public class RondaDeAtaqueYReagrupe implements TipoDeRonda {
         this.estadoTurno.reforzar(ejercitosAReforzar);
     }
 
-    public Pais seleccionarPais(String nombrePais, Jugador jugador) {
-        return this.estadoTurno.seleccionarPais(nombrePais, jugador);
+    public Pais seleccionarPais(String nombrePais, Jugador jugador)  {
+        Pais pais = this.tablero.seleccionarPais(nombrePais);
+        System.out.println("hol");
+        return this.estadoTurno.seleccionarPais(pais, jugador);
     }
 
     public void cancelarAccion() {
         this.estadoTurno.cancelarAccion();
     }
+
+    public void canjearTarjetas(ArrayList<Tarjeta> tarjetasACanjear) {
+        estadoTurno.canjearTarjetas(tarjetasACanjear);
+    }
+
+    // se llamara a este metodo cuando se termine la parte de ataque del turno, el jugador podra reagrupar antes de terminar su turno.
+    public void terminarAtaque(Jugador jugador) {
+        this.estadoTurno = new TurnoReagrupe(jugador);
+    }
+
+    // se llamara a este metodo cuando se termine la parte de reagrupe del turno, el proximo jugador podra atacar cuando empieze su turno.
+    public void empezarTurno(Jugador jugador) {
+        this.estadoTurno = new TurnoAtaque(jugador);
+    }
+
+    public Ronda siguienteRonda() {
+        return new RondaDeRefuerzo(tablero);
+    }
 }
+

@@ -8,15 +8,10 @@ public class TurnoAtaque implements EstadoTurno {
 
     private Pais paisAtacante;
     private Pais paisDefensor;
-    private final Tablero tablero;
+    private Jugador jugador;
 
-    public TurnoAtaque(Tablero tablero) {
-        this.tablero = tablero;
-    }
-
-    @Override
-    public EstadoTurno cambiarEstado() {
-        return new TurnoReagrupe(tablero);
+    public TurnoAtaque(Jugador jugador) {
+        this.jugador = jugador;
     }
 
     public void atacar(int cantidadEjercitos) {
@@ -39,7 +34,11 @@ public class TurnoAtaque implements EstadoTurno {
     }
 
     @Override
-    public Pais seleccionarPais(String nombrePais, Jugador jugador) {
+    public Pais seleccionarPais(Pais paisSeleccionado, Jugador jugador) {
+        if (this.jugador == null) {
+            throw new TurnoSinEmpezarException();
+        }
+
         if (this.paisAtacante != null && this.paisDefensor != null) {
             throw new PaisesYaSeleccionadosException("Los paises atacantes y defensores ya estan seleccionados, apreta 'Atacar' o 'Cancelar accion'.");
         }

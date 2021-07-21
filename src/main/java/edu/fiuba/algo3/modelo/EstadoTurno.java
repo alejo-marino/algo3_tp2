@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 public interface EstadoTurno {
 
-    EstadoTurno cambiarEstado();
-
     void atacar(int cantidadEjercitosAtacantes);
 
     Pais seleccionarPais(String nombrePais, Jugador jugador);

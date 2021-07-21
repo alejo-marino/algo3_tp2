@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 public class TurnoRefuerzo implements EstadoTurno {
 
-    private final Tablero tablero;
     private Pais paisRefuerzo;
     private Integer ejercitosAReforzar;
 
@@ -20,19 +19,14 @@ public class TurnoRefuerzo implements EstadoTurno {
     }
 
     @Override
-    public EstadoTurno cambiarEstado() {
-        return null;
-    }
-
-    @Override
-    public Pais seleccionarPais(String nombrePais, Jugador jugador) {
+    public Pais seleccionarPais(Pais paisSeleccionado, Jugador jugador) {
         if (this.paisRefuerzo != null) {
-            throw new PaisesYaSeleccionadosException("El pais a reforzar ya esta seleccionado, apreta 'Reforzar' o 'Cancelar accion'.");
+            throw new PaisesYaSeleccionadosException(paisSeleccionado + " ya esta seleccionado, apreta 'Reforzar' o 'Cancelar accion'.");
         }
-        Pais paisSeleccionado = this.tablero.seleccionarPais(nombrePais);
+
         if (this.paisRefuerzo == null) {
             if (!paisSeleccionado.esDuenio(jugador)) {
-                throw new SeleccionaPaisAjenoException("El pais: " + nombrePais + " no te pertenece");
+                throw new SeleccionaPaisAjenoException("El pais: " + paisSeleccionado + " no te pertenece");
             }
             paisRefuerzo = paisSeleccionado;
         }
@@ -61,6 +55,11 @@ public class TurnoRefuerzo implements EstadoTurno {
         if (tarjetasACanjear.size() != NRO_TARJETAS_PARA_CANJE) {
             throw new CanjeInvalidoException("Cantidad erronea de tarjetas para el canje.");
         }
+        ejercitosDisponibles = ejercitosDisponibles + jugador.canjearTarjetas(tarjetasACanjear);
     }
 
+    public boolean reforzoTodo() {
+        System.out.println(ejercitosDisponibles);
+        return ejercitosDisponibles == 0;
+    }
 }

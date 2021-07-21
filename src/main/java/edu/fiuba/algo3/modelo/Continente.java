@@ -6,30 +6,42 @@ public class Continente {
 
     private final String nombre;
     private final ArrayList<Pais> paises;
+    private final Integer bonus;
 
-    public Continente(String nombre) {
+    public Continente(String nombre, Integer bonus) {
         this.nombre = nombre;
         this.paises = new ArrayList<>();
+        this.bonus = bonus;
     }
 
     public void agregarPais(Pais pais) {
         this.paises.add(pais);
     }
 
-    public boolean esDominadoPor(Jugador jugador) {
+    public Integer obtenerBonusDeContinentePara(Jugador jugador) {
         if (paises.size() == 0) {
-            return false;
+            return 0;
         }
         for (Pais pais: paises) {
             if (!pais.esDuenio(jugador)) {
-                return false;
+                return 0;
             }
         }
-        return true;
+        return bonus;
     }
 
     @Override
     public String toString() {
         return this.nombre;
+    }
+
+    public int paisesConquistadosPor(Jugador jugador) {
+        int nroDePaisesConquistados = 0;
+        for (Pais pais: paises) {
+            if (pais.esDuenio(jugador)) {
+                nroDePaisesConquistados++;
+            }
+        }
+        return nroDePaisesConquistados;
     }
 }

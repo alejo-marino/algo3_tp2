@@ -2,48 +2,49 @@ package edu.fiuba.algo3.modelo;
 
 import java.util.ArrayList;
 
-public class RondaDeRefuerzo implements TipoDeRonda {
+public class RondaDeRefuerzo implements Ronda {
 
     private final Tablero tablero;
-    private final EstadoTurno estadoturno;
+    private EstadoTurno estadoTurno;
 
     public RondaDeRefuerzo(Tablero tablero) {
         this.tablero = tablero;
         estadoturno = new TurnoRefuerzo(tablero);
     }
 
-    @Override
-    public void atacar(int cantidadEjercitos) {this.estadoturno.atacar(cantidadEjercitos);}
+    public void atacar(int cantidadEjercitos) {
+        this.estadoTurno.atacar(cantidadEjercitos);
+    }
 
-    @Override
-    public void reagrupar(int cantidadEjercitos) {this.estadoturno.reforzar(cantidadEjercitos);}
+    public void reagrupar(int cantidadEjercitos) {
+        this.estadoTurno.reagrupar(cantidadEjercitos);
+    }
 
-    @Override
-    public void reforzar(Integer ejercitosAReforzar) {this.estadoturno.reforzar(ejercitosAReforzar); }
+    public void reforzar(Integer ejercitosAReforzar) {
+        this.estadoTurno.reforzar(ejercitosAReforzar);
+    }
 
-    @Override
     public Pais seleccionarPais(String nombrePais, Jugador jugador)  {
-        return this.estadoturno.seleccionarPais(nombrePais,jugador);
+        Pais pais = this.tablero.seleccionarPais(nombrePais);
+        return this.estadoTurno.seleccionarPais(pais, jugador);
     }
 
-    @Override
     public void cancelarAccion() {
-        this.estadoturno.cancelarAccion();
+        this.estadoTurno.cancelarAccion();
+    }
+
+    public void canjearTarjetas(ArrayList<Tarjeta> tarjetasACanjear) {
+        estadoTurno.canjearTarjetas(tarjetasACanjear);
     }
 
     @Override
-    public TipoDeRonda siguienteRonda() {
+    public Ronda siguienteRonda() {
         return new RondaDeAtaqueYReagrupe(tablero);
     }
 
     @Override
-    public void siguienteTurno(){
-
-        estadoturno.cambiarEstado();
-    }
-
-    @Override
-    public void canjearTarjetas(ArrayList<Tarjeta> tarjetasACanjear) {
-        estadoturno.canjearTarjetas(tarjetasACanjear);
+    public void empezarTurno(Jugador jugador) {
+        Integer ejercitosAColocar = tablero.calcularEjercitosDisponibles(jugador);
+        estadoTurno = new TurnoRefuerzo(jugador, ejercitosAColocar);
     }
 }

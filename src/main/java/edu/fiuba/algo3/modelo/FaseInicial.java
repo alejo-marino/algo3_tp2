@@ -28,8 +28,8 @@ public class FaseInicial implements Fase {
         return "Fase inicial";
     }
 
-    public void siguienteTurno() {
-        this.rondaInicial.siguienteTurno();
+    public void empezarTurno(Jugador jugador) {
+        this.rondaInicial.empezarTurno(jugador);
     }
 
 

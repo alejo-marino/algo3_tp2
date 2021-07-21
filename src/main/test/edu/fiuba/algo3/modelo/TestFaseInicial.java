@@ -15,7 +15,7 @@ public class TestFaseInicial {
 
     @BeforeEach
     void setUp() {
-        this.tablero = new Tablero(null);
+        this.tablero = new Tablero(null, null);
         Queue<Integer> cola = new LinkedList<>();
         cola.add(5);
         cola.add(3);

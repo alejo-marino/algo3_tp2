@@ -3,7 +3,7 @@ package edu.fiuba.algo3.modelo;
 import java.util.ArrayList;
 
 public interface Fase {
-    void siguienteTurno();
+    void empezarTurno(Jugador jugador);
 
     void reforzar(int cantidadEjercitos);
 

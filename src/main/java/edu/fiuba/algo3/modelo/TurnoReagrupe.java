@@ -6,16 +6,12 @@ import java.util.ArrayList;
 
 public class TurnoReagrupe implements EstadoTurno {
 
-    private final Tablero tablero;
+    private final Jugador jugador;
     private Pais paisOrigen;
     private Pais paisDestino;
 
-    public TurnoReagrupe(Tablero tablero) {
-        this.tablero = tablero;
-    }
-
-    public EstadoTurno cambiarEstado() {
-        return new TurnoAtaque(tablero);
+    public TurnoReagrupe(Jugador jugador) {
+        this.jugador = jugador;
     }
 
     @Override

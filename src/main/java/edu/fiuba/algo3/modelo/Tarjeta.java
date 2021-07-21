@@ -12,15 +12,14 @@ public class Tarjeta {
         this.pais = pais;
         this.simbolo = simbolo;
         this.fueActivada = false;
-        this.cantidadEjercitosActivacion = 3;
+        this.cantidadEjercitosActivacion = 2;
     }
 
-    public Integer activar(Jugador jugador) {
+    public void activar(Jugador jugador) {
         if (pais.esDuenio(jugador) && !fueActivada) {
+            pais.reforzar(cantidadEjercitosActivacion);
             fueActivada = true;
-            return cantidadEjercitosActivacion;
         }
-        return 0;
     }
 
     public void reiniciarEstado() {

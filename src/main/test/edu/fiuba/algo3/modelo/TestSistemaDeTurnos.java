@@ -55,8 +55,9 @@ public class TestSistemaDeTurnos {
         this.tarjetas.add(tarjeta2);
         this.tarjetas.add(tarjeta3);
 
-        Tablero tablero = new Tablero(paises);
+        Tablero tablero = new Tablero(paises, null);
         this.sistema = new SistemaDeTurnos(listaJugadores, tablero, cola);
+        this.sistema.empezarTurno();
     }
 
     @Test
@@ -85,7 +86,7 @@ public class TestSistemaDeTurnos {
     public void test05CreoUnSistemaDeTurnosYPasoDeTurnoYJugador2NoPuedeSeleccionarPaisDeJugador1() {
         sistema.seleccionarPais("Argentina");
         sistema.reforzar(5);
-        sistema.siguienteTurno();
+        sistema.empezarTurno();
 
         assertThrows(SeleccionaPaisAjenoException.class, () -> sistema.seleccionarPais("Argentina"));
     }
@@ -94,7 +95,7 @@ public class TestSistemaDeTurnos {
     public void test05CreoUnSistemaDeTurnosYCambiaElTurnoCorrectamente() {
         sistema.seleccionarPais("Argentina");
         sistema.reforzar(5);
-        sistema.siguienteTurno();
+        sistema.empezarTurno();
 
         assertEquals(jugador2, sistema.turnoDe());
     }
@@ -103,13 +104,13 @@ public class TestSistemaDeTurnos {
     public void test04CreoUnSistemaDeTurnosYHagoUnaRondaCompletaYVuelveAlPrimerJugador() {
         sistema.seleccionarPais("Argentina");
         sistema.reforzar(5);
-        sistema.siguienteTurno();
+        sistema.empezarTurno();
         sistema.seleccionarPais("Uruguay");
         sistema.reforzar(5);
-        sistema.siguienteTurno();
+        sistema.empezarTurno();
         sistema.seleccionarPais("China");
         sistema.reforzar(5);
-        sistema.siguienteTurno();
+        sistema.empezarTurno();
 
         assertEquals(jugador1, sistema.turnoDe());
     }
@@ -135,10 +136,10 @@ public class TestSistemaDeTurnos {
     public void test07CreoUnSistemaDeTurnosYJugadoresColocanCincoFichasCorrectamente() {
         sistema.seleccionarPais("Argentina");
         sistema.reforzar(5);
-        sistema.siguienteTurno();
+        sistema.empezarTurno();
         sistema.seleccionarPais("Uruguay");
         sistema.reforzar(5);
-        sistema.siguienteTurno();
+        sistema.empezarTurno();
         sistema.seleccionarPais("China");
         sistema.reforzar(5);
 
@@ -154,13 +155,17 @@ public class TestSistemaDeTurnos {
     public void test07CreoUnSistemaDeTurnosYJugadoresColocanCincoYDespuesNoPuedenColocarCinco() {
         sistema.seleccionarPais("Argentina");
         sistema.reforzar(5);
-        sistema.siguienteTurno();
+        sistema.empezarTurno();
         sistema.seleccionarPais("Uruguay");
         sistema.reforzar(5);
-        sistema.siguienteTurno();
+        sistema.empezarTurno();
         sistema.seleccionarPais("China");
         sistema.reforzar(5);
-        sistema.siguienteTurno();
+        sistema.empezarTurno();
+        sistema.seleccionarPais("Argentina");
+        sistema.reforzar(3);
+        sistema.empezarTurno();
+        sistema.seleccionarPais("Uruguay");
 
         assertThrows(NoPuedeColocarTantosEjercitosException.class, () -> sistema.reforzar(5));
     }
@@ -169,19 +174,19 @@ public class TestSistemaDeTurnos {
     public void test08SeColocanTodosLosEjercitosEnLaFaseIncialCorrectamente() {
         sistema.seleccionarPais("Argentina");
         sistema.reforzar(5);
-        sistema.siguienteTurno();
+        sistema.empezarTurno();
         sistema.seleccionarPais("Uruguay");
         sistema.reforzar(5);
-        sistema.siguienteTurno();
+        sistema.empezarTurno();
         sistema.seleccionarPais("China");
         sistema.reforzar(5);
-        sistema.siguienteTurno();
+        sistema.empezarTurno();
         sistema.seleccionarPais("Argentina");
         sistema.reforzar(3);
-        sistema.siguienteTurno();
+        sistema.empezarTurno();
         sistema.seleccionarPais("Uruguay");
         sistema.reforzar(3);
-        sistema.siguienteTurno();
+        sistema.empezarTurno();
         sistema.seleccionarPais("China");
         sistema.reforzar(3);
 
@@ -197,22 +202,22 @@ public class TestSistemaDeTurnos {
     public void test09SeColocanTodosLosEjercitosEnLaFaseIncialCorrectamenteYComienzaLaFaseDeJuego() {
         sistema.seleccionarPais("Argentina");
         sistema.reforzar(5);
-        sistema.siguienteTurno();
+        sistema.empezarTurno();
         sistema.seleccionarPais("Uruguay");
         sistema.reforzar(5);
-        sistema.siguienteTurno();
+        sistema.empezarTurno();
         sistema.seleccionarPais("China");
         sistema.reforzar(5);
-        sistema.siguienteTurno();
+        sistema.empezarTurno();
         sistema.seleccionarPais("Argentina");
         sistema.reforzar(3);
-        sistema.siguienteTurno();
+        sistema.empezarTurno();
         sistema.seleccionarPais("Uruguay");
         sistema.reforzar(3);
-        sistema.siguienteTurno();
+        sistema.empezarTurno();
         sistema.seleccionarPais("China");
         sistema.reforzar(3);
-        sistema.siguienteTurno();
+        sistema.empezarTurno();
 
         assertEquals("Fase de juego", sistema.getFaseActual());
     }
@@ -222,7 +227,7 @@ public class TestSistemaDeTurnos {
         sistema.seleccionarPais("Argentina");
         sistema.reforzar(2);
 
-        assertThrows(NoReforzoTodosLosEjercitosException.class, sistema::siguienteTurno);
+        assertThrows(NoReforzoTodosLosEjercitosException.class, () -> sistema.empezarTurno());
     }
 
     @Test
@@ -237,7 +242,6 @@ public class TestSistemaDeTurnos {
     public void test12CreoUnSistemaDeTurnosYNoPuedoReagrupar() {
         sistema.seleccionarPais("Argentina");
         sistema.reforzar(2);
-        sistema.seleccionarPais("Argentina");
 
         assertThrows(ReagrupeInvalidoException.class, () -> sistema.reagrupar(3));
     }
@@ -251,12 +255,8 @@ public class TestSistemaDeTurnos {
     public void test14PasoDeTurnoYNoPuedoObtenerLasTarjetasDelJugador1 () {
         sistema.seleccionarPais("Argentina");
         sistema.reforzar(5);
-        sistema.siguienteTurno();
+        sistema.empezarTurno();
         assertNotEquals(tarjetas, sistema.obtenerTarjetas());
     }
 
-    @Test
-    public void test15CreoUnSistemaDeTurnosYJugadorNoPuedeCanjearTarjetas() {
-        assertThrows(CanjeNoPermitidoException.class, () -> sistema.canjearTarjetas(null));
-    }
 }
