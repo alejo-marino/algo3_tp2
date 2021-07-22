@@ -28,9 +28,6 @@ public class SistemaDeTurnos {
 
     public void empezarTurno() {
         movimientos++;
-
-        System.out.println("Movimientos: " + movimientos);
-        System.out.println("If: " + (movimientos % (colaJugadores.size() + 1)));
         if ((movimientos % (colaJugadores.size() + 1)) == 0) {  // se pasa de ronda
             faseActual = faseActual.siguienteRonda();
             movimientos++;

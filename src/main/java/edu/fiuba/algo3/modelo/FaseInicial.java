@@ -1,19 +1,17 @@
 package edu.fiuba.algo3.modelo;
 
-import java.util.ArrayList;
 import java.util.Queue;
 
-public class FaseInicial implements Fase {
-
-    RondaInicial rondaInicial;
+public class FaseInicial extends Fase {
 
 
-    public FaseInicial(Queue<Integer> colaDeNumerosDeRefuerzoPorRonda, Tablero referenciaTablero) {   // {5, 3}
-        this.rondaInicial = new RondaInicial(colaDeNumerosDeRefuerzoPorRonda, referenciaTablero);
+    public FaseInicial(Queue<Integer> colaDeNumerosDeRefuerzoPorRonda, Tablero tablero) {
+        super(new RondaInicial(colaDeNumerosDeRefuerzoPorRonda, tablero));   // {5, 3}
     }
 
     public Fase siguienteRonda() {
-        if (this.rondaInicial.puedeContinuar()) {
+        RondaInicial rondaInicial = (RondaInicial) super.getRonda();
+        if (rondaInicial.puedeContinuar()) {
             rondaInicial.siguienteRonda();
             return this;
         }
@@ -21,44 +19,14 @@ public class FaseInicial implements Fase {
         return new FaseDeJuego(rondaInicial.pedirTablero());
     }
 
-
-
     @Override
     public String getFaseActual(){
         return "Fase inicial";
     }
 
-    public void empezarTurno(Jugador jugador) {
-        this.rondaInicial.empezarTurno(jugador);
-    }
-
-
     public String getRondaActual() {
+        RondaInicial rondaInicial = (RondaInicial) super.getRonda();
         return rondaInicial.getRondaActual();
     }
 
-    @Override
-    public void reforzar(int cantidadEjercitos) {
-        this.rondaInicial.reforzar( cantidadEjercitos);
-    }
-
-    @Override
-    public Pais seleccionarPais(String nombrePais, Jugador jugador) {
-        return rondaInicial.seleccionarPais(nombrePais, jugador);
-    }
-
-    @Override
-    public void atacar( int cantidadEjercitos) {
-        rondaInicial.atacar(cantidadEjercitos);
-    }
-
-    @Override
-    public void reagrupar(int cantidadEjercitos) {
-        rondaInicial.reagrupar( cantidadEjercitos);
-    }
-
-    @Override
-    public void canjearTarjetas(ArrayList<Tarjeta> tarjetasACanjear) {
-        rondaInicial.canjearTarjetas(tarjetasACanjear);
-    }
 }

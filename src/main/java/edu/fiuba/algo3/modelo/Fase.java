@@ -2,21 +2,46 @@ package edu.fiuba.algo3.modelo;
 
 import java.util.ArrayList;
 
-public interface Fase {
-    void empezarTurno(Jugador jugador);
+public abstract class Fase {
 
-    void reforzar(int cantidadEjercitos);
+    Ronda ronda;
 
-    Fase siguienteRonda();
+    public Fase(Ronda ronda) {
+        this.ronda = ronda;
+    }
 
-    String getFaseActual();
+    public void empezarTurno(Jugador jugador) {
+        ronda.empezarTurno(jugador);
+    }
 
-    Pais seleccionarPais(String nombrePais, Jugador jugador);
+    abstract Fase siguienteRonda();
 
-    void atacar(int cantidadEjercitos);
+    abstract String getFaseActual();
 
-    void reagrupar(int cantidadEjercitos);
+    public Pais seleccionarPais(String nombrePais, Jugador jugador) {
+        return ronda.seleccionarPais(nombrePais, jugador);
+    }
+    public void atacar(int cantidadEjercitos) {   // las variables atacante y defensor son innecesarias
+        ronda.atacar(cantidadEjercitos);
+    }
 
-    void canjearTarjetas(ArrayList<Tarjeta> tarjetasACanjear);
+    public void reagrupar(int cantidadEjercitos) {
+        ronda.reagrupar(cantidadEjercitos);
+    }
 
+    public void canjearTarjetas(ArrayList<Tarjeta> tarjetasACanjear) {
+        ronda.canjearTarjetas(tarjetasACanjear);
+    }
+
+    public void reforzar(int cantidadEjercitosAAgregar) {
+        ronda.reforzar(cantidadEjercitosAAgregar);
+    }
+
+    protected Ronda getRonda() {
+        return ronda;
+    }
+
+    protected void setRonda(Ronda ronda) {
+        this.ronda = ronda;
+    }
 }

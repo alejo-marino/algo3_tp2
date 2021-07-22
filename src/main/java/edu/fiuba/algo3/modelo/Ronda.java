@@ -2,23 +2,50 @@ package edu.fiuba.algo3.modelo;
 
 import java.util.ArrayList;
 
-public interface Ronda {
+public abstract class Ronda {
 
-    public void atacar(int cantidadEjercitos);
+    private Tablero tablero;
+    private EstadoTurno estadoTurno;
 
-    public void reagrupar(int cantidadEjercitos);
+    public Ronda(Tablero tablero, EstadoTurno estadoTurno) {
+        this.tablero = tablero;
+        this.estadoTurno = estadoTurno;
+    }
 
-    public void reforzar(Integer ejercitosAReforzar);
+    public void atacar(int cantidadEjercitos) {
+        this.estadoTurno.atacar(cantidadEjercitos);
+    }
 
-    public Pais seleccionarPais(String nombrePais, Jugador jugador);
+    public void reagrupar(int cantidadEjercitos) {
+        this.estadoTurno.reagrupar(cantidadEjercitos);
+    }
 
-    public void cancelarAccion();
+    public void reforzar(Integer ejercitosAReforzar) {
+        this.estadoTurno.reforzar(ejercitosAReforzar);
+    }
 
-    public void canjearTarjetas(ArrayList<Tarjeta> tarjetasACanjear);
+    public Pais seleccionarPais(String nombrePais, Jugador jugador)  {
+        Pais pais = this.tablero.seleccionarPais(nombrePais);
+        return this.estadoTurno.seleccionarPais(pais, jugador);
+    }
+
+    public void cancelarAccion() {
+        this.estadoTurno.cancelarAccion();
+    }
+
+    public void canjearTarjetas(ArrayList<Tarjeta> tarjetasACanjear) {
+        estadoTurno.canjearTarjetas(tarjetasACanjear);
+    }
 
     abstract Ronda siguienteRonda();
 
     abstract void empezarTurno(Jugador jugador);
 
+    public EstadoTurno getEstadoTurno() {
+        return estadoTurno;
+    }
 
+    public void setEstadoTurno(EstadoTurno estadoTurno) {
+        this.estadoTurno = estadoTurno;
+    }
 }

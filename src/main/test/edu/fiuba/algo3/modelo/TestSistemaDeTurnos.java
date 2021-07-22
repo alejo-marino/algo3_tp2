@@ -92,7 +92,7 @@ public class TestSistemaDeTurnos {
     }
 
     @Test
-    public void test05CreoUnSistemaDeTurnosYCambiaElTurnoCorrectamente() {
+    public void test06CreoUnSistemaDeTurnosYCambiaElTurnoCorrectamente() {
         sistema.seleccionarPais("Argentina");
         sistema.reforzar(5);
         sistema.empezarTurno();
@@ -101,7 +101,7 @@ public class TestSistemaDeTurnos {
     }
 
     @Test
-    public void test04CreoUnSistemaDeTurnosYHagoUnaRondaCompletaYVuelveAlPrimerJugador() {
+    public void test07CreoUnSistemaDeTurnosYHagoUnaRondaCompletaYVuelveAlPrimerJugador() {
         sistema.seleccionarPais("Argentina");
         sistema.reforzar(5);
         sistema.empezarTurno();
@@ -116,7 +116,7 @@ public class TestSistemaDeTurnos {
     }
 
     @Test
-    public void test05CreoUnSistemaDeTurnosYJugadorColocanCincoEjercitosCorrectamente() {
+    public void test08CreoUnSistemaDeTurnosYJugadorColocanCincoEjercitosCorrectamente() {
         sistema.seleccionarPais("Argentina");
         sistema.reforzar(5);
 
@@ -124,7 +124,7 @@ public class TestSistemaDeTurnos {
     }
 
     @Test
-    public void test06CreoUnSistemaDeTurnosYJugadorNoPuedeColocarMasDeCincoFichas() {
+    public void test09CreoUnSistemaDeTurnosYJugadorNoPuedeColocarMasDeCincoFichas() {
         sistema.seleccionarPais("Argentina");
         sistema.reforzar(2);
 
@@ -133,7 +133,7 @@ public class TestSistemaDeTurnos {
     }
 
     @Test
-    public void test07CreoUnSistemaDeTurnosYJugadoresColocanCincoFichasCorrectamente() {
+    public void test10CreoUnSistemaDeTurnosYJugadoresColocanCincoFichasCorrectamente() {
         sistema.seleccionarPais("Argentina");
         sistema.reforzar(5);
         sistema.empezarTurno();
@@ -152,7 +152,7 @@ public class TestSistemaDeTurnos {
     }
 
     @Test
-    public void test07CreoUnSistemaDeTurnosYJugadoresColocanCincoYDespuesNoPuedenColocarCinco() {
+    public void test11CreoUnSistemaDeTurnosYJugadoresColocanCincoYDespuesNoPuedenColocarCinco() {
         sistema.seleccionarPais("Argentina");
         sistema.reforzar(5);
         sistema.empezarTurno();
@@ -171,7 +171,7 @@ public class TestSistemaDeTurnos {
     }
 
     @Test
-    public void test08SeColocanTodosLosEjercitosEnLaFaseIncialCorrectamente() {
+    public void test12SeColocanTodosLosEjercitosEnLaFaseIncialCorrectamente() {
         sistema.seleccionarPais("Argentina");
         sistema.reforzar(5);
         sistema.empezarTurno();
@@ -199,7 +199,7 @@ public class TestSistemaDeTurnos {
     }
 
     @Test
-    public void test09SeColocanTodosLosEjercitosEnLaFaseIncialCorrectamenteYComienzaLaFaseDeJuego() {
+    public void test13SeColocanTodosLosEjercitosEnLaFaseIncialCorrectamenteYComienzaLaFaseDeJuego() {
         sistema.seleccionarPais("Argentina");
         sistema.reforzar(5);
         sistema.empezarTurno();
@@ -223,7 +223,7 @@ public class TestSistemaDeTurnos {
     }
 
     @Test
-    public void test10CreoUnSistemaDeTurnosYJugadorNoPuedeColocarMenosDeCincoEjercitos() {
+    public void test14CreoUnSistemaDeTurnosYJugadorNoPuedeColocarMenosDeCincoEjercitos() {
         sistema.seleccionarPais("Argentina");
         sistema.reforzar(2);
 
@@ -231,7 +231,7 @@ public class TestSistemaDeTurnos {
     }
 
     @Test
-    public void test11CreoUnSistemaDeTurnosYNoPuedoAtacar() {
+    public void test15CreoUnSistemaDeTurnosYNoPuedoAtacar() {
         sistema.seleccionarPais("Argentina");
         sistema.reforzar(2);
 
@@ -239,7 +239,7 @@ public class TestSistemaDeTurnos {
     }
 
     @Test
-    public void test12CreoUnSistemaDeTurnosYNoPuedoReagrupar() {
+    public void test16CreoUnSistemaDeTurnosYNoPuedoReagrupar() {
         sistema.seleccionarPais("Argentina");
         sistema.reforzar(2);
 
@@ -247,16 +247,40 @@ public class TestSistemaDeTurnos {
     }
 
     @Test
-    public void test13PuedoObtenerLasTarjetasDelJugador1 () {
+    public void test17PuedoObtenerLasTarjetasDelJugador1 () {
         assertEquals(tarjetas, sistema.obtenerTarjetas());
     }
 
     @Test
-    public void test14PasoDeTurnoYNoPuedoObtenerLasTarjetasDelJugador1 () {
+    public void test18PasoDeTurnoYNoPuedoObtenerLasTarjetasDelJugador1 () {
         sistema.seleccionarPais("Argentina");
         sistema.reforzar(5);
         sistema.empezarTurno();
         assertNotEquals(tarjetas, sistema.obtenerTarjetas());
+    }
+
+    @Test
+    public void test19NoPuedoCanjearTarjetasEnRondaDeAtaqueYReagrupe () {
+        sistema.seleccionarPais("Argentina");
+        sistema.reforzar(5);
+        sistema.empezarTurno();
+        sistema.seleccionarPais("Uruguay");
+        sistema.reforzar(5);
+        sistema.empezarTurno();
+        sistema.seleccionarPais("China");
+        sistema.reforzar(5);
+        sistema.empezarTurno();
+        sistema.seleccionarPais("Argentina");
+        sistema.reforzar(3);
+        sistema.empezarTurno();
+        sistema.seleccionarPais("Uruguay");
+        sistema.reforzar(3);
+        sistema.empezarTurno();
+        sistema.seleccionarPais("China");
+        sistema.reforzar(3);
+        sistema.empezarTurno();
+
+        assertThrows(CanjeNoPermitidoException.class, () -> sistema.canjearTarjetas(tarjetas));
     }
 
 }
