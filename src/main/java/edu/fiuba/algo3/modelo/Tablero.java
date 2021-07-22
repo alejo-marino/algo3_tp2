@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.modelo.excepciones.PaisInexistenteException;
+import edu.fiuba.algo3.modelo.excepciones.*;
 
 import java.util.ArrayList;
 import java.util.Dictionary;
@@ -62,24 +62,17 @@ public class Tablero {
         return (paisesPorJugador.get(jugador)).size();
     }
 
+    private Continente seleccionarContinente(String nombreContinente) {
+        for (Continente continente: continentes) {
+            if(continente.toString().equals(nombreContinente))
+                return continente;
+        }
+        throw new ContinenteInexistenteException(nombreContinente + " no se encuentra en el tablero.");
+    }
 
+    public Integer paisesConquistadosPorEn(Jugador jugador, String nombreContinente) {
+        Continente continente = seleccionarContinente(nombreContinente);
+        return continente.paisesConquistadosPor(jugador);
+    }
 
-
-//    public void atacarConA(Pais atacante, Pais defensor) {
-//        Combate combate = new Combate(atacante, defensor);
-//        combate.combatir(cantidadEjercitos);
-//    }
-//
-//    public void atacarConAPredeterminado(Pais atacante, Pais defensor, ArrayList tiradaAtacante, ArrayList tiradaDefensor) {
-//        Combate combate = new Combate(atacante, defensor);
-//        combate.combatePredeterminado(tiradaAtacante, tiradaDefensor);
-//    }
-//
-//    public void reforzar(Pais pais, int cantDeEjercitosAReforzar) {
-//        pais.reforzar(cantDeEjercitosAReforzar);
-//    }
-//
-//    public void reforzarPredeterminado(Pais pais, int ejercitos){
-//        pais.reforzar(ejercitos);
-//    }
 }

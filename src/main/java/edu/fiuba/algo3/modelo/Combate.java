@@ -49,7 +49,10 @@ public class Combate {
         }
         this.atacante.disminuirEjercitos(ganaDefensor);
         this.defensor.disminuirEjercitos(ganaAtacante);
-        defensor.serConquistadoPor(atacante);
+        if (!defensor.tengoEjercitos()) {
+            atacante.conquistar(defensor);
+        }
+
     }
 
     private boolean ganadorTirada(int tiradaDefensor, int tiradaAtacante) {

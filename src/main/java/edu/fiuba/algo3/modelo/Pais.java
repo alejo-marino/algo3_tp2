@@ -65,12 +65,6 @@ public class Pais {
         this.paisesLimitrofes.add(pais);
     }
 
-    public void serConquistadoPor(Pais atacante) {
-        if (!this.tengoEjercitos()) {
-            atacante.conquistar(this);
-        }
-    }
-
     public boolean esDuenio(Jugador jugador) {
         return (jugador == duenio);
     }

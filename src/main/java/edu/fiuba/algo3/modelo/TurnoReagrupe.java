@@ -61,7 +61,7 @@ public class TurnoReagrupe implements EstadoTurno {
     }
 
     @Override
-    public void reagrupar(int cantidadEjercitos){
+    public void reagrupar(int cantidadEjercitos) {
         this.paisPuedeReagrupar(cantidadEjercitos);
         this.paisOrigen.disminuirEjercitos(cantidadEjercitos);
         this.paisDestino.reforzar(cantidadEjercitos);

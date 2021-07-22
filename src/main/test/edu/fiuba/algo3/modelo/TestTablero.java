@@ -82,6 +82,38 @@ public class TestTablero {
         assertTrue(paisesCorrectosSegunJugador);
     }
 
+    @Test
+    public void test05CreoUnTableroCon1Jugadorcon1PaisYNingunContinenteYTiene3EjercitosParaReforzar (){
+        assertEquals(3, tablero.calcularEjercitosDisponibles(jugador1));
+    }
 
+    @Test
+    public void test06Jugador1Tiene2PaisesYAmericaDelSurYRecibe4EjercitosParaReforzar () {
+        argentina.conquistar(uruguay);
+        assertEquals(4, tablero.calcularEjercitosDisponibles(jugador1)); //Bonus de sudamerica = 3, mitad de paises conquistados = 1.
+    }
+
+    @Test
+    public void test07Jugador1Tiene3PaisesYAmericaDelSurYAsiaYRecibe10EjercitosParaReforzar () {
+        argentina.conquistar(uruguay);
+        argentina.conquistar(china);
+        assertEquals(10, tablero.calcularEjercitosDisponibles(jugador1)); //Bonus de sudamerica = 3, Bonus Asia = 6 mitad de paises conquistados(3) = 10.
+    }
+
+    @Test
+    public void test08Jugador1Tiene1PaisDeAmericaDelSur () {
+        assertEquals(1, tablero.paisesConquistadosPorEn(jugador1, "America Del Sur"));
+    }
+
+    @Test
+    public void test09Jugador1ConquistaYTiene2PaisesDeAmericaDelSur () {
+        argentina.conquistar(uruguay);
+        assertEquals(2, tablero.paisesConquistadosPorEn(jugador1, "America Del Sur"));
+    }
+
+    @Test
+    public void test08Jugador1Tiene0PaisesEnAsia () {
+        assertEquals(0, tablero.paisesConquistadosPorEn(jugador1, "Asia"));
+    }
 
 }

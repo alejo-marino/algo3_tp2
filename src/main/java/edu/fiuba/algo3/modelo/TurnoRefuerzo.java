@@ -65,7 +65,6 @@ public class TurnoRefuerzo implements EstadoTurno {
     }
 
     public boolean reforzoTodo() {
-        System.out.println(ejercitosDisponibles);
         return ejercitosDisponibles == 0;
     }
 }
