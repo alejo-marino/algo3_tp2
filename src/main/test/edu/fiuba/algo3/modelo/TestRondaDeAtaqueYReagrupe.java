@@ -5,7 +5,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.atMost;
+import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class TestRondaDeAtaqueYReagrupe {
 
@@ -17,6 +25,7 @@ public class TestRondaDeAtaqueYReagrupe {
     private Pais china;
     private Pais chile;
     private RondaDeAtaqueYReagrupe ronda;
+    private Juego juegoMock;
 
 
     @BeforeEach
@@ -24,10 +33,6 @@ public class TestRondaDeAtaqueYReagrupe {
         this.jugador1 = new Jugador("000000");
         this.jugador2 = new Jugador("ffffff");
         this.jugador3 = new Jugador("fff000");
-        ArrayList<Jugador> listaJugadores = new ArrayList<>();
-        listaJugadores.add(jugador1);
-        listaJugadores.add(jugador2);
-        listaJugadores.add(jugador3);
 
         this.argentina = new Pais("Argentina",jugador1);
         this.uruguay = new Pais("Uruguay",jugador2);
@@ -38,19 +43,18 @@ public class TestRondaDeAtaqueYReagrupe {
         argentina.hacerLimitrofe(chile);
         chile.hacerLimitrofe(argentina);
         argentina.reforzar(3);
-        ArrayList<Pais> paises = new ArrayList<>();
-        paises.add(argentina);
-        paises.add(uruguay);
-        paises.add(china);
-        paises.add(chile);
 
-        Tablero tablero = new Tablero(paises, null);
-        this.ronda = new RondaDeAtaqueYReagrupe(tablero);
+        this.juegoMock = mock(Juego.class);
+        when(juegoMock.seleccionarPais("Argentina")).thenReturn(argentina);
+        when(juegoMock.seleccionarPais("Chile")).thenReturn(chile);
+        when(juegoMock.seleccionarPais("Uruguay")).thenReturn(uruguay);
+        this.ronda = new RondaDeAtaqueYReagrupe(juegoMock);
         ronda.empezarTurno(jugador1);
     }
 
     @Test
     public void test01CreoUnaRondaDeAtaqueYReagrupeYNoEsNull() {
+        this.ronda = new RondaDeAtaqueYReagrupe(juegoMock);
         assertNotNull(ronda);
     }
 

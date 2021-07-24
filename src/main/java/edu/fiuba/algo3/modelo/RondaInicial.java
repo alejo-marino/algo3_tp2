@@ -7,12 +7,12 @@ import java.util.Queue;
 public class RondaInicial extends RondaDeRefuerzo {
 
     private final Queue<Integer> colaRefuerzo;
-    Tablero tablero;
+    private Juego juego;
 
-    public RondaInicial(Queue<Integer> colaDeNumerosDeRefuerzoPorRonda, Tablero tablero) {
-        super(tablero);
+    public RondaInicial(Queue<Integer> colaDeNumerosDeRefuerzoPorRonda, Juego juego) {
+        super(juego);
         colaRefuerzo = colaDeNumerosDeRefuerzoPorRonda;
-        this.tablero = tablero;
+        this.juego = juego;
     }
 
     public boolean puedeContinuar() {
@@ -42,8 +42,8 @@ public class RondaInicial extends RondaDeRefuerzo {
         super.setEstadoTurno(new TurnoRefuerzo(jugador, this.cantidadRefuerzo()));
     }
 
-    public Tablero pedirTablero() {
-        return tablero;
+    public Juego pedirJuego() {
+        return juego;
     }
 
 }

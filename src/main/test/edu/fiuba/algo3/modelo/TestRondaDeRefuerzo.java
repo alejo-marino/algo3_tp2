@@ -5,6 +5,8 @@ import edu.fiuba.algo3.modelo.excepciones.SeleccionaPaisAjenoException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 
@@ -20,16 +22,13 @@ public class TestRondaDeRefuerzo {
     private RondaDeRefuerzo ronda;
     private Continente americaDelSur;
     private Continente asia;
+    private Juego juegoMock;
 
     @BeforeEach
     void setUp() {
         this.jugador1 = new Jugador("000000");
         this.jugador2 = new Jugador("ffffff");
         this.jugador3 = new Jugador("fff000");
-        ArrayList<Jugador> listaJugadores = new ArrayList<>();
-        listaJugadores.add(jugador1);
-        listaJugadores.add(jugador2);
-        listaJugadores.add(jugador3);
 
         this.argentina = new Pais("Argentina",jugador1);
         this.uruguay = new Pais("Uruguay",jugador2);
@@ -40,11 +39,6 @@ public class TestRondaDeRefuerzo {
         argentina.hacerLimitrofe(chile);
         chile.hacerLimitrofe(argentina);
         argentina.reforzar(3);
-        ArrayList<Pais> paises = new ArrayList<>();
-        paises.add(argentina);
-        paises.add(uruguay);
-        paises.add(china);
-        paises.add(chile);
 
         this.americaDelSur = new Continente("America Del Sur", 3);
         this.asia = new Continente("Asia", 6);
@@ -53,12 +47,13 @@ public class TestRondaDeRefuerzo {
         this.americaDelSur.agregarPais(chile);
         this.asia.agregarPais(china);
 
-        ArrayList<Continente> continentes = new ArrayList<>();
-        continentes.add(americaDelSur);
-        continentes.add(asia);
-
-        Tablero tablero = new Tablero(paises, continentes);
-        this.ronda = new RondaDeRefuerzo(tablero);
+        this.juegoMock = mock(Juego.class);
+        when(juegoMock.seleccionarPais("Argentina")).thenReturn(argentina);
+        when(juegoMock.seleccionarPais("Chile")).thenReturn(chile);
+        when(juegoMock.seleccionarPais("Uruguay")).thenReturn(uruguay);
+        when(juegoMock.seleccionarPais("China")).thenReturn(china);
+        when(juegoMock.calcularEjercitosDisponibles(jugador1)).thenReturn(6);
+        this.ronda = new RondaDeRefuerzo(juegoMock);
         ronda.empezarTurno(jugador1);
     }
 

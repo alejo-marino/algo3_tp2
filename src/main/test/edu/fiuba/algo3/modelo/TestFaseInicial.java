@@ -7,19 +7,23 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 public class TestFaseInicial {
 
-    private Tablero tablero;
+    private Juego juegoMock;
     private FaseInicial faseInicial;
 
     @BeforeEach
     void setUp() {
-        this.tablero = new Tablero(null, null);
+//        this.tablero = new Tablero(null, null);
         Queue<Integer> cola = new LinkedList<>();
         cola.add(5);
         cola.add(3);
-        this.faseInicial = new FaseInicial(cola, tablero);
+        this.juegoMock = mock(Juego.class);
+        this.juegoMock.setearCantidadJugadores(3);
+        this.juegoMock.iniciarJuego();
+        this.faseInicial = new FaseInicial(cola, juegoMock);
     }
 
     @Test

@@ -2,10 +2,8 @@ package edu.fiuba.algo3.modelo;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.LinkedList;
 import java.util.Queue;
-import edu.fiuba.algo3.modelo.Jugador;
-import edu.fiuba.algo3.modelo.Pais;
-import edu.fiuba.algo3.modelo.Continente;
 
 public class InicializadorDeDatos {
     /*
@@ -54,18 +52,19 @@ public class InicializadorDeDatos {
     }
 
 
-    public Tablero inicializarContinentesYPaises(Hashtable<String, Hashtable<String, ArrayList<String>>> diccContinentes, Queue<Jugador> jugadores) {
+    public ArrayList<ArrayList> inicializarContinentesYPaises(Hashtable<String, Hashtable<String, ArrayList<String>>> diccContinentes, ArrayList<Jugador> jugadores) {
+        Queue<Jugador> colaJugadores = this.convertirListaDeJugadoresACola(jugadores);
         ArrayList<Continente> listaContinentes = new ArrayList<Continente>();
         ArrayList<Pais> listaPaises = new ArrayList<Pais>();
         diccContinentes.forEach((nombreContinente, diccionarioPaisesEnContinente) -> {
             Continente continente = new Continente(nombreContinente, diccBonusContinentes.get(nombreContinente));
             listaContinentes.add(continente);
             diccionarioPaisesEnContinente.forEach((nombrePais, listaPaisesLimitrofes) -> {
-                Jugador jugadorActual = jugadores.remove();
+                Jugador jugadorActual = colaJugadores.remove();
                 Pais pais = new Pais(nombrePais, jugadorActual); // este nombreJugador es un placeholder para cuando tengamos el algoritmo de distribucion de paises seria bueno inicializar con un jugador NULL y luego de la primera pasada pisar el duenio del pais con el que corresponda
                 listaPaises.add(pais);
                 continente.agregarPais(pais);
-                jugadores.add(jugadorActual);
+                colaJugadores.add(jugadorActual);
             });
         });
 
@@ -83,8 +82,11 @@ public class InicializadorDeDatos {
             });
         });
 
-        Tablero tablero = new Tablero(listaPaises, listaContinentes);
-        return tablero;
+        ArrayList<ArrayList> listaADevolver = new ArrayList<>();
+        listaADevolver.add(listaPaises);
+        listaADevolver.add(listaContinentes);
+
+        return listaADevolver;
     }
 
     public ArrayList<Tarjeta> inicializarTarjetas(ArrayList<ArrayList<String>> tarjetas, ArrayList<Pais> paises) {
@@ -101,6 +103,14 @@ public class InicializadorDeDatos {
 
     private Pais getPais(ArrayList<Pais> paises, String nombrePais) {
         return paises.stream().filter(pais -> nombrePais.equals(pais.toString())).findFirst().orElse(null);
+    }
+
+    private Queue<Jugador> convertirListaDeJugadoresACola(ArrayList<Jugador> jugadores) {
+        Queue<Jugador> colaJugadores = new LinkedList<>();
+        for (Jugador jugador: jugadores) {
+            colaJugadores.add(jugador);
+        }
+        return colaJugadores;
     }
 
     //return listCarnet.stream().filter(carnet -> codeIsIn.equals(carnet.getCodeIsin())).findFirst().orElse(null);

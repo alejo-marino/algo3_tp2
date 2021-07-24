@@ -19,10 +19,10 @@ public class SistemaDeTurnos {
         return colaJugadores.peek();
     }
 
-    public SistemaDeTurnos(ArrayList<Jugador> listaJugadores, Tablero tablero, Queue<Integer> colaDeNumerosDeRefuerzoPorRonda) {
+    public SistemaDeTurnos(ArrayList<Jugador> listaJugadores, Juego juego, Queue<Integer> colaDeNumerosDeRefuerzoPorRonda) {
         this.colaJugadores = this.crearColaDeLista(listaJugadores);
         this.movimientos = 0;
-        this.faseActual = new FaseInicial(colaDeNumerosDeRefuerzoPorRonda, tablero);
+        this.faseActual = new FaseInicial(colaDeNumerosDeRefuerzoPorRonda, juego);
         this.esPrimerTurno = true;
     }
 

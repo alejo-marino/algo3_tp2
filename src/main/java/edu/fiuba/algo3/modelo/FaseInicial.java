@@ -4,9 +4,8 @@ import java.util.Queue;
 
 public class FaseInicial extends Fase {
 
-
-    public FaseInicial(Queue<Integer> colaDeNumerosDeRefuerzoPorRonda, Tablero tablero) {
-        super(new RondaInicial(colaDeNumerosDeRefuerzoPorRonda, tablero));   // {5, 3}
+    public FaseInicial(Queue<Integer> colaDeNumerosDeRefuerzoPorRonda, Juego juego) {
+        super(new RondaInicial(colaDeNumerosDeRefuerzoPorRonda, juego));   // {5, 3}
     }
 
     public Fase siguienteRonda() {
@@ -16,7 +15,7 @@ public class FaseInicial extends Fase {
             return this;
         }
 
-        return new FaseDeJuego(rondaInicial.pedirTablero());
+        return new FaseDeJuego(rondaInicial.pedirJuego());
     }
 
     @Override

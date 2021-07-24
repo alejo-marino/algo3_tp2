@@ -2,11 +2,11 @@ package edu.fiuba.algo3.modelo;
 
 public class RondaDeAtaqueYReagrupe extends Ronda {
 
-    private final Tablero tablero;
+    private final Juego juego;
 
-    public RondaDeAtaqueYReagrupe(Tablero tablero) {
-        super(tablero, new TurnoAtaque(null));
-        this.tablero = tablero;
+    public RondaDeAtaqueYReagrupe(Juego juego) {
+        super(juego, new TurnoAtaque(null));
+        this.juego = juego;
     }
 
     // se llamara a este metodo cuando se termine la parte de ataque del turno, el jugador podra reagrupar antes de terminar su turno.
@@ -20,7 +20,7 @@ public class RondaDeAtaqueYReagrupe extends Ronda {
     }
 
     public Ronda siguienteRonda() {
-        return new RondaDeRefuerzo(tablero);
+        return new RondaDeRefuerzo(juego);
     }
 }
 

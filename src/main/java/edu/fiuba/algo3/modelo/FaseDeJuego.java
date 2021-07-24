@@ -2,8 +2,8 @@ package edu.fiuba.algo3.modelo;
 
 public class FaseDeJuego extends Fase {
 
-    public FaseDeJuego (Tablero tablero) {
-        super(new RondaDeAtaqueYReagrupe(tablero));
+    public FaseDeJuego (Juego juego) {
+        super(new RondaDeAtaqueYReagrupe(juego));
     }
 
     @Override

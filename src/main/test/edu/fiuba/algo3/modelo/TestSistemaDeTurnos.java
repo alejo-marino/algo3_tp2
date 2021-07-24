@@ -5,6 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -19,6 +21,7 @@ public class TestSistemaDeTurnos {
     private Pais china;
     private ArrayList<Tarjeta> tarjetas;
     private SistemaDeTurnos sistema;
+    private Juego juegoMock;
 
     @BeforeEach
     void setUp() {
@@ -39,10 +42,6 @@ public class TestSistemaDeTurnos {
         this.china = new Pais("China", jugador3);
         argentina.hacerLimitrofe(uruguay);
         uruguay.hacerLimitrofe(argentina);
-        ArrayList<Pais> paises = new ArrayList<>();
-        paises.add(argentina);
-        paises.add(uruguay);
-        paises.add(china);
 
         Tarjeta tarjeta1 = new Tarjeta(argentina, "Globo");
         Tarjeta tarjeta2 = new Tarjeta(uruguay, "Canion");
@@ -54,9 +53,15 @@ public class TestSistemaDeTurnos {
         this.tarjetas.add(tarjeta1);
         this.tarjetas.add(tarjeta2);
         this.tarjetas.add(tarjeta3);
+        
+        this.juegoMock = mock(Juego.class);
+        this.juegoMock.setearCantidadJugadores(3);
+        this.juegoMock.iniciarJuego();
+        when(juegoMock.seleccionarPais("Argentina")).thenReturn(argentina);
+        when(juegoMock.seleccionarPais("China")).thenReturn(china);
+        when(juegoMock.seleccionarPais("Uruguay")).thenReturn(uruguay);
 
-        Tablero tablero = new Tablero(paises, null);
-        this.sistema = new SistemaDeTurnos(listaJugadores, tablero, cola);
+        this.sistema = new SistemaDeTurnos(listaJugadores, juegoMock, cola);
         this.sistema.empezarTurno();
     }
 

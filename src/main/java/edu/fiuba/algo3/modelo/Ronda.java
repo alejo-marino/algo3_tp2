@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 public abstract class Ronda {
 
-    private Tablero tablero;
+    private Juego juego;
     private EstadoTurno estadoTurno;
 
-    public Ronda(Tablero tablero, EstadoTurno estadoTurno) {
-        this.tablero = tablero;
+    public Ronda(Juego juego, EstadoTurno estadoTurno) {
+        this.juego = juego;
         this.estadoTurno = estadoTurno;
     }
 
@@ -25,7 +25,7 @@ public abstract class Ronda {
     }
 
     public Pais seleccionarPais(String nombrePais, Jugador jugador)  {
-        Pais pais = this.tablero.seleccionarPais(nombrePais);
+        Pais pais = this.juego.seleccionarPais(nombrePais);
         return this.estadoTurno.seleccionarPais(pais, jugador);
     }
 
@@ -41,11 +41,11 @@ public abstract class Ronda {
 
     abstract void empezarTurno(Jugador jugador);
 
-    public EstadoTurno getEstadoTurno() {
+    protected EstadoTurno getEstadoTurno() {
         return estadoTurno;
     }
 
-    public void setEstadoTurno(EstadoTurno estadoTurno) {
+    protected void setEstadoTurno(EstadoTurno estadoTurno) {
         this.estadoTurno = estadoTurno;
     }
 }
