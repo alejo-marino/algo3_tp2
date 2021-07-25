@@ -23,10 +23,15 @@ public class Combate {
         int cantEjercitosDefensores = this.defensor.getEjercitosParaDefender();
 
         DadosDeSeisCaras dados = new DadosDeSeisCaras();
-        ArrayList<Integer> tiradaAtacante = dados.tirarDados(this.cantEjercitosAtacantes);
-        ArrayList<Integer> tiradaDefensor = dados.tirarDados(cantEjercitosDefensores);
+        ArrayList<Integer> tiradaAtacante = obtenerTirada(cantEjercitosAtacantes);
+        ArrayList<Integer> tiradaDefensor = obtenerTirada(cantEjercitosDefensores);
 
         determinarGanador(tiradaAtacante, tiradaDefensor);
+    }
+
+    private ArrayList<Integer> obtenerTirada (Integer cantidadDados) {
+        DadosDeSeisCaras dados = new DadosDeSeisCaras();
+        return dados.tirarDados(cantidadDados);
     }
 
     public void combatePredeterminado( ArrayList<Integer> tiradaAtacante, ArrayList<Integer> tiradaDefensor) {

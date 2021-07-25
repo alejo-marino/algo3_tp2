@@ -48,4 +48,6 @@ public abstract class Ronda {
     protected void setEstadoTurno(EstadoTurno estadoTurno) {
         this.estadoTurno = estadoTurno;
     }
+
+    abstract void terminarAtaque(Jugador jugador);
 }

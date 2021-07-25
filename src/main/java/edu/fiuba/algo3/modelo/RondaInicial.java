@@ -36,7 +36,7 @@ public class RondaInicial extends RondaDeRefuerzo {
     @Override
     public void empezarTurno(Jugador jugador) {
         TurnoRefuerzo estadoTurno = (TurnoRefuerzo) super.getEstadoTurno();
-        if (!estadoTurno.reforzoTodo()) {
+        if (estadoTurno.tieneEjercitosParaReforzar()) {
             throw new NoReforzoTodosLosEjercitosException();
         }
         super.setEstadoTurno(new TurnoRefuerzo(jugador, this.cantidadRefuerzo()));
@@ -44,6 +44,10 @@ public class RondaInicial extends RondaDeRefuerzo {
 
     public Juego pedirJuego() {
         return juego;
+    }
+
+    public void terminarAtaque(Jugador jugador) {
+        throw new AtaqueInvalidoException("No se puede atacar en las rondas iniciales");
     }
 
 }

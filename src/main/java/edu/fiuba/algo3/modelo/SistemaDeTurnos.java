@@ -11,19 +11,19 @@ public class SistemaDeTurnos {
     Fase faseActual;
     boolean esPrimerTurno;
 
+    public SistemaDeTurnos(ArrayList<Jugador> listaJugadores, Juego juego, Queue<Integer> colaDeNumerosDeRefuerzoPorRonda) {
+        this.colaJugadores = this.crearColaDeLista(listaJugadores);
+        this.movimientos = 0;
+        this.faseActual = new FaseInicial(colaDeNumerosDeRefuerzoPorRonda, juego);
+        this.esPrimerTurno = true;
+    }
+
     private Queue<Jugador> crearColaDeLista(ArrayList<Jugador> lista) {
         return new LinkedList<>(lista);
     }
 
     public Jugador turnoDe() {
         return colaJugadores.peek();
-    }
-
-    public SistemaDeTurnos(ArrayList<Jugador> listaJugadores, Juego juego, Queue<Integer> colaDeNumerosDeRefuerzoPorRonda) {
-        this.colaJugadores = this.crearColaDeLista(listaJugadores);
-        this.movimientos = 0;
-        this.faseActual = new FaseInicial(colaDeNumerosDeRefuerzoPorRonda, juego);
-        this.esPrimerTurno = true;
     }
 
     public void empezarTurno() {
@@ -68,28 +68,8 @@ public class SistemaDeTurnos {
         faseActual.canjearTarjetas(tarjetasACanjear);
     }
 
-    /*
-    int numeroDeFase = 1;
-
-    while (sistTurnos.numeroDeFase <= CANT_FASES_REFUERZO_INICIALES) {  //
-        jugador = desencolar(colaJugadores)
-        turno.darTurno(jugador);
-        colaJugadores.encolarJugador(jugador);
-        turno.siguiente;
+    public void terminarAtaque() {
+        faseActual.terminarAtaque(turnoDe());
     }
 
-    turno.setearAtaque
-
-    while (true) {
-        {for i in cantJugadores: {
-            jugador = desencolar(colaJugadores)
-            sistTurnos.darTurno(jugador);
-            encolarJugador(colaJugadores);
-            if (jugador.checkearSiGane())
-                juego.ganoJugador(jugador); // deberia cortar la ejecucion de todos los demas objetos y mostrar por pantalla quien gano
-        }
-        turno.siguiente;
-        numeroDeFase++;
-    }
-     */
 }

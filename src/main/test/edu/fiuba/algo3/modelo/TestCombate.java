@@ -2,8 +2,10 @@ package edu.fiuba.algo3.modelo;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestCombate {
 
@@ -41,8 +43,8 @@ public class TestCombate {
         this.tiradaAtacante.add(6);
         this.tiradaDefensor.add(1);
         Integer cantEjercitosAtacantes = atacante.getEjercitosParaAtacar();
-        Combate combate = new Combate(atacante, defensor, cantEjercitosAtacantes);
 
+        Combate combate = new Combate(atacante, defensor, cantEjercitosAtacantes);
         combate.combatePredeterminado(tiradaAtacante, tiradaDefensor);
         assertTrue(atacante.esAliado(defensor));
         assertEquals(1, defensor.getEjercitos());
@@ -58,6 +60,7 @@ public class TestCombate {
         tiradaDefensor.add(3);
 
         Integer cantEjercitosAtacantes = atacante.getEjercitosParaAtacar();
+
         Combate combate = new Combate(atacante, defensor, cantEjercitosAtacantes);
         combate.combatePredeterminado(tiradaAtacante, tiradaDefensor);
 

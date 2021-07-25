@@ -15,4 +15,5 @@ public interface EstadoTurno {
     void reforzar(int cantidadEjercitosAReforzar);
 
     void canjearTarjetas(ArrayList<Tarjeta> tarjetasACanjear);
+
 }

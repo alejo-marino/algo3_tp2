@@ -79,4 +79,5 @@ public class TurnoAtaque implements EstadoTurno {
     public void canjearTarjetas(ArrayList<Tarjeta> tarjetasACanjear) {
         throw new CanjeNoPermitidoException("No se puede canjear en una ronda de ataque y reagrupe");
     }
+
 }

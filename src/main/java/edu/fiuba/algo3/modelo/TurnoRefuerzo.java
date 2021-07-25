@@ -8,7 +8,7 @@ public class TurnoRefuerzo implements EstadoTurno {
 
     private Pais paisRefuerzo;
     private Integer ejercitosDisponibles;
-    private Jugador jugador;
+    private final Jugador jugador;
 
     public TurnoRefuerzo(Jugador jugador, Integer ejercitosAReforzar) {
         this.jugador = jugador;
@@ -26,12 +26,10 @@ public class TurnoRefuerzo implements EstadoTurno {
             throw new PaisesYaSeleccionadosException(paisSeleccionado + " ya esta seleccionado, apreta 'Reforzar' o 'Cancelar accion'.");
         }
 
-        if (this.paisRefuerzo == null) {
-            if (!paisSeleccionado.esDuenio(jugador)) {
-                throw new SeleccionaPaisAjenoException("El pais: " + paisSeleccionado + " no te pertenece");
-            }
-            paisRefuerzo = paisSeleccionado;
+        if (!paisSeleccionado.esDuenio(jugador)) {
+            throw new SeleccionaPaisAjenoException("El pais: " + paisSeleccionado + " no te pertenece");
         }
+        paisRefuerzo = paisSeleccionado;
         return paisRefuerzo;
     }
 
@@ -64,7 +62,7 @@ public class TurnoRefuerzo implements EstadoTurno {
         ejercitosDisponibles = ejercitosDisponibles + jugador.canjearTarjetas(tarjetasACanjear);
     }
 
-    public boolean reforzoTodo() {
-        return ejercitosDisponibles == 0;
+    public boolean tieneEjercitosParaReforzar() {
+        return ejercitosDisponibles > 0;
     }
 }

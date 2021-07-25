@@ -44,4 +44,8 @@ public abstract class Fase {
     protected void setRonda(Ronda ronda) {
         this.ronda = ronda;
     }
+
+    public void terminarAtaque(Jugador jugador) {
+        this.ronda.terminarAtaque(jugador);
+    }
 }
