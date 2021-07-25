@@ -21,7 +21,7 @@ public class TurnoRefuerzo implements EstadoTurno {
     }
 
     @Override
-    public Pais seleccionarPais(Pais paisSeleccionado, Jugador jugador) {
+    public Pais seleccionarPais(Pais paisSeleccionado) {
         if (this.paisRefuerzo != null) {
             throw new PaisesYaSeleccionadosException(paisSeleccionado + " ya esta seleccionado, apreta 'Reforzar' o 'Cancelar accion'.");
         }

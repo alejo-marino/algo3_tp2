@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestPais {
 
     private Jugador jugador1;
-    private Jugador jugador2;
     private Pais argentina;
     private Pais uruguay;
     private Pais chile;
@@ -16,7 +15,7 @@ public class TestPais {
     @BeforeEach
     void setUp() {
         this.jugador1 = new Jugador("000000");
-        this.jugador2 = new Jugador("ffffff");
+        Jugador jugador2 = new Jugador("ffffff");
         this.argentina = new Pais("Argentina", jugador1);
         this.uruguay = new Pais("Uruguay", jugador2);
         this.chile = new Pais("Chile", jugador1);

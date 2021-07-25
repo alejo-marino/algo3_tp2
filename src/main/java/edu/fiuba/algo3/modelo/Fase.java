@@ -18,9 +18,10 @@ public abstract class Fase {
 
     abstract String getFaseActual();
 
-    public Pais seleccionarPais(String nombrePais, Jugador jugador) {
-        return ronda.seleccionarPais(nombrePais, jugador);
+    public Pais seleccionarPais(String nombrePais) {
+        return ronda.seleccionarPais(nombrePais);
     }
+
     public void atacar(int cantidadEjercitos) {   // las variables atacante y defensor son innecesarias
         ronda.atacar(cantidadEjercitos);
     }

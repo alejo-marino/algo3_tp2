@@ -24,9 +24,9 @@ public abstract class Ronda {
         this.estadoTurno.reforzar(ejercitosAReforzar);
     }
 
-    public Pais seleccionarPais(String nombrePais, Jugador jugador)  {
+    public Pais seleccionarPais(String nombrePais)  {
         Pais pais = this.juego.seleccionarPais(nombrePais);
-        return this.estadoTurno.seleccionarPais(pais, jugador);
+        return this.estadoTurno.seleccionarPais(pais);
     }
 
     public void cancelarAccion() {

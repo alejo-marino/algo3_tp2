@@ -48,7 +48,6 @@ public class TestJuego {
 
     @Test
     void test05CreoUnJuegoYSeteo6JugadoresYInicioElJuegoYElSistemaDeTurnosNoEsNull () {
-        Integer cantidadDeJugadores = 6;
         juego.setearCantidadJugadores(6);
 
         SistemaDeTurnos sistemaDeTurnos = juego.iniciarJuego();

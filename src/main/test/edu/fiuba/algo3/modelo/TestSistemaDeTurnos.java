@@ -13,21 +13,17 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class TestSistemaDeTurnos {
+
     private Jugador jugador1;
     private Jugador jugador2;
-    private Jugador jugador3;
-    private Pais argentina;
-    private Pais uruguay;
-    private Pais china;
     private ArrayList<Tarjeta> tarjetas;
     private SistemaDeTurnos sistema;
-    private Juego juegoMock;
 
     @BeforeEach
     void setUp() {
         this.jugador1 = new Jugador("000000");
         this.jugador2 = new Jugador("ffffff");
-        this.jugador3 = new Jugador("fff000");
+        Jugador jugador3 = new Jugador("fff000");
         ArrayList<Jugador> listaJugadores = new ArrayList<>();
         listaJugadores.add(jugador1);
         listaJugadores.add(jugador2);
@@ -37,9 +33,9 @@ public class TestSistemaDeTurnos {
         cola.add(5);    // Primera Ronda Inicial dejara a cada jugador poner 5 ejercitos en sus paises.
         cola.add(3);    // Segunda Ronda Inicial dejara a cada jugador poner 3 ejercitos en sus paises. Luego de esta Ronda, comenzara la Fase De Juego.
 
-        this.argentina = new Pais("Argentina", jugador1);
-        this.uruguay = new Pais("Uruguay", jugador2);
-        this.china = new Pais("China", jugador3);
+        Pais argentina = new Pais("Argentina", jugador1);
+        Pais uruguay = new Pais("Uruguay", jugador2);
+        Pais china = new Pais("China", jugador3);
         argentina.hacerLimitrofe(uruguay);
         uruguay.hacerLimitrofe(argentina);
 
@@ -53,10 +49,10 @@ public class TestSistemaDeTurnos {
         this.tarjetas.add(tarjeta1);
         this.tarjetas.add(tarjeta2);
         this.tarjetas.add(tarjeta3);
-        
-        this.juegoMock = mock(Juego.class);
-        this.juegoMock.setearCantidadJugadores(3);
-        this.juegoMock.iniciarJuego();
+
+        Juego juegoMock = mock(Juego.class);
+        juegoMock.setearCantidadJugadores(3);
+        juegoMock.iniciarJuego();
         when(juegoMock.seleccionarPais("Argentina")).thenReturn(argentina);
         when(juegoMock.seleccionarPais("China")).thenReturn(china);
         when(juegoMock.seleccionarPais("Uruguay")).thenReturn(uruguay);
@@ -84,7 +80,7 @@ public class TestSistemaDeTurnos {
     public void test04CreoUnSistemaDeTurnosYJugadorPuedeSeleccionarUnPaisPropio() {
         Pais unPais = sistema.seleccionarPais("Argentina");
 
-        assertEquals(unPais, argentina);
+        assertEquals("Argentina", unPais.toString());
     }
 
     @Test
@@ -122,7 +118,7 @@ public class TestSistemaDeTurnos {
 
     @Test
     public void test08CreoUnSistemaDeTurnosYJugadorColocanCincoEjercitosCorrectamente() {
-        sistema.seleccionarPais("Argentina");
+        Pais argentina = sistema.seleccionarPais("Argentina");
         sistema.reforzar(5);
 
         assertEquals(6, argentina.getEjercitos());
@@ -139,13 +135,13 @@ public class TestSistemaDeTurnos {
 
     @Test
     public void test10CreoUnSistemaDeTurnosYJugadoresColocanCincoFichasCorrectamente() {
-        sistema.seleccionarPais("Argentina");
+        Pais argentina = sistema.seleccionarPais("Argentina");
         sistema.reforzar(5);
         sistema.empezarTurno();
-        sistema.seleccionarPais("Uruguay");
+        Pais uruguay = sistema.seleccionarPais("Uruguay");
         sistema.reforzar(5);
         sistema.empezarTurno();
-        sistema.seleccionarPais("China");
+        Pais china = sistema.seleccionarPais("China");
         sistema.reforzar(5);
 
         int cantidadEjercitosTotales = 0;
@@ -177,13 +173,13 @@ public class TestSistemaDeTurnos {
 
     @Test
     public void test12SeColocanTodosLosEjercitosEnLaFaseIncialCorrectamente() {
-        sistema.seleccionarPais("Argentina");
+        Pais argentina = sistema.seleccionarPais("Argentina");
         sistema.reforzar(5);
         sistema.empezarTurno();
-        sistema.seleccionarPais("Uruguay");
+        Pais uruguay = sistema.seleccionarPais("Uruguay");
         sistema.reforzar(5);
         sistema.empezarTurno();
-        sistema.seleccionarPais("China");
+        Pais china = sistema.seleccionarPais("China");
         sistema.reforzar(5);
         sistema.empezarTurno();
         sistema.seleccionarPais("Argentina");

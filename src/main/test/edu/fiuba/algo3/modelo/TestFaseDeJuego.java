@@ -12,36 +12,40 @@ import static org.mockito.Mockito.when;
 
 public class TestFaseDeJuego {
 
-    private Juego juegoMock;
     private FaseDeJuego faseDeJuego;
     private Jugador jugador1;
     private Jugador jugador2;
-    private Jugador jugador3;
-    private Pais argentina;
-    private Pais uruguay;
-    private Pais china;
-    private Pais chile;
+    private ArrayList<Tarjeta> tarjetas;
 
     @BeforeEach
     void setUp() {
         this.jugador1 = new Jugador("000000");
         this.jugador2 = new Jugador("ffffff");
-        this.jugador3 = new Jugador("fff000");
+        Jugador jugador3 = new Jugador("fff000");
 
-        this.argentina = new Pais("Argentina",jugador1);
-        this.uruguay = new Pais("Uruguay",jugador2);
-        this.china = new Pais("China",jugador3);
-        this.chile = new Pais("Chile", jugador1);
+        Pais argentina = new Pais("Argentina",jugador1);
+        Pais uruguay = new Pais("Uruguay",jugador2);
+        Pais china = new Pais("China",jugador3);
+        Pais chile = new Pais("Chile", jugador1);
         argentina.hacerLimitrofe(uruguay);
         uruguay.hacerLimitrofe(argentina);
         argentina.hacerLimitrofe(chile);
         chile.hacerLimitrofe(argentina);
         argentina.reforzar(3);
 
-        
-        this.juegoMock = mock(Juego.class);
-        this.juegoMock.setearCantidadJugadores(3);
-        this.juegoMock.iniciarJuego();
+        Tarjeta tarjeta1 = new Tarjeta(argentina, "Globo");
+        Tarjeta tarjeta2 = new Tarjeta(uruguay, "Globo");
+        Tarjeta tarjeta3 = new Tarjeta(china, "Globo");
+        this.tarjetas = new ArrayList<>();
+        tarjetas.add(tarjeta1);
+        tarjetas.add(tarjeta2);
+        tarjetas.add(tarjeta3);
+        jugador1.agregarTarjeta(tarjeta1);
+        jugador1.agregarTarjeta(tarjeta2);
+        jugador1.agregarTarjeta(tarjeta3);
+
+
+        Juego juegoMock = mock(Juego.class);
 
         when(juegoMock.seleccionarPais("Argentina")).thenReturn(argentina);
         when(juegoMock.seleccionarPais("China")).thenReturn(china);
@@ -60,61 +64,54 @@ public class TestFaseDeJuego {
 
     @Test
     void test02CreoUnaFaseDeJuegoYSeleccionoCorrectamenteUnPaisLaPrimeraVez () {
-        Pais paisSeleccionado = faseDeJuego.seleccionarPais("Argentina", jugador1);
+        Pais paisSeleccionado = faseDeJuego.seleccionarPais("Argentina");
 
-        assertEquals(argentina, paisSeleccionado);
+        assertEquals("Argentina", paisSeleccionado.toString());
     }
 
     @Test
     void test03CreoUnaFaseDeJuegoYSeleccionoUnPaisEnemigoLaPrimeraVezYLanzaUnaExcepcion () {
-        assertThrows(SeleccionaPaisAjenoException.class, () -> faseDeJuego.seleccionarPais("Uruguay", jugador1));
+        assertThrows(SeleccionaPaisAjenoException.class, () -> faseDeJuego.seleccionarPais("Uruguay"));
     }
 
     @Test
     void test04CreoUnaFaseDeJuegoYSeleccionoUnPaisEnemigoLaSegundaVez () {
-        faseDeJuego.seleccionarPais("Argentina", jugador1);
-        Pais paisDefensor = faseDeJuego.seleccionarPais("Uruguay", jugador1);
+        faseDeJuego.seleccionarPais("Argentina");
+        Pais paisDefensor = faseDeJuego.seleccionarPais("Uruguay");
 
-        assertEquals(uruguay, paisDefensor);
+        assertEquals("Uruguay", paisDefensor.toString());
     }
 
     @Test
     void test05CreoUnaFaseDeJuegoYSeleccionoUnPaisPropioLaSegundaVezYLanzaUnaExcepcion () {
-        faseDeJuego.seleccionarPais("Argentina", jugador1);
+        faseDeJuego.seleccionarPais("Argentina");
 
-        assertThrows(AtaqueAPaisPropioException.class, () -> faseDeJuego.seleccionarPais("Chile", jugador1));
+        assertThrows(AtaqueAPaisPropioException.class, () -> faseDeJuego.seleccionarPais("Chile"));
     }
 
     @Test
     void test06CreoUnaFaseDeJuegoYNoPuedoReforzar () {
-        faseDeJuego.seleccionarPais("Argentina", jugador1);
+        faseDeJuego.seleccionarPais("Argentina");
 
         assertThrows(RefuerzoInvalidoException.class, () -> faseDeJuego.reforzar(3));
     }
 
     @Test
     void test07CreoUnaFaseDeJuegoYNoPuedoCanjearTarjetas () {
-        Tarjeta tarjeta1 = new Tarjeta(argentina, "Globo");
-        Tarjeta tarjeta2 = new Tarjeta(chile, "Globo");
-        Tarjeta tarjeta3 = new Tarjeta(china, "Globo");
-        ArrayList<Tarjeta> tarjetas = new ArrayList<>();
-        tarjetas.add(tarjeta1);
-        tarjetas.add(tarjeta2);
-        tarjetas.add(tarjeta3);
 
         assertThrows(CanjeNoPermitidoException.class, () -> faseDeJuego.canjearTarjetas(tarjetas));
     }
 
     @Test
     void test08CreoUnaFaseDeJuegoYNoPuedoReagruparSinFinalizarAtaque () {
-        faseDeJuego.seleccionarPais("Argentina", jugador1);
+        faseDeJuego.seleccionarPais("Argentina");
 
         assertThrows(ReagrupeInvalidoException.class, () -> faseDeJuego.reagrupar(3));
     }
 
     @Test
     void test09CreoUnaFaseDeJuegoYNoPuedoReagruparSinFinalizarAtaque () {
-        faseDeJuego.seleccionarPais("Argentina", jugador1);
+        faseDeJuego.seleccionarPais("Argentina");
 
         assertThrows(ReagrupeInvalidoException.class, () -> faseDeJuego.reagrupar(3));
     }
@@ -122,8 +119,8 @@ public class TestFaseDeJuego {
     @Test
     void test10CreoUnaFaseDeJuegoYPuedoReagruparLuegoDeFinalizarAtaque () {
         faseDeJuego.terminarAtaque(jugador1);
-        faseDeJuego.seleccionarPais("Argentina", jugador1);
-        faseDeJuego.seleccionarPais("Chile", jugador1);
+        Pais argentina = faseDeJuego.seleccionarPais("Argentina");
+        Pais chile = faseDeJuego.seleccionarPais("Chile");
 
         faseDeJuego.reagrupar(3);
 
@@ -135,17 +132,17 @@ public class TestFaseDeJuego {
     void test11PasoDeTurnoYNoPuedoElegirUnPaisPropioPorSegundaVez () {
         faseDeJuego.terminarAtaque(jugador1);
         faseDeJuego.empezarTurno(jugador1);
-        faseDeJuego.seleccionarPais("Argentina", jugador1);
+        faseDeJuego.seleccionarPais("Argentina");
 
-        assertThrows(AtaqueAPaisPropioException.class, () -> faseDeJuego.seleccionarPais("Chile", jugador1));
+        assertThrows(AtaqueAPaisPropioException.class, () -> faseDeJuego.seleccionarPais("Chile"));
     }
 
     @Test
     void test12PasoDeTurnoYNoPuedoReagrupar () {
         faseDeJuego.terminarAtaque(jugador1);
         faseDeJuego.empezarTurno(jugador1);
-        faseDeJuego.seleccionarPais("Argentina", jugador1);
-        faseDeJuego.seleccionarPais("Uruguay", jugador1);
+        faseDeJuego.seleccionarPais("Argentina");
+        faseDeJuego.seleccionarPais("Uruguay");
 
         assertThrows(ReagrupeInvalidoException.class, () -> faseDeJuego.reagrupar(3));
     }
@@ -161,27 +158,27 @@ public class TestFaseDeJuego {
     @Test
     void test14CreoUnaFaseDeJuegoYPasoDeRondaYPuedoSeleccionarUnPaisPropio () {
         faseDeJuego.siguienteRonda();
-        Pais paisEsperado = argentina;
-        Pais paisSeleccionado = faseDeJuego.seleccionarPais("Argentina", jugador1);
+        faseDeJuego.empezarTurno(jugador1);
+        Pais paisSeleccionado = faseDeJuego.seleccionarPais("Argentina");
 
-        assertEquals(paisEsperado, paisSeleccionado);
+        assertEquals("Argentina", paisSeleccionado.toString());
     }
 
     @Test
     void test15CreoUnaFaseDeJuegoYPasoDeRondaYNoPuedoSeleccionarUnPaisAjeno () {
         faseDeJuego.siguienteRonda();
         faseDeJuego.empezarTurno(jugador1);
-        assertThrows(SeleccionaPaisAjenoException.class, () -> faseDeJuego.seleccionarPais("Uruguay", jugador1));
+        assertThrows(SeleccionaPaisAjenoException.class, () -> faseDeJuego.seleccionarPais("Uruguay"));
     }
 
     @Test
     void test16CreoUnaFaseDeJuegoYPasoDeRondaYPuedoReforzar () {
         faseDeJuego.siguienteRonda();
         faseDeJuego.empezarTurno(jugador1);
-        Pais paisSeleccionado = faseDeJuego.seleccionarPais("Argentina", jugador1);
+        Pais paisSeleccionado = faseDeJuego.seleccionarPais("Argentina");
 
         faseDeJuego.reforzar(5);
-        Integer cantidadEjercitosArgentina = argentina.getEjercitos();
+        Integer cantidadEjercitosArgentina = paisSeleccionado.getEjercitos();
 
         assertEquals(9, cantidadEjercitosArgentina);
     }
@@ -190,7 +187,7 @@ public class TestFaseDeJuego {
     void test17CreoUnaFaseDeJuegoYPasoDeRondaYRefuerzoParcialmenteYNoPuedoEmpezarSiguienteTurno () {
         faseDeJuego.siguienteRonda();
         faseDeJuego.empezarTurno(jugador1);
-        faseDeJuego.seleccionarPais("Argentina", jugador1);
+        faseDeJuego.seleccionarPais("Argentina");
         faseDeJuego.reforzar(5);
 
         assertThrows(NoReforzoTodosLosEjercitosException.class, () -> faseDeJuego.empezarTurno(jugador2));
@@ -200,7 +197,7 @@ public class TestFaseDeJuego {
     void test18CreoUnaFaseDeJuegoYPasoDeRondaYNoPuedoReforzarMasEjercitosDeLosQuePuedo () {
         faseDeJuego.siguienteRonda();
         faseDeJuego.empezarTurno(jugador1);
-        faseDeJuego.seleccionarPais("Argentina", jugador1);
+        faseDeJuego.seleccionarPais("Argentina");
 
         assertThrows(NoPuedeColocarTantosEjercitosException.class, () -> faseDeJuego.reforzar(11));
     }
@@ -209,7 +206,7 @@ public class TestFaseDeJuego {
     void test19CreoUnaFaseDeJuegoYPasoDeRondaYNoPuedoAtacar () {
         faseDeJuego.siguienteRonda();
         faseDeJuego.empezarTurno(jugador1);
-        faseDeJuego.seleccionarPais("Argentina", jugador1);
+        faseDeJuego.seleccionarPais("Argentina");
 
         assertThrows(AtaqueInvalidoException.class, () -> faseDeJuego.atacar(2));
     }
@@ -218,7 +215,7 @@ public class TestFaseDeJuego {
     void test19CreoUnaFaseDeJuegoYPasoDeRondaYNoPuedoReagrupar () {
         faseDeJuego.siguienteRonda();
         faseDeJuego.empezarTurno(jugador1);
-        faseDeJuego.seleccionarPais("Argentina", jugador1);
+        faseDeJuego.seleccionarPais("Argentina");
 
         assertThrows(ReagrupeInvalidoException.class, () -> faseDeJuego.reagrupar(2));
     }
@@ -228,22 +225,11 @@ public class TestFaseDeJuego {
         faseDeJuego.siguienteRonda();
         faseDeJuego.empezarTurno(jugador1);
 
-        Tarjeta tarjeta1 = new Tarjeta(argentina, "Globo");
-        Tarjeta tarjeta2 = new Tarjeta(chile, "Globo");
-        Tarjeta tarjeta3 = new Tarjeta(china, "Globo");
-        ArrayList<Tarjeta> tarjetas = new ArrayList<>();
-        tarjetas.add(tarjeta1);
-        tarjetas.add(tarjeta2);
-        tarjetas.add(tarjeta3);
-        jugador1.agregarTarjeta(tarjeta1);
-        jugador1.agregarTarjeta(tarjeta2);
-        jugador1.agregarTarjeta(tarjeta3);
-
         faseDeJuego.canjearTarjetas(tarjetas);
-        faseDeJuego.seleccionarPais("Argentina", jugador1);
+        Pais paisSeleccionado = faseDeJuego.seleccionarPais("Argentina");
         faseDeJuego.reforzar(14);
 
-        Integer cantidadEjercitosArgentina = argentina.getEjercitos();
+        Integer cantidadEjercitosArgentina = paisSeleccionado.getEjercitos();
 
         assertEquals(18, cantidadEjercitosArgentina);
     }
@@ -254,7 +240,7 @@ public class TestFaseDeJuego {
         faseDeJuego.empezarTurno(jugador1);
         faseDeJuego.siguienteRonda();
         faseDeJuego.empezarTurno(jugador1);
-        faseDeJuego.seleccionarPais("Argentina", jugador1);
+        faseDeJuego.seleccionarPais("Argentina");
 
         assertThrows(RefuerzoInvalidoException.class, () -> faseDeJuego.reforzar(2));
     }

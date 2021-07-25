@@ -13,8 +13,8 @@ import java.util.*;
 public class TestInicializadorDeDatos {
 
     // Paths.get("JSON/", "Fronteras.json")
-    private String RUTA_JSON_FRONTERAS = "src/main/java/edu/fiuba/algo3/modelo/JSON/Fronteras.json";
-    private String RUTA_JSON_TARJETAS = "src/main/java/edu/fiuba/algo3/modelo/JSON/Cartas.json";
+    private final String RUTA_JSON_FRONTERAS = "src/main/java/edu/fiuba/algo3/modelo/JSON/Fronteras.json";
+    private final String RUTA_JSON_TARJETAS = "src/main/java/edu/fiuba/algo3/modelo/JSON/Cartas.json";
     private InicializadorDeDatos inicializador;
     private ArrayList<Jugador> jugadores;
     private Hashtable<String, Hashtable<String, ArrayList<String>>> paisesParseados;

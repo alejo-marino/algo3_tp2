@@ -15,7 +15,6 @@ public class TestJugador {
     private final Integer NRO_EJERCITOS_TERCER_CANJE = 10;
 
     private Jugador jugador;
-    private Jugador otroJugador;
     private Tarjeta tarjetaArgentina;
     private Tarjeta tarjetaUruguay;
     private Tarjeta tarjetaChile;
@@ -25,7 +24,7 @@ public class TestJugador {
     @BeforeEach
     void setUp() {
         this.jugador = new Jugador("000000");
-        this.otroJugador = new Jugador("ffffff");
+        Jugador otroJugador = new Jugador("ffffff");
 
         Pais argentina = new Pais("Argentina", jugador);
         Pais uruguay = new Pais("Uruguay", otroJugador);

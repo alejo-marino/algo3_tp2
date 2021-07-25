@@ -49,7 +49,7 @@ public class SistemaDeTurnos {
     }
 
     public Pais seleccionarPais(String nombrePais) {
-        return faseActual.seleccionarPais(nombrePais, this.turnoDe());
+        return faseActual.seleccionarPais(nombrePais);
     }
 
     public void atacar(int cantidadEjercitos) {

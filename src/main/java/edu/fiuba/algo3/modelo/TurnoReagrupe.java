@@ -32,7 +32,7 @@ public class TurnoReagrupe implements EstadoTurno {
     }
 
     @Override
-    public Pais seleccionarPais(Pais paisSeleccionado, Jugador jugador) {
+    public Pais seleccionarPais(Pais paisSeleccionado) {
         if (this.paisOrigen != null && this.paisDestino != null) {
             throw new PaisesYaSeleccionadosException("Los paises origen y destino ya estan seleccionados, apreta 'Reagrupar' o 'Cancelar accion'.");
         }

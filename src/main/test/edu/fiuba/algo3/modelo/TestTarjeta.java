@@ -13,7 +13,6 @@ public class TestTarjeta {
     private Jugador jugador;
     private Pais argentina;
     private Pais uruguay;
-    private Pais china;
 
     private Integer cantidadEjercitosActivacion;
 
@@ -26,7 +25,7 @@ public class TestTarjeta {
         this.tarjetaGlobo = new Tarjeta(argentina, "Globo");
         this.uruguay = new Pais("Argentina", jugador2);
         this.tarjetaBarco = new Tarjeta(uruguay, "Barco");
-        this.china = new Pais("China", jugador3);
+        Pais china = new Pais("China", jugador3);
         this.tarjetaBarco2 = new Tarjeta(china, "Barco");
 
         this.cantidadEjercitosActivacion = 2;

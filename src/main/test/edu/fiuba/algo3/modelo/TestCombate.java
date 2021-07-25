@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestCombate {
 
-    private Jugador jugadorAtacante;
     private Jugador jugadorDefensor;
     private Pais atacante;
     private Pais defensor;
@@ -18,7 +17,7 @@ public class TestCombate {
 
     @BeforeEach
     public void setUp() {
-        this.jugadorAtacante = new Jugador("000000");
+        Jugador jugadorAtacante = new Jugador("000000");
         this.jugadorDefensor = new Jugador("ffffff");
         this.atacante = new Pais("Argentina", jugadorAtacante);
         this.defensor = new Pais("Uruguay", jugadorDefensor);

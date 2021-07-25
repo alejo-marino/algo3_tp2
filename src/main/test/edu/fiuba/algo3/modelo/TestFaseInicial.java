@@ -11,18 +11,14 @@ import static org.mockito.Mockito.mock;
 
 public class TestFaseInicial {
 
-    private Juego juegoMock;
     private FaseInicial faseInicial;
 
     @BeforeEach
     void setUp() {
-//        this.tablero = new Tablero(null, null);
         Queue<Integer> cola = new LinkedList<>();
         cola.add(5);
         cola.add(3);
-        this.juegoMock = mock(Juego.class);
-        this.juegoMock.setearCantidadJugadores(3);
-        this.juegoMock.iniciarJuego();
+        Juego juegoMock = mock(Juego.class);
         this.faseInicial = new FaseInicial(cola, juegoMock);
     }
 

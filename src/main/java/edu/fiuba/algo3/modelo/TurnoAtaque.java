@@ -34,7 +34,7 @@ public class TurnoAtaque implements EstadoTurno {
     }
 
     @Override
-    public Pais seleccionarPais(Pais paisSeleccionado, Jugador jugador) {
+    public Pais seleccionarPais(Pais paisSeleccionado) {
         if (this.jugador == null) {
             throw new TurnoSinEmpezarException();
         }

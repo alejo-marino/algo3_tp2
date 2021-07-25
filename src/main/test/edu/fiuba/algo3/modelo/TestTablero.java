@@ -12,25 +12,21 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestTablero {
 
+    private Jugador jugador1;
+    private Tablero tablero;
     private Pais argentina;
     private Pais uruguay;
     private Pais china;
-    private Jugador jugador1;
-    private Jugador jugador2;
-    private Jugador jugador3;
-    private Tablero tablero;
-    private Continente asia;
-    private Continente americaDelSur;
 
     @BeforeEach
     void setUp() {
         this.jugador1 = new Jugador("000000");
-        this.jugador2 = new Jugador("ffffff");
-        this.jugador3 = new Jugador("ff0000");
+        Jugador jugador2 = new Jugador("ffffff");
+        Jugador jugador3 = new Jugador("ff0000");
 
         this.argentina = new Pais("Argentina",jugador1);
-        this.uruguay = new Pais("Uruguay",jugador2);
-        this.china = new Pais("China",jugador3);
+        this.uruguay = new Pais("Uruguay", jugador2);
+        this.china = new Pais("China", jugador3);
         argentina.hacerLimitrofe(uruguay);
         uruguay.hacerLimitrofe(argentina);
         ArrayList<Pais> paises = new ArrayList<>();
@@ -38,11 +34,11 @@ public class TestTablero {
         paises.add(uruguay);
         paises.add(china);
 
-        this.americaDelSur = new Continente("America Del Sur", 3);
-        this.asia = new Continente("Asia", 6);
-        this.americaDelSur.agregarPais(argentina);
-        this.americaDelSur.agregarPais(uruguay);
-        this.asia.agregarPais(china);
+        Continente americaDelSur = new Continente("America Del Sur", 3);
+        Continente asia = new Continente("Asia", 6);
+        americaDelSur.agregarPais(argentina);
+        americaDelSur.agregarPais(uruguay);
+        asia.agregarPais(china);
 
         ArrayList<Continente> continentes = new ArrayList<>();
         continentes.add(americaDelSur);
@@ -58,7 +54,7 @@ public class TestTablero {
 
     @Test
     public void test02SeCreaUnTableroYPuedoSeleccionarUnPais () {
-        assertEquals(argentina, tablero.seleccionarPais("Argentina"));
+        assertEquals("Argentina", tablero.seleccionarPais("Argentina").toString());
     }
 
     @Test
