@@ -21,6 +21,10 @@ public class RondaInicial extends RondaDeRefuerzo {
 
     @Override
     public Ronda siguienteRonda() {
+        TurnoRefuerzo estadoTurno = (TurnoRefuerzo) super.getEstadoTurno();
+        if (estadoTurno.tieneEjercitosParaReforzar()) {
+            throw new NoReforzoTodosLosEjercitosException();
+        }
         colaRefuerzo.remove();
         return this;
     }

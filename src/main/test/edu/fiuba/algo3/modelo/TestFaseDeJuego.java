@@ -248,4 +248,15 @@ public class TestFaseDeJuego {
         assertEquals(18, cantidadEjercitosArgentina);
     }
 
+    @Test
+    void test21CreoUnaFaseDeJuegoYPasoDeRondaDosVecesYNoPuedoReforzar () {
+        faseDeJuego.siguienteRonda();
+        faseDeJuego.empezarTurno(jugador1);
+        faseDeJuego.siguienteRonda();
+        faseDeJuego.empezarTurno(jugador1);
+        faseDeJuego.seleccionarPais("Argentina", jugador1);
+
+        assertThrows(RefuerzoInvalidoException.class, () -> faseDeJuego.reforzar(2));
+    }
+
 }

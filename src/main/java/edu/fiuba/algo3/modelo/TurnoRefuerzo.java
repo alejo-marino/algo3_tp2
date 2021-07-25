@@ -51,6 +51,7 @@ public class TurnoRefuerzo implements EstadoTurno {
         }
         this.ejercitosDisponibles -= cantidadEjercitosAReforzar;
         this.paisRefuerzo.reforzar(cantidadEjercitosAReforzar);
+        this.cancelarAccion();
     }
 
     @Override
