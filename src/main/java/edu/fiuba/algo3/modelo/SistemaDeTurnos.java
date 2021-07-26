@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.modelo.excepciones.JugadorGanoException;
+
 import java.util.ArrayList;
 import java.util.Queue;
 import java.util.LinkedList;
@@ -54,6 +56,19 @@ public class SistemaDeTurnos {
 
     public void atacar(int cantidadEjercitos) {
         faseActual.atacar(cantidadEjercitos);
+        // Veo si ganó
+        if (turnoDe().gano()) {
+            throw new JugadorGanoException("Felicitaciones! Ganaste el juego.");
+        }
+        // Veo si alguien perdió
+        for (Jugador jugador: colaJugadores) {
+            if (Juego.getInstancia().obtenerCantidadPaisesSegunJugador(jugador) == 0) {
+                colaJugadores.remove(jugador);
+                for(Jugador otroJugador: colaJugadores) {
+                    otroJugador.verificarMisiones();
+                }
+            }
+        }
     }
 
     public void reagrupar(int cantidadEjercitos) {

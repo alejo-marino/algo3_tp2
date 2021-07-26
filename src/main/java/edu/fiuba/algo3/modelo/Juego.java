@@ -94,4 +94,12 @@ public class Juego {
     public Integer calcularEjercitosDisponibles(Jugador jugador) {
         return this.tablero.calcularEjercitosDisponibles(jugador);
     }
+
+    public Integer paisesConquistadosPorEn(Jugador jugador, String nombreContinente) {
+        return this.tablero.paisesConquistadosPorEn(jugador, nombreContinente);
+    }
+
+    public Integer obtenerCantidadPaisesSegunJugador(Jugador jugador) {
+        return this.tablero.obtenerCantidadPaisesSegunJugador(jugador);
+    }
 }

@@ -5,7 +5,7 @@ public class RondaDeAtaqueYReagrupe extends Ronda {
     private final Juego juego;
 
     public RondaDeAtaqueYReagrupe(Juego juego) {
-        super(juego, new TurnoAtaque(null));
+        super(juego, new TurnoReagrupe(null));
         this.juego = juego;
     }
 
@@ -16,6 +16,9 @@ public class RondaDeAtaqueYReagrupe extends Ronda {
 
     // se llamara a este metodo cuando se termine la parte de reagrupe del turno, el proximo jugador podra atacar cuando empieze su turno.
     public void empezarTurno(Jugador jugador) {
+        TurnoReagrupe estadoTurno = (TurnoReagrupe) super.getEstadoTurno();
+        estadoTurno.efectivizarReagrupe();
+
         super.setEstadoTurno(new TurnoAtaque(jugador));
     }
 

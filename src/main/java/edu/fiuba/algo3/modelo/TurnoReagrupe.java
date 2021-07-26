@@ -3,15 +3,18 @@ package edu.fiuba.algo3.modelo;
 import edu.fiuba.algo3.modelo.excepciones.*;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 public class TurnoReagrupe implements EstadoTurno {
 
     private final Jugador jugador;
     private Pais paisOrigen;
     private Pais paisDestino;
+    private Hashtable<Pais, Integer> datosRefuerzo;
 
     public TurnoReagrupe(Jugador jugador) {
         this.jugador = jugador;
+        this.datosRefuerzo = new Hashtable<Pais, Integer>();
     }
 
     @Override
@@ -64,7 +67,11 @@ public class TurnoReagrupe implements EstadoTurno {
     public void reagrupar(int cantidadEjercitos) {
         this.paisPuedeReagrupar(cantidadEjercitos);
         this.paisOrigen.disminuirEjercitos(cantidadEjercitos);
-        this.paisDestino.reforzar(cantidadEjercitos);
+        if (!(datosRefuerzo.containsKey(paisDestino))) {
+            this.datosRefuerzo.put(paisDestino, 0);
+        }
+        this.datosRefuerzo.put(paisDestino, this.datosRefuerzo.get(paisDestino) + cantidadEjercitos);
+        //this.paisDestino.reforzar(cantidadEjercitos);
         this.cancelarAccion();
     }
 
@@ -76,5 +83,14 @@ public class TurnoReagrupe implements EstadoTurno {
     @Override
     public void canjearTarjetas(ArrayList<Tarjeta> tarjetasACanjear) {
         throw new CanjeNoPermitidoException("No se puede canjear en una ronda de ataque y reagrupe");
+    }
+
+    public void efectivizarReagrupe() {
+        datosRefuerzo.forEach((pais, ejercitosAEfectivizar) -> {
+            pais.reforzar(ejercitosAEfectivizar);
+        });
+    }
+
+    public static class Mision {
     }
 }

@@ -47,7 +47,7 @@ public class TestJugador {
     @Test
     public void test02CreoUnJugadorYTieneElNombreCorrecto () {
         String nombreDelJugador = "000000";
-        assertEquals(nombreDelJugador, jugador.getNombre());
+        assertEquals(nombreDelJugador, jugador.toString());
     }
 
     @Test

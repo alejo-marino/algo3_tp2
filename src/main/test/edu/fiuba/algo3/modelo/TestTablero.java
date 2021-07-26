@@ -64,17 +64,16 @@ public class TestTablero {
 
     @Test
     public void test04SeCreaUnTableroYObtengoLosPaisesPorJugadorCorrectamente() {
-        Dictionary<String, ArrayList<Pais>> paisesPorJugador = tablero.obtenerPaisesSegunJugador();
+        Dictionary<Jugador, ArrayList<Pais>> paisesPorJugador = tablero.obtenerPaisesSegunJugador();
 
         boolean paisesCorrectosSegunJugador = true;
-        Enumeration enumeration = paisesPorJugador.elements();
+        Enumeration<ArrayList<Pais>> enumeration = paisesPorJugador.elements();
         while (enumeration.hasMoreElements()){
-            ArrayList<Pais> listaPaises = (ArrayList<Pais>) enumeration.nextElement();
+            ArrayList<Pais> listaPaises = enumeration.nextElement();
             if (listaPaises.size() !=  1) {
                 paisesCorrectosSegunJugador = false;
             }
         }
-
         assertTrue(paisesCorrectosSegunJugador);
     }
 

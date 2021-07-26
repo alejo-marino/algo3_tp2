@@ -26,12 +26,12 @@ public class Tablero {
     }
 
 
-    public Dictionary obtenerPaisesSegunJugador() {
-        Hashtable<Jugador, ArrayList<Pais>> paisesSegunJugador = new Hashtable();
+    public Dictionary<Jugador, ArrayList<Pais>> obtenerPaisesSegunJugador() {
+        Hashtable<Jugador, ArrayList<Pais>> paisesSegunJugador = new Hashtable<>();
         for (Pais paisActual : paises) {
             Jugador jugadorActual = paisActual.getDuenio();
             if (!paisesSegunJugador.containsKey(jugadorActual)) {
-                ArrayList paisesDeJugador = new ArrayList();
+                ArrayList<Pais> paisesDeJugador = new ArrayList<>();
                 paisesDeJugador.add(paisActual);
                 paisesSegunJugador.put(jugadorActual,paisesDeJugador);
             }
@@ -40,6 +40,11 @@ public class Tablero {
             }
         }
         return paisesSegunJugador;
+    }
+
+    public Integer obtenerCantidadPaisesSegunJugador (Jugador jugador) {
+        Dictionary<Jugador, ArrayList<Pais>> paisesPorJugador = this.obtenerPaisesSegunJugador();
+        return numeroPaisesDeJugador(paisesPorJugador, jugador);
     }
 
 

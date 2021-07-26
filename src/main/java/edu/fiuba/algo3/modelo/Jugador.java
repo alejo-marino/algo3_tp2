@@ -14,6 +14,7 @@ public class Jugador {
     private final Batallon batallon;
     private ArrayList<Tarjeta> tarjetas;
     private Integer numeroDeCanje;
+    private ArrayList<Mision> misiones;
 
     public Jugador(String nombreJugador) {
         this.nombreJugador = nombreJugador;
@@ -28,10 +29,11 @@ public class Jugador {
             return false;
         }
         Jugador otroJugador = (Jugador) o;
-        return this.nombreJugador.equals(otroJugador.getNombre());
+        return this.nombreJugador.equals(otroJugador.toString());
     }
 
-    protected String getNombre() {
+    @Override
+    public String toString() {
         return this.nombreJugador;
     }
 
@@ -92,6 +94,28 @@ public class Jugador {
             default:
                 return (numeroDeCanje - 1) * 5;
         }
+    }
+
+    public void agregarMision(Mision mision) {
+        misiones.add(mision);
+    }
+
+    public void verificarMisiones () {
+        for(Mision mision: misiones) {
+            if (!mision.sigueSiendoPosible()) {
+                misiones.remove(mision);
+                break;
+            }
+        }
+    }
+
+    public boolean gano() {
+        for (Mision mision: misiones) {
+            if (mision.completoMision()) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

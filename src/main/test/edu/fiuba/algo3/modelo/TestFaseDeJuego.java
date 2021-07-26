@@ -16,6 +16,7 @@ public class TestFaseDeJuego {
     private Jugador jugador1;
     private Jugador jugador2;
     private ArrayList<Tarjeta> tarjetas;
+    private Pais argentina;
 
     @BeforeEach
     void setUp() {
@@ -23,7 +24,7 @@ public class TestFaseDeJuego {
         this.jugador2 = new Jugador("ffffff");
         Jugador jugador3 = new Jugador("fff000");
 
-        Pais argentina = new Pais("Argentina",jugador1);
+        this.argentina = new Pais("Argentina",jugador1);
         Pais uruguay = new Pais("Uruguay",jugador2);
         Pais china = new Pais("China",jugador3);
         Pais chile = new Pais("Chile", jugador1);
@@ -123,7 +124,7 @@ public class TestFaseDeJuego {
         Pais chile = faseDeJuego.seleccionarPais("Chile");
 
         faseDeJuego.reagrupar(3);
-
+        faseDeJuego.empezarTurno(jugador2);
         assertEquals(4, chile.getEjercitos());
         assertEquals(1, argentina.getEjercitos());
     }
@@ -161,7 +162,7 @@ public class TestFaseDeJuego {
         faseDeJuego.empezarTurno(jugador1);
         Pais paisSeleccionado = faseDeJuego.seleccionarPais("Argentina");
 
-        assertEquals("Argentina", paisSeleccionado.toString());
+        assertEquals(argentina, paisSeleccionado);
     }
 
     @Test

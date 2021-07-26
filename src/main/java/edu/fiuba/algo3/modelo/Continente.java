@@ -44,4 +44,8 @@ public class Continente {
         }
         return nroDePaisesConquistados;
     }
+
+    public Integer size() {
+        return paises.size();
+    }
 }
