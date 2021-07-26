@@ -5,9 +5,9 @@ import java.util.Map;
 
 public class MisionConquista implements Mision{
 
-    private Map<String, Integer> paisesAConquistar;
-    private Jugador jugador;
-    private Juego juego;
+    private final Map<String, Integer> paisesAConquistar;
+    private final Jugador jugador;
+    private final Juego juego;
 
     public MisionConquista(Jugador jugador, Juego juego, Map<String, Integer> paisesAConquistar) {
         this.jugador = jugador;

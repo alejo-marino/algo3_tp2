@@ -3,6 +3,9 @@ package edu.fiuba.algo3.modelo;
 import edu.fiuba.algo3.modelo.excepciones.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
@@ -16,14 +19,17 @@ public class TestSistemaDeTurnos {
 
     private Jugador jugador1;
     private Jugador jugador2;
+    private Jugador jugador3;
     private ArrayList<Tarjeta> tarjetas;
     private SistemaDeTurnos sistema;
+    private Juego juegoMock;
+
 
     @BeforeEach
     void setUp() {
         this.jugador1 = new Jugador("000000");
         this.jugador2 = new Jugador("ffffff");
-        Jugador jugador3 = new Jugador("fff000");
+        this.jugador3 = new Jugador("fff000");
         ArrayList<Jugador> listaJugadores = new ArrayList<>();
         listaJugadores.add(jugador1);
         listaJugadores.add(jugador2);
@@ -50,7 +56,7 @@ public class TestSistemaDeTurnos {
         this.tarjetas.add(tarjeta2);
         this.tarjetas.add(tarjeta3);
 
-        Juego juegoMock = mock(Juego.class);
+        this.juegoMock = mock(Juego.class);
         juegoMock.setearCantidadJugadores(3);
         juegoMock.iniciarJuego();
         when(juegoMock.seleccionarPais("Argentina")).thenReturn(argentina);
@@ -283,5 +289,66 @@ public class TestSistemaDeTurnos {
 
         assertThrows(CanjeNoPermitidoException.class, () -> sistema.canjearTarjetas(tarjetas));
     }
+
+    @Test
+    public void test20Jugador1CompletaMisionComunYGana () {
+        jugador1.agregarMision(new MisionComun(jugador1, juegoMock, 30));
+
+        sistema.seleccionarPais("Argentina");
+        sistema.reforzar(5);
+        sistema.empezarTurno();
+        sistema.seleccionarPais("Uruguay");
+        sistema.reforzar(5);
+        sistema.empezarTurno();
+        sistema.seleccionarPais("China");
+        sistema.reforzar(5);
+        sistema.empezarTurno();
+        sistema.seleccionarPais("Argentina");
+        sistema.reforzar(3);
+        sistema.empezarTurno();
+        sistema.seleccionarPais("Uruguay");
+        sistema.reforzar(3);
+        sistema.empezarTurno();
+        sistema.seleccionarPais("China");
+        sistema.reforzar(3);
+        sistema.empezarTurno();
+        when(juegoMock.obtenerCantidadPaisesSegunJugador(jugador1)).thenReturn(30);
+        sistema.seleccionarPais("Argentina");
+        sistema.seleccionarPais("Uruguay");
+
+        assertThrows(JugadorGanoException.class, () -> sistema.atacar(3));
+    }
+
+//    @Test
+//    public void test20Jugador1AtacaYJugador2PierdeYEnSiguienteRondaNoPuedoJugarComoJugador2 () {
+//        jugador1.agregarMision(new MisionComun(jugador1, juegoMock, 30));
+//
+//        sistema.seleccionarPais("Argentina");
+//        sistema.reforzar(5);
+//        sistema.empezarTurno();
+//        sistema.seleccionarPais("Uruguay");
+//        sistema.reforzar(5);
+//        sistema.empezarTurno();
+//        sistema.seleccionarPais("China");
+//        sistema.reforzar(5);
+//        sistema.empezarTurno();
+//        sistema.seleccionarPais("Argentina");
+//        sistema.reforzar(3);
+//        sistema.empezarTurno();
+//        sistema.seleccionarPais("Uruguay");
+//        sistema.reforzar(3);
+//        sistema.empezarTurno();
+//        sistema.seleccionarPais("China");
+//        sistema.reforzar(3);
+//        sistema.empezarTurno();
+//        sistema.seleccionarPais("Argentina");
+//        sistema.seleccionarPais("Uruguay");
+//        when(juegoMock.obtenerCantidadPaisesSegunJugador(jugador2)).thenReturn(0);
+//        sistema.atacar(3);
+//        sistema.terminarAtaque();
+//        sistema.empezarTurno();
+//
+//        assertEquals(jugador3, sistema.turnoDe());
+//    }
 
 }

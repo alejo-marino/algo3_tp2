@@ -11,15 +11,14 @@ public class Jugador {
     private final Integer NRO_EJERCITOS_TERCER_CANJE = 10;
 
     private final String nombreJugador;
-    private final Batallon batallon;
-    private ArrayList<Tarjeta> tarjetas;
+    private final ArrayList<Tarjeta> tarjetas;
     private Integer numeroDeCanje;
-    private ArrayList<Mision> misiones;
+    private final ArrayList<Mision> misiones;
 
     public Jugador(String nombreJugador) {
         this.nombreJugador = nombreJugador;
-        this.batallon = new Batallon();
         this.tarjetas = new ArrayList<>();
+        this.misiones = new ArrayList<>();
         this.numeroDeCanje = 0;
     }
 
@@ -76,13 +75,14 @@ public class Jugador {
         return calcularEjercitosCanje();
     }
 
-    private void tarjetaPerteneceJugador(ArrayList<Tarjeta> tarjetasACanjear){
+    private void tarjetaPerteneceJugador(ArrayList<Tarjeta> tarjetasACanjear) {
         for (Tarjeta tarjeta: tarjetasACanjear) {
             if (!tarjetas.contains(tarjeta)) {
                 throw new CanjeConTarjetaAjenaException("La tarjeta " + tarjeta + " no te pertenece");
             }
         }
     }
+
     private Integer calcularEjercitosCanje() {
         switch (numeroDeCanje) {
             case 1:
