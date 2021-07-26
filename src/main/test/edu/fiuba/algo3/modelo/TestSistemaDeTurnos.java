@@ -42,8 +42,11 @@ public class TestSistemaDeTurnos {
         Pais argentina = new Pais("Argentina", jugador1);
         Pais uruguay = new Pais("Uruguay", jugador2);
         Pais china = new Pais("China", jugador3);
+        Pais chile = new Pais("Chile", jugador3);
         argentina.hacerLimitrofe(uruguay);
         uruguay.hacerLimitrofe(argentina);
+        argentina.hacerLimitrofe(chile);
+        chile.hacerLimitrofe(argentina);
 
         Tarjeta tarjeta1 = new Tarjeta(argentina, "Globo");
         Tarjeta tarjeta2 = new Tarjeta(uruguay, "Canion");
@@ -62,6 +65,7 @@ public class TestSistemaDeTurnos {
         when(juegoMock.seleccionarPais("Argentina")).thenReturn(argentina);
         when(juegoMock.seleccionarPais("China")).thenReturn(china);
         when(juegoMock.seleccionarPais("Uruguay")).thenReturn(uruguay);
+        when(juegoMock.seleccionarPais("Chile")).thenReturn(chile);
 
         this.sistema = new SistemaDeTurnos(listaJugadores, juegoMock, cola);
         this.sistema.empezarTurno();
@@ -319,36 +323,141 @@ public class TestSistemaDeTurnos {
         assertThrows(JugadorGanoException.class, () -> sistema.atacar(3));
     }
 
-//    @Test
-//    public void test20Jugador1AtacaYJugador2PierdeYEnSiguienteRondaNoPuedoJugarComoJugador2 () {
-//        jugador1.agregarMision(new MisionComun(jugador1, juegoMock, 30));
-//
-//        sistema.seleccionarPais("Argentina");
-//        sistema.reforzar(5);
-//        sistema.empezarTurno();
-//        sistema.seleccionarPais("Uruguay");
-//        sistema.reforzar(5);
-//        sistema.empezarTurno();
-//        sistema.seleccionarPais("China");
-//        sistema.reforzar(5);
-//        sistema.empezarTurno();
-//        sistema.seleccionarPais("Argentina");
-//        sistema.reforzar(3);
-//        sistema.empezarTurno();
-//        sistema.seleccionarPais("Uruguay");
-//        sistema.reforzar(3);
-//        sistema.empezarTurno();
-//        sistema.seleccionarPais("China");
-//        sistema.reforzar(3);
-//        sistema.empezarTurno();
-//        sistema.seleccionarPais("Argentina");
-//        sistema.seleccionarPais("Uruguay");
-//        when(juegoMock.obtenerCantidadPaisesSegunJugador(jugador2)).thenReturn(0);
-//        sistema.atacar(3);
-//        sistema.terminarAtaque();
-//        sistema.empezarTurno();
-//
-//        assertEquals(jugador3, sistema.turnoDe());
-//    }
+    @Test
+    public void test20Jugador1AtacaYJugador2PierdeYEnSiguienteRondaNoEstaElJugador2 () {
+        sistema.seleccionarPais("Argentina");
+        sistema.reforzar(5);
+        sistema.empezarTurno();
+        sistema.seleccionarPais("Uruguay");
+        sistema.reforzar(5);
+        sistema.empezarTurno();
+        sistema.seleccionarPais("China");
+        sistema.reforzar(5);
+        sistema.empezarTurno();
+        sistema.seleccionarPais("Argentina");
+        sistema.reforzar(3);
+        sistema.empezarTurno();
+        sistema.seleccionarPais("Uruguay");
+        sistema.reforzar(3);
+        sistema.empezarTurno();
+        sistema.seleccionarPais("China");
+        sistema.reforzar(3);
+        sistema.empezarTurno();
+        sistema.seleccionarPais("Argentina");
+        sistema.seleccionarPais("Uruguay");
+        when(juegoMock.obtenerCantidadPaisesSegunJugador(jugador1)).thenReturn(3);
+        when(juegoMock.obtenerCantidadPaisesSegunJugador(jugador2)).thenReturn(0);
+        when(juegoMock.obtenerCantidadPaisesSegunJugador(jugador3)).thenReturn(4);
+        sistema.atacar(3);
+        sistema.terminarAtaque();
+        sistema.empezarTurno();
+
+        assertEquals(jugador3, sistema.turnoDe());
+    }
+
+    @Test
+    public void test21Jugador1AtacaYJugador3PierdeYEnSiguienteRondaNoEstaElJugador3 () {
+        sistema.seleccionarPais("Argentina");
+        sistema.reforzar(5);
+        sistema.empezarTurno();
+        sistema.seleccionarPais("Uruguay");
+        sistema.reforzar(5);
+        sistema.empezarTurno();
+        sistema.seleccionarPais("China");
+        sistema.reforzar(5);
+        sistema.empezarTurno();
+        sistema.seleccionarPais("Argentina");
+        sistema.reforzar(3);
+        sistema.empezarTurno();
+        sistema.seleccionarPais("Uruguay");
+        sistema.reforzar(3);
+        sistema.empezarTurno();
+        sistema.seleccionarPais("China");
+        sistema.reforzar(3);
+        sistema.empezarTurno();
+        sistema.seleccionarPais("Argentina");
+        sistema.seleccionarPais("Uruguay");
+        when(juegoMock.obtenerCantidadPaisesSegunJugador(jugador1)).thenReturn(3);
+        when(juegoMock.obtenerCantidadPaisesSegunJugador(jugador2)).thenReturn(3);
+        when(juegoMock.obtenerCantidadPaisesSegunJugador(jugador3)).thenReturn(0);
+        sistema.atacar(3);
+        sistema.terminarAtaque();
+        sistema.empezarTurno();
+        sistema.terminarAtaque();
+        sistema.empezarTurno();
+
+        assertEquals(jugador1, sistema.turnoDe());
+    }
+
+    @Test
+    public void test22Jugador1AtacaYDestruyeAJugador2YJugador3NoCompletaSuMision () {
+        jugador3.agregarMision(new MisionDestruccion(juegoMock, jugador2));
+
+        sistema.seleccionarPais("Argentina");
+        sistema.reforzar(5);
+        sistema.empezarTurno();
+        sistema.seleccionarPais("Uruguay");
+        sistema.reforzar(5);
+        sistema.empezarTurno();
+        sistema.seleccionarPais("Chile");
+        sistema.reforzar(5);
+        sistema.empezarTurno();
+        sistema.seleccionarPais("Argentina");
+        sistema.reforzar(3);
+        sistema.empezarTurno();
+        sistema.seleccionarPais("Uruguay");
+        sistema.reforzar(3);
+        sistema.empezarTurno();
+        sistema.seleccionarPais("Chile");
+        sistema.reforzar(3);
+        sistema.empezarTurno();
+        sistema.seleccionarPais("Argentina");
+        sistema.seleccionarPais("Uruguay");
+        when(juegoMock.obtenerCantidadPaisesSegunJugador(jugador1)).thenReturn(3);
+        when(juegoMock.obtenerCantidadPaisesSegunJugador(jugador2)).thenReturn(0);
+        when(juegoMock.obtenerCantidadPaisesSegunJugador(jugador3)).thenReturn(4);
+        // Jugador 1 destruye al jugador 2
+        sistema.atacar(3);
+        sistema.terminarAtaque();
+
+        // Empieza turno jugador 3
+        sistema.empezarTurno();
+        sistema.seleccionarPais("Chile");
+        sistema.seleccionarPais("Argentina");
+        sistema.atacar(3);
+
+        // Si llega a este punto de la ejecucion, el jugador 3 no ganó
+        assertTrue(true);
+    }
+
+    @Test
+    public void test23Jugador1AtacaYDestruyeAJugador2YJugador3NoCompletaSuMision () {
+        jugador1.agregarMision(new MisionDestruccion(juegoMock, jugador2));
+
+        sistema.seleccionarPais("Argentina");
+        sistema.reforzar(5);
+        sistema.empezarTurno();
+        sistema.seleccionarPais("Uruguay");
+        sistema.reforzar(5);
+        sistema.empezarTurno();
+        sistema.seleccionarPais("Chile");
+        sistema.reforzar(5);
+        sistema.empezarTurno();
+        sistema.seleccionarPais("Argentina");
+        sistema.reforzar(3);
+        sistema.empezarTurno();
+        sistema.seleccionarPais("Uruguay");
+        sistema.reforzar(3);
+        sistema.empezarTurno();
+        sistema.seleccionarPais("Chile");
+        sistema.reforzar(3);
+        sistema.empezarTurno();
+        sistema.seleccionarPais("Argentina");
+        sistema.seleccionarPais("Uruguay");
+        when(juegoMock.obtenerCantidadPaisesSegunJugador(jugador1)).thenReturn(3);
+        when(juegoMock.obtenerCantidadPaisesSegunJugador(jugador2)).thenReturn(0);
+        when(juegoMock.obtenerCantidadPaisesSegunJugador(jugador3)).thenReturn(4);
+        assertThrows(JugadorGanoException.class, () -> sistema.atacar(3));
+    }
 
 }

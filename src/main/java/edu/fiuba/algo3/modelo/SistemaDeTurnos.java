@@ -8,6 +8,7 @@ import java.util.LinkedList;
 
 public class SistemaDeTurnos {
 
+    private final Juego juego;
     Queue<Jugador> colaJugadores;
     Integer movimientos;
     Fase faseActual;
@@ -18,6 +19,7 @@ public class SistemaDeTurnos {
         this.movimientos = 0;
         this.faseActual = new FaseInicial(colaDeNumerosDeRefuerzoPorRonda, juego);
         this.esPrimerTurno = true;
+        this.juego = juego;
     }
 
     private Queue<Jugador> crearColaDeLista(ArrayList<Jugador> lista) {
@@ -61,13 +63,17 @@ public class SistemaDeTurnos {
             throw new JugadorGanoException("Felicitaciones! Ganaste el juego.");
         }
         // Veo si alguien perdió
+        Jugador jugadorAEliminar = null;
         for (Jugador jugador: colaJugadores) {
-            if (Juego.getInstancia().obtenerCantidadPaisesSegunJugador(jugador) == 0) {
-                colaJugadores.remove(jugador);
+            if (juego.obtenerCantidadPaisesSegunJugador(jugador) == 0) {
+                jugadorAEliminar = jugador;
                 for(Jugador otroJugador: colaJugadores) {
                     otroJugador.verificarMisiones();
                 }
             }
+        }
+        if(jugadorAEliminar != null) {
+            colaJugadores.remove(jugadorAEliminar);
         }
     }
 
