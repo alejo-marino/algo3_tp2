@@ -13,6 +13,7 @@ public class SistemaDeTurnos {
     Integer movimientos;
     Fase faseActual;
     boolean esPrimerTurno;
+    private Integer cantidadPaisesPrincipioDeRonda;
 
     public SistemaDeTurnos(ArrayList<Jugador> listaJugadores, Juego juego, Queue<Integer> colaDeNumerosDeRefuerzoPorRonda) {
         this.colaJugadores = this.crearColaDeLista(listaJugadores);
@@ -20,6 +21,7 @@ public class SistemaDeTurnos {
         this.faseActual = new FaseInicial(colaDeNumerosDeRefuerzoPorRonda, juego);
         this.esPrimerTurno = true;
         this.juego = juego;
+        this.cantidadPaisesPrincipioDeRonda = 50;
     }
 
     private Queue<Jugador> crearColaDeLista(ArrayList<Jugador> lista) {
@@ -31,6 +33,9 @@ public class SistemaDeTurnos {
     }
 
     public void empezarTurno() {
+        if (juego.obtenerCantidadPaisesSegunJugador(this.turnoDe()) > cantidadPaisesPrincipioDeRonda) {
+            juego.darTarjeta(this.turnoDe());
+        }
         movimientos++;
         if ((movimientos % (colaJugadores.size() + 1)) == 0) {  // se pasa de ronda
             faseActual = faseActual.siguienteRonda();
@@ -42,6 +47,7 @@ public class SistemaDeTurnos {
         }
         faseActual.empezarTurno(this.turnoDe());
         esPrimerTurno = false;
+        this.cantidadPaisesPrincipioDeRonda = juego.obtenerCantidadPaisesSegunJugador(this.turnoDe());
     }
 
     public String getFaseActual() {
@@ -87,6 +93,7 @@ public class SistemaDeTurnos {
 
     public void canjearTarjetas(ArrayList<Tarjeta> tarjetasACanjear) {
         faseActual.canjearTarjetas(tarjetasACanjear);
+        juego.devolverTarjetas(tarjetasACanjear);
     }
 
     public void terminarAtaque() {

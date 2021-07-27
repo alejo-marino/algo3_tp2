@@ -55,4 +55,9 @@ public class TestJuego {
         assertNotNull(sistemaDeTurnos);
     }
 
+    @Test
+    void test06HayCincuentaTarjetasEnElMazoDeTarjetas() {
+
+    }
+
 }

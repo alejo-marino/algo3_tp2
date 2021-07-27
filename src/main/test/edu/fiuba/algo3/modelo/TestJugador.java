@@ -262,7 +262,8 @@ public class TestJugador {
         Map<String, Integer> objetivos = new HashMap<>();
         objetivos.put("Asia", 2);
         objetivos.put("Oceania", 4);
-        MisionConquista misionConquista = new MisionConquista(jugador, juegoMock, objetivos);
+        MisionConquista misionConquista = new MisionConquista(juegoMock, objetivos);
+        misionConquista.asignarJugador(jugador);
         jugador.agregarMision(misionConquista);
         when(juegoMock.paisesConquistadosPorEn(jugador, "Asia")).thenReturn(2);
         when(juegoMock.paisesConquistadosPorEn(jugador, "Oceania")).thenReturn(4);
@@ -276,7 +277,8 @@ public class TestJugador {
         Map<String, Integer> objetivos = new HashMap<>();
         objetivos.put("Asia", 2);
         objetivos.put("Oceania", 4);
-        MisionConquista misionConquista = new MisionConquista(jugador, juegoMock, objetivos);
+        MisionConquista misionConquista = new MisionConquista(juegoMock, objetivos);
+        misionConquista.asignarJugador(jugador);
         jugador.agregarMision(misionConquista);
         when(juegoMock.paisesConquistadosPorEn(jugador, "Asia")).thenReturn(2);
         when(juegoMock.paisesConquistadosPorEn(jugador, "Oceania")).thenReturn(3);
@@ -291,7 +293,8 @@ public class TestJugador {
         objetivos.put("Asia", 2);
         objetivos.put("Oceania", 4);
         MisionComun misionComun = new MisionComun(jugador, juegoMock, 30);
-        MisionConquista misionConquista = new MisionConquista(jugador, juegoMock, objetivos);
+        MisionConquista misionConquista = new MisionConquista(juegoMock, objetivos);
+        misionConquista.asignarJugador(jugador);
         jugador.agregarMision(misionComun);
         jugador.agregarMision(misionConquista);
         when(juegoMock.obtenerCantidadPaisesSegunJugador(jugador)).thenReturn(29);
@@ -308,7 +311,8 @@ public class TestJugador {
         objetivos.put("Asia", 2);
         objetivos.put("Oceania", 4);
         MisionComun misionComun = new MisionComun(jugador, juegoMock, 30);
-        MisionConquista misionConquista = new MisionConquista(jugador, juegoMock, objetivos);
+        MisionConquista misionConquista = new MisionConquista(juegoMock, objetivos);
+        misionConquista.asignarJugador(jugador);
         jugador.agregarMision(misionComun);
         jugador.agregarMision(misionConquista);
         when(juegoMock.obtenerCantidadPaisesSegunJugador(jugador)).thenReturn(30);
@@ -325,7 +329,8 @@ public class TestJugador {
         objetivos.put("Asia", 2);
         objetivos.put("Oceania", 4);
         MisionComun misionComun = new MisionComun(jugador, juegoMock, 30);
-        MisionConquista misionConquista = new MisionConquista(jugador, juegoMock, objetivos);
+        MisionConquista misionConquista = new MisionConquista(juegoMock, objetivos);
+        misionConquista.asignarJugador(jugador);
         jugador.agregarMision(misionComun);
         jugador.agregarMision(misionConquista);
         when(juegoMock.obtenerCantidadPaisesSegunJugador(jugador)).thenReturn(29);
@@ -342,7 +347,8 @@ public class TestJugador {
         objetivos.put("Asia", 2);
         objetivos.put("Oceania", 4);
         MisionComun misionComun = new MisionComun(jugador, juegoMock, 30);
-        MisionConquista misionConquista = new MisionConquista(jugador, juegoMock, objetivos);
+        MisionConquista misionConquista = new MisionConquista(juegoMock, objetivos);
+        misionConquista.asignarJugador(jugador);
         jugador.agregarMision(misionComun);
         jugador.agregarMision(misionConquista);
         when(juegoMock.obtenerCantidadPaisesSegunJugador(jugador)).thenReturn(30);

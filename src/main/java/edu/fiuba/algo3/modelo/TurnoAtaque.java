@@ -80,4 +80,8 @@ public class TurnoAtaque implements EstadoTurno {
         throw new CanjeNoPermitidoException("No se puede canjear en una ronda de ataque y reagrupe");
     }
 
+    @Override
+    public void activarTarjeta(Tarjeta tarjetaAActivar) {
+        throw new ActivacionTarjetaInvalidaException("No podés activar la tarjeta en un turno de ataque.");
+    }
 }

@@ -3,11 +3,10 @@ package edu.fiuba.algo3.modelo;
 public interface Mision {
 
 
+    String verMision();
 
-   String verMision();
+    boolean completoMision();
 
-   boolean completoMision();
-
-   boolean sigueSiendoPosible();
+    boolean sigueSiendoPosible();
 
 }

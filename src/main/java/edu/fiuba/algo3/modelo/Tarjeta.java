@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.modelo.excepciones.ActivacionTarjetaInvalidaException;
+
 public class Tarjeta {
 
     private final Pais pais;
@@ -19,6 +21,8 @@ public class Tarjeta {
         if (pais.esDuenio(jugador) && !fueActivada) {
             pais.reforzar(cantidadEjercitosActivacion);
             fueActivada = true;
+        } else {
+            throw new ActivacionTarjetaInvalidaException("No se puede activar esta tarjeta.");
         }
     }
 

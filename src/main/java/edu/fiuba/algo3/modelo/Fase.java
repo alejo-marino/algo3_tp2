@@ -49,4 +49,9 @@ public abstract class Fase {
     public void terminarAtaque(Jugador jugador) {
         this.ronda.terminarAtaque(jugador);
     }
+
+    public void activarTarjeta(Tarjeta tarjetaAActivar) {
+        this.ronda.activarTarjeta(tarjetaAActivar);
+    }
+
 }

@@ -50,4 +50,8 @@ public abstract class Ronda {
     }
 
     abstract void terminarAtaque(Jugador jugador);
+
+    public void activarTarjeta(Tarjeta tarjetaAActivar) {
+        this.estadoTurno.activarTarjeta(tarjetaAActivar);
+    }
 }

@@ -65,14 +65,14 @@ public class TestRondaDeRefuerzo {
     }
 
     @Test
-    public void test04CreoUnaRondaDeRefuerzoYPuedoReforzarUnPaisPropio(){
+    public void test04CreoUnaRondaDeRefuerzoYPuedoReforzarUnPaisPropio() {
         Pais paisSeleccionado = ronda.seleccionarPais("Argentina");
         ronda.reforzar(2);
         assertEquals(6, paisSeleccionado.getEjercitos());
     }
 
     @Test
-    public void test05CreoUnaRondaDeRefuerzoIntentoSeleccionar2PaisesYLanzaException(){
+    public void test05CreoUnaRondaDeRefuerzoIntentoSeleccionar2PaisesYLanzaException () {
         ronda.seleccionarPais("Argentina");
         assertThrows(PaisesYaSeleccionadosException.class, () -> ronda.seleccionarPais("Chile"));
     }

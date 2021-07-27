@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.modelo;
 
 public class MisionDestruccion implements Mision{
-    private final Jugador objetivo;
+    private Jugador objetivo;
     private final Juego juego;
 
 
@@ -22,4 +22,11 @@ public class MisionDestruccion implements Mision{
         return (juego.obtenerCantidadPaisesSegunJugador(objetivo) > 0);
     }
 
+    public Jugador getObjetivo() {
+        return objetivo;
+    }
+
+    public void setObjetivo(Jugador jugador) {
+        this.objetivo = jugador;
+    }
 }

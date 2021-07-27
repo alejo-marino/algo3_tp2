@@ -49,6 +49,10 @@ public class ParserTEG {
         listaTarjetas.add(arrayTarjeta);
     }
 
+    public Hashtable<String, ArrayList> parsearMisiones (String rutaArchivoMisiones) {
+         return obtenerDiccionarioMisiones(rutaArchivoMisiones);
+    }
+
     private Hashtable<String, Hashtable<String, ArrayList<String>>> obtenerDiccionariosPaisesYContinentes(String rutaArchivo) {
         JSONParser parser = new JSONParser();
         Hashtable<String, Hashtable<String, ArrayList<String>>> diccContinentes = new Hashtable<String, Hashtable<String, ArrayList<String>>>();
@@ -94,6 +98,65 @@ public class ParserTEG {
         return listaTarjetas;
     }
 
+    private Hashtable<String, ArrayList> obtenerDiccionarioMisiones(String rutaArchivo) {
+        JSONParser parser = new JSONParser();
+        Hashtable<String, ArrayList> diccMisiones = new Hashtable<>();
+        try (FileReader reader = new FileReader(rutaArchivo)) {
 
+            Object obj = parser.parse(reader);
+            // Array que ocupa t0do el archivo
+            JSONArray tiposMisionesJSON = (JSONArray) obj;
+            // Objeto que ocupa t0do el archivo
+            JSONObject tiposMisionesJSONObject = (JSONObject) tiposMisionesJSON.get(0);
+
+            diccMisiones.put("Conquista", this.parsearMisionesConquista((JSONArray) tiposMisionesJSONObject.get("Conquista")));
+            diccMisiones.put("Destruccion", this.parsearMisionesDestruccion((JSONArray) tiposMisionesJSONObject.get("Destruccion")));
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return diccMisiones;
+    }
+
+    private ArrayList<Hashtable<String, String>> parsearMisionesConquista(JSONArray arrayMisionesJSON) {
+        // Array que contiene distintos arrays que representan misiones
+        ArrayList<Hashtable<String, String>> misionesConquista = new ArrayList<>();
+        arrayMisionesJSON.forEach(mision -> parsearMisionConquista((JSONArray) mision, misionesConquista));
+        return misionesConquista;
+    }
+
+    private void parsearMisionConquista (JSONArray misionJSON, ArrayList<Hashtable<String, String>> misionesConquista) {
+        Hashtable<String, String> mision = new Hashtable<>();
+        misionJSON.forEach(condicion ->  parsearCondicionConquista( (JSONObject) condicion, mision));
+        misionesConquista.add(mision);
+    }
+
+    private void parsearCondicionConquista(JSONObject condicion, Hashtable<String, String> mision) {
+        String continente = (String) condicion.get("continente");
+        String cantPaises = (String) condicion.get("paises");
+        mision.put(continente, cantPaises);
+    }
+
+    private ArrayList<ArrayList<String>> parsearMisionesDestruccion(JSONArray arrayMisionesJSON) {
+        ArrayList<ArrayList<String>> misionesDestruccion = new ArrayList<>();
+        arrayMisionesJSON.forEach(mision -> parsearMisionDestruccion((JSONArray) mision, misionesDestruccion));
+        return misionesDestruccion;
+    }
+
+    private void parsearMisionDestruccion (JSONArray misionJSON, ArrayList<ArrayList<String>> misionesDestruccion) {
+        ArrayList<String> mision = new ArrayList<>();
+        misionJSON.forEach(condicion ->  parsearCondicionDestruccion( (JSONObject) condicion, mision));
+        misionesDestruccion.add(mision);
+    }
+
+    private void parsearCondicionDestruccion(JSONObject condicion, ArrayList<String> mision) {
+        String enemigo = (String) condicion.get("enemigo");
+        mision.add(enemigo);
+    }
 
 }

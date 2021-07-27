@@ -15,10 +15,12 @@ public class TestInicializadorDeDatos {
     // Paths.get("JSON/", "Fronteras.json")
     private final String RUTA_JSON_FRONTERAS = "src/main/java/edu/fiuba/algo3/modelo/JSON/Fronteras.json";
     private final String RUTA_JSON_TARJETAS = "src/main/java/edu/fiuba/algo3/modelo/JSON/Cartas.json";
+    private final String RUTA_JSON_MISIONES = "src/main/java/edu/fiuba/algo3/modelo/JSON/Misiones.json";
     private InicializadorDeDatos inicializador;
     private ArrayList<Jugador> jugadores;
     private Hashtable<String, Hashtable<String, ArrayList<String>>> paisesParseados;
     private ArrayList<ArrayList<String>> tarjetasParseadas;
+    private Hashtable<String, ArrayList> misionesParseadas;
 
     @BeforeEach
     void setUp() {
@@ -28,6 +30,7 @@ public class TestInicializadorDeDatos {
         ArrayList aux = parser.parsearTablero(rutaFronteras, rutaCartas);
         this.paisesParseados = (Hashtable<String, Hashtable<String, ArrayList<String>>>) aux.get(0);
         this.tarjetasParseadas = (ArrayList<ArrayList<String>>) aux.get(1);
+        this.misionesParseadas = parser.parsearMisiones(RUTA_JSON_MISIONES);
         this.inicializador = new InicializadorDeDatos();
         this.jugadores = new ArrayList<>();
         jugadores.add(new Jugador("000000"));
@@ -253,6 +256,46 @@ public class TestInicializadorDeDatos {
         assertEquals(cantidadCanionesEsperada, contadorCaniones);
         assertEquals(cantidadBarcosEsperada, contadorBarcos);
         assertEquals(cantidadComodinesEsperada, contadorComodines);
+    }
+
+    @Test
+    public void test13CreoMisionesYHayUnaCantidadCorrectaDeMisiones () {
+        ArrayList<ArrayList> paisesContinentes = this.inicializador.inicializarContinentesYPaises(paisesParseados, jugadores);
+        ArrayList<Continente> continentes = paisesContinentes.get(1);
+
+        ArrayList<Mision> misiones = inicializador.inicializarMisiones(misionesParseadas, continentes, jugadores);
+        Integer cantidadDeMisiones = 14;
+        assertEquals(cantidadDeMisiones, misiones.size());
+    }
+
+    @Test
+    public void test14CreoMisionesYHayUnaCantidadCorrectaDeMisionesDeDestruccion () {
+        ArrayList<ArrayList> paisesContinentes = this.inicializador.inicializarContinentesYPaises(paisesParseados, jugadores);
+        ArrayList<Continente> continentes = paisesContinentes.get(1);
+
+        ArrayList<Mision> misiones = inicializador.inicializarMisiones(misionesParseadas, continentes, jugadores);
+        Integer cantidadDeMisionesDestruccion = 0;
+        Integer cantidadDeMisionesDestruccionEsperada = 6;
+        for (Mision mision: misiones) {
+            if (mision instanceof MisionDestruccion)
+                cantidadDeMisionesDestruccion++;
+        }
+        assertEquals(cantidadDeMisionesDestruccionEsperada, cantidadDeMisionesDestruccion);
+    }
+
+    @Test
+    public void test15CreoMisionesYHayUnaCantidadCorrectaDeMisionesDeConquista () {
+        ArrayList<ArrayList> paisesContinentes = this.inicializador.inicializarContinentesYPaises(paisesParseados, jugadores);
+        ArrayList<Continente> continentes = paisesContinentes.get(1);
+
+        ArrayList<Mision> misiones = inicializador.inicializarMisiones(misionesParseadas, continentes, jugadores);
+        Integer cantidadDeMisionesConquista = 0;
+        Integer cantidadDeMisionesDestruccionEsperada = 8;
+        for (Mision mision: misiones) {
+            if (mision instanceof MisionConquista)
+                cantidadDeMisionesConquista++;
+        }
+        assertEquals(cantidadDeMisionesDestruccionEsperada, cantidadDeMisionesConquista);
     }
 
 }

@@ -1,9 +1,8 @@
 package edu.fiuba.algo3.modelo;
 
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
+
+import static java.lang.Integer.parseInt;
 
 public class InicializadorDeDatos {
     /*
@@ -112,6 +111,60 @@ public class InicializadorDeDatos {
         }
         return colaJugadores;
     }
+
+    public ArrayList<Mision> inicializarMisiones(Hashtable<String, ArrayList> diccMisionesParseadas, ArrayList<Continente> listaContinente, ArrayList<Jugador> listaJugadores) {
+        ArrayList<Mision> misiones = new ArrayList<>();
+        misiones.addAll(this.inicializarMisionesConquista(diccMisionesParseadas.get("Conquista"), listaContinente));
+        misiones.addAll(this.inicializarMisionesDestruccion(diccMisionesParseadas.get("Destruccion"), listaJugadores));
+
+        return misiones;
+    }
+
+    private ArrayList<MisionConquista> inicializarMisionesConquista(ArrayList misionesConquistaParseadas, ArrayList<Continente> listaContinente) {
+        ArrayList<MisionConquista> misionesConquista = new ArrayList<>();
+        misionesConquistaParseadas.forEach(mision -> inicializarMisionConquista((Hashtable<String, String>) mision, misionesConquista, listaContinente));
+        return misionesConquista;
+    }
+
+    private void inicializarMisionConquista(Hashtable<String, String> diccMision, ArrayList<MisionConquista> misionesConquista, ArrayList<Continente> listaContinente) {
+        Map<String, Integer> condiciones = new HashMap<>();
+        diccMision.forEach((nombreContinente, cantPaisesString) -> {
+            Integer cantPaises = 0;
+            if (cantPaisesString.equals("all")) {
+                for (Continente continente: listaContinente) {
+                    if (continente.toString().equals(nombreContinente)) {
+                        cantPaises = continente.size();
+                    }
+                }
+            } else {
+                cantPaises = parseInt(cantPaisesString);
+            }
+            condiciones.put(nombreContinente, cantPaises);
+        });
+        MisionConquista mision = new MisionConquista(Juego.getInstancia(), condiciones);
+        misionesConquista.add(mision);
+    }
+
+
+    private ArrayList<MisionDestruccion> inicializarMisionesDestruccion(ArrayList<ArrayList<String>> misionesDestruccionParseadas, ArrayList<Jugador> jugadores) {
+        ArrayList<MisionDestruccion> misionesDestruccion = new ArrayList<>();
+        misionesDestruccionParseadas.forEach(mision -> inicializarMisionDestruccion(mision, jugadores, misionesDestruccion));
+        return misionesDestruccion;
+    }
+
+    private void inicializarMisionDestruccion(ArrayList<String> arrayMision, ArrayList<Jugador> jugadores, ArrayList<MisionDestruccion> misionesDestruccion) {
+        String nombreJugadorEnemigo = arrayMision.get(0);
+        Jugador jugadorEnemigo = null;
+        for (Jugador jugador: jugadores) {
+            if (jugador.toString().equals(nombreJugadorEnemigo)) {
+                jugadorEnemigo = jugador;
+            }
+        }
+
+        MisionDestruccion mision = new MisionDestruccion(Juego.getInstancia(), jugadorEnemigo);
+        misionesDestruccion.add(mision);
+    }
+
 
     //return listCarnet.stream().filter(carnet -> codeIsIn.equals(carnet.getCodeIsin())).findFirst().orElse(null);
     //return listaPaises.stream().filter(pais -> paisAChequearSiEsLimitrofe.equals(pais.toString())).findFirst().orElse(null);

@@ -16,4 +16,6 @@ public interface EstadoTurno {
 
     void canjearTarjetas(ArrayList<Tarjeta> tarjetasACanjear);
 
+    void activarTarjeta(Tarjeta tarjetaAActivar);
+
 }

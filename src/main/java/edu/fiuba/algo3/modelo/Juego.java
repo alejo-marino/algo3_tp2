@@ -11,14 +11,17 @@ public class Juego {
 
     private final String rutaJsonFronteras = "src/main/java/edu/fiuba/algo3/modelo/JSON/Fronteras.json";
     private final String rutaJsonTarjetas = "src/main/java/edu/fiuba/algo3/modelo/JSON/Cartas.json";
+    private final String rutaJsonMisiones = "src/main/java/edu/fiuba/algo3/modelo/JSON/Misiones.json";
     private final Queue<String> colores;
+    private final Integer numeroJugadorMisionComun = 30;
 
     private Tablero tablero;
     private SistemaDeTurnos sistemaTurnos;
     private ArrayList<Jugador> listaJugadores;
-    private Queue<Tarjeta> mazoDeCartas;
+    private Queue<Tarjeta> mazoDeTarjetas;
 
     private static Juego instancia = new Juego();
+    private ArrayList<Mision> misiones;
 
     private Juego() {
         this.colores = new LinkedList<>();
@@ -71,8 +74,27 @@ public class Juego {
         ArrayList<Continente> listaContinente = aux2.get(1);
         this.tablero = new Tablero(listaPaises, listaContinente);
         ArrayList<Tarjeta> listaTarjetas = inicializador.inicializarTarjetas(listaTarjetasParseadas, listaPaises);
-        this.mazoDeCartas = this.convertirListaDeTarjetasACola(listaTarjetas);
-        // iniciarMisionesYDistribuirlas();
+        this.mazoDeTarjetas = this.convertirListaDeTarjetasACola(listaTarjetas);
+        
+        Hashtable<String, ArrayList> diccMisionesParseadas = parser.parsearMisiones(rutaJsonMisiones);
+        this.misiones = inicializador.inicializarMisiones(diccMisionesParseadas, listaContinente, listaJugadores);
+        Random ran = new Random();
+        for (int i = 0; i < listaJugadores.size(); i++) {
+            Mision mision = this.misiones.remove(ran.nextInt(misiones.size()));
+            if (mision instanceof MisionDestruccion) {
+                MisionDestruccion misionDestruccion = (MisionDestruccion) mision;
+                if (misionDestruccion.getObjetivo() == null) {
+                    Integer indexNuevo = i + 1;
+                    if (indexNuevo >= listaJugadores.size()) {
+                        indexNuevo = 0;
+                    }
+                    misionDestruccion.setObjetivo(listaJugadores.get(indexNuevo));
+                }
+            }
+            Jugador jugador = listaJugadores.get(i);
+            jugador.agregarMision(mision);
+            jugador.agregarMision(new MisionComun(jugador, this, numeroJugadorMisionComun));
+        }
 
         SistemaDeTurnos sistemaDeTurnos = new SistemaDeTurnos(listaJugadores, this, this.setearRondasIniciales());
         return sistemaDeTurnos;
@@ -90,7 +112,6 @@ public class Juego {
         return this.tablero.seleccionarPais(nombrePais);
     }
 
-
     public Integer calcularEjercitosDisponibles(Jugador jugador) {
         return this.tablero.calcularEjercitosDisponibles(jugador);
     }
@@ -102,4 +123,13 @@ public class Juego {
     public Integer obtenerCantidadPaisesSegunJugador(Jugador jugador) {
         return this.tablero.obtenerCantidadPaisesSegunJugador(jugador);
     }
+
+    public void devolverTarjetas(ArrayList<Tarjeta> tarjetasACanjear) {
+        mazoDeTarjetas.addAll(tarjetasACanjear);
+    }
+
+    public void darTarjeta(Jugador jugador) {
+        jugador.agregarTarjeta(mazoDeTarjetas.remove());
+    }
+
 }

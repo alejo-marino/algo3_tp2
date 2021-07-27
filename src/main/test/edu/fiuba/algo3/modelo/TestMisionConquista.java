@@ -30,7 +30,8 @@ public class TestMisionConquista {
         Map<String, Integer> paisesAConquistar = new HashMap<>();
         paisesAConquistar.put("Oceania", 4);
         paisesAConquistar.put("Asia", 2);
-        this.misionConquista = new MisionConquista(jugador1, juegoMock, paisesAConquistar);
+        this.misionConquista = new MisionConquista(juegoMock, paisesAConquistar);
+        misionConquista.asignarJugador(jugador1);
     }
 
     @Test

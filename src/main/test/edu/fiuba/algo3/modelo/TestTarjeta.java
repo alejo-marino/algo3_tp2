@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.modelo.excepciones.ActivacionTarjetaInvalidaException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,19 +12,21 @@ public class TestTarjeta {
     private Tarjeta tarjetaBarco;
     private Tarjeta tarjetaBarco2;
     private Jugador jugador;
+    private Jugador jugador2;
     private Pais argentina;
     private Pais uruguay;
 
     private Integer cantidadEjercitosActivacion;
 
+
     @BeforeEach
     void setUp() {
         this.jugador = new Jugador("000000");
-        Jugador jugador2 = new Jugador("ffffff");
+        this.jugador2 = new Jugador("ffffff");
         Jugador jugador3 = new Jugador("fff000");
         this.argentina = new Pais("Argentina", jugador);
         this.tarjetaGlobo = new Tarjeta(argentina, "Globo");
-        this.uruguay = new Pais("Argentina", jugador2);
+        this.uruguay = new Pais("Uruguay", jugador2);
         this.tarjetaBarco = new Tarjeta(uruguay, "Barco");
         Pais china = new Pais("China", jugador3);
         this.tarjetaBarco2 = new Tarjeta(china, "Barco");
@@ -45,8 +48,8 @@ public class TestTarjeta {
     @Test
     public void test03NoPuedoActivarUnaTarjetaDosVecesSinAntesDevolverlaAlMazo () {
         tarjetaGlobo.activar(jugador);
-        tarjetaGlobo.activar(jugador);
-        assertEquals(cantidadEjercitosActivacion + 1, argentina.getEjercitos());
+
+        assertThrows(ActivacionTarjetaInvalidaException.class, () -> tarjetaGlobo.activar(jugador));
     }
 
     @Test
@@ -79,6 +82,11 @@ public class TestTarjeta {
     public void test09CreoUnaTarjetaYVerificoQueElSimboloSeaElCorrecto () {
         String simbolo = "Globo";
         assertEquals(simbolo, tarjetaGlobo.getSimbolo());
+    }
+
+    @Test
+    public void test10NoPuedoCanjearTarjetaDeUnPaisAjeno() {
+        assertThrows(ActivacionTarjetaInvalidaException.class, () -> tarjetaBarco.activar(jugador));
     }
 
 }

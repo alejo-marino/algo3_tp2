@@ -91,6 +91,7 @@ public class TurnoReagrupe implements EstadoTurno {
         });
     }
 
-    public static class Mision {
+    public void activarTarjeta(Tarjeta tarjetaAActivar) {
+        throw new ActivacionTarjetaInvalidaException("No podés activar la tarjeta en un turno de reagrupe.");
     }
 }
