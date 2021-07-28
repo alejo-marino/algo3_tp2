@@ -4,6 +4,8 @@ import edu.fiuba.algo3.modelo.excepciones.*;
 
 import java.util.ArrayList;
 
+import static edu.fiuba.algo3.modelo.Constantes.numeroTarjetasParaCanje;
+
 public class TurnoRefuerzo implements EstadoTurno {
 
     private Pais paisRefuerzo;
@@ -21,7 +23,7 @@ public class TurnoRefuerzo implements EstadoTurno {
     }
 
     @Override
-    public Pais seleccionarPais(Pais paisSeleccionado) {
+    public void seleccionarPais(Pais paisSeleccionado) {
         if (this.paisRefuerzo != null) {
             throw new PaisesYaSeleccionadosException(paisSeleccionado + " ya esta seleccionado, apreta 'Reforzar' o 'Cancelar accion'.");
         }
@@ -30,7 +32,6 @@ public class TurnoRefuerzo implements EstadoTurno {
             throw new SeleccionaPaisAjenoException("El pais: " + paisSeleccionado + " no te pertenece");
         }
         paisRefuerzo = paisSeleccionado;
-        return paisRefuerzo;
     }
 
     @Override
@@ -55,19 +56,18 @@ public class TurnoRefuerzo implements EstadoTurno {
     }
 
     @Override
-    public void canjearTarjetas(ArrayList<Tarjeta> tarjetasACanjear) {
-        int NRO_TARJETAS_PARA_CANJE = 3;
-        if (tarjetasACanjear.size() != NRO_TARJETAS_PARA_CANJE) {
+    public void canjearTarjetas(ArrayList<String> tarjetasACanjear, Juego juego) {
+        if (tarjetasACanjear.size() != numeroTarjetasParaCanje) {
             throw new CanjeInvalidoException("Cantidad erronea de tarjetas para el canje.");
         }
-        ejercitosDisponibles = ejercitosDisponibles + jugador.canjearTarjetas(tarjetasACanjear);
+        ejercitosDisponibles += juego.canjearTarjetas(tarjetasACanjear, jugador);
     }
 
     public boolean tieneEjercitosParaReforzar() {
         return ejercitosDisponibles > 0;
     }
 
-    public void activarTarjeta(Tarjeta tarjetaAActivar) {
-        tarjetaAActivar.activar(jugador);
+    public void activarTarjeta(String tarjetaAActivar, Juego juego) {
+        juego.activarTarjeta(tarjetaAActivar);
     }
 }

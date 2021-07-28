@@ -24,17 +24,17 @@ public abstract class Ronda {
         this.estadoTurno.reforzar(ejercitosAReforzar);
     }
 
-    public Pais seleccionarPais(String nombrePais)  {
+    public void seleccionarPais(String nombrePais)  {
         Pais pais = this.juego.seleccionarPais(nombrePais);
-        return this.estadoTurno.seleccionarPais(pais);
+        this.estadoTurno.seleccionarPais(pais);
     }
 
     public void cancelarAccion() {
         this.estadoTurno.cancelarAccion();
     }
 
-    public void canjearTarjetas(ArrayList<Tarjeta> tarjetasACanjear) {
-        estadoTurno.canjearTarjetas(tarjetasACanjear);
+    public void canjearTarjetas(ArrayList<String> tarjetasACanjear) {
+        estadoTurno.canjearTarjetas(tarjetasACanjear, juego);
     }
 
     abstract Ronda siguienteRonda();
@@ -51,7 +51,7 @@ public abstract class Ronda {
 
     abstract void terminarAtaque(Jugador jugador);
 
-    public void activarTarjeta(Tarjeta tarjetaAActivar) {
-        this.estadoTurno.activarTarjeta(tarjetaAActivar);
+    public void activarTarjeta(String nombreTarjeta) {
+        this.estadoTurno.activarTarjeta(nombreTarjeta, juego);
     }
 }

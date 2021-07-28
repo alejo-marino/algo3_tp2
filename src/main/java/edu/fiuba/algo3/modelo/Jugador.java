@@ -4,20 +4,18 @@ import edu.fiuba.algo3.modelo.excepciones.CanjeConTarjetaAjenaException;
 
 import java.util.ArrayList;
 
+import static edu.fiuba.algo3.modelo.Constantes.*;
+
 public class Jugador {
 
-    private final Integer NRO_EJERCITOS_PRIMER_CANJE = 4;
-    private final Integer NRO_EJERCITOS_SEGUNDO_CANJE = 7;
-    private final Integer NRO_EJERCITOS_TERCER_CANJE = 10;
+
 
     private final String nombreJugador;
-    private final ArrayList<Tarjeta> tarjetas;
     private Integer numeroDeCanje;
     private final ArrayList<Mision> misiones;
 
     public Jugador(String nombreJugador) {
         this.nombreJugador = nombreJugador;
-        this.tarjetas = new ArrayList<>();
         this.misiones = new ArrayList<>();
         this.numeroDeCanje = 0;
     }
@@ -34,66 +32,6 @@ public class Jugador {
     @Override
     public String toString() {
         return this.nombreJugador;
-    }
-
-    public ArrayList<Tarjeta> getTarjetas() {
-        return tarjetas;
-    }
-
-    public void agregarTarjeta(Tarjeta tarjeta) {
-        tarjetas.add(tarjeta);
-    }
-
-    public Integer canjearTarjetas(ArrayList<Tarjeta> tarjetasACanjear) {
-        this.tarjetaPerteneceJugador(tarjetasACanjear);
-
-        if (tarjetasACanjear.get(0).equals(tarjetasACanjear.get(1))) {
-            for (Tarjeta tarjeta: tarjetasACanjear) {
-                if (!tarjeta.equals(tarjetasACanjear.get(0))) {
-                    return 0;
-                }
-            }
-        } else {
-            ArrayList<Tarjeta> tarjetasACanjearCopia = new ArrayList<>(tarjetasACanjear);
-
-            Tarjeta tarjeta;
-            while (!tarjetasACanjearCopia.isEmpty()) {
-                tarjeta = tarjetasACanjearCopia.remove(0);
-                for (Tarjeta otraTarjeta: tarjetasACanjearCopia) {
-                    if (tarjeta.equals(otraTarjeta)) {
-                        return 0;
-                    }
-                }
-            }
-        }
-
-        for (Tarjeta tarjeta: tarjetasACanjear) {
-            tarjetas.remove(tarjeta);
-        }
-
-        this.numeroDeCanje++;
-        return calcularEjercitosCanje();
-    }
-
-    private void tarjetaPerteneceJugador(ArrayList<Tarjeta> tarjetasACanjear) {
-        for (Tarjeta tarjeta: tarjetasACanjear) {
-            if (!tarjetas.contains(tarjeta)) {
-                throw new CanjeConTarjetaAjenaException("La tarjeta " + tarjeta + " no te pertenece");
-            }
-        }
-    }
-
-    private Integer calcularEjercitosCanje() {
-        switch (numeroDeCanje) {
-            case 1:
-                return NRO_EJERCITOS_PRIMER_CANJE;
-            case 2:
-                return NRO_EJERCITOS_SEGUNDO_CANJE;
-            case 3:
-                return NRO_EJERCITOS_TERCER_CANJE;
-            default:
-                return (numeroDeCanje - 1) * 5;
-        }
     }
 
     public void agregarMision(Mision mision) {
@@ -116,6 +54,24 @@ public class Jugador {
             }
         }
         return false;
+    }
+
+    public Integer canjeValido() {
+        numeroDeCanje++;
+        return this.calcularEjercitosCanje();
+    }
+
+    private Integer calcularEjercitosCanje() {
+        switch (numeroDeCanje) {
+            case 1:
+                return numeroEjercitosPrimerCanje;
+            case 2:
+                return numeroEjercitosSegundoCanje;
+            case 3:
+                return numeroEjercitosTercerCanje;
+            default:
+                return (numeroDeCanje - 1) * 5;
+        }
     }
 
 }

@@ -84,7 +84,7 @@ public class TurnoReagrupe implements EstadoTurno {
     }
 
     @Override
-    public void canjearTarjetas(ArrayList<Tarjeta> tarjetasACanjear) {
+    public void canjearTarjetas(ArrayList<String> tarjetasACanjear, Juego juego) {
         throw new CanjeNoPermitidoException("No se puede canjear en una ronda de ataque y reagrupe");
     }
 
@@ -94,7 +94,8 @@ public class TurnoReagrupe implements EstadoTurno {
         });
     }
 
-    public void activarTarjeta(Tarjeta tarjetaAActivar) {
+    @Override
+    public void activarTarjeta(String nombreTarjeta, Juego juego) {
         throw new ActivacionTarjetaInvalidaException("No podés activar la tarjeta en un turno de reagrupe.");
     }
 }

@@ -41,30 +41,35 @@ public class TestTarjeta {
 
     @Test
     public void test02CreoUnaTarjetaDeUnPaisQueDominoYLaActivoYMeDevuelveElValorCorrecto () {
-        tarjetaGlobo.activar(jugador);
+        tarjetaGlobo.darA(jugador);
+        tarjetaGlobo.activar();
         assertEquals(cantidadEjercitosActivacion + 1, argentina.getEjercitos());
     }
 
     @Test
     public void test03NoPuedoActivarUnaTarjetaDosVecesSinAntesDevolverlaAlMazo () {
-        tarjetaGlobo.activar(jugador);
+        tarjetaGlobo.darA(jugador);
+        tarjetaGlobo.activar();
 
-        assertThrows(ActivacionTarjetaInvalidaException.class, () -> tarjetaGlobo.activar(jugador));
+        assertThrows(ActivacionTarjetaInvalidaException.class, () -> tarjetaGlobo.activar());
     }
 
     @Test
     public void test05ActivoUnaTarjetaYLaDevuelvoAlMazoYPuedoActivarlaDeNuevo () {
-        tarjetaGlobo.activar(jugador);
-        tarjetaGlobo.hacerActivable();
-        tarjetaGlobo.activar(jugador);
+        tarjetaGlobo.darA(jugador);
+        tarjetaGlobo.activar();
+        tarjetaGlobo.devolverAlMazo();
+        tarjetaGlobo.darA(jugador);
+        tarjetaGlobo.activar();
         assertEquals(2 * cantidadEjercitosActivacion + 1, argentina.getEjercitos());
     }
 
     @Test
     public void test06ConquistoUnPaisYPuedoActivarLaTarjeta () {
+        tarjetaBarco.darA(jugador);
         argentina.reforzar(1);
         argentina.conquistar(uruguay);
-        tarjetaBarco.activar(jugador);
+        tarjetaBarco.activar();
         assertEquals(cantidadEjercitosActivacion + 2, uruguay.getEjercitos());
     }
 
@@ -75,7 +80,7 @@ public class TestTarjeta {
 
     @Test
     public void test08VerificoQueDosTarjetasTienenIgualSimbolo () {
-        assertEquals(tarjetaBarco, tarjetaBarco2);
+        assertTrue(tarjetaBarco.tieneIgualSimbolo(tarjetaBarco2));
     }
 
     @Test
@@ -86,7 +91,8 @@ public class TestTarjeta {
 
     @Test
     public void test10NoPuedoCanjearTarjetaDeUnPaisAjeno() {
-        assertThrows(ActivacionTarjetaInvalidaException.class, () -> tarjetaBarco.activar(jugador));
+        tarjetaBarco.darA(jugador);
+        assertThrows(ActivacionTarjetaInvalidaException.class, () -> tarjetaBarco.activar());
     }
 
 }

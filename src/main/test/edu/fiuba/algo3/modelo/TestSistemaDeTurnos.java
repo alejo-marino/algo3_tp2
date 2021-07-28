@@ -3,9 +3,6 @@ package edu.fiuba.algo3.modelo;
 import edu.fiuba.algo3.modelo.excepciones.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -19,9 +16,14 @@ public class TestSistemaDeTurnos {
     private Jugador jugador1;
     private Jugador jugador2;
     private Jugador jugador3;
-    private ArrayList<Tarjeta> tarjetas;
+    private ArrayList<String> tarjetas;
     private SistemaDeTurnos sistema;
     private Juego juegoMock;
+    private Pais argentina;
+    private Pais uruguay;
+    private Pais china;
+    private Pais chile;
+    private Pais brasil;
 
 
     @BeforeEach
@@ -38,11 +40,11 @@ public class TestSistemaDeTurnos {
         cola.add(5);    // Primera Ronda Inicial dejara a cada jugador poner 5 ejercitos en sus paises.
         cola.add(3);    // Segunda Ronda Inicial dejara a cada jugador poner 3 ejercitos en sus paises. Luego de esta Ronda, comenzara la Fase De Juego.
 
-        Pais argentina = new Pais("Argentina", jugador1);
-        Pais uruguay = new Pais("Uruguay", jugador2);
-        Pais china = new Pais("China", jugador3);
-        Pais chile = new Pais("Chile", jugador3);
-        Pais brasil = new Pais("Brasil", jugador2);
+        this.argentina = new Pais("Argentina", jugador1);
+        this.uruguay = new Pais("Uruguay", jugador2);
+        this.china = new Pais("China", jugador3);
+        this.chile = new Pais("Chile", jugador3);
+        this.brasil = new Pais("Brasil", jugador2);
         argentina.hacerLimitrofe(uruguay);
         uruguay.hacerLimitrofe(argentina);
         argentina.hacerLimitrofe(chile);
@@ -57,9 +59,9 @@ public class TestSistemaDeTurnos {
 //        this.jugador1.agregarTarjeta(tarjeta2);
 //        this.jugador1.agregarTarjeta(tarjeta3);
         this.tarjetas = new ArrayList<>();
-        this.tarjetas.add(tarjeta1);
-        this.tarjetas.add(tarjeta2);
-        this.tarjetas.add(tarjeta3);
+        this.tarjetas.add(tarjeta1.toString());
+        this.tarjetas.add(tarjeta2.toString());
+        this.tarjetas.add(tarjeta3.toString());
 
         this.juegoMock = mock(Juego.class);
         juegoMock.setearCantidadJugadores(3);
@@ -110,12 +112,10 @@ public class TestSistemaDeTurnos {
         assertThrows(SeleccionaPaisAjenoException.class, () -> sistema.seleccionarPais("Uruguay"));
     }
 
-    @Test
-    public void test04CreoUnSistemaDeTurnosYJugadorPuedeSeleccionarUnPaisPropio() {
-        Pais unPais = sistema.seleccionarPais("Argentina");
-
-        assertEquals("Argentina", unPais.toString());
-    }
+//    @Test
+//    public void test04CreoUnSistemaDeTurnosYJugadorPuedeSeleccionarUnPaisPropio() {
+//        assertDoesNotThrow(RuntimeException.class, () -> sistema.seleccionarPais("Argentina"));
+//    }
 
     @Test
     public void test05CreoUnSistemaDeTurnosYPasoDeTurnoYJugador2NoPuedeSeleccionarPaisDeJugador1() {
@@ -152,7 +152,7 @@ public class TestSistemaDeTurnos {
 
     @Test
     public void test08CreoUnSistemaDeTurnosYJugadorColocanCincoEjercitosCorrectamente() {
-        Pais argentina = sistema.seleccionarPais("Argentina");
+        sistema.seleccionarPais("Argentina");
         sistema.reforzar(5);
 
         assertEquals(6, argentina.getEjercitos());
@@ -169,13 +169,13 @@ public class TestSistemaDeTurnos {
 
     @Test
     public void test10CreoUnSistemaDeTurnosYJugadoresColocanCincoFichasCorrectamente() {
-        Pais argentina = sistema.seleccionarPais("Argentina");
+        sistema.seleccionarPais("Argentina");
         sistema.reforzar(5);
         sistema.empezarTurno();
-        Pais uruguay = sistema.seleccionarPais("Uruguay");
+        sistema.seleccionarPais("Uruguay");
         sistema.reforzar(5);
         sistema.empezarTurno();
-        Pais china = sistema.seleccionarPais("China");
+        sistema.seleccionarPais("China");
         sistema.reforzar(5);
 
         int cantidadEjercitosTotales = 0;
@@ -207,13 +207,13 @@ public class TestSistemaDeTurnos {
 
     @Test
     public void test12SeColocanTodosLosEjercitosEnLaFaseIncialCorrectamente() {
-        Pais argentina = sistema.seleccionarPais("Argentina");
+        sistema.seleccionarPais("Argentina");
         sistema.reforzar(5);
         sistema.empezarTurno();
-        Pais uruguay = sistema.seleccionarPais("Uruguay");
+        sistema.seleccionarPais("Uruguay");
         sistema.reforzar(5);
         sistema.empezarTurno();
-        Pais china = sistema.seleccionarPais("China");
+        sistema.seleccionarPais("China");
         sistema.reforzar(5);
         sistema.empezarTurno();
         sistema.seleccionarPais("Argentina");
@@ -267,7 +267,7 @@ public class TestSistemaDeTurnos {
 
     @Test
     public void test17CreoUnSistemaDeTurnosYElJugador1EmpiezaSinTarjetas () {
-        assertEquals(0, sistema.obtenerTarjetas().size());
+        assertEquals(0, sistema.obtenerNombreTarjetas().size());
     }
 
     @Test
@@ -275,7 +275,7 @@ public class TestSistemaDeTurnos {
         sistema.seleccionarPais("Argentina");
         sistema.reforzar(5);
         sistema.empezarTurno();
-        assertNotEquals(tarjetas, sistema.obtenerTarjetas());
+        assertNotEquals(tarjetas, sistema.obtenerNombreTarjetas());
     }
 
     @Test

@@ -34,5 +34,10 @@ public class Constantes {
     public final static Integer bonusEuropa = 5;
     public final static Integer bonusAsia = 7;
 
+    public final static Integer numeroTarjetasParaCanje = 3;
+
+    public final static Integer numeroEjercitosPrimerCanje = 4;
+    public final static Integer numeroEjercitosSegundoCanje = 7;
+    public final static Integer numeroEjercitosTercerCanje = 10;
 
 }

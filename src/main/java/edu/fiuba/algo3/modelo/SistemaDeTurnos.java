@@ -58,8 +58,8 @@ public class SistemaDeTurnos {
         faseActual.reforzar(cantidadEjercitos);
     }
 
-    public Pais seleccionarPais(String nombrePais) {
-        return faseActual.seleccionarPais(nombrePais);
+    public void seleccionarPais(String nombrePais) {
+        faseActual.seleccionarPais(nombrePais);
     }
 
     public void atacar(int cantidadEjercitos) {
@@ -87,17 +87,20 @@ public class SistemaDeTurnos {
         faseActual.reagrupar(cantidadEjercitos);
     }
 
-    public ArrayList<Tarjeta> obtenerTarjetas() {
-        return this.turnoDe().getTarjetas();
+    public ArrayList<String> obtenerNombreTarjetas() {
+        return this.juego.obtenerNombreTarjetasDe(this.turnoDe());
     }
 
-    public void canjearTarjetas(ArrayList<Tarjeta> tarjetasACanjear) {
+    public void canjearTarjetas(ArrayList<String> tarjetasACanjear) {
         faseActual.canjearTarjetas(tarjetasACanjear);
-        juego.devolverTarjetas(tarjetasACanjear);
     }
 
     public void terminarAtaque() {
         faseActual.terminarAtaque(turnoDe());
+    }
+
+    public void activarTarjeta(String nombreTarjeta) {
+        this.faseActual.activarTarjeta(nombreTarjeta);
     }
 
 }

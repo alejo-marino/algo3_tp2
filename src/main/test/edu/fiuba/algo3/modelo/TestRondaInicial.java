@@ -16,6 +16,10 @@ public class TestRondaInicial {
     private Jugador jugador1;
     private Jugador jugador2;
     private RondaInicial ronda;
+    private Pais argentina;
+    private Pais uruguay;
+    private Pais china;
+    private Pais chile;
 
     @BeforeEach
     void setUp() {
@@ -23,10 +27,10 @@ public class TestRondaInicial {
         this.jugador2 = new Jugador("ffffff");
         Jugador jugador3 = new Jugador("fff000");
 
-        Pais argentina = new Pais("Argentina", jugador1);
-        Pais uruguay = new Pais("Uruguay", jugador2);
-        Pais china = new Pais("China", jugador3);
-        Pais chile = new Pais("Chile", jugador1);
+        this.argentina = new Pais("Argentina", jugador1);
+        this.uruguay = new Pais("Uruguay", jugador2);
+        this.china = new Pais("China", jugador3);
+        this.chile = new Pais("Chile", jugador1);
         argentina.hacerLimitrofe(uruguay);
         uruguay.hacerLimitrofe(argentina);
         argentina.hacerLimitrofe(chile);
@@ -57,12 +61,12 @@ public class TestRondaInicial {
         assertNotNull(ronda);
     }
 
-    @Test
-    void test02CreoUnaRondaInicialYPuedoSeleccionarUnPaisPropio () {
-        Pais paisSeleccionado = ronda.seleccionarPais("Argentina");
-
-        assertEquals("Argentina", paisSeleccionado.toString());
-    }
+//    @Test
+//    void test02CreoUnaRondaInicialYPuedoSeleccionarUnPaisPropio () {
+//        Pais paisSeleccionado = ronda.seleccionarPais("Argentina");
+//
+//        assertEquals("Argentina", paisSeleccionado.toString());
+//    }
 
     @Test
     void test03CreoUnaRondaInicialYNoPuedoSeleccionarUnPaisAjeno () {
@@ -71,12 +75,12 @@ public class TestRondaInicial {
 
     @Test
     void test04CreoUnaRondaInicialYPuedoReforzarConCincoEjercitos () {
-        Pais paisSeleccionado = ronda.seleccionarPais("Argentina");
+        ronda.seleccionarPais("Argentina");
         int cantidadEjercitosEsperado = 6;
 
         ronda.reforzar(5);
 
-        assertEquals(cantidadEjercitosEsperado, paisSeleccionado.getEjercitos());
+        assertEquals(cantidadEjercitosEsperado, argentina.getEjercitos());
     }
 
     @Test
@@ -96,9 +100,9 @@ public class TestRondaInicial {
 
     @Test
     void test07CreoUnaRondaInicialYPuedoReforzarDosPaisesPropios () {
-        Pais argentina = ronda.seleccionarPais("Argentina");
+        ronda.seleccionarPais("Argentina");
         ronda.reforzar(3);
-        Pais chile = ronda.seleccionarPais("Chile");
+        ronda.seleccionarPais("Chile");
         ronda.reforzar(2);
         int cantidadEjercitosEsperadoArgentina = 4;
         int cantidadEjercitosEsperadoChile = 3;
@@ -156,11 +160,11 @@ public class TestRondaInicial {
 
         ronda.siguienteRonda();
         ronda.empezarTurno(jugador1);
-        Pais paisSeleccionado = ronda.seleccionarPais("Argentina");
+        ronda.seleccionarPais("Argentina");
         ronda.reforzar(3);
         int cantidadEjercitosEsperado = 9;
 
-        assertEquals(cantidadEjercitosEsperado, paisSeleccionado.getEjercitos());
+        assertEquals(cantidadEjercitosEsperado, argentina.getEjercitos());
     }
 
     @Test
@@ -170,9 +174,9 @@ public class TestRondaInicial {
 
         ronda.siguienteRonda();
         ronda.empezarTurno(jugador1);
-        Pais argentina = ronda.seleccionarPais("Argentina");
+        ronda.seleccionarPais("Argentina");
         ronda.reforzar(2);
-        Pais chile = ronda.seleccionarPais("Chile");
+        ronda.seleccionarPais("Chile");
         ronda.reforzar(1);
         int cantidadEjercitosEsperadoArgentina = 8;
         int cantidadEjercitosEsperadoChile = 2;

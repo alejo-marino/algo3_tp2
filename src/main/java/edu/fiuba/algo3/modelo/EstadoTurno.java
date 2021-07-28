@@ -6,7 +6,7 @@ public interface EstadoTurno {
 
     void atacar(int cantidadEjercitosAtacantes);
 
-    Pais seleccionarPais(Pais paisSeleccionado);
+    void seleccionarPais(Pais paisSeleccionado);
 
     void cancelarAccion();
 
@@ -14,8 +14,8 @@ public interface EstadoTurno {
 
     void reforzar(int cantidadEjercitosAReforzar);
 
-    void canjearTarjetas(ArrayList<Tarjeta> tarjetasACanjear);
+    void canjearTarjetas(ArrayList<String> tarjetasACanjear, Juego juego);
 
-    void activarTarjeta(Tarjeta tarjetaAActivar);
+    void activarTarjeta(String nombreTarjeta, Juego juego);
 
 }

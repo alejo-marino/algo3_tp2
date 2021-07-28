@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.excepciones.ActivacionTarjetaInvalidaException;
+import edu.fiuba.algo3.modelo.excepciones.TarjetaEnMazoException;
 
 public class Tarjeta {
 
@@ -8,40 +9,49 @@ public class Tarjeta {
     private final Pais pais;
 
     private EstadoTarjeta estadoTarjeta;
+    private Jugador duenio;
 
     public Tarjeta(Pais pais, String simbolo) {
         this.pais = pais;
         this.simbolo = simbolo;
         this.estadoTarjeta = new EstadoTarjetaDesactivada(this, pais);
+        this.duenio = null;
     }
 
     public void cambiarEstado(EstadoTarjeta estadoTarjeta) {
         this.estadoTarjeta = estadoTarjeta;
     }
 
-    public void activar(Jugador jugador) {
-        estadoTarjeta.activar(jugador);
-    }
-
-    public void hacerActivable() {
-        estadoTarjeta.hacerActivable();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (!(obj instanceof Tarjeta)) {
-            return false;
+    public void activar() {
+        if (duenio == null) {
+            throw new TarjetaEnMazoException("");
         }
-        Tarjeta otraTarjeta = (Tarjeta) obj;
+        estadoTarjeta.activar(duenio);
+    }
+
+    public void devolverAlMazo() {
+        estadoTarjeta.hacerActivable();
+        this.duenio = null;
+    }
+
+    public boolean tieneIgualSimbolo(Tarjeta otraTarjeta) {
         return this.simbolo.equals(otraTarjeta.getSimbolo());
     }
 
     @Override
     public String toString() {
-        return pais.toString();
+        return pais.toString() + "/" + simbolo;
     }
 
     public String getSimbolo() {
         return this.simbolo;
+    }
+
+    public void darA(Jugador jugador) {
+        this.duenio = jugador;
+    }
+
+    public boolean esDuenio(Jugador jugador) {
+        return duenio == jugador;
     }
 }

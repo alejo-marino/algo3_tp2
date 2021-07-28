@@ -18,8 +18,8 @@ public abstract class Fase {
 
     abstract String getFaseActual();
 
-    public Pais seleccionarPais(String nombrePais) {
-        return ronda.seleccionarPais(nombrePais);
+    public void seleccionarPais(String nombrePais) {
+        ronda.seleccionarPais(nombrePais);
     }
 
     public void atacar(int cantidadEjercitos) {   // las variables atacante y defensor son innecesarias
@@ -30,7 +30,7 @@ public abstract class Fase {
         ronda.reagrupar(cantidadEjercitos);
     }
 
-    public void canjearTarjetas(ArrayList<Tarjeta> tarjetasACanjear) {
+    public void canjearTarjetas(ArrayList<String> tarjetasACanjear) {
         ronda.canjearTarjetas(tarjetasACanjear);
     }
 
@@ -50,8 +50,8 @@ public abstract class Fase {
         this.ronda.terminarAtaque(jugador);
     }
 
-    public void activarTarjeta(Tarjeta tarjetaAActivar) {
-        this.ronda.activarTarjeta(tarjetaAActivar);
+    public void activarTarjeta(String nombreTarjeta) {
+        this.ronda.activarTarjeta(nombreTarjeta);
     }
 
 }

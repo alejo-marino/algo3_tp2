@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class TestRondaDeRefuerzo {
 
     private RondaDeRefuerzo ronda;
+    private Pais argentina;
 
     @BeforeEach
     void setUp() {
@@ -20,7 +21,7 @@ public class TestRondaDeRefuerzo {
         Jugador jugador2 = new Jugador("ffffff");
         Jugador jugador3 = new Jugador("fff000");
 
-        Pais argentina = new Pais("Argentina", jugador1);
+        this.argentina = new Pais("Argentina", jugador1);
         Pais uruguay = new Pais("Uruguay", jugador2);
         Pais china = new Pais("China", jugador3);
         Pais chile = new Pais("Chile", jugador1);
@@ -57,18 +58,18 @@ public class TestRondaDeRefuerzo {
         assertThrows(SeleccionaPaisAjenoException.class, () -> ronda.seleccionarPais("Uruguay"));
     }
 
-    @Test
-    public void test03CreoUnaRondaDeRefuerzoYPuedoSeleccionarUnPaisPropio() {
-        Pais paisSeleccionado = ronda.seleccionarPais("Argentina");
-
-        assertEquals("Argentina", paisSeleccionado.toString());
-    }
+//    @Test
+//    public void test03CreoUnaRondaDeRefuerzoYPuedoSeleccionarUnPaisPropio() {
+//        ronda.seleccionarPais("Argentina");
+//
+//        assertEquals("Argentina", argentina.toString());
+//    }
 
     @Test
     public void test04CreoUnaRondaDeRefuerzoYPuedoReforzarUnPaisPropio() {
-        Pais paisSeleccionado = ronda.seleccionarPais("Argentina");
+        ronda.seleccionarPais("Argentina");
         ronda.reforzar(2);
-        assertEquals(6, paisSeleccionado.getEjercitos());
+        assertEquals(6, argentina.getEjercitos());
     }
 
     @Test

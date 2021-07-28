@@ -16,7 +16,7 @@ public class Juego {
     private Tablero tablero;
     private SistemaDeTurnos sistemaTurnos;
     private ArrayList<Jugador> listaJugadores;
-    private Queue<Tarjeta> mazoDeTarjetas;
+    private MazoDeTarjetas mazoDeTarjetas;
 
     private static Juego instancia = new Juego();
     private ArrayList<Mision> misiones;
@@ -72,7 +72,7 @@ public class Juego {
         ArrayList<Continente> listaContinente = aux2.get(1);
         this.tablero = new Tablero(listaPaises, listaContinente);
         ArrayList<Tarjeta> listaTarjetas = inicializador.inicializarTarjetas(listaTarjetasParseadas, listaPaises);
-        this.mazoDeTarjetas = this.convertirListaDeTarjetasACola(listaTarjetas);
+        mazoDeTarjetas = new MazoDeTarjetas(listaTarjetas);
         
         Hashtable<String, ArrayList> diccMisionesParseadas = parser.parsearMisiones(rutaJsonMisiones);
         this.misiones = inicializador.inicializarMisiones(diccMisionesParseadas, listaContinente, listaJugadores);
@@ -98,14 +98,6 @@ public class Juego {
         return sistemaDeTurnos;
     }
 
-    private Queue<Tarjeta> convertirListaDeTarjetasACola(ArrayList<Tarjeta> tarjetas) {
-        Queue<Tarjeta> colaTarjetas = new LinkedList<>();
-        for (Tarjeta tarjeta: tarjetas) {
-            colaTarjetas.add(tarjeta);
-        }
-        return colaTarjetas;
-    }
-
     public Pais seleccionarPais(String nombrePais) {
         return this.tablero.seleccionarPais(nombrePais);
     }
@@ -122,12 +114,19 @@ public class Juego {
         return this.tablero.obtenerCantidadPaisesSegunJugador(jugador);
     }
 
-    public void devolverTarjetas(ArrayList<Tarjeta> tarjetasACanjear) {
-        mazoDeTarjetas.addAll(tarjetasACanjear);
+    public Integer canjearTarjetas(ArrayList<String> tarjetasACanjear, Jugador duenio) {
+        return mazoDeTarjetas.canjearTarjetas(tarjetasACanjear, duenio);
     }
 
     public void darTarjeta(Jugador jugador) {
-        jugador.agregarTarjeta(mazoDeTarjetas.remove());
+        this.mazoDeTarjetas.darTarjeta(jugador);
     }
 
+    public void activarTarjeta(String nombreTarjeta) {
+        this.mazoDeTarjetas.activarTarjeta(nombreTarjeta);
+    }
+
+    public ArrayList<String> obtenerNombreTarjetasDe(Jugador jugador) {
+        return this.mazoDeTarjetas.obtenerNombreTarjetasDe(jugador);
+    }
 }

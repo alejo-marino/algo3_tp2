@@ -34,7 +34,7 @@ public class TurnoAtaque implements EstadoTurno {
     }
 
     @Override
-    public Pais seleccionarPais(Pais paisSeleccionado) {
+    public void seleccionarPais(Pais paisSeleccionado) {
         if (this.jugador == null) {
             throw new TurnoSinEmpezarException();
         }
@@ -51,17 +51,16 @@ public class TurnoAtaque implements EstadoTurno {
                 throw new EjercitosInvalidosException("El pais: " + paisSeleccionado + " no tiene ejercitos suficientes para atacar");
             }
             paisAtacante = paisSeleccionado;
-            return paisAtacante;
-        }
-        if (!paisSeleccionado.esLimitrofe(paisAtacante)) {
-            throw new AtaqueAPaisNoLimitrofeException(paisSeleccionado.toString() + " no limita con " + paisAtacante.toString());
-        }
+        } else {
+            if (!paisSeleccionado.esLimitrofe(paisAtacante)) {
+                throw new AtaqueAPaisNoLimitrofeException(paisSeleccionado.toString() + " no limita con " + paisAtacante.toString());
+            }
 
-        if (paisSeleccionado.esAliado(paisAtacante)) {
-            throw new AtaqueAPaisPropioException("No podes atacar a un pais propio");
+            if (paisSeleccionado.esAliado(paisAtacante)) {
+                throw new AtaqueAPaisPropioException("No podes atacar a un pais propio");
+            }
+            this.paisDefensor = paisSeleccionado;
         }
-        this.paisDefensor = paisSeleccionado;
-        return paisSeleccionado;
     }
 
     public void cancelarAccion() {
@@ -80,12 +79,12 @@ public class TurnoAtaque implements EstadoTurno {
     }
 
     @Override
-    public void canjearTarjetas(ArrayList<Tarjeta> tarjetasACanjear) {
+    public void canjearTarjetas(ArrayList<String> tarjetasACanjear, Juego juego) {
         throw new CanjeNoPermitidoException("No se puede canjear en una ronda de ataque y reagrupe");
     }
 
     @Override
-    public void activarTarjeta(Tarjeta tarjetaAActivar) {
+    public void activarTarjeta(String nombreTarjeta, Juego juego) {
         throw new ActivacionTarjetaInvalidaException("No podés activar la tarjeta en un turno de ataque.");
     }
 }
