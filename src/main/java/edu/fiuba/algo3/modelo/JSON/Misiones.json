@@ -1,152 +1,154 @@
-{
-  "Conquista": {
-    "mision1": [
-      {
-        "continente": "Africa",
-        "paises": "all"
-      },
-      {
-        "continente": "America del Norte",
-        "paises": "5"
-      },
-      {
-        "continente": "Europa",
-        "paises": "4"
-      }
+[
+  {
+    "Conquista": [
+      [
+        {
+          "continente": "Africa",
+          "paises": "all"
+        },
+        {
+          "continente": "America del Norte",
+          "paises": "5"
+        },
+        {
+          "continente": "Europa",
+          "paises": "4"
+        }
+      ],
+      [
+        {
+          "continente": "America del Sur",
+          "paises": "all"
+        },
+        {
+          "continente": "Europa",
+          "paises": "7"
+        }
+      ],
+      [
+        {
+          "continente": "Asia",
+          "paises": "all"
+        },
+        {
+          "continente": "America del Sur",
+          "paises": "2"
+        }
+      ],
+      [
+        {
+          "continente": "Asia",
+          "paises": "4"
+        },
+        {
+          "continente": "Europa",
+          "paises": "all"
+        },
+        {
+          "continente": "America del Sur",
+          "paises": "2"
+        }
+      ],
+      [
+        {
+          "continente": "Asia",
+          "paises": "4"
+        },
+        {
+          "continente": "America del Norte",
+          "paises": "all"
+        },
+        {
+          "continente": "Oceania",
+          "paises": "2"
+        }
+      ],
+      [
+        {
+          "continente": "Asia",
+          "paises": "3"
+        },
+        {
+          "continente": "Europa",
+          "paises": "3"
+        },
+        {
+          "continente": "America del Sur",
+          "paises": "2"
+        },
+        {
+          "continente": "America del Norte",
+          "paises": "4"
+        },
+        {
+          "continente": "Africa",
+          "paises": "2"
+        },
+        {
+          "continente": "Oceania",
+          "paises": "2"
+        }
+      ],
+      [
+        {
+          "continente": "Europa",
+          "paises": "2"
+        },
+        {
+          "continente": "America del Norte",
+          "paises": "all"
+        },
+        {
+          "continente": "Oceania",
+          "paises": "all"
+        }
+      ],
+      [
+        {
+          "continente": "America del Norte",
+          "paises": "2"
+        },
+        {
+          "continente": "America del Sur",
+          "paises": "all"
+        },
+        {
+          "continente": "Africa",
+          "paises": "all"
+        }
+      ]
     ],
-    "mision2": [
-      {
-        "continente": "America del Sur",
-        "paises": "all"
-      },
-      {
-        "continente": "Europa",
-        "paises": "7"
-      }
-    ],
-    "mision3": [
-      {
-        "continente": "Asia",
-        "paises": "all"
-      },
-      {
-        "continente": "America del Sur",
-        "paises": "2"
-      }
-    ],
-    "mision4": [
-      {
-        "continente": "Asia",
-        "paises": "4"
-      },
-      {
-        "continente": "Europa",
-        "paises": "all"
-      },
-      {
-        "continente": "America del Sur",
-        "paises": "2"
-      }
-    ],
-    "mision5": [
-      {
-        "continente": "Asia",
-        "paises": "4"
-      },
-      {
-        "continente": "America del Norte",
-        "paises": "all"
-      },
-      {
-        "continente": "Oceania",
-        "paises": "2"
-      }
-    ],
-    "mision6": [
-      {
-        "continente": "Asia",
-        "paises": "3"
-      },
-      {
-        "continente": "Europa",
-        "paises": "3"
-      },
-      {
-        "continente": "America del Sur",
-        "paises": "2"
-      },
-      {
-        "continente": "America del Norte",
-        "paises": "4"
-      },
-      {
-        "continente": "Africa",
-        "paises": "2"
-      },
-      {
-        "continente": "Oceania",
-        "paises": "2"
-      }
-    ],
-    "mision7": [
-      {
-        "continente": "Europa",
-        "paises": "2"
-      },
-      {
-        "continente": "America del Norte",
-        "paises": "all"
-      },
-      {
-        "continente": "Oceania",
-        "paises": "all"
-      }
-    ],
-    "mision8": [
-      {
-        "continente": "America del Norte",
-        "paises": "2"
-      },
-      {
-        "continente": "America del Sur",
-        "paises": "all"
-      },
-      {
-        "continente": "Africa",
-        "paises": "all"
-      }
-    ]
-  },
-  "Destruccion": {
-    "mision1": [
-      {
-        "enemigo": "azul"
-      }
-    ],
-    "mision2": [
-      {
-        "enemigo": "rojo"
-      }
-    ],
-    "mision3": [
-      {
-        "enemigo": "negro"
-      }
-    ],
-    "mision4": [
-      {
-        "enemigo": "amarillo"
-      }
-    ],
-    "mision5": [
-      {
-        "enemigo": "verde"
-      }
-    ],
-    "mision6": [
-      {
-        "enemigo": "magenta"
-      }
+    "Destruccion": [
+      [
+        {
+          "enemigo": "azul"
+        }
+      ],
+      [
+        {
+          "enemigo": "rojo"
+        }
+      ],
+      [
+        {
+          "enemigo": "negro"
+        }
+      ],
+      [
+        {
+          "enemigo": "amarillo"
+        }
+      ],
+      [
+        {
+          "enemigo": "verde"
+        }
+      ],
+      [
+        {
+          "enemigo": "magenta"
+        }
+      ]
     ]
   }
-}
+]
