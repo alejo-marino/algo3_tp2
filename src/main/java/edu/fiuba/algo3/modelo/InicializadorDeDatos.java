@@ -3,6 +3,7 @@ package edu.fiuba.algo3.modelo;
 import java.util.*;
 
 import static java.lang.Integer.parseInt;
+import static edu.fiuba.algo3.modelo.Constantes.*;
 
 public class InicializadorDeDatos {
     /*
@@ -25,14 +26,6 @@ public class InicializadorDeDatos {
      */
 
 
-    private final Integer BONUS_AMERICA_DEL_SUR = 3;
-    private final Integer BONUS_AFRICA = 3;
-    private final Integer BONUS_OCEANIA = 2;
-    private final Integer BONUS_AMERICA_DEL_NORTE = 5;
-    private final Integer BONUS_EUROPA = 5;
-    private final Integer BONUS_ASIA = 7;
-
-
     Hashtable<String, Integer> diccBonusContinentes;
 
     public InicializadorDeDatos () {
@@ -41,12 +34,12 @@ public class InicializadorDeDatos {
 
     private Hashtable<String, Integer> crearDiccBonusContinentes() {
         Hashtable <String, Integer> diccBonusContinentes = new Hashtable();
-        diccBonusContinentes.put("America Del Sur", BONUS_AMERICA_DEL_SUR);
-        diccBonusContinentes.put("America Del Norte", BONUS_AMERICA_DEL_NORTE);
-        diccBonusContinentes.put("Oceania", BONUS_OCEANIA);
-        diccBonusContinentes.put("Asia", BONUS_ASIA);
-        diccBonusContinentes.put("Europa", BONUS_EUROPA);
-        diccBonusContinentes.put("Africa", BONUS_AFRICA);
+        diccBonusContinentes.put("America Del Sur", bonusAmericaDelSur);
+        diccBonusContinentes.put("America Del Norte", bonuaAmericaDelNorte );
+        diccBonusContinentes.put("Oceania", bonusOceania);
+        diccBonusContinentes.put("Asia", bonusAsia);
+        diccBonusContinentes.put("Europa", bonusEuropa);
+        diccBonusContinentes.put("Africa", bonusAfrica);
         return diccBonusContinentes;
     }
 
