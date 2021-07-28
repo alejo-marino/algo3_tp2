@@ -50,6 +50,9 @@ public class TurnoReagrupe implements EstadoTurno {
             paisOrigen = paisSeleccionado;
             return paisOrigen;
         }
+        if (!paisSeleccionado.esLimitrofe(paisOrigen)) {
+            throw new ReagrupeAPaisNoLimitrofeException(paisSeleccionado.toString() + " no limita con " + paisOrigen.toString());
+        }
         if (!paisSeleccionado.esAliado(paisOrigen)) {
             throw new ReagrupeAPaisAjenoException("No podes reagrupar con un pais ajeno como destino");
         }

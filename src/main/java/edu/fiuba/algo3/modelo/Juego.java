@@ -6,14 +6,12 @@ import edu.fiuba.algo3.modelo.excepciones.NumeroDeJugadoresNoAsignadoException;
 import java.lang.reflect.Array;
 import java.util.*;
 
+import static edu.fiuba.algo3.modelo.Constantes.*;
+
 
 public class Juego {
 
-    private final String rutaJsonFronteras = "src/main/java/edu/fiuba/algo3/modelo/JSON/Fronteras.json";
-    private final String rutaJsonTarjetas = "src/main/java/edu/fiuba/algo3/modelo/JSON/Cartas.json";
-    private final String rutaJsonMisiones = "src/main/java/edu/fiuba/algo3/modelo/JSON/Misiones.json";
     private final Queue<String> colores;
-    private final Integer numeroJugadorMisionComun = 30;
 
     private Tablero tablero;
     private SistemaDeTurnos sistemaTurnos;
@@ -25,12 +23,12 @@ public class Juego {
 
     private Juego() {
         this.colores = new LinkedList<>();
-        this.colores.add("077bb");  // azul
-        this.colores.add("cc3311");  // rojo
-        this.colores.add("ee7733");  // amarillo
-        this.colores.add("009988");  // verde
-        this.colores.add("ee3377");  // rosa
-        this.colores.add("000000");  // negro
+        this.colores.add(colorAzul);
+        this.colores.add(colorRojo);
+        this.colores.add(colorAmarillo);
+        this.colores.add(colorVerde);
+        this.colores.add(colorRosa);
+        this.colores.add(colorNegro);
     }
 
     public static Juego getInstancia() {
@@ -38,7 +36,7 @@ public class Juego {
     }
 
     public void setearCantidadJugadores(Integer numeroJugadores) {
-        if (numeroJugadores < 2 || numeroJugadores > 6) {
+        if (numeroJugadores < numeroMinimoDeJugadores || numeroJugadores > numeroMaximoDeJugadores) {
             throw new NumeroDeJugadoresInvalidoException();
         }
         this.listaJugadores = new ArrayList<>();
@@ -55,8 +53,8 @@ public class Juego {
     */
     private Queue<Integer> setearRondasIniciales() {
         Queue<Integer> colaDeNumerosDeRefuerzoPorRonda = new LinkedList<>();
-        colaDeNumerosDeRefuerzoPorRonda.add(5);
-        colaDeNumerosDeRefuerzoPorRonda.add(3);
+        colaDeNumerosDeRefuerzoPorRonda.add(ejercitosPrimeraRondaInicial);
+        colaDeNumerosDeRefuerzoPorRonda.add(ejercitosSegundaRondaInicial);
         return colaDeNumerosDeRefuerzoPorRonda;
     }
 

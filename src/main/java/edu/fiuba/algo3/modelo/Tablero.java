@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
 
+import static edu.fiuba.algo3.modelo.Constantes.ejercitosMinimosTurnoRefuerzo;
+
 
 public class Tablero {
 
@@ -58,7 +60,7 @@ public class Tablero {
         for (Continente continente: continentes) {
             ejercitosAAgregar += continente.obtenerBonusDeContinentePara(jugador);
         }
-        if (ejercitosAAgregar < 3) { ejercitosAAgregar = 3; }
+        if (ejercitosAAgregar < ejercitosMinimosTurnoRefuerzo) { ejercitosAAgregar = ejercitosMinimosTurnoRefuerzo; }
         return ejercitosAAgregar;
     }
 

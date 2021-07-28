@@ -24,6 +24,8 @@ public class TestRondaDeAtaqueYReagrupe {
         Pais uruguay = new Pais("Uruguay", jugador2);
         Pais chile = new Pais("Chile", jugador1);
         Pais brasil = new Pais("Brasil", jugador1);
+        Pais china = new Pais("China", jugador2);
+        Pais rusia = new Pais("Rusia", jugador1);
         argentina.hacerLimitrofe(uruguay);
         uruguay.hacerLimitrofe(argentina);
         argentina.hacerLimitrofe(chile);
@@ -38,6 +40,8 @@ public class TestRondaDeAtaqueYReagrupe {
         when(juegoMock.seleccionarPais("Chile")).thenReturn(chile);
         when(juegoMock.seleccionarPais("Uruguay")).thenReturn(uruguay);
         when(juegoMock.seleccionarPais("Brasil")).thenReturn(brasil);
+        when(juegoMock.seleccionarPais("China")).thenReturn(china);
+        when(juegoMock.seleccionarPais("Rusia")).thenReturn(rusia);
         this.ronda = new RondaDeAtaqueYReagrupe(juegoMock);
         ronda.empezarTurno(jugador1);
     }
@@ -216,6 +220,21 @@ public class TestRondaDeAtaqueYReagrupe {
         ronda.reagrupar(3);
         ronda.empezarTurno(jugador2);
         assertEquals(4, brasil.getEjercitos());
+    }
+
+    @Test
+    public void test23SeleccionoPaisPropioYLuegoSeleccionoPaisNoLimitrofe() {
+        ronda.seleccionarPais("Argentina");
+
+        assertThrows(AtaqueAPaisNoLimitrofeException.class, () -> ronda.seleccionarPais("China"));
+    }
+
+    @Test
+    public void test24SeleccionoPaisPropioYLuegoSeleccionoPaisNoLimitrofe() {
+        ronda.terminarAtaque(jugador1);
+        ronda.seleccionarPais("Argentina");
+
+        assertThrows(ReagrupeAPaisNoLimitrofeException.class, () -> ronda.seleccionarPais("Rusia"));
     }
 
 }

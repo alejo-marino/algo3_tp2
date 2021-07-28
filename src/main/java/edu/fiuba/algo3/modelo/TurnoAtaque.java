@@ -53,6 +53,10 @@ public class TurnoAtaque implements EstadoTurno {
             paisAtacante = paisSeleccionado;
             return paisAtacante;
         }
+        if (!paisSeleccionado.esLimitrofe(paisAtacante)) {
+            throw new AtaqueAPaisNoLimitrofeException(paisSeleccionado.toString() + " no limita con " + paisAtacante.toString());
+        }
+
         if (paisSeleccionado.esAliado(paisAtacante)) {
             throw new AtaqueAPaisPropioException("No podes atacar a un pais propio");
         }

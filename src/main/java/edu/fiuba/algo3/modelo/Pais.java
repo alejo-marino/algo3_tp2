@@ -73,4 +73,7 @@ public class Pais {
         return this.batallon.getEjercitosParaDefender();
     }
 
+    public boolean esLimitrofe(Pais otroPais) {
+        return paisesLimitrofes.contains(otroPais);
+    }
 }
