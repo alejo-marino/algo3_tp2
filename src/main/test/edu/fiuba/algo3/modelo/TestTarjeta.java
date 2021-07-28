@@ -55,7 +55,7 @@ public class TestTarjeta {
     @Test
     public void test05ActivoUnaTarjetaYLaDevuelvoAlMazoYPuedoActivarlaDeNuevo () {
         tarjetaGlobo.activar(jugador);
-        tarjetaGlobo.reiniciarEstado();
+        tarjetaGlobo.hacerActivable();
         tarjetaGlobo.activar(jugador);
         assertEquals(2 * cantidadEjercitosActivacion + 1, argentina.getEjercitos());
     }

@@ -4,30 +4,27 @@ import edu.fiuba.algo3.modelo.excepciones.ActivacionTarjetaInvalidaException;
 
 public class Tarjeta {
 
-    private final Pais pais;
     private final String simbolo;
-    private boolean fueActivada;
+    private final Pais pais;
 
-    private Integer cantidadEjercitosActivacion;
+    private EstadoTarjeta estadoTarjeta;
 
     public Tarjeta(Pais pais, String simbolo) {
         this.pais = pais;
         this.simbolo = simbolo;
-        this.fueActivada = false;
-        this.cantidadEjercitosActivacion = 2;
+        this.estadoTarjeta = new EstadoTarjetaDesactivada(this, pais);
+    }
+
+    public void cambiarEstado(EstadoTarjeta estadoTarjeta) {
+        this.estadoTarjeta = estadoTarjeta;
     }
 
     public void activar(Jugador jugador) {
-        if (pais.esDuenio(jugador) && !fueActivada) {
-            pais.reforzar(cantidadEjercitosActivacion);
-            fueActivada = true;
-        } else {
-            throw new ActivacionTarjetaInvalidaException("No se puede activar esta tarjeta.");
-        }
+        estadoTarjeta.activar(jugador);
     }
 
-    public void reiniciarEstado() {
-        fueActivada = false;
+    public void hacerActivable() {
+        estadoTarjeta.hacerActivable();
     }
 
     @Override
