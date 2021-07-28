@@ -35,7 +35,7 @@ public class TurnoReagrupe implements EstadoTurno {
     }
 
     @Override
-    public Pais seleccionarPais(Pais paisSeleccionado) {
+    public void seleccionarPais(Pais paisSeleccionado) {
         if (this.paisOrigen != null && this.paisDestino != null) {
             throw new PaisesYaSeleccionadosException("Los paises origen y destino ya estan seleccionados, apreta 'Reagrupar' o 'Cancelar accion'.");
         }
@@ -48,7 +48,7 @@ public class TurnoReagrupe implements EstadoTurno {
                 throw new EjercitosInvalidosException("El pais: " + paisSeleccionado + " no tiene ejercitos suficientes para atacar");
             }
             paisOrigen = paisSeleccionado;
-            return paisOrigen;
+            return;
         }
         if (!paisSeleccionado.esLimitrofe(paisOrigen)) {
             throw new ReagrupeAPaisNoLimitrofeException(paisSeleccionado.toString() + " no limita con " + paisOrigen.toString());
@@ -57,7 +57,7 @@ public class TurnoReagrupe implements EstadoTurno {
             throw new ReagrupeAPaisAjenoException("No podes reagrupar con un pais ajeno como destino");
         }
         this.paisDestino = paisSeleccionado;
-        return paisSeleccionado;
+        return;
     }
 
     @Override
