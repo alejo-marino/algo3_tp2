@@ -66,4 +66,8 @@ public class TurnoRefuerzo implements EstadoTurno {
     public boolean tieneEjercitosParaReforzar() {
         return ejercitosDisponibles > 0;
     }
+
+    public void activarTarjeta(Tarjeta tarjetaAActivar) {
+        tarjetaAActivar.activar(jugador);
+    }
 }
