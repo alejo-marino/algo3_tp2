@@ -5,6 +5,7 @@ import edu.fiuba.algo3.modelo.Tablero;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -23,6 +24,8 @@ import java.util.ArrayList;
 public class Inicio {
 
     public static ArrayList jugadores;
+    public static ArrayList<Button> botonesPaises = new ArrayList();
+    public static Pane content;
     public static void display(ArrayList<TextField> nombreJugadores) throws IOException {
         Stage stage = new Stage();
 
@@ -36,10 +39,16 @@ public class Inicio {
 
 
         FXMLLoader loader = new FXMLLoader();
+
         URL fxmlLocation = Inicio.class.getClassLoader().getResource("vistas/Tablero.fxml");
         loader.setLocation(fxmlLocation);
 
-        Pane content = loader.load();
+        content = loader.load();
+        for (Node nodo : content.getChildren()) {
+            if (nodo.getClass() == Button.class) {
+                botonesPaises.add((Button) nodo);
+            }
+        }
 
 
         Scene scene = new Scene(content);

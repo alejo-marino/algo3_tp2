@@ -23,5 +23,6 @@
       </ImageView>
       <Button fx:id="botonCanada" layoutX="142.0" layoutY="148.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Canada" />
       <Button fx:id="botonOregon" layoutX="98.0" layoutY="261.0" mnemonicParsing="false" onAction="#handleBotonPais" prefHeight="25.0" prefWidth="65.0" text="Oregon" />
+      <Button fx:id="botonBrasil" layoutX="393.0" layoutY="431.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Brasil" />
    </children>
 </AnchorPane>
