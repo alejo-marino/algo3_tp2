@@ -38,6 +38,11 @@ public class TableroController implements Initializable {
             infoJugadores.getChildren().addAll(label);
             contador++;
         }
+        int contador2 = 0;
+        for (Button boton: Inicio.botonesPaises) {
+            boton.setText("hola");
+            contador2++;
+        }
 
     }
 
