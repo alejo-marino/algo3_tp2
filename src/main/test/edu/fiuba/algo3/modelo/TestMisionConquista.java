@@ -66,4 +66,10 @@ public class TestMisionConquista {
         when(juegoMock.paisesConquistadosPorEn(jugador1, "Asia")).thenReturn(5);
         assertFalse(misionConquista.completoMision());
     }
+
+    @Test
+    public void test06CreoMisionConquistaYSiempreEsPosible() {
+        assertTrue(misionConquista.sigueSiendoPosible());
+    }
+
 }

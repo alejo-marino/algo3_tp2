@@ -49,4 +49,9 @@ public class TestMisionComun {
         verify(juegoMock).obtenerCantidadPaisesSegunJugador(jugador1);
     }
 
+    @Test
+    public void test05CreoMisionComunYSiempreEsPosible(){
+        assertTrue(misionComun.sigueSiendoPosible());
+    }
+
 }
