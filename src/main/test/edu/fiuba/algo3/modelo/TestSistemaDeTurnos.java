@@ -167,6 +167,7 @@ public class TestSistemaDeTurnos {
     public void test09CreoUnSistemaDeTurnosYJugadorNoPuedeColocarMasDeCincoFichas() {
         sistema.seleccionarPais("Argentina");
         sistema.reforzar(2);
+        sistema.seleccionarPais("Argentina");
 
         assertThrows(NoPuedeColocarTantosEjercitosException.class, () -> sistema.reforzar(4));
 

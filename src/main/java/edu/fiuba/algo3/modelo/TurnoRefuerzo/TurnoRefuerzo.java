@@ -1,5 +1,11 @@
-package edu.fiuba.algo3.modelo;
+package edu.fiuba.algo3.modelo.TurnoRefuerzo;
 
+import edu.fiuba.algo3.modelo.EstadoTurno;
+import edu.fiuba.algo3.modelo.Juego;
+import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.Pais;
+import edu.fiuba.algo3.modelo.TurnoAtaque.EstadoSeleccionarPaisAtaque;
+import edu.fiuba.algo3.modelo.TurnoAtaque.NingunPaisSeleccionadoAtaque;
 import edu.fiuba.algo3.modelo.excepciones.*;
 
 import java.util.ArrayList;
@@ -8,13 +14,16 @@ import static edu.fiuba.algo3.modelo.Constantes.numeroTarjetasParaCanje;
 
 public class TurnoRefuerzo implements EstadoTurno {
 
-    private Pais paisRefuerzo;
-    private Integer ejercitosDisponibles;
+    private EstadoSeleccionarPaisRefuerzo estadoSeleccionarPaisRefuerzo;
     private final Jugador jugador;
 
     public TurnoRefuerzo(Jugador jugador, Integer ejercitosAReforzar) {
         this.jugador = jugador;
-        this.ejercitosDisponibles = ejercitosAReforzar;
+        this.estadoSeleccionarPaisRefuerzo = new NingunPaisSeleccionadoRefuerzo(this, jugador, ejercitosAReforzar);
+    }
+
+    public void cambiarEstado(EstadoSeleccionarPaisRefuerzo estadoSeleccionarPaisRefuerzo) {
+        this.estadoSeleccionarPaisRefuerzo = estadoSeleccionarPaisRefuerzo;
     }
 
     @Override
@@ -24,35 +33,22 @@ public class TurnoRefuerzo implements EstadoTurno {
 
     @Override
     public void seleccionarPais(Pais paisSeleccionado) {
-        if (this.paisRefuerzo != null) {
-            throw new PaisesYaSeleccionadosException(paisSeleccionado + " ya esta seleccionado, apreta 'Reforzar' o 'Cancelar accion'.");
-        }
-
-        if (!paisSeleccionado.esDuenio(jugador)) {
-            throw new SeleccionaPaisAjenoException("El pais: " + paisSeleccionado + " no te pertenece");
-        }
-        paisRefuerzo = paisSeleccionado;
+        estadoSeleccionarPaisRefuerzo.seleccionarPais(paisSeleccionado);
     }
 
     @Override
     public void cancelarAccion() {
-        paisRefuerzo = null;
-
+        estadoSeleccionarPaisRefuerzo.cancelarAccion();
     }
 
     @Override
-    public void reagrupar(int cantidadEjercitos){
+    public void reagrupar(int cantidadEjercitos) {
         throw new ReagrupeInvalidoException("No puede reagrupar en turno de refuerzo");
     }
 
     @Override
     public void reforzar(int cantidadEjercitosAReforzar) {
-        if (ejercitosDisponibles < cantidadEjercitosAReforzar) {
-            throw new NoPuedeColocarTantosEjercitosException("Solo disponde de " + ejercitosDisponibles + " ejercitos.");
-        }
-        this.ejercitosDisponibles -= cantidadEjercitosAReforzar;
-        this.paisRefuerzo.reforzar(cantidadEjercitosAReforzar);
-        this.cancelarAccion();
+        estadoSeleccionarPaisRefuerzo.reforzar(cantidadEjercitosAReforzar);
     }
 
     @Override
@@ -60,11 +56,11 @@ public class TurnoRefuerzo implements EstadoTurno {
         if (tarjetasACanjear.size() != numeroTarjetasParaCanje) {
             throw new CanjeInvalidoException("Cantidad erronea de tarjetas para el canje.");
         }
-        ejercitosDisponibles += juego.canjearTarjetas(tarjetasACanjear, jugador);
+        estadoSeleccionarPaisRefuerzo.agregarEjercitos(juego.canjearTarjetas(tarjetasACanjear, jugador));
     }
 
     public boolean tieneEjercitosParaReforzar() {
-        return ejercitosDisponibles > 0;
+        return estadoSeleccionarPaisRefuerzo.tieneEjercitosParaReforzar();
     }
 
     public void activarTarjeta(String tarjetaAActivar, Juego juego) {

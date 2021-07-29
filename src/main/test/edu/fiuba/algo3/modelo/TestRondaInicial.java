@@ -226,7 +226,6 @@ public class TestRondaInicial {
     void test17CreoUnaRondaInicialYNoPuedoReagrupar () {
         ronda.seleccionarPais("Argentina");
         ronda.reforzar(5);
-        ronda.seleccionarPais("Argentina");
 
         assertThrows(ReagrupeInvalidoException.class, () -> ronda.reagrupar(3));
     }

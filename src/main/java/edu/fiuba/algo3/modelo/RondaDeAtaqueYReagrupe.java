@@ -1,5 +1,8 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.modelo.TurnoAtaque.TurnoAtaque;
+import edu.fiuba.algo3.modelo.TurnoReagrupe.TurnoReagrupe;
+
 public class RondaDeAtaqueYReagrupe extends Ronda {
 
     private final Juego juego;

@@ -6,7 +6,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -40,40 +39,31 @@ public class ParserTEG {
         (diccContinentes.get(nombreContinente)).put(nombrePais, listaLimitrofes);
     }
 
-    private void parsearTarjeta(JSONObject tarjetaJSON, ArrayList<ArrayList<String>> listaTarjetas) {
-        String nombrePais = (String) tarjetaJSON.get("Pais");
-        String nombreTarjeta = (String) tarjetaJSON.get("Simbolo");
-        ArrayList<String> arrayTarjeta = new ArrayList<String>();
-        arrayTarjeta.add(nombrePais);
-        arrayTarjeta.add(nombreTarjeta);
-        listaTarjetas.add(arrayTarjeta);
-    }
-
-    public Hashtable<String, ArrayList> parsearMisiones (String rutaArchivoMisiones) {
-         return obtenerDiccionarioMisiones(rutaArchivoMisiones);
-    }
-
     private Hashtable<String, Hashtable<String, ArrayList<String>>> obtenerDiccionariosPaisesYContinentes(String rutaArchivo) {
         JSONParser parser = new JSONParser();
         Hashtable<String, Hashtable<String, ArrayList<String>>> diccContinentes = new Hashtable<String, Hashtable<String, ArrayList<String>>>();
 
         try (FileReader reader = new FileReader(rutaArchivo)) {
 
-            Object obj = parser.parse(reader);
-
-            JSONArray paisesJSON = (JSONArray) obj;
-
+            JSONArray paisesJSON = (JSONArray) parser.parse(reader);
             paisesJSON.forEach(pais -> parsearPais((JSONObject) pais, diccContinentes));
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
+        } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
 
         return diccContinentes;
+    }
+
+    // TARJETAS
+
+    private void parsearTarjeta(JSONObject tarjetaJSON, ArrayList<ArrayList<String>> listaTarjetas) {
+        String nombrePais = (String) tarjetaJSON.get("Pais");
+        String nombreTarjeta = (String) tarjetaJSON.get("Simbolo");
+        ArrayList<String> arrayTarjeta = new ArrayList<>();
+        arrayTarjeta.add(nombrePais);
+        arrayTarjeta.add(nombreTarjeta);
+        listaTarjetas.add(arrayTarjeta);
     }
 
     private ArrayList<ArrayList<String>> obtenerDiccionarioTarjetas(String rutaArchivo) {
@@ -81,42 +71,30 @@ public class ParserTEG {
         ArrayList<ArrayList<String>> listaTarjetas = new ArrayList<ArrayList<String>>();
         try (FileReader reader = new FileReader(rutaArchivo)) {
 
-            Object obj = parser.parse(reader);
-
-            JSONArray tarjetasJSON = (JSONArray) obj;
-
+            JSONArray tarjetasJSON = (JSONArray) parser.parse(reader);
             tarjetasJSON.forEach(pais -> parsearTarjeta((JSONObject) pais, listaTarjetas));
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
+        } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
 
         return listaTarjetas;
     }
 
-    private Hashtable<String, ArrayList> obtenerDiccionarioMisiones(String rutaArchivo) {
+    // MISIONES
+
+    public Hashtable<String, ArrayList> parsearMisiones(String rutaArchivo) {
         JSONParser parser = new JSONParser();
         Hashtable<String, ArrayList> diccMisiones = new Hashtable<>();
         try (FileReader reader = new FileReader(rutaArchivo)) {
 
-            Object obj = parser.parse(reader);
-            // Array que ocupa t0do el archivo
-            JSONArray tiposMisionesJSON = (JSONArray) obj;
-            // Objeto que ocupa t0do el archivo
+            JSONArray tiposMisionesJSON = (JSONArray) parser.parse(reader);
             JSONObject tiposMisionesJSONObject = (JSONObject) tiposMisionesJSON.get(0);
 
             diccMisiones.put("Conquista", this.parsearMisionesConquista((JSONArray) tiposMisionesJSONObject.get("Conquista")));
             diccMisiones.put("Destruccion", this.parsearMisionesDestruccion((JSONArray) tiposMisionesJSONObject.get("Destruccion")));
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
+        } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
 

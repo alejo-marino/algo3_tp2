@@ -211,6 +211,7 @@ public class TestRondaDeAtaqueYReagrupe {
         ronda.seleccionarPais("Chile");
         ronda.seleccionarPais("Argentina");
         ronda.reagrupar(3);
+        ronda.cancelarAccion();
         ronda.seleccionarPais("Argentina");
         ronda.seleccionarPais("Brasil");
 
@@ -224,6 +225,7 @@ public class TestRondaDeAtaqueYReagrupe {
         ronda.seleccionarPais("Chile");
         ronda.seleccionarPais("Argentina");
         ronda.reagrupar(3);
+        ronda.cancelarAccion();
         ronda.seleccionarPais("Argentina");
         ronda.seleccionarPais("Brasil");
 
