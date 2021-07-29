@@ -14,10 +14,6 @@ import static org.mockito.Mockito.when;
 
 public class TestJugador {
 
-    private final Integer NRO_EJERCITOS_PRIMER_CANJE = 4;
-    private final Integer NRO_EJERCITOS_SEGUNDO_CANJE = 7;
-    private final Integer NRO_EJERCITOS_TERCER_CANJE = 10;
-
     private Jugador jugador;
     private Jugador otroJugador;
     private Tarjeta tarjetaArgentina;
@@ -32,11 +28,16 @@ public class TestJugador {
         this.jugador = new Jugador("000000");
         this.otroJugador = new Jugador("ffffff");
 
-        Pais argentina = new Pais("Argentina", jugador);
-        Pais uruguay = new Pais("Uruguay", otroJugador);
-        Pais chile = new Pais("Chile", otroJugador);
-        Pais brasil = new Pais("Brasil", jugador);
-        Pais peru = new Pais("Peru", otroJugador);
+        Pais argentina = new Pais("Argentina");
+        argentina.asignarDuenio(jugador);
+        Pais uruguay = new Pais("Uruguay");
+        uruguay.asignarDuenio(otroJugador);
+        Pais chile = new Pais("Chile");
+        chile.asignarDuenio(otroJugador);
+        Pais brasil = new Pais("Brasil");
+        brasil.asignarDuenio(jugador);
+        Pais peru = new Pais("Peru");
+        peru.asignarDuenio(otroJugador);
 
         this.tarjetaArgentina = new Tarjeta(argentina, "Globo");
         this.tarjetaUruguay = new Tarjeta(uruguay, "Canion");

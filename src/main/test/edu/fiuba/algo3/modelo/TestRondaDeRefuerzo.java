@@ -21,10 +21,14 @@ public class TestRondaDeRefuerzo {
         Jugador jugador2 = new Jugador("ffffff");
         Jugador jugador3 = new Jugador("fff000");
 
-        this.argentina = new Pais("Argentina", jugador1);
-        Pais uruguay = new Pais("Uruguay", jugador2);
-        Pais china = new Pais("China", jugador3);
-        Pais chile = new Pais("Chile", jugador1);
+        argentina = new Pais("Argentina");
+        argentina.asignarDuenio(jugador1);
+        Pais uruguay = new Pais("Uruguay");
+        uruguay.asignarDuenio(jugador2);
+        Pais china = new Pais("China");
+        china.asignarDuenio(jugador3);
+        Pais chile = new Pais("Chile");
+        chile.asignarDuenio(jugador1);
         argentina.hacerLimitrofe(uruguay);
         uruguay.hacerLimitrofe(argentina);
         argentina.hacerLimitrofe(chile);

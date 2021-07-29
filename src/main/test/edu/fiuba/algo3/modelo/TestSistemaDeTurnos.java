@@ -40,11 +40,16 @@ public class TestSistemaDeTurnos {
         cola.add(5);    // Primera Ronda Inicial dejara a cada jugador poner 5 ejercitos en sus paises.
         cola.add(3);    // Segunda Ronda Inicial dejara a cada jugador poner 3 ejercitos en sus paises. Luego de esta Ronda, comenzara la Fase De Juego.
 
-        this.argentina = new Pais("Argentina", jugador1);
-        this.uruguay = new Pais("Uruguay", jugador2);
-        this.china = new Pais("China", jugador3);
-        this.chile = new Pais("Chile", jugador3);
-        this.brasil = new Pais("Brasil", jugador2);
+        argentina = new Pais("Argentina");
+        argentina.asignarDuenio(jugador1);
+        uruguay = new Pais("Uruguay");
+        uruguay.asignarDuenio(jugador2);
+        china = new Pais("China");
+        china.asignarDuenio(jugador3);
+        chile = new Pais("Chile");
+        chile.asignarDuenio(jugador3);
+        brasil = new Pais("Brasil");
+        brasil.asignarDuenio(jugador2);
         argentina.hacerLimitrofe(uruguay);
         uruguay.hacerLimitrofe(argentina);
         argentina.hacerLimitrofe(chile);

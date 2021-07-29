@@ -3,7 +3,6 @@ package edu.fiuba.algo3.modelo;
 import edu.fiuba.algo3.modelo.excepciones.NumeroDeJugadoresInvalidoException;
 import edu.fiuba.algo3.modelo.excepciones.NumeroDeJugadoresNoAsignadoException;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 import static edu.fiuba.algo3.modelo.Constantes.*;
@@ -14,7 +13,6 @@ public class Juego {
     private final Queue<String> colores;
 
     private Tablero tablero;
-    private SistemaDeTurnos sistemaTurnos;
     private ArrayList<Jugador> listaJugadores;
     private MazoDeTarjetas mazoDeTarjetas;
 
@@ -59,23 +57,36 @@ public class Juego {
     }
 
     public SistemaDeTurnos iniciarJuego() {
-        if (listaJugadores == null)
+        if (listaJugadores == null) {
             throw new NumeroDeJugadoresNoAsignadoException();
-
-        ParserTEG parser = new ParserTEG();
-        ArrayList aux = parser.parsearTablero(rutaJsonFronteras, rutaJsonTarjetas);
-        Hashtable<String, Hashtable<String, ArrayList<String>>> diccionarioPaisesParseados = (Hashtable<String, Hashtable<String, ArrayList<String>>>) aux.get(0);
-        ArrayList<ArrayList<String>> listaTarjetasParseadas = (ArrayList<ArrayList<String>>) aux.get(1);
+        }
         InicializadorDeDatos inicializador = new InicializadorDeDatos();
-        ArrayList<ArrayList> aux2 = inicializador.inicializarContinentesYPaises(diccionarioPaisesParseados, listaJugadores);
-        ArrayList<Pais> listaPaises = aux2.get(0);
-        ArrayList<Continente> listaContinente = aux2.get(1);
-        this.tablero = new Tablero(listaPaises, listaContinente);
-        ArrayList<Tarjeta> listaTarjetas = inicializador.inicializarTarjetas(listaTarjetasParseadas, listaPaises);
+        Map<String, ArrayList> datosInicializados = inicializador.inicializarDatos(listaJugadores);
+        ArrayList<Pais> listaPaisesSinAsignar = datosInicializados.get("Paises");
+        ArrayList<Continente> listaContinentes = datosInicializados.get("Continentes");
+        ArrayList<Tarjeta> listaTarjetas = datosInicializados.get("Tarjetas");
+        this.misiones = datosInicializados.get("Misiones");
+        this.darPaises(listaPaisesSinAsignar);
+        this.tablero = new Tablero(listaPaisesSinAsignar, listaContinentes);
         mazoDeTarjetas = new MazoDeTarjetas(listaTarjetas);
-        
-        Hashtable<String, ArrayList> diccMisionesParseadas = parser.parsearMisiones(rutaJsonMisiones);
-        this.misiones = inicializador.inicializarMisiones(diccMisionesParseadas, listaContinente, listaJugadores);
+
+
+
+        this.darMisiones();
+
+        return new SistemaDeTurnos(listaJugadores, this, this.setearRondasIniciales());
+    }
+
+    private void darPaises(ArrayList<Pais> paisesSinAsignar) {
+        Queue<Jugador> colaJugadores = new LinkedList<>(listaJugadores);
+        for (Pais paisSinAsignar: paisesSinAsignar) {
+            Jugador jugador = colaJugadores.remove();
+            paisSinAsignar.asignarDuenio(jugador);
+            colaJugadores.add(jugador);
+        }
+    }
+
+    private void darMisiones() {
         Random ran = new Random();
         for (int i = 0; i < listaJugadores.size(); i++) {
             Mision mision = this.misiones.remove(ran.nextInt(misiones.size()));
@@ -93,9 +104,6 @@ public class Juego {
             jugador.agregarMision(mision);
             jugador.agregarMision(new MisionComun(jugador, this, numeroJugadorMisionComun));
         }
-
-        SistemaDeTurnos sistemaDeTurnos = new SistemaDeTurnos(listaJugadores, this, this.setearRondasIniciales());
-        return sistemaDeTurnos;
     }
 
     public Pais seleccionarPais(String nombrePais) {
@@ -128,5 +136,10 @@ public class Juego {
 
     public ArrayList<String> obtenerNombreTarjetasDe(Jugador jugador) {
         return this.mazoDeTarjetas.obtenerNombreTarjetasDe(jugador);
+    }
+
+    // TODO: método para tests
+    public ArrayList<Jugador> obtenerJugadores() {
+        return this.listaJugadores;
     }
 }

@@ -24,12 +24,18 @@ public class TestRondaDeAtaqueYReagrupe {
         this.jugador1 = new Jugador("000000");
         this.jugador2 = new Jugador("ffffff");
 
-        this.argentina = new Pais("Argentina",jugador1);
-        this.uruguay = new Pais("Uruguay", jugador2);
-        this.chile = new Pais("Chile", jugador1);
-        this.brasil = new Pais("Brasil", jugador1);
-        Pais china = new Pais("China", jugador2);
-        Pais rusia = new Pais("Rusia", jugador1);
+        argentina = new Pais("Argentina");
+        argentina.asignarDuenio(jugador1);
+        uruguay = new Pais("Uruguay");
+        uruguay.asignarDuenio(jugador2);
+        chile = new Pais("Chile");
+        chile.asignarDuenio(jugador1);
+        brasil = new Pais("Brasil");
+        brasil.asignarDuenio(jugador1);
+        Pais china = new Pais("China");
+        china.asignarDuenio(jugador2);
+        Pais rusia = new Pais("Rusia");
+        rusia.asignarDuenio(jugador1);
         argentina.hacerLimitrofe(uruguay);
         uruguay.hacerLimitrofe(argentina);
         argentina.hacerLimitrofe(chile);

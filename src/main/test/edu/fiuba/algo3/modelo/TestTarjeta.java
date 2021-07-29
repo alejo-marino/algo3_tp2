@@ -24,14 +24,17 @@ public class TestTarjeta {
         this.jugador = new Jugador("000000");
         this.jugador2 = new Jugador("ffffff");
         Jugador jugador3 = new Jugador("fff000");
-        this.argentina = new Pais("Argentina", jugador);
-        this.tarjetaGlobo = new Tarjeta(argentina, "Globo");
-        this.uruguay = new Pais("Uruguay", jugador2);
-        this.tarjetaBarco = new Tarjeta(uruguay, "Barco");
-        Pais china = new Pais("China", jugador3);
-        this.tarjetaBarco2 = new Tarjeta(china, "Barco");
+        argentina = new Pais("Argentina");
+        argentina.asignarDuenio(jugador);
+        tarjetaGlobo = new Tarjeta(argentina, "Globo");
+        uruguay = new Pais("Uruguay");
+        uruguay.asignarDuenio(jugador2);
+        tarjetaBarco = new Tarjeta(uruguay, "Barco");
+        Pais china = new Pais("China");
+        china.asignarDuenio(jugador3);
+        tarjetaBarco2 = new Tarjeta(china, "Barco");
 
-        this.cantidadEjercitosActivacion = 2;
+        cantidadEjercitosActivacion = 2;
     }
 
     @Test

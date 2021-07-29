@@ -30,11 +30,16 @@ public class TestMazoDeCartas {
         this.jugador = new Jugador("000000");
         this.otroJugador = new Jugador("ffffff");
 
-        Pais argentina = new Pais("Argentina", jugador);
-        Pais uruguay = new Pais("Uruguay", otroJugador);
-        Pais chile = new Pais("Chile", otroJugador);
-        Pais brasil = new Pais("Brasil", jugador);
-        Pais peru = new Pais("Peru", otroJugador);
+        Pais argentina = new Pais("Argentina");
+        argentina.asignarDuenio(jugador);
+        Pais uruguay = new Pais("Uruguay");
+        uruguay.asignarDuenio(otroJugador);
+        Pais chile = new Pais("Chile");
+        chile.asignarDuenio(otroJugador);
+        Pais brasil = new Pais("Brasil");
+        brasil.asignarDuenio(jugador);
+        Pais peru = new Pais("Peru");
+        peru.asignarDuenio(otroJugador);
 
         ArrayList<Tarjeta> tarjetas = new ArrayList<>();
         this.tarjetaArgentina = new Tarjeta(argentina, "Globo");

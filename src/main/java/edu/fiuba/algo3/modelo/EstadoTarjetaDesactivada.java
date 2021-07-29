@@ -2,6 +2,8 @@ package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.excepciones.ActivacionTarjetaInvalidaException;
 
+import static edu.fiuba.algo3.modelo.Constantes.numeroEjercitosActivacion;
+
 public class EstadoTarjetaDesactivada implements EstadoTarjeta {
 
     private final Tarjeta tarjeta;
@@ -17,9 +19,8 @@ public class EstadoTarjetaDesactivada implements EstadoTarjeta {
 
     @Override
     public void activar(Jugador jugador) {
-        int cantidadEjercitosActivacion = 2;
         if (pais.esDuenio(jugador)) {
-            pais.reforzar(cantidadEjercitosActivacion);
+            pais.reforzar(numeroEjercitosActivacion);
             tarjeta.cambiarEstado(new EstadoTarjetaActivada(tarjeta, pais));
         } else {
             throw new ActivacionTarjetaInvalidaException("El país de esta tarjeta no te pertenece.");

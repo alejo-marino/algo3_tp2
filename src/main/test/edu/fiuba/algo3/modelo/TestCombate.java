@@ -18,9 +18,11 @@ public class TestCombate {
     @BeforeEach
     public void setUp() {
         Jugador jugadorAtacante = new Jugador("000000");
-        this.jugadorDefensor = new Jugador("ffffff");
-        this.atacante = new Pais("Argentina", jugadorAtacante);
-        this.defensor = new Pais("Uruguay", jugadorDefensor);
+        jugadorDefensor = new Jugador("ffffff");
+        atacante = new Pais("Argentina");
+        atacante.asignarDuenio(jugadorAtacante);
+        defensor = new Pais("Uruguay");
+        defensor.asignarDuenio(jugadorDefensor);
         atacante.hacerLimitrofe(defensor);
         defensor.hacerLimitrofe(atacante);
         this.tiradaAtacante = new ArrayList<>();
@@ -263,9 +265,9 @@ public class TestCombate {
 // Atacar3v3 Conquista
 
     @Test
-    public void test14CreoUnCombateYElPaisAtacanteAtacaCon3EjercitosAPaisQueDefiendeCon3EjercitoYConquista (){
+    public void test14CreoUnCombateYElPaisAtacanteAtacaCon3EjercitosAPaisQueDefiendeCon3EjercitosYConquista (){
         atacante.reforzar(3);
-        Pais defensor = new Pais("Jugador", jugadorDefensor);
+//        Pais defensor = new Pais("Jugador", jugadorDefensor);
         defensor.reforzar(2);
         tiradaAtacante.add(6);
         tiradaAtacante.add(6);

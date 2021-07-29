@@ -31,10 +31,14 @@ public class TestFaseDeJuego {
         this.jugador2 = new Jugador("ffffff");
         Jugador jugador3 = new Jugador("fff000");
 
-        this.argentina = new Pais("Argentina",jugador1);
-        this.uruguay = new Pais("Uruguay",jugador2);
-        this.china = new Pais("China",jugador3);
-        this.chile = new Pais("Chile", jugador1);
+        argentina = new Pais("Argentina");
+        argentina.asignarDuenio(jugador1);
+        uruguay = new Pais("Uruguay");
+        uruguay.asignarDuenio(jugador2);
+        china = new Pais("China");
+        china.asignarDuenio(jugador3);
+        chile = new Pais("Chile");
+        chile.asignarDuenio(jugador1);
         argentina.hacerLimitrofe(uruguay);
         uruguay.hacerLimitrofe(argentina);
         argentina.hacerLimitrofe(chile);

@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.modelo.excepciones.PaisSinDuenioAsignadoException;
+
 import java.util.ArrayList;
 
 public class Pais {
@@ -9,11 +11,15 @@ public class Pais {
     private final ArrayList<Pais> paisesLimitrofes;
     private final String nombre;
 
-    public Pais(String nombre, Jugador duenio) {
+    public Pais(String nombre) {
         this.nombre = nombre;
-        this.duenio = duenio;
+        this.duenio = null;
         this.batallon = new Batallon();
         this.paisesLimitrofes = new ArrayList<>();
+    }
+
+    public void asignarDuenio(Jugador jugador) {
+        this.duenio = jugador;
     }
 
     public int getEjercitos() {
@@ -51,14 +57,22 @@ public class Pais {
     }
 
     public boolean esAliado(Pais pais) {
+        if (duenio != null) {
         return this.duenio == pais.getDuenio();
+        } else {
+            throw new PaisSinDuenioAsignadoException(nombre + " no tiene duenio.");
+        }
     }
 
 
     public void conquistar(Pais conquistado) {
-        conquistado.duenio = this.duenio;
-        conquistado.reforzar(1);
-        this.disminuirEjercitos(1);
+        if (duenio != null) {
+            conquistado.duenio = this.duenio;
+            conquistado.reforzar(1);
+            this.disminuirEjercitos(1);
+        } else {
+            throw new PaisSinDuenioAsignadoException(nombre + " no tiene duenio.");
+        }
     }
 
     public void hacerLimitrofe(Pais pais) {

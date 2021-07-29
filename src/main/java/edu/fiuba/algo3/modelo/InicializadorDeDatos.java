@@ -15,12 +15,12 @@ public class InicializadorDeDatos {
     /* Comente esta funcion porque creo que es mas conveniente que juego llame a cada una de las funciones individualmente
     (no puedo retornar la listaCartas y diccionarioPaises ambas desde la misma funcion a no ser que me ponga a crear una lista)
     public void inicializarDatos(Hashtable<String, String[]> diccPaises, Hashtable<String, ArrayList> diccContinentes, ArrayList<ArrayList> listaCartas) {
-        inicializarContinentesYPaises(diccPaises, diccContinentes);
+        inicializarDatos(diccPaises, diccContinentes);
         inicializarCartas(listaCartas);
     }*/
 
     /* falta implementar en esta funcion el algoritmo que reparta los paises equitativamente dependiendo de la cantidad de Jugadores
-    la primera pasada de inicializarContinentesYPaises va a crear solo los paises y meterlos a cada uno en su continente
+    la primera pasada de inicializarDatos va a crear solo los paises y meterlos a cada uno en su continente
     correspondiente, luego a esa lista de paises, le aplicare el algoritmos de distribucion equitativa de paises entre jugadores,
     en la segunda pasada, cuando ya todos los paises conozcan a su duenio, recien ahi podre asignar a cada pais los limitrofes que les correspondan.
      */
@@ -44,22 +44,53 @@ public class InicializadorDeDatos {
     }
 
 
-    public ArrayList<ArrayList> inicializarContinentesYPaises(Hashtable<String, Hashtable<String, ArrayList<String>>> diccContinentes, ArrayList<Jugador> jugadores) {
-        Queue<Jugador> colaJugadores = this.convertirListaDeJugadoresACola(jugadores);
-        ArrayList<Continente> listaContinentes = new ArrayList<Continente>();
-        ArrayList<Pais> listaPaises = new ArrayList<Pais>();
+    public Map<String, ArrayList> inicializarDatos(ArrayList<Jugador> jugadores) {
+        ParserTEG parser = new ParserTEG();
+        ArrayList aux = parser.parsearTablero(rutaJsonFronteras, rutaJsonTarjetas);
+        Hashtable<String, Hashtable<String, ArrayList<String>>> diccContinentes =
+                (Hashtable<String, Hashtable<String, ArrayList<String>>>) aux.get(0);
+        ArrayList<ArrayList<String>> tarjetasParseadas = (ArrayList<ArrayList<String>>) aux.get(1);
+        Hashtable<String, ArrayList> diccMisionesParseadas = parser.parsearMisiones(rutaJsonMisiones);
+
+        Map<String, ArrayList> paisesYContinentes = inicializarPaisesYContinentes(diccContinentes);
+        ArrayList<Pais> listaPaises = paisesYContinentes.get("Paises");
+        ArrayList<Continente> listaContinentes = paisesYContinentes.get("Continentes");
+
+        ArrayList<Tarjeta> tarjetas = inicializarTarjetas(tarjetasParseadas, listaPaises);
+
+        ArrayList<Mision> misiones = inicializarMisiones(diccMisionesParseadas, listaContinentes, jugadores);
+
+        Map<String, ArrayList> datosInicializados = new HashMap<>();
+        datosInicializados.put("Paises", listaPaises);
+        datosInicializados.put("Continentes", listaContinentes);
+        datosInicializados.put("Tarjetas", tarjetas);
+        datosInicializados.put("Misiones", misiones);
+
+        return datosInicializados;
+    }
+
+    private Map<String, ArrayList> inicializarPaisesYContinentes(Hashtable<String, Hashtable<String, ArrayList<String>>> diccContinentes) {
+        ArrayList<Continente> listaContinentes = new ArrayList<>();
+        ArrayList<Pais> listaPaises = new ArrayList<>();
         diccContinentes.forEach((nombreContinente, diccionarioPaisesEnContinente) -> {
             Continente continente = new Continente(nombreContinente, diccBonusContinentes.get(nombreContinente));
             listaContinentes.add(continente);
             diccionarioPaisesEnContinente.forEach((nombrePais, listaPaisesLimitrofes) -> {
-                Jugador jugadorActual = colaJugadores.remove();
-                Pais pais = new Pais(nombrePais, jugadorActual); // este nombreJugador es un placeholder para cuando tengamos el algoritmo de distribucion de paises seria bueno inicializar con un jugador NULL y luego de la primera pasada pisar el duenio del pais con el que corresponda
+                Pais pais = new Pais(nombrePais);
                 listaPaises.add(pais);
                 continente.agregarPais(pais);
-                colaJugadores.add(jugadorActual);
             });
         });
 
+        agregarLimitrofes(diccContinentes, listaPaises);
+
+        Map<String, ArrayList> resultado = new HashMap<>();
+        resultado.put("Continentes", listaContinentes);
+        resultado.put("Paises", listaPaises);
+        return resultado;
+    }
+
+    private void agregarLimitrofes(Hashtable<String, Hashtable<String, ArrayList<String>>> diccContinentes, ArrayList<Pais> listaPaises) {
         // segunda pasada: agrego limitrofes
         diccContinentes.forEach((nombreContinente, diccionarioPaisesEnContinente) -> {
             diccionarioPaisesEnContinente.forEach((nombrePais, listaPaisesLimitrofes) -> {
@@ -73,15 +104,9 @@ public class InicializadorDeDatos {
                 });
             });
         });
-
-        ArrayList<ArrayList> listaADevolver = new ArrayList<>();
-        listaADevolver.add(listaPaises);
-        listaADevolver.add(listaContinentes);
-
-        return listaADevolver;
     }
 
-    public ArrayList<Tarjeta> inicializarTarjetas(ArrayList<ArrayList<String>> tarjetas, ArrayList<Pais> paises) {
+    private ArrayList<Tarjeta> inicializarTarjetas(ArrayList<ArrayList<String>> tarjetas, ArrayList<Pais> paises) {
         ArrayList<Tarjeta> tarjetasADevolver = new ArrayList();
         for (ArrayList<String> tuplaTarjeta: tarjetas) {
             String nombrePais = tuplaTarjeta.get(0);
@@ -97,15 +122,7 @@ public class InicializadorDeDatos {
         return paises.stream().filter(pais -> nombrePais.equals(pais.toString())).findFirst().orElse(null);
     }
 
-    private Queue<Jugador> convertirListaDeJugadoresACola(ArrayList<Jugador> jugadores) {
-        Queue<Jugador> colaJugadores = new LinkedList<>();
-        for (Jugador jugador: jugadores) {
-            colaJugadores.add(jugador);
-        }
-        return colaJugadores;
-    }
-
-    public ArrayList<Mision> inicializarMisiones(Hashtable<String, ArrayList> diccMisionesParseadas, ArrayList<Continente> listaContinente, ArrayList<Jugador> listaJugadores) {
+    private ArrayList<Mision> inicializarMisiones(Hashtable<String, ArrayList> diccMisionesParseadas, ArrayList<Continente> listaContinente, ArrayList<Jugador> listaJugadores) {
         ArrayList<Mision> misiones = new ArrayList<>();
         misiones.addAll(this.inicializarMisionesConquista(diccMisionesParseadas.get("Conquista"), listaContinente));
         misiones.addAll(this.inicializarMisionesDestruccion(diccMisionesParseadas.get("Destruccion"), listaJugadores));

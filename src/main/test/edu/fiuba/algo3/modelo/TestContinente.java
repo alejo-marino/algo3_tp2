@@ -17,12 +17,15 @@ public class TestContinente {
 
     @BeforeEach
     void setUp() {
-        this.continente = new Continente("America Del Sur", BONUS_AMERICA_DEL_SUR);
-        this.jugador1 = new Jugador("000000");
-        this.jugador2 = new Jugador("ffffff");
-        this.argentina = new Pais("Argentina", jugador1);
-        this.uruguay = new Pais("Uruguay", jugador2);
-        this.chile = new Pais("Chile", jugador1);
+        continente = new Continente("America Del Sur", BONUS_AMERICA_DEL_SUR);
+        jugador1 = new Jugador("000000");
+        jugador2 = new Jugador("ffffff");
+        argentina = new Pais("Argentina");
+        argentina.asignarDuenio(jugador1);
+        uruguay = new Pais("Uruguay");
+        uruguay.asignarDuenio(jugador2);
+        chile = new Pais("Chile");
+        chile.asignarDuenio(jugador1);
     }
 
     @Test
