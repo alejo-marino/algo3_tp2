@@ -19,14 +19,15 @@ public class PaisAtacanteSeleccionado implements EstadoSeleccionarPaisAtaque {
     }
 
     @Override
-    public void seleccionarPais(Pais paisDefensor) {
-        if (!paisDefensor.esLimitrofe(paisAtacante)) {
-            throw new AtaqueAPaisNoLimitrofeException(paisDefensor + " no limita con " + paisAtacante.toString());
+    public void seleccionarPais(Pais paisSeleccionado) {
+        if (!paisSeleccionado.esLimitrofe(paisAtacante)) {
+            throw new AtaqueAPaisNoLimitrofeException(paisSeleccionado + " no limita con " + paisAtacante.toString());
         }
-        if (paisDefensor.esAliado(paisAtacante)) {
-            throw new AtaqueAPaisPropioException("No podes atacar a un pais propio");
+        if (paisSeleccionado.esAliado(paisAtacante)) {
+            turnoAtaque.cambiarEstado(new PaisAtacanteSeleccionado(turnoAtaque, jugador, paisSeleccionado));
+        } else {
+            turnoAtaque.cambiarEstado(new PaisDefensorSeleccionado(turnoAtaque, jugador, paisAtacante, paisSeleccionado));
         }
-        turnoAtaque.cambiarEstado(new PaisDefensorSeleccionado(turnoAtaque, jugador, paisAtacante, paisDefensor));
     }
 
     @Override

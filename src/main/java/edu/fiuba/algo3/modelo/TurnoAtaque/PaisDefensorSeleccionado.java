@@ -31,7 +31,7 @@ public class PaisDefensorSeleccionado implements EstadoSeleccionarPaisAtaque {
         Combate combate = new Combate(paisAtacante, paisDefensor, cantidadEjercitos);
         combate.combatir();
         if (!this.paisAtacante.puedeAtacar()) {
-            this.cancelarAccion();
+            turnoAtaque.cambiarEstado(new NingunPaisSeleccionadoAtaque(turnoAtaque, jugador));
         }
     }
 
@@ -45,7 +45,5 @@ public class PaisDefensorSeleccionado implements EstadoSeleccionarPaisAtaque {
             throw new EjercitosInvalidosException("No hay suficientes ejércitos para atacar");
         }
     }
-
-
 
 }

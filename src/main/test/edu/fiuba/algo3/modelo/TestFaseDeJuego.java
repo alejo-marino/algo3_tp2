@@ -76,31 +76,27 @@ public class TestFaseDeJuego {
         assertNotNull(faseDeJuego);
     }
 
-//    @Test
-//    void test02CreoUnaFaseDeJuegoYSeleccionoCorrectamenteUnPaisLaPrimeraVez () {
-//        Pais paisSeleccionado = faseDeJuego.seleccionarPais("Argentina");
-//
-//        assertEquals("Argentina", paisSeleccionado.toString());
-//    }
+    @Test
+    void test02CreoUnaFaseDeJuegoYSeleccionoCorrectamenteUnPaisLaPrimeraVez () {
+        faseDeJuego.seleccionarPais("Argentina");
+    }
 
     @Test
     void test03CreoUnaFaseDeJuegoYSeleccionoUnPaisEnemigoLaPrimeraVezYLanzaUnaExcepcion () {
         assertThrows(SeleccionaPaisAjenoException.class, () -> faseDeJuego.seleccionarPais("Uruguay"));
     }
 
-//    @Test
-//    void test04CreoUnaFaseDeJuegoYSeleccionoUnPaisEnemigoLaSegundaVez () {
-//        faseDeJuego.seleccionarPais("Argentina");
-//        Pais paisDefensor = faseDeJuego.seleccionarPais("Uruguay");
-//
-//        assertEquals("Uruguay", paisDefensor.toString());
-//    }
+    @Test
+    void test04CreoUnaFaseDeJuegoYSeleccionoUnPaisEnemigoLaSegundaVez () {
+        faseDeJuego.seleccionarPais("Argentina");
+        faseDeJuego.seleccionarPais("Uruguay");
+    }
 
     @Test
-    void test05CreoUnaFaseDeJuegoYSeleccionoUnPaisPropioLaSegundaVezYLanzaUnaExcepcion () {
+    void test05CreoUnaFaseDeJuegoYSeleccionoUnPaisPropioYPuedoSeleccionarOtroPaisConElCualAtacar () {
         faseDeJuego.seleccionarPais("Argentina");
 
-        assertThrows(AtaqueAPaisPropioException.class, () -> faseDeJuego.seleccionarPais("Chile"));
+        faseDeJuego.seleccionarPais("Chile");
     }
 
     @Test
@@ -143,12 +139,13 @@ public class TestFaseDeJuego {
     }
 
     @Test
-    void test11PasoDeTurnoYNoPuedoElegirUnPaisPropioPorSegundaVez () {
+    void test11PasoDeTurnoYPuedoElegirUnPaisPropioCambiaDeAtacanteYPuedoAtacarUnPaisAjeno () {
         faseDeJuego.terminarAtaque(jugador1);
         faseDeJuego.empezarTurno(jugador1);
+        chile.reforzar(3);
+        faseDeJuego.seleccionarPais("Chile");
         faseDeJuego.seleccionarPais("Argentina");
-
-        assertThrows(AtaqueAPaisPropioException.class, () -> faseDeJuego.seleccionarPais("Chile"));
+        faseDeJuego.seleccionarPais("Uruguay");
     }
 
     @Test
@@ -169,14 +166,12 @@ public class TestFaseDeJuego {
         assertEquals(resultadoEsperado, resultado);
     }
 
-//    @Test
-//    void test14CreoUnaFaseDeJuegoYPasoDeRondaYPuedoSeleccionarUnPaisPropio () {
-//        faseDeJuego.siguienteRonda();
-//        faseDeJuego.empezarTurno(jugador1);
-//        Pais paisSeleccionado = faseDeJuego.seleccionarPais("Argentina");
-//
-//        assertEquals(argentina, paisSeleccionado);
-//    }
+    @Test
+    void test14CreoUnaFaseDeJuegoYPasoDeRondaYPuedoSeleccionarUnPaisPropio () {
+        faseDeJuego.siguienteRonda();
+        faseDeJuego.empezarTurno(jugador1);
+        faseDeJuego.seleccionarPais("Argentina");
+    }
 
     @Test
     void test15CreoUnaFaseDeJuegoYPasoDeRondaYNoPuedoSeleccionarUnPaisAjeno () {
