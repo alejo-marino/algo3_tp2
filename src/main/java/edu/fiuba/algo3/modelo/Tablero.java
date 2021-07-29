@@ -1,66 +1,89 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.modelo.excepciones.PaisInexistenteException;
+import edu.fiuba.algo3.modelo.excepciones.*;
 
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
-import java.util.Scanner;
+
+import static edu.fiuba.algo3.modelo.Constantes.ejercitosMinimosTurnoRefuerzo;
 
 
 public class Tablero {
 
     private ArrayList<Pais> paises;
+    private ArrayList<Continente> continentes;
 
-    public Tablero(ArrayList<Pais> paises) {
+    public Tablero(ArrayList<Pais> paises, ArrayList<Continente> continentes) {
         this.paises = paises;
+        this.continentes = continentes;
     }
 
     public Pais seleccionarPais(String nombrePais) {
-        Pais pais;
-        for (int i = 0; i < this.paises.size(); i++) {
-            pais = this.paises.get(i);
+        for (Pais pais: paises) {
             if(pais.toString().equals(nombrePais))
                 return pais;
         }
         throw new PaisInexistenteException(nombrePais + " no se encuentra en el tablero.");
     }
 
-    public void atacarConA(Jugador jugador) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Pais atacante: ");
-        String nombrePaisAtacante = scanner.nextLine();
-        Pais atacante = this.seleccionarPais(nombrePaisAtacante);
-        System.out.println("Pais defensor: ");
-        String nombrePaisDefensor = scanner.nextLine();
-        Pais defensor = this.seleccionarPais(nombrePaisDefensor);
-        atacante.verificarAtaque(jugador, defensor);
-        Combate combate = new Combate(atacante, defensor);
-        combate.combatir();
+
+    public Dictionary<Jugador, ArrayList<Pais>> obtenerPaisesSegunJugador() {
+        Hashtable<Jugador, ArrayList<Pais>> paisesSegunJugador = new Hashtable<>();
+        for (Pais paisActual : paises) {
+            Jugador jugadorActual = paisActual.getDuenio();
+            if (!paisesSegunJugador.containsKey(jugadorActual)) {
+                ArrayList<Pais> paisesDeJugador = new ArrayList<>();
+                paisesDeJugador.add(paisActual);
+                paisesSegunJugador.put(jugadorActual,paisesDeJugador);
+            }
+            else {
+                paisesSegunJugador.get(jugadorActual).add(paisActual);
+            }
+        }
+        return paisesSegunJugador;
     }
 
-    public void atacarConAPredeterminado(Jugador jugador, String nombrePaisAtacante, String nombrePaisDefensor, ArrayList tiradaAtacante, ArrayList tiradaDefensor) {
-        Pais atacante = this.seleccionarPais(nombrePaisAtacante);
-        Pais defensor = this.seleccionarPais(nombrePaisDefensor);
-        atacante.verificarAtaque(jugador, defensor);
-        Combate combate = new Combate(atacante, defensor);
-        combate.combatePredeterminado(tiradaAtacante, tiradaDefensor);
-    }
-
-    public void reforzar(Jugador jugador) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Pais a reforzar: ");
-        Pais pais = this.seleccionarPais(scanner.nextLine());
-        System.out.println("Con ejercitos: ");
-        int ejercitos = scanner.nextInt();
-        pais.reforzar(jugador, ejercitos);
-    }
-
-    public void reforzarPredeterminado(Jugador jugador, String nombrePais, int ejercitos){
-        Pais pais = this.seleccionarPais(nombrePais);
-        pais.reforzar(jugador,ejercitos);
+    public Integer obtenerCantidadPaisesSegunJugador (Jugador jugador) {
+        Dictionary<Jugador, ArrayList<Pais>> paisesPorJugador = this.obtenerPaisesSegunJugador();
+        return numeroPaisesDeJugador(paisesPorJugador, jugador);
     }
 
 
- 
+    public Integer calcularEjercitosDisponibles(Jugador jugador) {
+        int ejercitosAAgregar = 0;
+        Dictionary paisesPorJugador = this.obtenerPaisesSegunJugador();
+
+        // ejercitos a agregar por paises
+        ejercitosAAgregar += (this.numeroPaisesDeJugador(paisesPorJugador, jugador) / 2);
+        // ejercitos a agregar por continentes
+        for (Continente continente: continentes) {
+            ejercitosAAgregar += continente.obtenerBonusDeContinentePara(jugador);
+        }
+        if (ejercitosAAgregar < ejercitosMinimosTurnoRefuerzo) { ejercitosAAgregar = ejercitosMinimosTurnoRefuerzo; }
+        return ejercitosAAgregar;
+    }
+
+
+    private Integer numeroPaisesDeJugador(Dictionary<Jugador, ArrayList<Pais>> paisesPorJugador, Jugador jugador) {
+        return (paisesPorJugador.get(jugador)).size();
+    }
+
+    private Continente seleccionarContinente(String nombreContinente) {
+        for (Continente continente: continentes) {
+            if(continente.toString().equals(nombreContinente))
+                return continente;
+        }
+        throw new ContinenteInexistenteException(nombreContinente + " no se encuentra en el tablero.");
+    }
+
+    public Integer paisesConquistadosPorEn(Jugador jugador, String nombreContinente) {
+        Continente continente = seleccionarContinente(nombreContinente);
+        return continente.paisesConquistadosPor(jugador);
+    }
+
+    public Integer size() {
+        return paises.size();
+    }
+
 }
