@@ -1,94 +1,97 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.modelo.excepciones.EjercitosInsuficientesException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestBatallon {
 
+    private Batallon batallon;
+
+    @BeforeEach
+    public void setUp() {
+        this.batallon = new Batallon();
+    }
+
     @Test
     public void test01CreoUnBatallonYNoEsNull() {
-        Batallon batallon = new Batallon();
-
         assertNotNull(batallon);
     }
 
     @Test
     public void test02CreoUnBatallonYSeInicializaCon1 (){
-        Batallon batallon = new Batallon();
-
         assertEquals(batallon.getEjercitos(), 1);
     }
 
     @Test
-    public void test03CreoUnBatallonYLePidoEjercitosParaAtacarYLanzaExcepcion (){
-        Batallon batallon = new Batallon();
-        assertThrows(EjercitosInsuficientesException.class, () -> batallon.getEjercitosParaAtacar());
-    }
-
-    @Test
-    public void test04CreoUnBatallonYAgregoDosEjercitosYTengoTresEjercitos (){
-        Batallon batallon = new Batallon();
+    public void test03CreoUnBatallonYAgregoDosEjercitosYTengoTresEjercitos (){
         batallon.agregarEjercitos(2);
         assertEquals(batallon.getEjercitos(), 3);
     }
 
     @Test
-    public void test05CreoUnBatallonYAgregoDosEjercitosYTengoDosEjercitosParaAtacar (){
-        Batallon batallon = new Batallon();
+    public void test04CreoUnBatallonYAgregoDosEjercitosYTengoDosEjercitosParaAtacar (){
         batallon.agregarEjercitos(2);
         assertEquals(batallon.getEjercitosParaAtacar(), 2);
     }
 
     @Test
-    public void test06CreoUnBatallonYAgregoCuatroEjercitosYTengoTresEjercitosParaAtacar (){
-        Batallon batallon = new Batallon();
+    public void test05CreoUnBatallonYAgregoCuatroEjercitosYTengoTresEjercitosParaAtacar (){
         batallon.agregarEjercitos(4);
         assertEquals(batallon.getEjercitosParaAtacar(), 3);
     }
 
     @Test
-    public void test07CreoUnBatallonYAgregoCincoEjercitosYTengoSeisEjercitos (){
-        Batallon batallon = new Batallon();
+    public void test06CreoUnBatallonYAgregoCincoEjercitosYTengoSeisEjercitos (){
         batallon.agregarEjercitos(5);
         assertEquals(batallon.getEjercitos(), 6);
     }
 
     @Test
-    public void test08CreoUnBatallonYAgregoCincoEjercitosYTengo3EjercitosParaAtacar (){
-        Batallon batallon = new Batallon();
+    public void test07CreoUnBatallonYAgregoCincoEjercitosYTengo3EjercitosParaAtacar (){
         batallon.agregarEjercitos(5);
         assertEquals(batallon.getEjercitosParaAtacar(), 3);
     }
 
     @Test
-    public void test09CreoUnBatallonYTengoEjercitos (){
-        Batallon batallon = new Batallon();
+    public void test08CreoUnBatallonYTengoEjercitos (){
         assertTrue(batallon.tengoEjercitos());
     }
 
+    @Test
+    public void test09CreoUnBatallonYLeSacoTodosSusEjercitosYNoTengoEjercitos (){
+        batallon.disminuirEjercitos(1);
+        assertFalse(batallon.tengoEjercitos());
+    }
 
     @Test
-    public void test12CreoUnBatallonYAgregoCincoEjercitosLeSacoUnEjercitoYTengoTresEjercitosParaAtacar (){
-        Batallon batallon = new Batallon();
+    public void test10CreoUnBatallonYLeSacoTodosSusEjercitosYNoTengoEjercitos (){
+        batallon.disminuirEjercitos(1);
+        assertFalse(batallon.tengoEjercitos());
+    }
+
+    @Test
+    public void test11CreoUnBatallonYAgregoCincoEjercitosLeSacoUnEjercitoYTengoTresEjercitosParaAtacar (){
         batallon.agregarEjercitos(5);
         batallon.disminuirEjercitos(1);
         assertEquals(batallon.getEjercitosParaAtacar(), 3);
     }
 
     @Test
-    public void test13CreoUnBatallonYDisminuyo2EjercitosYTengo0Ejercitos (){
-        Batallon batallon = new Batallon();
+    public void test12CreoUnBatallonYDisminuyo2EjercitosYTengo0Ejercitos (){
         batallon.disminuirEjercitos(2);
         assertEquals(batallon.getEjercitos(), 0);
     }
 
     @Test
-    public void test14CreoUnBatallonYDisminuyo1EjercitoYTengo0EjercitosParaAtacar (){
-        Batallon batallon = new Batallon();
-        batallon.disminuirEjercitos(1);
+    public void test13CreoUnBatallonYAgrego5EjercitosYTengo3EjercitosParaDefender (){
+        batallon.agregarEjercitos(5);
+        assertEquals(batallon.getEjercitosParaDefender(), 3);
+    }
 
-        assertThrows(EjercitosInsuficientesException.class, batallon::getEjercitosParaAtacar);
+    @Test
+    public void test14CreoUnBatallonYTengo1EjercitoParaDefender (){
+        assertEquals(batallon.getEjercitosParaDefender(), 1);
     }
 }

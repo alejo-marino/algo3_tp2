@@ -1,28 +1,106 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.modelo.excepciones.JugadorGanoException;
+
+import java.util.ArrayList;
+import java.util.Queue;
+import java.util.LinkedList;
+
 public class SistemaDeTurnos {
-    /*
-    int numeroDeFase = 1;
 
-    while (sistTurnos.numeroDeFase <= CANT_FASES_REFUERZO_INICIALES) {  //
-        jugador = desencolar(colaJugadores)
-        turno.darTurno(jugador);
-        colaJugadores.encolarJugador(jugador);
-        turno.siguiente;
+    private final Juego juego;
+    Queue<Jugador> colaJugadores;
+    Integer movimientos;
+    Fase faseActual;
+    boolean esPrimerTurno;
+    private Integer cantidadPaisesPrincipioDeRonda;
+
+    public SistemaDeTurnos(ArrayList<Jugador> listaJugadores, Juego juego, Queue<Integer> colaDeNumerosDeRefuerzoPorRonda) {
+        this.colaJugadores = this.crearColaDeLista(listaJugadores);
+        this.movimientos = 0;
+        this.faseActual = new FaseInicial(colaDeNumerosDeRefuerzoPorRonda, juego);
+        this.esPrimerTurno = true;
+        this.juego = juego;
+        this.cantidadPaisesPrincipioDeRonda = 50;
     }
 
-    turno.setearAtaque
+    private Queue<Jugador> crearColaDeLista(ArrayList<Jugador> lista) {
+        return new LinkedList<>(lista);
+    }
 
-    while (true) {
-        {for i in cantJugadores: {
-            jugador = desencolar(colaJugadores)
-            sistTurnos.darTurno(jugador);
-            encolarJugador(colaJugadores);
-            if (jugador.checkearSiGane())
-                juego.ganoJugador(jugador); // deberia cortar la ejecucion de todos los demas objetos y mostrar por pantalla quien gano
+    public Jugador turnoDe() {
+        return colaJugadores.peek();
+    }
+
+    public void empezarTurno() {
+        if (juego.obtenerCantidadPaisesSegunJugador(this.turnoDe()) > cantidadPaisesPrincipioDeRonda) {
+            juego.darTarjeta(this.turnoDe());
         }
-        turno.siguiente;
-        numeroDeFase++;
+        movimientos++;
+        if ((movimientos % (colaJugadores.size() + 1)) == 0) {  // se pasa de ronda
+            faseActual = faseActual.siguienteRonda();
+            movimientos++;
+        }
+        if (!esPrimerTurno) {
+            Jugador jugadorAnterior = colaJugadores.remove();
+            colaJugadores.add(jugadorAnterior);
+        }
+        faseActual.empezarTurno(this.turnoDe());
+        esPrimerTurno = false;
+        this.cantidadPaisesPrincipioDeRonda = juego.obtenerCantidadPaisesSegunJugador(this.turnoDe());
     }
-     */
+
+    public String getFaseActual() {
+        return faseActual.getFaseActual();
+    }
+
+    public void reforzar(int cantidadEjercitos) {
+        faseActual.reforzar(cantidadEjercitos);
+    }
+
+    public void seleccionarPais(String nombrePais) {
+        faseActual.seleccionarPais(nombrePais);
+    }
+
+    public void atacar(int cantidadEjercitos) {
+        faseActual.atacar(cantidadEjercitos);
+        // Veo si ganó
+        if (turnoDe().gano()) {
+            throw new JugadorGanoException("Felicitaciones! Ganaste el juego.");
+        }
+        // Veo si alguien perdió
+        Jugador jugadorAEliminar = null;
+        for (Jugador jugador: colaJugadores) {
+            if (juego.obtenerCantidadPaisesSegunJugador(jugador) == 0) {
+                jugadorAEliminar = jugador;
+                for(Jugador otroJugador: colaJugadores) {
+                    otroJugador.verificarMisiones();
+                }
+            }
+        }
+        if(jugadorAEliminar != null) {
+            colaJugadores.remove(jugadorAEliminar);
+        }
+    }
+
+    public void reagrupar(int cantidadEjercitos) {
+        faseActual.reagrupar(cantidadEjercitos);
+    }
+
+    public ArrayList<String> obtenerNombreTarjetas() {
+        return this.juego.obtenerNombreTarjetasDe(this.turnoDe());
+    }
+
+    public void canjearTarjetas(ArrayList<String> tarjetasACanjear) {
+        faseActual.canjearTarjetas(tarjetasACanjear);
+    }
+
+    public void terminarAtaque() {
+        faseActual.terminarAtaque(turnoDe());
+    }
+
+    public void activarTarjeta(String nombreTarjeta) {
+        this.faseActual.activarTarjeta(nombreTarjeta);
+    }
+
 }

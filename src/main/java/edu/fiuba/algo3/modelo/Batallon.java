@@ -1,34 +1,47 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.modelo.ejercito.Ejercito;
-import edu.fiuba.algo3.modelo.ejercito.EjercitoUnitario;
+import static edu.fiuba.algo3.modelo.Constantes.ejercitosParaAtacarMaximo;
+import static edu.fiuba.algo3.modelo.Constantes.ejercitosParaDefenderMaximo;
 
 public class Batallon {
 
     private int ejercitos;
-    private Ejercito ejercito;
 
     public Batallon() {
-        ejercito = new EjercitoUnitario();
+        ejercitos = 1;
     }
 
     public int getEjercitos() {
-        return ejercito.getCantidadTropas();
+        return ejercitos;
     }
 
     public int getEjercitosParaAtacar() {
-        return ejercito.obtenerCantidadTropasAtaque();
+        if (ejercitos > ejercitosParaAtacarMaximo) {
+            return ejercitosParaAtacarMaximo;
+        } else {
+            return ejercitos - 1;
+        }
     }
 
     public void agregarEjercitos(int cantidadEjercitos) {
-        ejercito = ejercito.agregarTropas(cantidadEjercitos);
+        ejercitos = ejercitos + cantidadEjercitos;
     }
 
     public boolean tengoEjercitos() {
-        return ejercito.tengoTropas();
+        return ejercitos > 0;
     }
 
     public void disminuirEjercitos(int cantidadEjercitos) {
-        ejercito = ejercito.reduccirTropas(cantidadEjercitos);
+        ejercitos = ejercitos - cantidadEjercitos;
+        if (ejercitos < 0) {
+            ejercitos = 0;
+        }
+    }
+
+    public int getEjercitosParaDefender() {
+        if (ejercitos > ejercitosParaDefenderMaximo) {
+            return ejercitosParaDefenderMaximo;
+        }
+        return ejercitos;
     }
 }

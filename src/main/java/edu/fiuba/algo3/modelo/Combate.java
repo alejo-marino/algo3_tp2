@@ -1,42 +1,66 @@
 package edu.fiuba.algo3.modelo;
 
 import java.util.ArrayList;
-import edu.fiuba.algo3.modelo.excepciones.*;
+//import edu.fiuba.algo3.modelo.excepciones.*;
 
 
 
 public class Combate {
-    private Pais atacante;
-    private Pais defensor;
-    private Tirada tirada;
+    private final Pais atacante;
+    private final Pais defensor;
+    private final Integer cantEjercitosAtacantes;
 
-    public Combate(Pais paisAtacante, Pais paisDefensor){
+    public Combate(Pais paisAtacante, Pais paisDefensor, Integer cantEjercitosAtacantes){
         this.atacante = paisAtacante;
         this.defensor = paisDefensor;
-        this.tirada = new Tirada(this);
+        this.cantEjercitosAtacantes = cantEjercitosAtacantes;
     }
     //Ssi es así,
     // dos tiradas de dados, el algoritmo que calcule cuántos ejércitos pierde cada uno dependiendo de las tiradas, remover ejércitos, preguntar si ahora es
     // conquistable el país defensor
     public void combatir() {
 
-        int cantEjercitosAtacante = this.atacante.getEjercitosParaAtacar();
-        int cantEjercitosDefensor = this.defensor.getEjercitos();
+        int cantEjercitosDefensores = this.defensor.getEjercitosParaDefender();
 
-        tirada.tirar(cantEjercitosAtacante, cantEjercitosDefensor);
-        defensor.serConquistadoPor(atacante);
+        DadosDeSeisCaras dados = new DadosDeSeisCaras();
+        ArrayList<Integer> tiradaAtacante = obtenerTirada(cantEjercitosAtacantes);
+        ArrayList<Integer> tiradaDefensor = obtenerTirada(cantEjercitosDefensores);
+
+        determinarGanador(tiradaAtacante, tiradaDefensor);
     }
 
-    public void combatePredeterminado( ArrayList tiradaAtacante, ArrayList tiradaDefensor) {
-        tirada.tirarPredeterminado(tiradaAtacante, tiradaDefensor);
-        defensor.serConquistadoPor(atacante);
+    private ArrayList<Integer> obtenerTirada (Integer cantidadDados) {
+        DadosDeSeisCaras dados = new DadosDeSeisCaras();
+        return dados.tirarDados(cantidadDados);
     }
 
-    public void modificarEjercitosAtacante(int tropasPerdidas) {
-        atacante.disminuirEjercitos(tropasPerdidas);
+    public void combatePredeterminado( ArrayList<Integer> tiradaAtacante, ArrayList<Integer> tiradaDefensor) {
+        determinarGanador(tiradaAtacante, tiradaDefensor);
+
     }
 
-    public void modificarEjercitosDefensor(int tropasPerdidas) {
-        defensor.disminuirEjercitos(tropasPerdidas);
+    private void determinarGanador(ArrayList<Integer> tiradaAtacante, ArrayList<Integer> tiradaDefensor) {
+        int encuentros = Math.min((tiradaAtacante.size()), (tiradaDefensor.size()));
+        int ganaAtacante = 0;
+        int ganaDefensor = 0;
+
+        for (int i = 0; i < encuentros; i++) {
+            if ( ganadorTirada( tiradaDefensor.get(i), tiradaAtacante.get(i))){
+                ganaAtacante++;
+            }
+            else{
+                ganaDefensor++;
+            }
+        }
+        this.atacante.disminuirEjercitos(ganaDefensor);
+        this.defensor.disminuirEjercitos(ganaAtacante);
+        if (!defensor.tengoEjercitos()) {
+            atacante.conquistar(defensor);
+        }
+
+    }
+
+    private boolean ganadorTirada(int tiradaDefensor, int tiradaAtacante) {
+        return tiradaDefensor < tiradaAtacante;
     }
 }

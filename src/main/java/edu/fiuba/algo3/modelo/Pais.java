@@ -1,25 +1,25 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.modelo.excepciones.AtaqueAPaisNoLimitrofeException;
-import edu.fiuba.algo3.modelo.excepciones.AtaqueAPaisPropioException;
-import edu.fiuba.algo3.modelo.excepciones.AtaqueConPaisAjenoException;
-import edu.fiuba.algo3.modelo.excepciones.ReforzarPaisAjenoError;
+import edu.fiuba.algo3.modelo.excepciones.PaisSinDuenioAsignadoException;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Pais {
 
     private Jugador duenio;
-    private Batallon batallon;
-    private ArrayList<Pais> paisesLimitrofes;
-    private String nombre;
+    private final Batallon batallon;
+    private final ArrayList<Pais> paisesLimitrofes;
+    private final String nombre;
 
-    public Pais(String nombre, Jugador duenio) {
+    public Pais(String nombre) {
         this.nombre = nombre;
-        this.duenio = duenio;
+        this.duenio = null;
         this.batallon = new Batallon();
         this.paisesLimitrofes = new ArrayList<>();
+    }
+
+    public void asignarDuenio(Jugador jugador) {
+        this.duenio = jugador;
     }
 
     public int getEjercitos() {
@@ -30,18 +30,16 @@ public class Pais {
         return batallon.getEjercitosParaAtacar();
     }
 
-    public ArrayList<Pais> getPaisesLimitrofes() {
-        return paisesLimitrofes;
+    public boolean puedeAtacar() {
+        return this.getEjercitosParaAtacar() > 0;
     }
 
-    public Jugador getPaisOcupadoPor() {
+
+    public Jugador getDuenio() {
         return duenio;
     }
 
-    public void reforzar(Jugador jugador, int cantidadEjercitos) {
-        if (jugador != duenio) {
-            throw new ReforzarPaisAjenoError("Este pais no te pertenece");
-        }
+    public void reforzar(int cantidadEjercitos) {
         this.batallon.agregarEjercitos(cantidadEjercitos);
     }
 
@@ -59,62 +57,37 @@ public class Pais {
     }
 
     public boolean esAliado(Pais pais) {
-        return this.duenio == pais.getPaisOcupadoPor();
-    }
-
-    public void conquistarFinal(Pais conquistado){
-        conquistado.duenio = this.duenio;
-        Scanner input = new Scanner(System.in);
-        System.out.println("Cuantas piezas queres pasar a " + conquistado.toString() + "?");
-        int cantEjercitosAMover = input.nextInt();
-        int cantEjercitos = this.batallon.getEjercitos();
-        if (cantEjercitosAMover < 1 || cantEjercitosAMover > (cantEjercitos - 1)) {
-            System.out.println("La cantidad a movilizar es invalida.");
-            this.conquistar(conquistado);
-            return;
+        if (duenio != null) {
+        return this.duenio == pais.getDuenio();
+        } else {
+            throw new PaisSinDuenioAsignadoException(nombre + " no tiene duenio.");
         }
-        this.disminuirEjercitos(cantEjercitosAMover);
-        conquistado.reforzar(this.duenio, cantEjercitosAMover);
     }
 
-    public void conquistar(Pais conquistado){
-        conquistado.duenio = this.duenio;
-        conquistado.reforzar(this.duenio, 1);
-        this.disminuirEjercitos(1);
+
+    public void conquistar(Pais conquistado) {
+        if (duenio != null) {
+            conquistado.duenio = this.duenio;
+            conquistado.reforzar(1);
+            this.disminuirEjercitos(1);
+        } else {
+            throw new PaisSinDuenioAsignadoException(nombre + " no tiene duenio.");
+        }
     }
 
     public void hacerLimitrofe(Pais pais) {
         this.paisesLimitrofes.add(pais);
     }
 
-    public void esLimitrofeCon(Pais pais) {
-        if (!this.paisesLimitrofes.contains(pais)) {
-            throw new AtaqueAPaisNoLimitrofeException(this.toString() + " y " + pais.toString() + " no son limitrofes.");
-        }
+    public boolean esDuenio(Jugador jugador) {
+        return (jugador == duenio);
     }
 
-    public void verificarAtaque(Jugador jugador, Pais defensor) {
-        this.esDuenioPais(jugador);
-        this.esLimitrofeCon(defensor);
-        this.esDuenioPaisAtacado(defensor);
-
+    public int getEjercitosParaDefender() {
+        return this.batallon.getEjercitosParaDefender();
     }
 
-    private void esDuenioPaisAtacado(Pais defensor) {
-        if (this.esAliado(defensor)) {
-            throw new AtaqueAPaisPropioException(defensor.toString()+ " te pertenece, no podes atacarlo.");
-        }
-    }
-
-    private void esDuenioPais(Jugador jugador) {
-        if (jugador != duenio) {
-            throw new AtaqueConPaisAjenoException("Este país no te pertenece");
-        }
-    }
-
-    public void serConquistadoPor(Pais atacante) {
-        if (!this.tengoEjercitos()) {
-            atacante.conquistar(this);
-        }
+    public boolean esLimitrofe(Pais otroPais) {
+        return paisesLimitrofes.contains(otroPais);
     }
 }

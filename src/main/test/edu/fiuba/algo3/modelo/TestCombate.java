@@ -1,54 +1,52 @@
 package edu.fiuba.algo3.modelo;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.ArrayList;
-import edu.fiuba.algo3.modelo.excepciones.*;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestCombate {
 
-    @Test
-    public void test01SeCreaUnCombateYNoEsNull() {
+    private Jugador jugadorDefensor;
+    private Pais atacante;
+    private Pais defensor;
+    private ArrayList<Integer> tiradaAtacante;
+    private ArrayList<Integer> tiradaDefensor;
+
+    @BeforeEach
+    public void setUp() {
         Jugador jugadorAtacante = new Jugador("000000");
-        Pais atacante = new Pais("Argentina", jugadorAtacante);
-        Jugador jugadorDefensor = new Jugador("ffffff");
-        Pais defensor = new Pais("Uruguay", jugadorDefensor);
-
-        Combate combate = new Combate(atacante, defensor);
-
-        assertNotNull(combate);
+        jugadorDefensor = new Jugador("ffffff");
+        atacante = new Pais("Argentina");
+        atacante.asignarDuenio(jugadorAtacante);
+        defensor = new Pais("Uruguay");
+        defensor.asignarDuenio(jugadorDefensor);
+        atacante.hacerLimitrofe(defensor);
+        defensor.hacerLimitrofe(atacante);
+        this.tiradaAtacante = new ArrayList<>();
+        this.tiradaDefensor = new ArrayList<>();
     }
 
     @Test
-    public void test04CreoUnCombateYElPaisAtacanteIntentaAtacarPeroNoTieneEjercitosSuficientes (){
-        Jugador jugadorAtacante = new Jugador("000000");
-        Pais atacante = new Pais("Argentina", jugadorAtacante);
-        Jugador jugadorDefensor = new Jugador("ffffff");
-        Pais defensor = new Pais("Uruguay", jugadorDefensor);
-        defensor.hacerLimitrofe(atacante);
-        atacante.hacerLimitrofe(defensor);
-        Combate combate = new Combate(atacante, defensor);
+    public void test01SeCreaUnCombateYNoEsNull() {
+        Integer cantEjercitosAtacantes = atacante.getEjercitosParaAtacar();
 
-        assertThrows(EjercitosInsuficientesException.class, () -> combate.combatir());
+        Combate combate = new Combate(atacante, defensor, cantEjercitosAtacantes);
+        assertNotNull(combate);
     }
 
     // 1v1 conquista
     @Test
-    public void test05CreoUnCombateYElPaisAtacanteAtacaCon1EjercitoAPaisQueDefiendeCon1EjercitoYGanaElAtacante (){
-        Jugador jugadorAtacante = new Jugador("000000");
-        Pais atacante = new Pais("Argentina", jugadorAtacante);
-        Jugador jugadorDefensor = new Jugador("ffffff");
-        Pais defensor = new Pais("Uruguay", jugadorDefensor);
-        atacante.reforzar(jugadorAtacante, 1);
-        ArrayList tiradaAtacante = new ArrayList<Integer>();
-        tiradaAtacante.add(6);
-        ArrayList tiradaDefensor = new ArrayList<Integer>();
-        tiradaDefensor.add(1);
-        atacante.hacerLimitrofe(defensor);
-        Combate combate = new Combate(atacante, defensor);
+    public void test02CreoUnCombateYElPaisAtacanteAtacaCon1EjercitoAPaisQueDefiendeCon1EjercitoYGanaElAtacante (){
+        atacante.reforzar(1);
+        this.tiradaAtacante.add(6);
+        this.tiradaDefensor.add(1);
+        Integer cantEjercitosAtacantes = atacante.getEjercitosParaAtacar();
 
+        Combate combate = new Combate(atacante, defensor, cantEjercitosAtacantes);
         combate.combatePredeterminado(tiradaAtacante, tiradaDefensor);
-        // pais1.esAliados(pais2) checkea que el pais1 tenga el mismo duenio que el pais2, si es asi devuelve true.
         assertTrue(atacante.esAliado(defensor));
         assertEquals(1, defensor.getEjercitos());
         assertEquals(1, atacante.getEjercitos());
@@ -57,19 +55,14 @@ public class TestCombate {
 
     // 1v1 pierde atacante
     @Test
-    public void test06CreoUnCombateYElPaisAtacanteAtacaCon1EjercitoAPaisQueDefiendeCon1EjercitoYPierdeElAtacante (){
-        Jugador jugadorAtacante = new Jugador("000000");
-        Pais atacante = new Pais("Argentina", jugadorAtacante);
-        Jugador jugadorDefensor = new Jugador("ffffff");
-        Pais defensor = new Pais("Uruguay", jugadorDefensor);
-        atacante.reforzar(jugadorAtacante, 1);
-        ArrayList tiradaAtacante = new ArrayList<Integer>();
+    public void test03CreoUnCombateYElPaisAtacanteAtacaCon1EjercitoAPaisQueDefiendeCon1EjercitoYPierdeElAtacante (){
+        atacante.reforzar(1);
         tiradaAtacante.add(1);
-        ArrayList tiradaDefensor = new ArrayList<Integer>();
         tiradaDefensor.add(3);
-        atacante.hacerLimitrofe(defensor);
-        Combate combate = new Combate(atacante, defensor);
 
+        Integer cantEjercitosAtacantes = atacante.getEjercitosParaAtacar();
+
+        Combate combate = new Combate(atacante, defensor, cantEjercitosAtacantes);
         combate.combatePredeterminado(tiradaAtacante, tiradaDefensor);
 
         assertFalse(atacante.esAliado(defensor));
@@ -79,20 +72,14 @@ public class TestCombate {
 
     // 2v1 conquista
     @Test
-    public void test07CreoUnCombateYElPaisAtacanteAtacaCon2EjercitosAPaisQueDefiendeCon1EjercitoYGanaElAtacante () {
-        Jugador jugadorAtacante = new Jugador("000000");
-        Pais atacante = new Pais("Argentina", jugadorAtacante);
-        Jugador jugadorDefensor = new Jugador("ffffff");
-        Pais defensor = new Pais("Uruguay", jugadorDefensor);
-        atacante.reforzar(jugadorAtacante, 2);
-        ArrayList tiradaAtacante = new ArrayList<Integer>();
+    public void test04CreoUnCombateYElPaisAtacanteAtacaCon2EjercitosAPaisQueDefiendeCon1EjercitoYGanaElAtacante () {
+        atacante.reforzar(2);
         tiradaAtacante.add(6);
         tiradaAtacante.add(6);
-        ArrayList tiradaDefensor = new ArrayList<Integer>();
         tiradaDefensor.add(1);
-        atacante.hacerLimitrofe(defensor);
-        Combate combate = new Combate(atacante, defensor);
 
+        Integer cantEjercitosAtacantes = atacante.getEjercitosParaAtacar();
+        Combate combate = new Combate(atacante, defensor, cantEjercitosAtacantes);
         combate.combatePredeterminado(tiradaAtacante, tiradaDefensor);
 
         assertTrue(atacante.esAliado(defensor));
@@ -103,20 +90,14 @@ public class TestCombate {
 
     // 2v1 pierde atacante
     @Test
-    public void test08CreoUnCombateYElPaisAtacanteAtacaCon2EjercitosAPaisQueDefiendeCon1EjercitoYPierdeElAtacante (){
-        Jugador jugadorAtacante = new Jugador("000000");
-        Pais atacante = new Pais("Argentina", jugadorAtacante);
-        Jugador jugadorDefensor = new Jugador("ffffff");
-        Pais defensor = new Pais("Uruguay", jugadorDefensor);
-        atacante.reforzar(jugadorAtacante, 2);
-        ArrayList tiradaAtacante = new ArrayList<Integer>();
+    public void test05CreoUnCombateYElPaisAtacanteAtacaCon2EjercitosAPaisQueDefiendeCon1EjercitoYPierdeElAtacante (){
+        atacante.reforzar(2);
         tiradaAtacante.add(1);
         tiradaAtacante.add(1);
-        ArrayList tiradaDefensor = new ArrayList<Integer>();
         tiradaDefensor.add(1);
-        atacante.hacerLimitrofe(defensor);
-        Combate combate = new Combate(atacante, defensor);
 
+        Integer cantEjercitosAtacantes = atacante.getEjercitosParaAtacar();
+        Combate combate = new Combate(atacante, defensor, cantEjercitosAtacantes);
         combate.combatePredeterminado(tiradaAtacante, tiradaDefensor);
 
         assertFalse(atacante.esAliado(defensor));
@@ -126,22 +107,16 @@ public class TestCombate {
 
     // 2v2 conquista
     @Test
-    public void test09CreoUnCombateYElPaisAtacanteAtacaCon2EjercitosAPaisQueDefiendeCon2EjercitosYGanaElAtacante (){
-        Jugador jugadorAtacante = new Jugador("000000");
-        Pais atacante = new Pais("Argentina", jugadorAtacante);
-        Jugador jugadorDefensor = new Jugador("ffffff");
-        Pais defensor = new Pais("Uruguay", jugadorDefensor);
-        atacante.reforzar(jugadorAtacante,2);
-        defensor.reforzar(jugadorDefensor,1);
-        ArrayList tiradaAtacante = new ArrayList<Integer>();
+    public void test06CreoUnCombateYElPaisAtacanteAtacaCon2EjercitosAPaisQueDefiendeCon2EjercitosYGanaElAtacante (){
+        atacante.reforzar(2);
+        defensor.reforzar(1);
         tiradaAtacante.add(6);
         tiradaAtacante.add(2);
-        ArrayList tiradaDefensor = new ArrayList<Integer>();
         tiradaDefensor.add(1);
         tiradaDefensor.add(1);
-        atacante.hacerLimitrofe(defensor);
-        Combate combate = new Combate(atacante, defensor);
 
+        Integer cantEjercitosAtacantes = atacante.getEjercitosParaAtacar();
+        Combate combate = new Combate(atacante, defensor, cantEjercitosAtacantes);
         combate.combatePredeterminado(tiradaAtacante, tiradaDefensor);
 
         assertTrue(atacante.esAliado(defensor));
@@ -151,22 +126,16 @@ public class TestCombate {
 
     // 2v2 pierde atacante
     @Test
-    public void test10CreoUnCombateYElPaisAtacanteAtacaCon2EjercitosAPaisQueDefiendeCon2EjercitosYPierdeElAtacante (){
-        Jugador jugadorAtacante = new Jugador("000000");
-        Pais atacante = new Pais("Argentina", jugadorAtacante);
-        Jugador jugadorDefensor = new Jugador("ffffff");
-        Pais defensor = new Pais("Uruguay", jugadorDefensor);
-        atacante.reforzar(jugadorAtacante,2);
-        defensor.reforzar(jugadorDefensor,1);
-        ArrayList tiradaAtacante = new ArrayList<Integer>();
+    public void test07CreoUnCombateYElPaisAtacanteAtacaCon2EjercitosAPaisQueDefiendeCon2EjercitosYPierdeElAtacante (){
+        atacante.reforzar(2);
+        defensor.reforzar(1);
         tiradaAtacante.add(1);
         tiradaAtacante.add(1);
-        ArrayList tiradaDefensor = new ArrayList<Integer>();
         tiradaDefensor.add(2);
         tiradaDefensor.add(2);
-        atacante.hacerLimitrofe(defensor);
-        Combate combate = new Combate(atacante, defensor);
 
+        Integer cantEjercitosAtacantes = atacante.getEjercitosParaAtacar();
+        Combate combate = new Combate(atacante, defensor, cantEjercitosAtacantes);
         combate.combatePredeterminado(tiradaAtacante, tiradaDefensor);
 
         assertFalse(atacante.esAliado(defensor));
@@ -176,24 +145,19 @@ public class TestCombate {
 
     //Atacar2v3 Pierde2
     @Test
-    public void test11CreoUnCombateYElPaisAtacanteGanaElAtaqueConDosEjercitosYElDefensorSeDefiendeConTres (){
-        Jugador jugadorAtacante = new Jugador("000000");
-        Pais atacante = new Pais("Argentina", jugadorAtacante);
-        Jugador jugadorDefensor = new Jugador("ffffff");
-        Pais defensor = new Pais("Uruguay", jugadorDefensor);
-        atacante.reforzar(jugadorAtacante,2);
-        defensor.reforzar(jugadorDefensor,2);
+    public void test08CreoUnCombateYElPaisAtacanteGanaElAtaqueConDosEjercitosYElDefensorSeDefiendeConTres (){
+        atacante.reforzar(2);
+        defensor.reforzar(2);
+        tiradaAtacante.add(6);
+        tiradaAtacante.add(6);
+        tiradaDefensor.add(1);
+        tiradaDefensor.add(1);
+        tiradaDefensor.add(1);
 
-        ArrayList tiradaAtacante = new ArrayList<Integer>();
-        tiradaAtacante.add(6);
-        tiradaAtacante.add(6);
-        ArrayList tiradaDefensor = new ArrayList<Integer>();
-        tiradaDefensor.add(1);
-        tiradaDefensor.add(1);
-        tiradaDefensor.add(1);
-        atacante.hacerLimitrofe(defensor);
-        Combate combate = new Combate(atacante, defensor);
+        Integer cantEjercitosAtacantes = atacante.getEjercitosParaAtacar();
+        Combate combate = new Combate(atacante, defensor, cantEjercitosAtacantes);
         combate.combatePredeterminado(tiradaAtacante, tiradaDefensor);
+
         assertFalse(atacante.esAliado(defensor));
         assertEquals(3, atacante.getEjercitos());
         assertEquals(1, defensor.getEjercitos());
@@ -201,23 +165,17 @@ public class TestCombate {
 
     // Atacar3v1 Conquista
     @Test
-    public void test12CreoUnCombateYElPaisAtacanteAtacaCon3EjercitosAPaisQueDefiendeCon1EjercitoYConquista (){
-        Jugador jugadorAtacante = new Jugador("000000");
-        Pais atacante = new Pais("Argentina", jugadorAtacante);
-        Jugador jugadorDefensor = new Jugador("ffffff");
-        Pais defensor = new Pais("Uruguay", jugadorDefensor);
-        atacante.reforzar(jugadorAtacante,3);
-        atacante.hacerLimitrofe(defensor);
-        defensor.hacerLimitrofe(atacante);
-        ArrayList tiradaAtacante = new ArrayList<Integer>();
+    public void test09CreoUnCombateYElPaisAtacanteAtacaCon3EjercitosAPaisQueDefiendeCon1EjercitoYConquista (){
+        atacante.reforzar(3);
         tiradaAtacante.add(6);
         tiradaAtacante.add(6);
         tiradaAtacante.add(6);
-        ArrayList tiradaDefensor = new ArrayList<Integer>();
         tiradaDefensor.add(1);
 
-        Combate combate = new Combate(atacante, defensor);
+        Integer cantEjercitosAtacantes = atacante.getEjercitosParaAtacar();
+        Combate combate = new Combate(atacante, defensor, cantEjercitosAtacantes);
         combate.combatePredeterminado(tiradaAtacante, tiradaDefensor);
+
         assertTrue(atacante.esAliado(defensor));
         assertEquals(3, atacante.getEjercitos());
         assertEquals(1, defensor.getEjercitos());
@@ -226,48 +184,37 @@ public class TestCombate {
 
     // Atacar3v1 Pierde
     @Test
-    public void test13CreoUnCombateYElPaisAtacanteAtacaCon3EjercitosAPaisQueDefiendeCon1EjercitoYPierde (){
-        Jugador jugadorAtacante = new Jugador("000000");
-        Pais atacante = new Pais("Argentina", jugadorAtacante);
-        Jugador jugadorDefensor = new Jugador("ffffff");
-        Pais defensor = new Pais("Uruguay", jugadorDefensor);
-        atacante.hacerLimitrofe(defensor);
-        defensor.hacerLimitrofe(atacante);
-        atacante.reforzar(jugadorAtacante, 3);
-        ArrayList tiradaAtacante = new ArrayList<Integer>();
+    public void test10CreoUnCombateYElPaisAtacanteAtacaCon3EjercitosAPaisQueDefiendeCon1EjercitoYPierde (){
+        atacante.reforzar(3);
         tiradaAtacante.add(1);
         tiradaAtacante.add(1);
         tiradaAtacante.add(1);
-        ArrayList tiradaDefensor = new ArrayList<Integer>();
         tiradaDefensor.add(1);
-        Combate combate = new Combate(atacante, defensor);
+
+        Integer cantEjercitosAtacantes = atacante.getEjercitosParaAtacar();
+        Combate combate = new Combate(atacante, defensor, cantEjercitosAtacantes);
         combate.combatePredeterminado(tiradaAtacante, tiradaDefensor);
+
         assertFalse(atacante.esAliado(defensor));
         assertEquals(3, atacante.getEjercitos());
         assertEquals(1, defensor.getEjercitos());
     }
 
     //11 Atacar3v2 Conquista
-   @Test
-    public void test14CreoUnCombateYElPaisAtacanteAtacaCon3EjercitosAPaisQueDefiendeCon2EjercitoYConquista (){
-        Jugador jugadorAtacante = new Jugador("000000");
-        Pais atacante = new Pais("Argentina", jugadorAtacante);
-        Jugador jugadorDefensor = new Jugador("ffffff");
-        Pais defensor = new Pais("Uruguay", jugadorDefensor);
-        atacante.hacerLimitrofe(defensor);
-        defensor.hacerLimitrofe(atacante);
-        atacante.reforzar(jugadorAtacante, 3);
-        defensor.reforzar(jugadorDefensor, 1);
-        ArrayList tiradaAtacante = new ArrayList<Integer>();
+    @Test
+    public void test11CreoUnCombateYElPaisAtacanteAtacaCon3EjercitosAPaisQueDefiendeCon2EjercitoYConquista (){
+        atacante.reforzar(3);
+        defensor.reforzar(1);
         tiradaAtacante.add(6);
         tiradaAtacante.add(6);
         tiradaAtacante.add(6);
-        ArrayList tiradaDefensor = new ArrayList<Integer>();
         tiradaDefensor.add(1);
         tiradaDefensor.add(1);
 
-        Combate combate = new Combate(atacante, defensor);
+        Integer cantEjercitosAtacantes = atacante.getEjercitosParaAtacar();
+        Combate combate = new Combate(atacante, defensor, cantEjercitosAtacantes);
         combate.combatePredeterminado(tiradaAtacante, tiradaDefensor);
+
         assertTrue(atacante.esAliado(defensor));
         assertEquals(3, atacante.getEjercitos());
         assertEquals(1, defensor.getEjercitos());
@@ -275,26 +222,19 @@ public class TestCombate {
 
     //Atacar3v2 Gana1Pierde1
     @Test
-    public void test15CreoUnCombateYElPaisAtacanteAtacaCon3EjercitosAPaisQueDefiendeCon2EjercitoGana1Pierde1 (){
-        Jugador jugadorAtacante = new Jugador("000000");
-        Pais atacante = new Pais("Argentina", jugadorAtacante);
-
-        Jugador jugadorDefensor = new Jugador("ffffff");
-        Pais defensor = new Pais("Uruguay", jugadorDefensor);
-        atacante.reforzar(jugadorAtacante, 3);
-        defensor.reforzar(jugadorDefensor, 1);
-        atacante.hacerLimitrofe(defensor);
-        defensor.hacerLimitrofe(atacante);
-        ArrayList tiradaAtacante = new ArrayList<Integer>();
+    public void test12CreoUnCombateYElPaisAtacanteAtacaCon3EjercitosAPaisQueDefiendeCon2EjercitoGana1Pierde1 (){
+        atacante.reforzar(3);
+        defensor.reforzar(1);
         tiradaAtacante.add(6);
         tiradaAtacante.add(6);
         tiradaAtacante.add(6);
-        ArrayList tiradaDefensor = new ArrayList<Integer>();
         tiradaDefensor.add(6);
         tiradaDefensor.add(1);
 
-        Combate combate = new Combate(atacante, defensor);
+        Integer cantEjercitosAtacantes = atacante.getEjercitosParaAtacar();
+        Combate combate = new Combate(atacante, defensor, cantEjercitosAtacantes);
         combate.combatePredeterminado(tiradaAtacante, tiradaDefensor);
+
         assertFalse(atacante.esAliado(defensor));
         assertEquals(3, atacante.getEjercitos());
         assertEquals(1, defensor.getEjercitos());
@@ -302,248 +242,209 @@ public class TestCombate {
 
     //Ataque3v2 Pierde
     @Test
-    public void test16CreoUnCombateYElPaisAtacanteAtacaCon3EjercitosAPaisQueDefiendeCon1EjercitoYPierdeTodas (){
-        Jugador jugadorAtacante = new Jugador("000000");
-        Pais atacante = new Pais("Argentina", jugadorAtacante);
-        Jugador jugadorDefensor = new Jugador("ffffff");
-        Pais defensor = new Pais("Uruguay", jugadorDefensor);
-        atacante.hacerLimitrofe(defensor);
-        defensor.hacerLimitrofe(atacante);
-        atacante.reforzar(jugadorAtacante,3);
-        defensor.reforzar(jugadorDefensor,1);
-        ArrayList tiradaAtacante = new ArrayList<Integer>();
+    public void test13CreoUnCombateYElPaisAtacanteAtacaCon3EjercitosAPaisQueDefiendeCon1EjercitoYPierdeTodas (){
+        atacante.reforzar(3);
+        defensor.reforzar(1);
         tiradaAtacante.add(5);
         tiradaAtacante.add(5);
         tiradaAtacante.add(5);
-        ArrayList tiradaDefensor = new ArrayList<Integer>();
         tiradaDefensor.add(6);
         tiradaDefensor.add(6);
 
-        Combate combate = new Combate(atacante, defensor);
+        Integer cantEjercitosAtacantes = atacante.getEjercitosParaAtacar();
+        Combate combate = new Combate(atacante, defensor, cantEjercitosAtacantes);
         combate.combatePredeterminado(tiradaAtacante, tiradaDefensor);
+
         assertFalse(atacante.esAliado(defensor));
         assertEquals(2, atacante.getEjercitos());
         assertEquals(2, defensor.getEjercitos());
     }
 
-/*
+
 
 // Atacar3v3 Conquista
-    /*
+
     @Test
-    public void test17CreoUnCombateYElPaisAtacanteAtacaCon3EjercitosAPaisQueDefiendeCon3EjercitoYConquista (){
-        Jugador jugadorAtacante = new Jugador("000000");
-        Pais atacante = new Pais(jugadorAtacante);
-        atacante.reforzar(3)
-        Jugador jugadorDefensor = new Jugador("ffffff");
-        Pais defensor = new Pais(jugadorDefensor);
+    public void test14CreoUnCombateYElPaisAtacanteAtacaCon3EjercitosAPaisQueDefiendeCon3EjercitosYConquista (){
+        atacante.reforzar(3);
+//        Pais defensor = new Pais("Jugador", jugadorDefensor);
         defensor.reforzar(2);
-        atacante.hacerLimitrofe(defensor);
-        ArrayList tiradaAtacante = new ArrayList<Integer>();
         tiradaAtacante.add(6);
         tiradaAtacante.add(6);
         tiradaAtacante.add(6);
-        ArrayList tiradaDefensor = new ArrayList<Integer>();
         tiradaDefensor.add(1);
         tiradaDefensor.add(1);
         tiradaDefensor.add(1);
-        Combate combate = new Combate(atacante, defensor);
+
+        Integer cantEjercitosAtacantes = atacante.getEjercitosParaAtacar();
+        Combate combate = new Combate(atacante, defensor, cantEjercitosAtacantes);
         combate.combatePredeterminado(tiradaAtacante, tiradaDefensor);
+
         assertTrue(atacante.esAliado(defensor));
         assertEquals(3, atacante.getEjercitos());
-        assertEquals(0, defensor.getEjercitos());
+        assertEquals(1, defensor.getEjercitos());
     }
 
- */
-/*
+
     // Atacar 3v3 Gana2Pierde1
-    public void test18CreoUnCombateYElPaisAtacanteAtacaCon3EjercitosAPaisQueDefiendeCon3EjercitoYGana2Pierde1(){
-        Jugador jugadorAtacante = new Jugador("000000");
-        Pais atacante = new Pais(jugadorAtacante);
-        atacante.reforzar(3)
-        Jugador jugadorDefensor = new Jugador("ffffff");
-        Pais defensor = new Pais(jugadorDefensor);
+    @Test
+    public void test15CreoUnCombateYElPaisAtacanteAtacaCon3EjercitosAPaisQueDefiendeCon3EjercitoYGana2Pierde1(){
+        atacante.reforzar(3);
         defensor.reforzar(2);
-        atacante.hacerLimitrofe(defensor);
-         ArrayList tiradaAtacante = new ArrayList<Integer>();
         tiradaAtacante.add(6);
         tiradaAtacante.add(6);
         tiradaAtacante.add(1);
-        ArrayList tiradaDefensor = new ArrayList<Integer>();
         tiradaDefensor.add(1);
         tiradaDefensor.add(1);
         tiradaDefensor.add(1);
 
-        Combate combate = new Combate(atacante, defensor);
+        Integer cantEjercitosAtacantes = atacante.getEjercitosParaAtacar();
+        Combate combate = new Combate(atacante, defensor, cantEjercitosAtacantes);
         combate.combatePredeterminado(tiradaAtacante, tiradaDefensor);
-        assertFalse(atacante.esAliados(defensor));
+
+        assertFalse(atacante.esAliado(defensor));
         assertEquals(3, atacante.getEjercitos());
         assertEquals(1, defensor.getEjercitos());
     }
-/*
+
     // Atacar 3v3 Gana1Pierde2
-    public void test19CreoUnCombateYElPaisAtacanteAtacaCon3EjercitosAPaisQueDefiendeCon3EjercitoYGana1Pierde2(){
-        Jugador jugadorAtacante = new Jugador("000000");
-        Pais atacante = new Pais(jugadorAtacante);
-        atacante.reforzar(3)
-        Jugador jugadorDefensor = new Jugador("ffffff");
-        Pais defensor = new Pais(jugadorDefensor);
+    @Test
+    public void test16CreoUnCombateYElPaisAtacanteAtacaCon3EjercitosAPaisQueDefiendeCon3EjercitoYGana1Pierde2(){
+        atacante.reforzar(3);
         defensor.reforzar(2);
-        atacante.hacerLimitrofe(defensor);
-         ArrayList tiradaAtacante = new ArrayList<Integer>();
         tiradaAtacante.add(6);
         tiradaAtacante.add(1);
         tiradaAtacante.add(1);
-        ArrayList tiradaDefensor = new ArrayList<Integer>();
         tiradaDefensor.add(1);
         tiradaDefensor.add(1);
         tiradaDefensor.add(1);
-        Combate combate = new Combate(atacante, defensor);
+
+        Integer cantEjercitosAtacantes = atacante.getEjercitosParaAtacar();
+        Combate combate = new Combate(atacante, defensor, cantEjercitosAtacantes);
         combate.combatePredeterminado(tiradaAtacante, tiradaDefensor);
-        assertFalse(atacante.esAliados(defensor));
-        assertEquals(3, atacante.getEjercitos());
-        assertEquals(1, defensor.getEjercitos());
+
+        assertFalse(atacante.esAliado(defensor));
+        assertEquals(2, atacante.getEjercitos());
+        assertEquals(2, defensor.getEjercitos());
     }
-/*
+
     // Atacar3v3 Pierde3
-     public void test20CreoUnCombateYElPaisAtacanteAtacaCon3EjercitosAPaisQueDefiendeCon3EjercitoYPierdeTodas(){
-        Jugador jugadorAtacante = new Jugador("000000");
-        Pais atacante = new Pais(jugadorAtacante);
-        atacante.reforzar(3)
-        Jugador jugadorDefensor = new Jugador("ffffff");
-        Pais defensor = new Pais(jugadorDefensor);
+    @Test
+    public void test17CreoUnCombateYElPaisAtacanteAtacaCon3EjercitosAPaisQueDefiendeCon3EjercitoYPierdeTodas(){
+        atacante.reforzar(3);
         defensor.reforzar(2);
-        atacante.hacerLimitrofe(defensor);
-         ArrayList tiradaAtacante = new ArrayList<Integer>();
         tiradaAtacante.add(1);
         tiradaAtacante.add(1);
         tiradaAtacante.add(1);
-        ArrayList tiradaDefensor = new ArrayList<Integer>();
         tiradaDefensor.add(1);
         tiradaDefensor.add(1);
         tiradaDefensor.add(1);
-        Combate combate = new Combate(atacante, defensor);
+
+        Integer cantEjercitosAtacantes = atacante.getEjercitosParaAtacar();
+        Combate combate = new Combate(atacante, defensor, cantEjercitosAtacantes);
         combate.combatePredeterminado(tiradaAtacante, tiradaDefensor);
-        assertFalse(atacante.esAliados(defensor));
-        assertEquals(3, atacante.getEjercitos());
-        assertEquals(1, defensor.getEjercitos());
-     }
-/*
+
+        assertFalse(atacante.esAliado(defensor));
+        assertEquals(1, atacante.getEjercitos());
+        assertEquals(3, defensor.getEjercitos());
+    }
+
     //13 Atacar1v3 Gana
-    public void test21CreoUnCombateYElPaisAtacanteAtacaCon1EjercitoAPaisQueDefiendeCon3EjercitoYGana(){
-        Jugador jugadorAtacante = new Jugador("000000");
-        Pais atacante = new Pais(jugadorAtacante);
+    @Test
+    public void test18CreoUnCombateYElPaisAtacanteAtacaCon1EjercitoAPaisQueDefiendeCon3EjercitoYGana(){
         atacante.reforzar(1);
-        Jugador jugadorDefensor = new Jugador("ffffff");
-        Pais defensor = new Pais(jugadorDefensor);
         defensor.reforzar(2);
-        atacante.hacerLimitrofe(defensor);
-        ArrayList tiradaAtacante = new ArrayList<Integer>();
         tiradaAtacante.add(6);
-        ArrayList tiradaDefensor = new ArrayList<Integer>();
         tiradaDefensor.add(1);
         tiradaDefensor.add(1);
         tiradaDefensor.add(1);
 
-        Combate combate = new Combate(atacante, defensor);
+
+        Integer cantEjercitosAtacantes = atacante.getEjercitosParaAtacar();
+        Combate combate = new Combate(atacante, defensor, cantEjercitosAtacantes);
         combate.combatePredeterminado(tiradaAtacante, tiradaDefensor);
-        assertFalse(atacante.esAliados(defensor));
-        assertEquals(3, atacante.getEjercitos());
-        assertEquals(1, defensor.getEjercitos());
+
+        assertFalse(atacante.esAliado(defensor));
+        assertEquals(2, atacante.getEjercitos());
+        assertEquals(2, defensor.getEjercitos());
     }
-/*
-    //Atacar 1v3 Pierde
-    public void test22CreoUnCombateYElPaisAtacanteAtacaCon1EjercitoAPaisQueDefiendeCon3EjercitoYGana(){
-        Jugador jugadorAtacante = new Jugador("000000");
-        Pais atacante = new Pais(jugadorAtacante);
+
+    //Atacar 1v3 Gana
+    @Test
+    public void test19CreoUnCombateYElPaisAtacanteAtacaCon1EjercitoAPaisQueDefiendeCon3EjercitoYGana(){
         atacante.reforzar(1);
-        Jugador jugadorDefensor = new Jugador("ffffff");
-        Pais defensor = new Pais(jugadorDefensor);
         defensor.reforzar(2);
-        atacante.hacerLimitrofe(defensor);
-        ArrayList tiradaAtacante = new ArrayList<Integer>();
-        tiradaAtacante.add(1);
-        ArrayList tiradaDefensor = new ArrayList<Integer>();
+        tiradaAtacante.add(2);
         tiradaDefensor.add(1);
         tiradaDefensor.add(1);
         tiradaDefensor.add(1);
 
-        Combate combate = new Combate(atacante, defensor);
+        Integer cantEjercitosAtacantes = atacante.getEjercitosParaAtacar();
+        Combate combate = new Combate(atacante, defensor, cantEjercitosAtacantes);
         combate.combatePredeterminado(tiradaAtacante, tiradaDefensor);
-        assertFalse(atacante.esAliados(defensor));
-        assertEquals(3, atacante.getEjercitos());
-        assertEquals(1, defensor.getEjercitos());
+
+        assertFalse(atacante.esAliado(defensor));
+        assertEquals(2, atacante.getEjercitos());
+        assertEquals(2, defensor.getEjercitos());
     }
-/*
+
     // Atacar2v3 Gana
-    public void test23CreoUnCombateYElPaisAtacanteAtacaCon2EjercitosAPaisQueDefiendeCon3EjercitoYGana(){
-        Jugador jugadorAtacante = new Jugador("000000");
-        Pais atacante = new Pais(jugadorAtacante);
+    @Test
+    public void test20CreoUnCombateYElPaisAtacanteAtacaCon2EjercitosAPaisQueDefiendeCon3EjercitoYGana(){
         atacante.reforzar(2);
-        Jugador jugadorDefensor = new Jugador("ffffff");
-        Pais defensor = new Pais(jugadorDefensor);
         defensor.reforzar(2);
-        atacante.hacerLimitrofe(defensor);
-        ArrayList tiradaAtacante = new ArrayList<Integer>();
         tiradaAtacante.add(6);
         tiradaAtacante.add(6);
-        ArrayList tiradaDefensor = new ArrayList<Integer>();
         tiradaDefensor.add(1);
         tiradaDefensor.add(1);
         tiradaDefensor.add(1);
-        Combate combate = new Combate(atacante, defensor);
+
+        Integer cantEjercitosAtacantes = atacante.getEjercitosParaAtacar();
+        Combate combate = new Combate(atacante, defensor, cantEjercitosAtacantes);
         combate.combatePredeterminado(tiradaAtacante, tiradaDefensor);
-        assertFalse(atacante.esAliados(defensor));
+
+        assertFalse(atacante.esAliado(defensor));
         assertEquals(3, atacante.getEjercitos());
         assertEquals(1, defensor.getEjercitos());
     }
-/*
+
     //Atacar2v3 Gana1Pierde1
-     public void test24CreoUnCombateYElPaisAtacanteAtacaCon2EjercitosAPaisQueDefiendeCon3EjercitoYGana1Pierde1(){
-        Jugador jugadorAtacante = new Jugador("000000");
-        Pais atacante = new Pais(jugadorAtacante);
+    @Test
+    public void test21CreoUnCombateYElPaisAtacanteAtacaCon2EjercitosAPaisQueDefiendeCon3EjercitoYGana1Pierde1(){
         atacante.reforzar(2);
-        Jugador jugadorDefensor = new Jugador("ffffff");
-        Pais defensor = new Pais(jugadorDefensor);
         defensor.reforzar(2);
-        atacante.hacerLimitrofe(defensor);
-        ArrayList tiradaAtacante = new ArrayList<Integer>();
         tiradaAtacante.add(6);
         tiradaAtacante.add(6);
-        ArrayList tiradaDefensor = new ArrayList<Integer>();
         tiradaDefensor.add(6);
         tiradaDefensor.add(1);
         tiradaDefensor.add(1);
 
-        Combate combate = new Combate(atacante, defensor);
+        Integer cantEjercitosAtacantes = atacante.getEjercitosParaAtacar();
+        Combate combate = new Combate(atacante, defensor, cantEjercitosAtacantes);
         combate.combatePredeterminado(tiradaAtacante, tiradaDefensor);
-        assertFalse(atacante.esAliados(defensor));
-        assertEquals(3, atacante.getEjercitos());
-        assertEquals(1, defensor.getEjercitos());
+
+        assertFalse(atacante.esAliado(defensor));
+        assertEquals(2, atacante.getEjercitos());
+        assertEquals(2, defensor.getEjercitos());
     }
 
-    //Atacar2v3 Pierde2
-    public void test25CreoUnCombateYElPaisAtacanteAtacaCon2EjercitosAPaisQueDefiendeCon3EjercitoYGana(){
-        Jugador jugadorAtacante = new Jugador("000000");
-        Pais atacante = new Pais(jugadorAtacante);
+    //Atacar2v3 Pierde
+    @Test
+    public void test22CreoUnCombateYElPaisAtacanteAtacaCon2EjercitosAPaisQueDefiendeCon3EjercitoYPierde(){
         atacante.reforzar(2);
-        Jugador jugadorDefensor = new Jugador("ffffff");
-        Pais defensor = new Pais(jugadorDefensor);
         defensor.reforzar(2);
-        atacante.hacerLimitrofe(defensor);
-        ArrayList tiradaAtacante = new ArrayList<Integer>();
         tiradaAtacante.add(6);
         tiradaAtacante.add(6);
-        ArrayList tiradaDefensor = new ArrayList<Integer>();
         tiradaDefensor.add(6);
         tiradaDefensor.add(6);
         tiradaDefensor.add(1);
 
-        Combate combate = new Combate(atacante, defensor);
+        Integer cantEjercitosAtacantes = atacante.getEjercitosParaAtacar();
+        Combate combate = new Combate(atacante, defensor, cantEjercitosAtacantes);
         combate.combatePredeterminado(tiradaAtacante, tiradaDefensor);
-        assertFalse(atacante.esAliados(defensor));
-        assertEquals(3, atacante.getEjercitos());
-        assertEquals(1, defensor.getEjercitos());
+
+        assertFalse(atacante.esAliado(defensor));
+        assertEquals(1, atacante.getEjercitos());
+        assertEquals(3, defensor.getEjercitos());
     }
-    */
 }

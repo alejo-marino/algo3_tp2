@@ -1,0 +1,154 @@
+[
+  {
+    "Conquista": [
+      [
+        {
+          "continente": "Africa",
+          "paises": "all"
+        },
+        {
+          "continente": "America del Norte",
+          "paises": "5"
+        },
+        {
+          "continente": "Europa",
+          "paises": "4"
+        }
+      ],
+      [
+        {
+          "continente": "America del Sur",
+          "paises": "all"
+        },
+        {
+          "continente": "Europa",
+          "paises": "7"
+        }
+      ],
+      [
+        {
+          "continente": "Asia",
+          "paises": "all"
+        },
+        {
+          "continente": "America del Sur",
+          "paises": "2"
+        }
+      ],
+      [
+        {
+          "continente": "Asia",
+          "paises": "4"
+        },
+        {
+          "continente": "Europa",
+          "paises": "all"
+        },
+        {
+          "continente": "America del Sur",
+          "paises": "2"
+        }
+      ],
+      [
+        {
+          "continente": "Asia",
+          "paises": "4"
+        },
+        {
+          "continente": "America del Norte",
+          "paises": "all"
+        },
+        {
+          "continente": "Oceania",
+          "paises": "2"
+        }
+      ],
+      [
+        {
+          "continente": "Asia",
+          "paises": "3"
+        },
+        {
+          "continente": "Europa",
+          "paises": "3"
+        },
+        {
+          "continente": "America del Sur",
+          "paises": "2"
+        },
+        {
+          "continente": "America del Norte",
+          "paises": "4"
+        },
+        {
+          "continente": "Africa",
+          "paises": "2"
+        },
+        {
+          "continente": "Oceania",
+          "paises": "2"
+        }
+      ],
+      [
+        {
+          "continente": "Europa",
+          "paises": "2"
+        },
+        {
+          "continente": "America del Norte",
+          "paises": "all"
+        },
+        {
+          "continente": "Oceania",
+          "paises": "all"
+        }
+      ],
+      [
+        {
+          "continente": "America del Norte",
+          "paises": "2"
+        },
+        {
+          "continente": "America del Sur",
+          "paises": "all"
+        },
+        {
+          "continente": "Africa",
+          "paises": "all"
+        }
+      ]
+    ],
+    "Destruccion": [
+      [
+        {
+          "enemigo": "azul"
+        }
+      ],
+      [
+        {
+          "enemigo": "rojo"
+        }
+      ],
+      [
+        {
+          "enemigo": "negro"
+        }
+      ],
+      [
+        {
+          "enemigo": "amarillo"
+        }
+      ],
+      [
+        {
+          "enemigo": "verde"
+        }
+      ],
+      [
+        {
+          "enemigo": "magenta"
+        }
+      ]
+    ]
+  }
+]

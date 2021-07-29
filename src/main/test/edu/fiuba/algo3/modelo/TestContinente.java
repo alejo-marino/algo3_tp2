@@ -1,64 +1,106 @@
 package edu.fiuba.algo3.modelo;
 
-public class TestContinente{
-    // por ahora vacio, debera checkear que todos los paises contenidos en el mismo esten o no conquistados por un mismo jugador
-    /*
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class TestContinente {
+
+    private Continente continente;
+    private Jugador jugador1;
+    private Jugador jugador2;
+    private Pais argentina;
+    private Pais uruguay;
+    private Pais chile;
+
+    private Integer BONUS_AMERICA_DEL_SUR = 3;
+
+    @BeforeEach
+    void setUp() {
+        continente = new Continente("America Del Sur", BONUS_AMERICA_DEL_SUR);
+        jugador1 = new Jugador("000000");
+        jugador2 = new Jugador("ffffff");
+        argentina = new Pais("Argentina");
+        argentina.asignarDuenio(jugador1);
+        uruguay = new Pais("Uruguay");
+        uruguay.asignarDuenio(jugador2);
+        chile = new Pais("Chile");
+        chile.asignarDuenio(jugador1);
+    }
+
     @Test
-    public void test01SeCreaUnContinenteYNoEsNull{
-        Continente continente = new Continente("America Del Sur");
+    public void test01SeCreaUnContinenteYNoEsNull () {
         assertNotNull(continente);
     }
 
-    public void test02SeCreaUnContinenteConUnPaisYVerificaQueElDueñoDeEsePaisDomineElContinente{
-        Continente continente = new Continente("America Del Sur");
-        Jugador jugador = new Jugador("000000");
-        Pais pais = new Pais(jugador);
-        continente.agregarPais(pais);
-        assertTrue(continente.esDominadoPor(jugador));
+    @Test
+    public void test02SeCreaUnContinenteConUnPaisYVerificaQueElDuenioDeEsePaisDomineElContinente () {
+        continente.agregarPais(argentina);
+        assertEquals(BONUS_AMERICA_DEL_SUR, continente.obtenerBonusDeContinentePara(jugador1));
     }
 
-    public void test03SeCreaUnContinenteConDosPaisesConUnMismoDueñoYVerificaQueEseDueñoDomineElContinente{
-        Continente continente = new Continente("America Del Sur");
-        Jugador jugador = new Jugador("000000");
-        Pais pais1 = new Pais(jugador);
-        Pais pais2 = new Pais(jugador);
-        continente.agregarPais(pais1);
-        continente.agregarPais(pais2);
-        assertTrue(continente.esDominadoPor(jugador));
+    @Test
+    public void test03SeCreaUnContinenteConDosPaisesConUnMismoDuenioYVerificaQueEseDuenioDomineElContinente () {
+        continente.agregarPais(argentina);
+        continente.agregarPais(chile);
+
+        assertEquals(BONUS_AMERICA_DEL_SUR, continente.obtenerBonusDeContinentePara(jugador1));
     }
 
-    public void test04SeCreaUnContinenteConDosPaisesConDistintoDueñoYVerificaQueNingunoDomineElContinente{
-        Continente continente = new Continente("America Del Sur");
-        Jugador jugador1 = new Jugador("000000");
-        Jugador jugador2 = new Jugador("ffffff");
-        Pais pais1 = new Pais(jugador1);
-        Pais pais2 = new Pais(jugador2);
-        continente.agregarPais(pais1);
-        continente.agregarPais(pais2);
+    @Test
+    public void test04SeCreaUnContinenteConDosPaisesConDistintoDuenioYVerificaQueNingunoDomineElContinente () {
+        continente.agregarPais(argentina);
+        continente.agregarPais(uruguay);
 
-        assertFalse(continente.esDominadoPor(jugador1));
-        assertFalse(continente.esDominadoPor(jugador2));
+        assertEquals(0, continente.obtenerBonusDeContinentePara(jugador1));
+        assertEquals(0, continente.obtenerBonusDeContinentePara(jugador2));
     }
 
-    public void test05SeCreaUnContinenteSinPaisesYVerificaQueUnJugadorNoDomineElContinente{
-        Continente continente = new Continente("America Del Sur");
-        Jugador jugador = new Jugador("000000");
-
-        assertFalse(continente.esDominadoPor(jugador));
+    @Test
+    public void test05SeCreaUnContinenteSinPaisesYVerificaQueUnJugadorNoDomineElContinente () {
+        assertEquals(0, continente.obtenerBonusDeContinentePara(jugador1));
     }
 
-    public void test06SeCreaContinenteCon2PaisesDeDistintoDueñoYUnPaisConquistaAlOtroYVerificaQueElDueñoDeEsePaisDomineElContinente{
-        Continente continente = new Continente("America Del Sur");
-        Jugador jugador1 = new Jugador("000000");
-        Jugador jugador2 = new Jugador("ffffff");
-        Pais pais1 = new Pais(jugador1);
-        Pais pais2 = new Pais(jugador2);
-        continente.agregarPais(pais1);
-        continente.agregarPais(pais2);
-        pais1.conquistar(pais2);
+    @Test
+    public void test06SeCreaContinenteCon2PaisesDeDistintoDuenioYUnPaisConquistaAlOtroYVerificaQueElDuenioDeEsePaisDomineElContinente () {
+        continente.agregarPais(argentina);
+        continente.agregarPais(uruguay);
+        argentina.conquistar(uruguay);
 
-        assertTrue(continente.esDominadoPor(jugador1));
+        assertEquals(BONUS_AMERICA_DEL_SUR, continente.obtenerBonusDeContinentePara(jugador1));
     }
 
-     */
+    @Test
+    public void test07SeCreaContinenteConNombreYDevuelveElNombreCorrecto () {
+        assertEquals("America Del Sur", continente.toString());
+    }
+
+    @Test
+    public void test08SeCreaContinenteCon2PaisesDeJugador1YVerificoQueControle2Paises () {
+        continente.agregarPais(argentina);
+        continente.agregarPais(chile);
+
+        assertEquals(2, continente.paisesConquistadosPor(jugador1));
+    }
+
+    @Test
+    public void test09SeCreaContinenteCon2PaisesDeJugador1YJugador2Conquista1YVerificoQueJugador1Controle1Pais () {
+        continente.agregarPais(argentina);
+        continente.agregarPais(chile);
+        continente.agregarPais(uruguay);
+        uruguay.conquistar(argentina);
+
+        assertEquals(1, continente.paisesConquistadosPor(jugador1));
+    }
+
+    @Test
+    public void test10SeCreaContinenteCon2PaisesDeJugador1YJugador2Conquista1YVerificoQueJugador2Controle2Paises () {
+        continente.agregarPais(argentina);
+        continente.agregarPais(chile);
+        continente.agregarPais(uruguay);
+        uruguay.conquistar(argentina);
+
+        assertEquals(2, continente.paisesConquistadosPor(jugador2));
+    }
+
 }
