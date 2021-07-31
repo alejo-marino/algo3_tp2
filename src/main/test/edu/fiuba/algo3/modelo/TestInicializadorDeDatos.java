@@ -15,8 +15,8 @@ public class TestInicializadorDeDatos {
     @BeforeEach
     void setUp() {
         this.jugadores = new ArrayList<>();
-        jugadores.add(new Jugador("000000"));
-        jugadores.add(new Jugador("ffffff"));
+        jugadores.add(new Jugador("000000", "Jugador 1"));
+        jugadores.add(new Jugador("ffffff", "Jugador 2"));
         this.inicializador = new InicializadorDeDatos();
     }
 

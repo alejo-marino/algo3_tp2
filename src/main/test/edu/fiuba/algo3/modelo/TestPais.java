@@ -14,8 +14,8 @@ public class TestPais {
 
     @BeforeEach
     void setUp() {
-        jugador1 = new Jugador("000000");
-        Jugador jugador2 = new Jugador("ffffff");
+        jugador1 = new Jugador("000000", "Jugador 1");
+        Jugador jugador2 = new Jugador("ffffff", "Jugador 2");
         argentina = new Pais("Argentina");
         argentina.asignarDuenio(jugador1);
         uruguay = new Pais("Uruguay");

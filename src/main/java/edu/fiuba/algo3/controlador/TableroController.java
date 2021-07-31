@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.controlador;
 
 import edu.fiuba.algo3.Vista.Inicio;
+import edu.fiuba.algo3.modelo.Juego;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -18,7 +19,8 @@ import java.util.ResourceBundle;
 public class TableroController implements Initializable {
 
     public ArrayList<String> nombreJugadores;
-    private ArrayList<String> coloresJugadores = new ArrayList<>();
+    public Label ejercitosCanada;
+    private final ArrayList<String> coloresJugadores = new ArrayList<>();
 
     public VBox infoJugadores;
 
@@ -48,6 +50,7 @@ public class TableroController implements Initializable {
 
     public void handleBotonPais(ActionEvent actionEvent) {
         Button botonApretado = (Button) actionEvent.getSource();
+        Juego.getInstancia().seleccionarPais(botonApretado.getText());
         System.out.println(botonApretado.getText());
     }
 }

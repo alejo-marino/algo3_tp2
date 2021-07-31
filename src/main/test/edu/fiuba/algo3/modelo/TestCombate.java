@@ -17,8 +17,8 @@ public class TestCombate {
 
     @BeforeEach
     public void setUp() {
-        Jugador jugadorAtacante = new Jugador("000000");
-        jugadorDefensor = new Jugador("ffffff");
+        Jugador jugadorAtacante = new Jugador("000000", "Jugador 1");
+        jugadorDefensor = new Jugador("ffffff", "Jugador 2");
         atacante = new Pais("Argentina");
         atacante.asignarDuenio(jugadorAtacante);
         defensor = new Pais("Uruguay");

@@ -24,7 +24,7 @@ public class menuController implements Initializable {
     }
 
     @FXML
-    private void hanldeBotonEmpezarJuego(ActionEvent event) throws IOException {
+    private void handleBotonEmpezarJuego(ActionEvent event) throws IOException {
         System.out.println("Tocaste el boton comenzar juego");
         SeleccionCantidadJugadores.display();
     }

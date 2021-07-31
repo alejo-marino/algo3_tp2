@@ -33,15 +33,16 @@ public class Juego {
         return instancia;
     }
 
-    public void setearCantidadJugadores(Integer numeroJugadores) {
+    public void setearJugadores(ArrayList<String> nombreJugadores) {
+        int numeroJugadores = nombreJugadores.size();
         if (numeroJugadores < numeroMinimoDeJugadores || numeroJugadores > numeroMaximoDeJugadores) {
             throw new NumeroDeJugadoresInvalidoException();
         }
         this.listaJugadores = new ArrayList<>();
-        for (int i = 0; i < numeroJugadores; i++) {
+        for (String nombreJugador: nombreJugadores) {
             String color = colores.remove();
             colores.add(color);
-            listaJugadores.add(new Jugador(color));
+            listaJugadores.add(new Jugador(color, nombreJugador));
         }
     }
 

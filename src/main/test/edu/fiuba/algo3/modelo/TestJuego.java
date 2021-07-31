@@ -1,14 +1,10 @@
 package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.excepciones.NumeroDeJugadoresInvalidoException;
-import edu.fiuba.algo3.modelo.excepciones.NumeroDeJugadoresNoAsignadoException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.spy;
@@ -16,10 +12,12 @@ import static org.mockito.Mockito.spy;
 public class TestJuego {
 
     private Juego juego;
+    private ArrayList<String> nombreJugadores;
 
     @BeforeEach
     void setUp() {
         this.juego = Juego.getInstancia();
+        this.nombreJugadores = new ArrayList<>();
     }
 
     @Test
@@ -38,28 +36,40 @@ public class TestJuego {
     @Test
     void test03CreoUnJuegoYNoPuedoAsignarle7Jugadores () {
         Integer cantidadDeJugadores = 7;
+        for (int i = 0; i < cantidadDeJugadores; i++) {
+            nombreJugadores.add("Jugador " + i);
+        }
 
-        assertThrows(NumeroDeJugadoresInvalidoException.class, () -> juego.setearCantidadJugadores(cantidadDeJugadores));
+        assertThrows(NumeroDeJugadoresInvalidoException.class, () -> juego.setearJugadores(nombreJugadores));
     }
 
     @Test
     void test04CreoUnJuegoYNoPuedoAsignarle1Jugador () {
         Integer cantidadDeJugadores = 1;
+        for (int i = 0; i < cantidadDeJugadores; i++) {
+            nombreJugadores.add("Jugador " + i);
+        }
 
-        assertThrows(NumeroDeJugadoresInvalidoException.class, () -> juego.setearCantidadJugadores(cantidadDeJugadores));
+        assertThrows(NumeroDeJugadoresInvalidoException.class, () -> juego.setearJugadores(nombreJugadores));
     }
 
     @Test
     void test05CreoUnJuegoYNoPuedoAsignarle50Jugadores () {
-        System.out.println(juego);
         Integer cantidadDeJugadores = 50;
+        for (int i = 0; i < cantidadDeJugadores; i++) {
+            nombreJugadores.add("Jugador " + i);
+        }
 
-        assertThrows(NumeroDeJugadoresInvalidoException.class, () -> juego.setearCantidadJugadores(cantidadDeJugadores));
+        assertThrows(NumeroDeJugadoresInvalidoException.class, () -> juego.setearJugadores(nombreJugadores));
     }
 
     @Test
     void test06CreoUnJuegoYSeteo6JugadoresYInicioElJuegoYElSistemaDeTurnosNoEsNull () {
-        juego.setearCantidadJugadores(6);
+        Integer cantidadDeJugadores = 6;
+        for (int i = 0; i < cantidadDeJugadores; i++) {
+            nombreJugadores.add("Jugador " + i);
+        }
+        juego.setearJugadores(nombreJugadores);
 
         SistemaDeTurnos sistemaDeTurnos = juego.iniciarJuego();
 
@@ -68,7 +78,11 @@ public class TestJuego {
 
     @Test
     public void test07InicioUnJuegoCon2JugadoresYVerificoQueCadaJugadorTiene25Paises () {
-        juego.setearCantidadJugadores(2);
+        Integer cantidadDeJugadores = 2;
+        for (int i = 0; i < cantidadDeJugadores; i++) {
+            nombreJugadores.add("Jugador " + i);
+        }
+        juego.setearJugadores(nombreJugadores);
         juego.iniciarJuego();
         ArrayList<Jugador> jugadores = juego.obtenerJugadores();
         int contadorJugadoresCon25Paises = 0;
@@ -83,7 +97,11 @@ public class TestJuego {
 
     @Test
     public void test08InicioUnJuegoCon3JugadoresY2JugadoresTienen17PaisesY1Tiene16 () {
-        juego.setearCantidadJugadores(3);
+        Integer cantidadDeJugadores = 3;
+        for (int i = 0; i < cantidadDeJugadores; i++) {
+            nombreJugadores.add("Jugador " + i);
+        }
+        juego.setearJugadores(nombreJugadores);
         juego.iniciarJuego();
         ArrayList<Jugador> jugadores = juego.obtenerJugadores();
         int contadorJugadoresCon17Paises = 0;
@@ -102,7 +120,11 @@ public class TestJuego {
 
     @Test
     public void test09InicioUnJuegoCon4JugadoresY2JugadoresTienen13PaisesY2Tienen12 () {
-        juego.setearCantidadJugadores(4);
+        Integer cantidadDeJugadores = 4;
+        for (int i = 0; i < cantidadDeJugadores; i++) {
+            nombreJugadores.add("Jugador " + i);
+        }
+        juego.setearJugadores(nombreJugadores);
         juego.iniciarJuego();
         ArrayList<Jugador> jugadores = juego.obtenerJugadores();
         int contadorJugadoresCon13Paises = 0;
@@ -121,7 +143,11 @@ public class TestJuego {
 
     @Test
     public void test10InicioUnJuegoCon5JugadoresYCadaJugadorTiene10Paises () {
-        juego.setearCantidadJugadores(5);
+        Integer cantidadDeJugadores = 5;
+        for (int i = 0; i < cantidadDeJugadores; i++) {
+            nombreJugadores.add("Jugador " + i);
+        }
+        juego.setearJugadores(nombreJugadores);
         juego.iniciarJuego();
         ArrayList<Jugador> jugadores = juego.obtenerJugadores();
         int contadorJugadoresCon10Paises = 0;
@@ -136,7 +162,11 @@ public class TestJuego {
 
     @Test
     public void test11InicioUnJuegoCon6JugadoresY2JugadoresTienen9PaisesY4Tienen8 () {
-        juego.setearCantidadJugadores(6);
+        Integer cantidadDeJugadores = 6;
+        for (int i = 0; i < cantidadDeJugadores; i++) {
+            nombreJugadores.add("Jugador " + i);
+        }
+        juego.setearJugadores(nombreJugadores);
         juego.iniciarJuego();
         ArrayList<Jugador> jugadores = juego.obtenerJugadores();
         int contadorJugadoresCon9Paises = 0;

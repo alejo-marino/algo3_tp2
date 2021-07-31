@@ -21,8 +21,8 @@ public class TestRondaDeAtaqueYReagrupe {
 
     @BeforeEach
     void setUp() {
-        this.jugador1 = new Jugador("000000");
-        this.jugador2 = new Jugador("ffffff");
+        this.jugador1 = new Jugador("000000", "Jugador 1");
+        this.jugador2 = new Jugador("ffffff", "Jugador 2");
 
         argentina = new Pais("Argentina");
         argentina.asignarDuenio(jugador1);

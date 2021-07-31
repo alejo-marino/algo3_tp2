@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.controlador;
 
 import edu.fiuba.algo3.Vista.SeleccionNombreJugadores;
+import edu.fiuba.algo3.modelo.Juego;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,6 +10,8 @@ import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import static java.lang.Integer.parseInt;
 
 public class cantidadJugadoresController implements Initializable {
 
@@ -24,7 +27,7 @@ public class cantidadJugadoresController implements Initializable {
     }
 
     public void handleBotonSiguienteCantJugadores(ActionEvent actionEvent) {
-        System.out.println(cantidadJugadoresChoiceBox.getSelectionModel().getSelectedItem());
-        SeleccionNombreJugadores.display(Integer.parseInt(cantidadJugadoresChoiceBox.getSelectionModel().getSelectedItem()));
+        int cantJugadores = parseInt(cantidadJugadoresChoiceBox.getSelectionModel().getSelectedItem());
+        SeleccionNombreJugadores.display(cantJugadores);
     }
 }

@@ -22,8 +22,8 @@ public class TestMisionConquista {
 
     @BeforeEach
     public void setUp () {
-        this.jugador1 = new Jugador("000000");
-        this.jugador2 = new Jugador("ffffff");
+        this.jugador1 = new Jugador("000000", "Jugador 1");
+        this.jugador2 = new Jugador("ffffff", "Jugador 2");
 
         this.juegoMock = mock(Juego.class);
 

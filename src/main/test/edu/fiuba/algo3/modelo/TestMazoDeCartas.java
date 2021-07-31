@@ -27,8 +27,8 @@ public class TestMazoDeCartas {
 
     @BeforeEach
     void setUp() {
-        this.jugador = new Jugador("000000");
-        this.otroJugador = new Jugador("ffffff");
+        this.jugador = new Jugador("000000", "Jugador 1");
+        this.otroJugador = new Jugador("ffffff", "Jugador 2");
 
         Pais argentina = new Pais("Argentina");
         argentina.asignarDuenio(jugador);

@@ -27,9 +27,9 @@ public class TestFaseDeJuego {
 
     @BeforeEach
     void setUp() {
-        this.jugador1 = new Jugador("000000");
-        this.jugador2 = new Jugador("ffffff");
-        Jugador jugador3 = new Jugador("fff000");
+        this.jugador1 = new Jugador("000000", "Jugador 1");
+        this.jugador2 = new Jugador("ffffff", "Jugador 2");
+        Jugador jugador3 = new Jugador("fff000", "Jugador 3");
 
         argentina = new Pais("Argentina");
         argentina.asignarDuenio(jugador1);

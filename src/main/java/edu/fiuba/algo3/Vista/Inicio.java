@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.Vista;
 
 import edu.fiuba.algo3.controlador.TableroController;
+import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Tablero;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -26,18 +27,20 @@ public class Inicio {
     public static ArrayList jugadores;
     public static ArrayList<Button> botonesPaises = new ArrayList();
     public static Pane content;
+
     public static void display(ArrayList<TextField> nombreJugadores) throws IOException {
         Stage stage = new Stage();
 
 
-        ArrayList nombreDeJugadores = new ArrayList();
+        ArrayList<String> nombreDeJugadores = new ArrayList<>();
         for (TextField nombre : nombreJugadores) {
             nombreDeJugadores.add(nombre.getText());
         }
         jugadores = nombreDeJugadores;
         System.out.println(nombreDeJugadores);
-
-
+        Juego juego = Juego.getInstancia();
+        juego.setearJugadores(nombreDeJugadores);
+        juego.iniciarJuego();
         FXMLLoader loader = new FXMLLoader();
 
         URL fxmlLocation = Inicio.class.getClassLoader().getResource("vistas/Tablero.fxml");

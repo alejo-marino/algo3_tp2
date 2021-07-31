@@ -3,8 +3,9 @@ package edu.fiuba.algo3.modelo;
 import edu.fiuba.algo3.modelo.excepciones.PaisSinDuenioAsignadoException;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
-public class Pais {
+public class Pais extends Observable {
 
     private Jugador duenio;
     private final Batallon batallon;
