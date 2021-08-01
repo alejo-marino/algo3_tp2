@@ -17,7 +17,8 @@ import java.util.*;
 public class TableroController implements Initializable {
 
     public ArrayList<String> nombreJugadores;
-    public Label ejercitosCanada;
+    public Dictionary<String, String> colorPorJugador = new Hashtable<>();
+    public Label labelCanada;
     private final ArrayList<String> coloresJugadores = new ArrayList<>();
 
     public VBox infoJugadores;
@@ -40,6 +41,7 @@ public class TableroController implements Initializable {
         for (String nombreJugador: this.nombreJugadores) {
             Label label = new Label(nombreJugador);
             label.setTextFill(Color.web(this.coloresJugadores.get(contador)));
+            colorPorJugador.put(nombreJugador, this.coloresJugadores.get(contador));
             infoJugadores.getChildren().addAll(label);
             contador++;
         }
