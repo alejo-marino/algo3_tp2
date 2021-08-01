@@ -40,7 +40,7 @@ public class Inicio {
         System.out.println(nombreDeJugadores);
         Juego juego = Juego.getInstancia();
         juego.setearJugadores(nombreDeJugadores);
-        juego.iniciarJuego();
+
         FXMLLoader loader = new FXMLLoader();
 
         URL fxmlLocation = Inicio.class.getClassLoader().getResource("vistas/Tablero.fxml");

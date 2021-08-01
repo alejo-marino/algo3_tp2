@@ -1,20 +1,18 @@
 package edu.fiuba.algo3.controlador;
 
+import edu.fiuba.algo3.Vista.LabelPais;
 import edu.fiuba.algo3.Vista.Inicio;
 import edu.fiuba.algo3.modelo.Juego;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class TableroController implements Initializable {
 
@@ -23,6 +21,11 @@ public class TableroController implements Initializable {
     private final ArrayList<String> coloresJugadores = new ArrayList<>();
 
     public VBox infoJugadores;
+    public Button botonCanada;
+    public Button botonOregon;
+    public Button botonBrasil;
+    public Button botonRusia;
+    public Button botonArgentina;
 
 
     public void initialize(URL location, ResourceBundle resources) {
@@ -45,7 +48,23 @@ public class TableroController implements Initializable {
             boton.setText("hola");
             contador2++;
         }
+        Map<String, Label> diccionarioLabels = new HashMap<>();
+        diccionarioLabels.put("Canada", labelCanada);
 
+        Map<String, ArrayList<Observer>> diccionarioObserversPais = crearDiccionarioDeObserversPais(diccionarioLabels);
+        Juego juego = Juego.getInstancia();
+        System.out.println(diccionarioObserversPais.get("Canada"));
+        juego.iniciarJuego(diccionarioObserversPais);
+    }
+
+    private Map<String, ArrayList<Observer>> crearDiccionarioDeObserversPais(Map<String, Label> diccionarioLabels) {
+       Map<String, ArrayList<Observer>> diccionarioObserver = new HashMap<>();
+
+       diccionarioLabels.forEach((nombre, label) -> diccionarioObserver.put(nombre, new ArrayList<>()));
+
+       diccionarioLabels.forEach((nombre, label) -> diccionarioObserver.get(nombre).add(new LabelPais(label, nombre)));
+
+       return diccionarioObserver;
     }
 
     public void handleBotonPais(ActionEvent actionEvent) {

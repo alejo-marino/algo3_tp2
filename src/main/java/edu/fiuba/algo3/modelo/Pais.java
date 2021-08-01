@@ -21,6 +21,8 @@ public class Pais extends Observable {
 
     public void asignarDuenio(Jugador jugador) {
         this.duenio = jugador;
+        setChanged();
+        notifyObservers();
     }
 
     public int getEjercitos() {
@@ -42,10 +44,14 @@ public class Pais extends Observable {
 
     public void reforzar(int cantidadEjercitos) {
         this.batallon.agregarEjercitos(cantidadEjercitos);
+        setChanged();
+        notifyObservers();
     }
 
     public void disminuirEjercitos(int cantidadEjercitos) {
         batallon.disminuirEjercitos(cantidadEjercitos);
+        setChanged();
+        notifyObservers();
     }
 
     public boolean tengoEjercitos() {
@@ -68,12 +74,18 @@ public class Pais extends Observable {
 
     public void conquistar(Pais conquistado) {
         if (duenio != null) {
-            conquistado.duenio = this.duenio;
+            conquistado.setDuenio(this.duenio);
             conquistado.reforzar(1);
             this.disminuirEjercitos(1);
         } else {
             throw new PaisSinDuenioAsignadoException(nombre + " no tiene duenio.");
         }
+    }
+
+    private void setDuenio(Jugador duenio) {
+        this.duenio = duenio;
+        setChanged();
+        notifyObservers();
     }
 
     public void hacerLimitrofe(Pais pais) {
@@ -90,5 +102,14 @@ public class Pais extends Observable {
 
     public boolean esLimitrofe(Pais otroPais) {
         return paisesLimitrofes.contains(otroPais);
+    }
+
+    public String getColor() {
+        return duenio.getColor();
+    }
+
+    public void actualizar() {
+        setChanged();
+        notifyObservers();
     }
 }

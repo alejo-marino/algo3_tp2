@@ -1,10 +1,14 @@
 package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.excepciones.NumeroDeJugadoresInvalidoException;
+import javafx.scene.control.Label;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Observer;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.spy;
@@ -13,11 +17,14 @@ public class TestJuego {
 
     private Juego juego;
     private ArrayList<String> nombreJugadores;
+    private HashMap<String, ArrayList<Observer>> diccionarioObservers;
 
     @BeforeEach
     void setUp() {
         this.juego = Juego.getInstancia();
         this.nombreJugadores = new ArrayList<>();
+
+        this.diccionarioObservers = new HashMap<>();
     }
 
     @Test
@@ -71,7 +78,7 @@ public class TestJuego {
         }
         juego.setearJugadores(nombreJugadores);
 
-        SistemaDeTurnos sistemaDeTurnos = juego.iniciarJuego();
+        SistemaDeTurnos sistemaDeTurnos = juego.iniciarJuego(diccionarioObservers);
 
         assertNotNull(sistemaDeTurnos);
     }
@@ -83,7 +90,7 @@ public class TestJuego {
             nombreJugadores.add("Jugador " + i);
         }
         juego.setearJugadores(nombreJugadores);
-        juego.iniciarJuego();
+        juego.iniciarJuego(diccionarioObservers);
         ArrayList<Jugador> jugadores = juego.obtenerJugadores();
         int contadorJugadoresCon25Paises = 0;
         for (Jugador jugador: jugadores) {
@@ -102,7 +109,7 @@ public class TestJuego {
             nombreJugadores.add("Jugador " + i);
         }
         juego.setearJugadores(nombreJugadores);
-        juego.iniciarJuego();
+        juego.iniciarJuego(diccionarioObservers);
         ArrayList<Jugador> jugadores = juego.obtenerJugadores();
         int contadorJugadoresCon17Paises = 0;
         int contadorJugadoresCon16Paises = 0;
@@ -125,7 +132,7 @@ public class TestJuego {
             nombreJugadores.add("Jugador " + i);
         }
         juego.setearJugadores(nombreJugadores);
-        juego.iniciarJuego();
+        juego.iniciarJuego(diccionarioObservers);
         ArrayList<Jugador> jugadores = juego.obtenerJugadores();
         int contadorJugadoresCon13Paises = 0;
         int contadorJugadoresCon12Paises = 0;
@@ -148,7 +155,7 @@ public class TestJuego {
             nombreJugadores.add("Jugador " + i);
         }
         juego.setearJugadores(nombreJugadores);
-        juego.iniciarJuego();
+        juego.iniciarJuego(diccionarioObservers);
         ArrayList<Jugador> jugadores = juego.obtenerJugadores();
         int contadorJugadoresCon10Paises = 0;
         for (Jugador jugador: jugadores) {
@@ -167,7 +174,7 @@ public class TestJuego {
             nombreJugadores.add("Jugador " + i);
         }
         juego.setearJugadores(nombreJugadores);
-        juego.iniciarJuego();
+        juego.iniciarJuego(diccionarioObservers);
         ArrayList<Jugador> jugadores = juego.obtenerJugadores();
         int contadorJugadoresCon9Paises = 0;
         int contadorJugadoresCon8Paises = 0;

@@ -86,4 +86,13 @@ public class Tablero {
         return paises.size();
     }
 
+    public int getEjercitosDe(String nombrePais) {
+        Pais pais = seleccionarPais(nombrePais);
+        return pais.getEjercitos();
+    }
+
+    public String getColor(String nombrePais) {
+        Pais pais = seleccionarPais(nombrePais);
+        return pais.getColor();
+    }
 }

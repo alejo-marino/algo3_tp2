@@ -74,5 +74,8 @@ public class Jugador {
         }
     }
 
+    public String getColor() {
+        return colorJugador;
+    }
 }
 

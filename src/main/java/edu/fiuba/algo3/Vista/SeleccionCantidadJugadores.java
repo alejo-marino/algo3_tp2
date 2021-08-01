@@ -3,6 +3,7 @@ package edu.fiuba.algo3.Vista;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -20,6 +21,8 @@ public class SeleccionCantidadJugadores {
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.setTitle("Cantidad Jugadores");
+
+
         stage.show();
     }
 }
