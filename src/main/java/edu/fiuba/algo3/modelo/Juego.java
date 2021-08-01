@@ -103,6 +103,7 @@ public class Juego {
             paisSinAsignar.asignarDuenio(jugador);
             colaJugadores.add(jugador);
         }
+        System.out.println("Paises Asignados");
     }
 
     private void darMisiones() {
