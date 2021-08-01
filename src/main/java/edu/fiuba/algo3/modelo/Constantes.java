@@ -1,7 +1,5 @@
 package edu.fiuba.algo3.modelo;
 
-import java.util.Queue;
-
 public class Constantes {
 
     public final static String rutaJsonFronteras = "src/main/java/edu/fiuba/algo3/modelo/JSON/Fronteras.json";
