@@ -3,7 +3,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="742.0" prefWidth="1245.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.fiuba.algo3.controlador.TableroController">
@@ -20,22 +19,68 @@
          </image>
       </ImageView>
       <Button fx:id="botonCanada" layoutX="153.0" layoutY="138.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Canada" />
-      <Label fx:id="labelCanada" layoutX="156.0" layoutY="173.0" text="3">
+      <Label fx:id="labelCanada" layoutX="160.0" layoutY="173.0" prefHeight="39.0" prefWidth="11.0" text="3">
          <font>
             <Font size="27.0" />
          </font>
       </Label>
-      <Button fx:id="botonOregon" layoutX="98.0" layoutY="261.0" mnemonicParsing="false" onAction="#handleBotonPais" prefHeight="25.0" prefWidth="65.0" text="Oregon" />
+      <Button fx:id="botonOregon" layoutX="85.0" layoutY="274.0" mnemonicParsing="false" onAction="#handleBotonPais" prefHeight="25.0" prefWidth="68.0" text="Oregon" />
+      <Button fx:id="botonAlaska" layoutX="21.0" layoutY="249.0" mnemonicParsing="false" onAction="#handleBotonPais" prefHeight="25.0" prefWidth="57.0" text="Alaska" />
+      <Button fx:id="botonGroenlandia" layoutX="324.0" layoutY="113.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Groenlandia" />
+      <Button fx:id="botonYukon" layoutX="78.0" layoutY="210.0" mnemonicParsing="false" onAction="#handleBotonPais" prefHeight="25.0" prefWidth="57.0" text="Yukon" />
+      <Button fx:id="botonLabrador" layoutX="263.0" layoutY="164.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Labrador" />
+      <Button fx:id="botonTerranova" layoutX="201.0" layoutY="198.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Terranova" />
+      <Button fx:id="botonNuevaYork" layoutX="166.0" layoutY="236.0" mnemonicParsing="false" onAction="#handleBotonPais" prefHeight="25.0" prefWidth="85.0" text="Nueva York" />
+      <Button fx:id="botonCalifornia" layoutX="160.0" layoutY="286.0" mnemonicParsing="false" onAction="#handleBotonPais" text="California" />
+      <Button id="botonMejico" layoutX="210.0" layoutY="327.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Mejico" />
+
+
+
       <Button fx:id="botonBrasil" layoutX="393.0" layoutY="431.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Brasil" />
-      <Button fx:id="botonRusia" layoutX="727.0" layoutY="210.0" mnemonicParsing="false" text="Rusia" onAction="#handleBotonPais" />
-      <Button fx:id="botonSuecia" layoutX="634.0" layoutY="161.0" mnemonicParsing="false" text="Suecia" onAction="#handleBotonPais" />
-      <Button fx:id="botonGranBretania" layoutX="549.0" layoutY="261.0" mnemonicParsing="false" text="Gran Bretaña" onAction="#handleBotonPais" />
-      <Button fx:id="botonIslandia" layoutX="448.0" layoutY="248.0" mnemonicParsing="false" text="Islandia" onAction="#handleBotonPais" />
-      <Button fx:id="botonGroenlandia" layoutX="324.0" layoutY="113.0" mnemonicParsing="false" text="Groenlandia" onAction="#handleBotonPais" />
-      <Button fx:id="botonColombia" layoutX="305.0" layoutY="395.0" mnemonicParsing="false" text="Colombia" onAction="#handleBotonPais" />
-      <Button fx:id="botonPeru" layoutX="324.0" layoutY="444.0" mnemonicParsing="false" text="Peru" onAction="#handleBotonPais" />
-      <Button fx:id="botonUruguay" layoutX="394.0" layoutY="478.0" mnemonicParsing="false" text="Uruguay" onAction="#handleBotonPais" />
-      <Button fx:id="botonArgentina" layoutX="344.0" layoutY="528.0" mnemonicParsing="false" text="Argentina" onAction="#handleBotonPais" />
+      <Button fx:id="botonColombia" layoutX="305.0" layoutY="395.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Colombia" />
+      <Button fx:id="botonPeru" layoutX="324.0" layoutY="444.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Peru" />
+      <Button fx:id="botonUruguay" layoutX="394.0" layoutY="478.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Uruguay" />
+      <Button fx:id="botonArgentina" layoutX="344.0" layoutY="528.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Argentina" />
+      <Button fx:id="botonChile" layoutX="295.0" layoutY="485.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Chile" />
+
+      <Button fx:id="botonEspaña" layoutX="549.0" layoutY="383.0" mnemonicParsing="false" onAction="#handleBotonPais" text="España" />
+      <Button fx:id="botonFrancia" layoutX="608.0" layoutY="345.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Francia" />
+      <Button fx:id="botonAlemania" layoutX="675.0" layoutY="321.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Alemania" />
+      <Button fx:id="botonPolonia" layoutX="730.0" layoutY="297.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Polonia" />
+      <Button fx:id="botonItalia" layoutX="675.0" layoutY="395.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Italia" />
+      <Button fx:id="botonSuecia" layoutX="634.0" layoutY="161.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Suecia" />
+      <Button fx:id="botonGranBretania" layoutX="549.0" layoutY="261.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Gran Bretaña" />
+      <Button fx:id="botonIslandia" layoutX="448.0" layoutY="248.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Islandia" />
+
+      <Button fx:id="botonRusia" layoutX="727.0" layoutY="210.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Rusia" />
+      <Button fx:id="botonCamchatca" layoutX="902.0" layoutY="113.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Kamchatka" />
+      <Button fx:id="botonChina" layoutX="950.0" layoutY="248.0" mnemonicParsing="false" onAction="#handleBotonPais" text="China" />
+      <Button fx:id="botonAral" layoutX="765.0" layoutY="149.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Aral" />
+      <Button fx:id="botonIran" layoutX="824.0" layoutY="261.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Iran" />
+      <Button fx:id="botonGobi" layoutX="876.0" layoutY="248.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Gobi" />
+      <Button fx:id="botonMongolia" layoutX="843.0" layoutY="200.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Mongolia" />
+      <Button fx:id="botonTurquia" layoutX="802.0" layoutY="321.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Turquia" />
+
+      <Button fx:id="botonIsrael" layoutX="793.0" layoutY="372.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Israel" />
+      <Button fx:id="botonArabia" layoutX="833.0" layoutY="395.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Arabia" />
+      <Button fx:id="botonSiberia" layoutX="850.0" layoutY="152.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Siberia" />
+      <Button fx:id="botonTartaria" layoutX="789.0" layoutY="88.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Tartaria" />
+      <Button fx:id="botonTaimir" layoutX="835.0" layoutY="113.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Taimir" />
+      <Button fx:id="botonIndia" layoutX="913.0" layoutY="357.0" mnemonicParsing="false" onAction="#handleBotonPais" text="India" />
+      <Button fx:id="botonMalasia" layoutX="988.0" layoutY="309.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Malasia" />
+      <Button fx:id="botonJapon" layoutX="997.0" layoutY="140.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Japon" />
+
+      <Button fx:id="botonJava" layoutX="1018.0" layoutY="395.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Java" />
+      <Button fx:id="botonAustralia" layoutX="992.0" layoutY="511.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Australia" />
+      <Button fx:id="botonSumatra" layoutX="892.0" layoutY="445.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Sumatra" />
+      <Button fx:id="botonBorneo" layoutX="966.0" layoutY="395.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Borneo" />
+
+      <Button fx:id="botonSahara" layoutX="635.0" layoutY="478.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Sahara" />
+      <Button fx:id="botonEgipto" layoutX="758.0" layoutY="457.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Egipto" />
+      <Button fx:id="botonZaire" layoutX="692.0" layoutY="528.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Zaire" />
+      <Button fx:id="botonSudafrica" layoutX="739.0" layoutY="564.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Sudafrica" />
+      <Button fx:id="botonMadagascar" layoutX="819.0" layoutY="541.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Madagascar" />
+      <Button fx:id="botonEtiopia" layoutX="732.0" layoutY="498.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Etiopia" />
 
    </children>
 </AnchorPane>
