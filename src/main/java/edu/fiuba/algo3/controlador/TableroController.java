@@ -3,8 +3,10 @@ package edu.fiuba.algo3.controlador;
 import edu.fiuba.algo3.Vista.LabelPais;
 import edu.fiuba.algo3.Vista.Inicio;
 import edu.fiuba.algo3.modelo.Juego;
+import edu.fiuba.algo3.modelo.excepciones.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -71,7 +73,20 @@ public class TableroController implements Initializable {
 
     public void handleBotonPais(ActionEvent actionEvent) {
         Button botonApretado = (Button) actionEvent.getSource();
-        Juego.getInstancia().seleccionarPais(botonApretado.getText());
+        try {
+            Juego.getInstancia().seleccionarPais(botonApretado.getText());
+        } catch (SeleccionaPaisAjenoException | AtaqueAPaisNoLimitrofeException | AtaqueAPaisPropioException
+                | ReagrupeAPaisAjenoException | ReagrupeAPaisNoLimitrofeException e) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText(e.getMessage());
+            alert.show();
+        }
         System.out.println(botonApretado.getText());
     }
+
+    public void handleBotonRefuerzo(ActionEvent actionEvent) {
+        Button bottonApretado = (Button) actionEvent.getSource();
+
+    }
+
 }
