@@ -72,11 +72,7 @@ public class TableroController implements Initializable {
             infoJugadores.getChildren().addAll(label);
             contador++;
         }
-        int contador2 = 0;
-        for (Button boton: Inicio.botonesPaises) {
-            boton.setText("hola");
-            contador2++;
-        }
+
         Map<String, Label> diccionarioLabels = new HashMap<>();
         diccionarioLabels.put("Canada", labelCanada);
         diccionarioLabels.put("Alaska", labelAlaska);
@@ -111,6 +107,18 @@ public class TableroController implements Initializable {
        return diccionarioObserver;
     }
 
+    private ArrayList<Observer> crearListaObserversTurnos(){
+        ArrayList<Observer> turnosObservers = new ArrayList<>();
+        turnosObservers.add(new BotonAtacar(botonAtacar, choiceBoxAtacar, botonTerminarAtaque, sistema));
+        turnosObservers.add(new BotonReforzar(botonReforzar, choiceBoxReforzar, sistema));
+        turnosObservers.add(new BotonCancelarAccion(botonCancelarAccion, sistema));
+        turnosObservers.add(new BotonSiguienteTurno(botonSiguienteTurno, sistema));
+        turnosObservers.add(new LabelsJugadores(labelJugadores, sistema));
+        turnosObservers.add(new BotonReagrupe(botonReagrupar, choiceBoxReagrupar, sistema));
+
+        return turnosObservers;
+    }
+
     public void handleBotonPais(ActionEvent actionEvent) {
         Button botonApretado = (Button) actionEvent.getSource();
         try {
@@ -121,7 +129,6 @@ public class TableroController implements Initializable {
             alert.setContentText(e.getMessage());
             alert.show();
         }
-        System.out.println(botonApretado.getText());
     }
 
     public void handleBotonReforzar(ActionEvent actionEvent) {

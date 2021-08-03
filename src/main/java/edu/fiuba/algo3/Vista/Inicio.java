@@ -37,7 +37,6 @@ public class Inicio {
             nombreDeJugadores.add(nombre.getText());
         }
         jugadores = nombreDeJugadores;
-        System.out.println(nombreDeJugadores);
         Juego juego = Juego.getInstancia();
         juego.setearJugadores(nombreDeJugadores);
 

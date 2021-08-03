@@ -116,4 +116,49 @@ public class SistemaDeTurnos extends Observable {
         this.faseActual.activarTarjeta(nombreTarjeta);
     }
 
+    public boolean puedoAtacar() {
+        return this.faseActual.puedoAtacar();
+    }
+
+    public int getEjercitosParaAtacar() {
+        return this.faseActual.getEjercitosParaAtacar();
+    }
+
+    public boolean puedoReforzar() {
+        return this.faseActual.puedoReforzar();
+    }
+
+    public int getEjercitosParaReforzar() {
+        return this.faseActual.getEjercitosParaReforzar();
+    }
+
+    public void cancelarAccion() {
+        this.faseActual.cancelarAccion();
+        setChanged();
+        notifyObservers();
+    }
+
+    public boolean puedoCancelar() {
+        return this.faseActual.puedoCancelar();
+    }
+
+    public boolean estoyEnTurnoAtaque() {
+        return this.faseActual.estoyEnTurnoAtaque();
+    }
+
+    public boolean puedoPasarDeTurno() {
+        return this.faseActual.puedoPasarDeTurno();
+    }
+
+    public String nombreTurnoDe() {
+        return this.turnoDe().getNombre();
+    }
+
+    public boolean puedoReagrupar() {
+        return this.faseActual.puedoReagrupar();
+    }
+
+    public String verMisiones() {
+        return this.turnoDe().verMisiones();
+    }
 }

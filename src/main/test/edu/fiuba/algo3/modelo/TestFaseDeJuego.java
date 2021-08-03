@@ -44,6 +44,7 @@ public class TestFaseDeJuego {
         argentina.hacerLimitrofe(chile);
         chile.hacerLimitrofe(argentina);
         argentina.reforzar(3);
+        chile.reforzar(3);
 
         this.tarjeta1 = new Tarjeta(argentina, "Globo");
         this.tarjeta2 = new Tarjeta(uruguay, "Globo");
@@ -143,12 +144,12 @@ public class TestFaseDeJuego {
     }
 
     @Test
-    void test11PasoDeTurnoYNoPuedoElegirUnPaisPropioPorSegundaVez () {
+    void test11PasoDeTurnoYPuedoElegirUnPaisPropioPorSegundaVez () {
+
         faseDeJuego.terminarAtaque(jugador1);
         faseDeJuego.empezarTurno(jugador1);
         faseDeJuego.seleccionarPais("Argentina");
-
-        assertThrows(AtaqueAPaisPropioException.class, () -> faseDeJuego.seleccionarPais("Chile"));
+        faseDeJuego.seleccionarPais("Chile");
     }
 
     @Test
