@@ -42,4 +42,19 @@ public class NingunPaisSeleccionadoRefuerzo implements EstadoSeleccionarPaisRefu
     public boolean tieneEjercitosParaReforzar() {
         return ejercitosDisponibles > 0;
     }
+
+    @Override
+    public boolean puedoReforzar() {
+        return false;
+    }
+
+    @Override
+    public int getEjercitosParaReforzar() {
+        return ejercitosDisponibles;
+    }
+
+    @Override
+    public boolean puedoCancelar() {
+        return false;
+    }
 }

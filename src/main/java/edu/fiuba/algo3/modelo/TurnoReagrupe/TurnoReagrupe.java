@@ -67,4 +67,44 @@ public class TurnoReagrupe implements EstadoTurno {
     public void activarTarjeta(String nombreTarjeta, Juego juego) {
         throw new ActivacionTarjetaInvalidaException("No podés activar la tarjeta en un turno de reagrupe.");
     }
+
+    @Override
+    public boolean puedoAtacar() {
+        return false;
+    }
+
+    @Override
+    public int getEjercitosParaAtacar() {
+        return this.estadoSeleccionarPaisReagrupe.getEjercitosParaReagrupar();
+    }
+
+    @Override
+    public boolean puedoReforzar() {
+        return false;
+    }
+
+    @Override
+    public int getEjercitosParaReforzar() {
+        return 0;
+    }
+
+    @Override
+    public boolean puedoCancelar() {
+        return estadoSeleccionarPaisReagrupe.puedoCancelar();
+    }
+
+    @Override
+    public boolean estoyEnTurnoAtaque() {
+        return false;
+    }
+
+    @Override
+    public boolean puedoPasarDeTurno() {
+        return true;
+    }
+
+    @Override
+    public boolean puedoReagrupar() {
+        return estadoSeleccionarPaisReagrupe.puedoReagrupar();
+    }
 }

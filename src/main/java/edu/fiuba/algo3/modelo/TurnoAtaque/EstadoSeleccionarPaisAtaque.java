@@ -10,4 +10,9 @@ public interface EstadoSeleccionarPaisAtaque {
 
     void cancelarAccion();
 
+    int getEjercitosParaAtacar();
+
+    boolean puedoAtacar();
+
+    boolean puedoCancelar();
 }

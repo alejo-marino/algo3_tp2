@@ -3,10 +3,11 @@ package edu.fiuba.algo3.modelo;
 import edu.fiuba.algo3.modelo.excepciones.JugadorGanoException;
 
 import java.util.ArrayList;
+import java.util.Observable;
 import java.util.Queue;
 import java.util.LinkedList;
 
-public class SistemaDeTurnos {
+public class SistemaDeTurnos extends Observable {
 
     private final Juego juego;
     Queue<Jugador> colaJugadores;
@@ -48,6 +49,8 @@ public class SistemaDeTurnos {
         faseActual.empezarTurno(this.turnoDe());
         esPrimerTurno = false;
         this.cantidadPaisesPrincipioDeRonda = juego.obtenerCantidadPaisesSegunJugador(this.turnoDe());
+        setChanged();
+        notifyObservers();
     }
 
     public String getFaseActual() {
@@ -56,10 +59,14 @@ public class SistemaDeTurnos {
 
     public void reforzar(int cantidadEjercitos) {
         faseActual.reforzar(cantidadEjercitos);
+        setChanged();
+        notifyObservers();
     }
 
     public void seleccionarPais(String nombrePais) {
         faseActual.seleccionarPais(nombrePais);
+        setChanged();
+        notifyObservers();
     }
 
     public void atacar(int cantidadEjercitos) {
@@ -81,10 +88,14 @@ public class SistemaDeTurnos {
         if(jugadorAEliminar != null) {
             colaJugadores.remove(jugadorAEliminar);
         }
+        setChanged();
+        notifyObservers();
     }
 
     public void reagrupar(int cantidadEjercitos) {
         faseActual.reagrupar(cantidadEjercitos);
+        setChanged();
+        notifyObservers();
     }
 
     public ArrayList<String> obtenerNombreTarjetas() {
@@ -97,6 +108,8 @@ public class SistemaDeTurnos {
 
     public void terminarAtaque() {
         faseActual.terminarAtaque(turnoDe());
+        setChanged();
+        notifyObservers();
     }
 
     public void activarTarjeta(String nombreTarjeta) {

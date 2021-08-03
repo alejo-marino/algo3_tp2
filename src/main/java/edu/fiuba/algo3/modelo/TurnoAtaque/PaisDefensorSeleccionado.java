@@ -30,14 +30,29 @@ public class PaisDefensorSeleccionado implements EstadoSeleccionarPaisAtaque {
         this.paisPuedeAtacar(cantidadEjercitos);
         Combate combate = new Combate(paisAtacante, paisDefensor, cantidadEjercitos);
         combate.combatir();
-        if (!this.paisAtacante.puedeAtacar()) {
-            this.cancelarAccion();
+        if (!this.paisAtacante.puedeAtacar() || paisDefensor.esAliado(paisAtacante)) {
+            this.turnoAtaque.cambiarEstado(new NingunPaisSeleccionadoAtaque(turnoAtaque, jugador));
         }
     }
 
     @Override
     public void cancelarAccion() {
         turnoAtaque.cambiarEstado(new PaisAtacanteSeleccionado(turnoAtaque, jugador, paisAtacante));
+    }
+
+    @Override
+    public int getEjercitosParaAtacar() {
+        return paisAtacante.getEjercitosParaAtacar();
+    }
+
+    @Override
+    public boolean puedoAtacar() {
+        return true;
+    }
+
+    @Override
+    public boolean puedoCancelar() {
+        return true;
     }
 
     private void paisPuedeAtacar(int cantidadEjercitos) {

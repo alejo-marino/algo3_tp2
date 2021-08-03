@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -12,16 +13,7 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <VBox fx:id="infoJugadores" layoutX="1099.0" layoutY="66.0" prefHeight="391.0" prefWidth="124.0" style="-fx-padding: 10">
-         <children>
-            <Button fx:id="botonAtacar" mnemonicParsing="false" prefHeight="25.0" prefWidth="71.0" text="Atacar" />
-            <ChoiceBox prefHeight="25.0" prefWidth="45.0" />
-            <Button fx:id="botonReagrupar" mnemonicParsing="false" text="Reagrupar" />
-            <Button fx:id="botonReforzar" mnemonicParsing="false" prefHeight="25.0" prefWidth="71.0" text="Reforzar" />
-            <Button fx:id="botonMision" mnemonicParsing="false" text="Ver Mision" />
-            <Button fx:id="botonTarjetas" mnemonicParsing="false" text="Ver Tarjetas" />
-            <Button fx:id="botonCanje" mnemonicParsing="false" text="Canjear Tarjetas" />
-         </children></VBox>
+      <VBox fx:id="infoJugadores" layoutX="1099.0" layoutY="66.0" prefHeight="183.0" prefWidth="124.0" style="-fx-padding: 10" />
       <ImageView fitHeight="741.0" fitWidth="1079.0" layoutX="15.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../imagenes/mapa-teg.jpg" />
@@ -99,30 +91,71 @@
       <Button fx:id="botonSudafrica" layoutX="739.0" layoutY="564.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Sudafrica" />
       <Button fx:id="botonMadagascar" layoutX="819.0" layoutY="541.0" mnemonicParsing="false" onAction="#handleBotonPais" rotate="-73.6" text="Madagascar" />
       <Button fx:id="botonEtiopia" layoutX="732.0" layoutY="498.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Etiopia" />
-      <Label id="labelAlaska" layoutX="62.0" layoutY="255.0" text="0">
+      <Label fx:id="labelAlaska" layoutX="62.0" layoutY="255.0" text="0">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label id="labelOregon" layoutX="100.0" layoutY="316.0" text="0">
+      <Label fx:id="labelOregon" layoutX="100.0" layoutY="316.0" text="0">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label id="labelCalifornia" layoutX="146.0" layoutY="329.0" text="0">
+      <Label fx:id="labelCalifornia" layoutX="145.0" layoutY="332.0" text="0">
          <font>
             <Font size="25.0" />
          </font></Label>
-      <Label id="labelMejico" layoutX="261.0" layoutY="357.0" text="0">
+      <Label fx:id="labelMejico" layoutX="261.0" layoutY="328.0" text="0">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelNuevaYork" layoutX="254.0" layoutY="265.0" text="0">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label id="labelNuevaYork" layoutX="254.0" layoutY="265.0" text="0">
-         <font>
-            <Font size="25.0" />
-         </font>
-      </Label>
+      <VBox alignment="CENTER" layoutX="1103.0" layoutY="489.0" prefHeight="239.0" prefWidth="134.0" spacing="20.0">
+         <padding>
+            <Insets top="5.0" />
+         </padding>
+         <children>
+            <HBox alignment="CENTER" prefHeight="41.0" prefWidth="100.0" spacing="10.0">
+               <children>
+                  <Button fx:id="botonReforzar" mnemonicParsing="false" onAction="#handleBotonReforzar" prefHeight="25.0" prefWidth="71.0" text="Reforzar" />
+                  <ChoiceBox fx:id="choiceBoxReforzar" prefHeight="25.0" prefWidth="32.0" />
+               </children>
+            </HBox>
+            <VBox alignment="CENTER" prefHeight="86.0" prefWidth="134.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="41.0" prefWidth="100.0" spacing="10.0">
+                     <children>
+                        <Button fx:id="botonAtacar" mnemonicParsing="false" onAction="#handleBotonAtacar" prefHeight="25.0" prefWidth="71.0" text="Atacar" />
+                        <ChoiceBox fx:id="choiceBoxAtacar" prefHeight="25.0" prefWidth="32.0" />
+                     </children>
+                  </HBox>
+                  <Button fx:id="botonTerminarAtaque" mnemonicParsing="false" prefHeight="7.0" prefWidth="105.0" onAction="#handleBotonTerminarAtaque" text="Terminar Ataque" />
+               </children>
+               <padding>
+                  <Insets top="-10.0" />
+               </padding>
+            </VBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="145.0" prefHeight="41.0" prefWidth="100.0" spacing="10.0">
+               <children>
+                  <Button fx:id="botonReagrupar" mnemonicParsing="false" onAction="#handleBotonReagrupar" prefHeight="25.0" prefWidth="71.0" text="Reagrupar" />
+                  <ChoiceBox fx:id="choiceBoxReagrupar" prefHeight="25.0" prefWidth="32.0" />
+               </children>
+            </HBox>
+            <Button fx:id="botonCancelarAccion" mnemonicParsing="false" onAction="#handleBotonCancelarAccion" text="Cancelar" />
+            <Button fx:id="botonSiguienteTurno" mnemonicParsing="false" onAction="#handleBotonSiguienteTurno" text="Siguiente Turno" />
+         </children>
+      </VBox>
+      <VBox alignment="CENTER" layoutX="1111.0" layoutY="271.0" prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <Button fx:id="botonTarjetas" mnemonicParsing="false" text="Tarjetas" />
+            <Button fx:id="botonMisiones" mnemonicParsing="false" onAction="#handleVerMisiones" text="Ver Misiones" />
+         </children>
+      </VBox>
 
 
    </children>

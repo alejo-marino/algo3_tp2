@@ -57,7 +57,6 @@ public class Inicio {
         Scene scene = new Scene(content);
         stage.setScene(scene);
         stage.setTitle("ALGOTEG");
-        stage.setFullScreen(true);
         
         stage.show();
 

@@ -54,4 +54,36 @@ public abstract class Ronda {
     public void activarTarjeta(String nombreTarjeta) {
         this.estadoTurno.activarTarjeta(nombreTarjeta, juego);
     }
+
+    public boolean puedoAtacar() {
+        return this.estadoTurno.puedoAtacar();
+    }
+
+    public int getEjercitosParaAtacar() {
+        return this.estadoTurno.getEjercitosParaAtacar();
+    }
+
+    public boolean puedoReforzar() {
+        return this.estadoTurno.puedoReforzar();
+    }
+
+    public int getEjercitosParaReforzar() {
+        return this.estadoTurno.getEjercitosParaReforzar();
+    }
+
+    public boolean puedoCancelar() {
+        return this.estadoTurno.puedoCancelar();
+    }
+
+    public boolean estoyEnTurnoAtaque() {
+        return this.estadoTurno.estoyEnTurnoAtaque();
+    }
+
+    public boolean puedoPasarDeTurno() {
+        return this.estadoTurno.puedoPasarDeTurno();
+    }
+
+    public boolean puedoReagrupar() {
+        return this.estadoTurno.puedoReagrupar();
+    }
 }

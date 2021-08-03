@@ -38,7 +38,7 @@ public class TestMisionDestruccion {
 
     @Test
     public void test02CreoMisionDeDestruccionYLePidoElObjetivo () {
-        String objetivo = "Rojo";
+        String objetivo = "Jugador 2";
         assertTrue(misionDestruccion.verMision().contains(objetivo));
     }
 

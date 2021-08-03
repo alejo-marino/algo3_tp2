@@ -97,10 +97,10 @@ public class TestFaseDeJuego {
 //    }
 
     @Test
-    void test05CreoUnaFaseDeJuegoYSeleccionoUnPaisPropioLaSegundaVezYLanzaUnaExcepcion () {
+    void test05CreoUnaFaseDeJuegoYPuedoSeleccionarUnPaisPropioLaSegundaVez () {
         faseDeJuego.seleccionarPais("Argentina");
 
-        assertThrows(AtaqueAPaisPropioException.class, () -> faseDeJuego.seleccionarPais("Chile"));
+        faseDeJuego.seleccionarPais("Chile");
     }
 
     @Test
@@ -138,7 +138,7 @@ public class TestFaseDeJuego {
 
         faseDeJuego.reagrupar(3);
         faseDeJuego.empezarTurno(jugador2);
-        assertEquals(4, chile.getEjercitos());
+        assertEquals(7, chile.getEjercitos());
         assertEquals(1, argentina.getEjercitos());
     }
 

@@ -97,8 +97,8 @@ public class InicializadorDeDatos {
                 listaPaisesLimitrofes.forEach((nombrePaisLimitrofe) -> {
                     for (Pais paisAChequearSiEsLimitrofe: listaPaises) {
                         if ((paisAChequearSiEsLimitrofe.toString()).equals(nombrePaisLimitrofe)) {
-                            Pais paisLimitrofe = getPais(listaPaises, nombrePaisLimitrofe);
-                            paisAChequearSiEsLimitrofe.hacerLimitrofe(paisLimitrofe);
+                            Pais pais = getPais(listaPaises, nombrePais);
+                            pais.hacerLimitrofe(paisAChequearSiEsLimitrofe);
                         }
                     }
                 });

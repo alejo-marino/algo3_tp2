@@ -34,6 +34,10 @@ public class Jugador {
         return this.colorJugador;
     }
 
+    public String getNombre() {
+        return this.nombreJugador;
+    }
+
     public void agregarMision(Mision mision) {
         misiones.add(mision);
     }
@@ -77,5 +81,14 @@ public class Jugador {
     public String getColor() {
         return colorJugador;
     }
+
+    public String verMisiones() {
+        String resultado = "";
+        for (Mision mision: misiones) {
+            resultado += " - " + mision.verMision() + "\n";
+        }
+        return resultado;
+    }
+
 }
 

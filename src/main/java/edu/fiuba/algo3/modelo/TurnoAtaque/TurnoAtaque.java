@@ -51,4 +51,44 @@ public class TurnoAtaque implements EstadoTurno {
     public void activarTarjeta(String nombreTarjeta, Juego juego) {
         throw new ActivacionTarjetaInvalidaException("No podés activar la tarjeta en un turno de ataque.");
     }
+
+    @Override
+    public boolean puedoAtacar() {
+        return this.estadoSeleccionarPaisAtaque.puedoAtacar();
+    }
+
+    @Override
+    public int getEjercitosParaAtacar() {
+        return estadoSeleccionarPaisAtaque.getEjercitosParaAtacar();
+    }
+
+    @Override
+    public boolean puedoReforzar() {
+        return false;
+    }
+
+    @Override
+    public int getEjercitosParaReforzar() {
+        return 0;
+    }
+
+    @Override
+    public boolean puedoCancelar() {
+        return estadoSeleccionarPaisAtaque.puedoCancelar();
+    }
+
+    @Override
+    public boolean estoyEnTurnoAtaque() {
+        return true;
+    }
+
+    @Override
+    public boolean puedoPasarDeTurno() {
+        return false;
+    }
+
+    @Override
+    public boolean puedoReagrupar() {
+        return false;
+    }
 }

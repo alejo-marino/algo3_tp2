@@ -66,4 +66,45 @@ public class TurnoRefuerzo implements EstadoTurno {
     public void activarTarjeta(String tarjetaAActivar, Juego juego) {
         juego.activarTarjeta(tarjetaAActivar);
     }
+
+    @Override
+    public boolean puedoAtacar() {
+        return false;
+    }
+
+    @Override
+    public int getEjercitosParaAtacar() {
+        return 0;
+    }
+
+    @Override
+    public boolean puedoReforzar() {
+        return estadoSeleccionarPaisRefuerzo.puedoReforzar();
+    }
+
+    @Override
+    public int getEjercitosParaReforzar() {
+        return estadoSeleccionarPaisRefuerzo.getEjercitosParaReforzar();
+    }
+
+    @Override
+    public boolean puedoCancelar() {
+        return estadoSeleccionarPaisRefuerzo.puedoCancelar();
+    }
+
+    @Override
+    public boolean estoyEnTurnoAtaque() {
+        return false;
+    }
+
+    @Override
+    public boolean puedoPasarDeTurno() {
+        return true;
+    }
+
+    @Override
+    public boolean puedoReagrupar() {
+        return false;
+    }
+
 }

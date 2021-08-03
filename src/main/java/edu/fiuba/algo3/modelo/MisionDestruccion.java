@@ -11,7 +11,7 @@ public class MisionDestruccion implements Mision{
     }
 
     public String verMision () {
-        return ("Destruir al ejercito" + objetivo.toString() + ".");
+        return ("Misión de Destrucción: destruir al ejercito de \"" + objetivo.getNombre() + "\".");
     }
 
     public boolean completoMision () {

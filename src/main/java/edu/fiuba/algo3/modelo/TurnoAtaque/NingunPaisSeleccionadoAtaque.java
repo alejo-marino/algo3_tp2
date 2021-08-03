@@ -34,4 +34,19 @@ public class NingunPaisSeleccionadoAtaque implements EstadoSeleccionarPaisAtaque
 
     @Override
     public void cancelarAccion() {}
+
+    @Override
+    public int getEjercitosParaAtacar() {
+        return 0;
+    }
+
+    @Override
+    public boolean puedoAtacar() {
+        return false;
+    }
+
+    @Override
+    public boolean puedoCancelar() {
+        return false;
+    }
 }

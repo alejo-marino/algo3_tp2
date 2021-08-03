@@ -77,9 +77,9 @@ public class TestRondaDeRefuerzo {
     }
 
     @Test
-    public void test05CreoUnaRondaDeRefuerzoIntentoSeleccionar2PaisesYLanzaException () {
+    public void test05CreoUnaRondaDeRefuerzoSeleccionoUnPaisPropioYLuegoPuedoSeleccionarOtroPaisPropio () {
         ronda.seleccionarPais("Argentina");
-        assertThrows(PaisesYaSeleccionadosException.class, () -> ronda.seleccionarPais("Chile"));
+        ronda.seleccionarPais("Chile");
     }
 
 }

@@ -101,6 +101,7 @@ public class Pais extends Observable {
     }
 
     public boolean esLimitrofe(Pais otroPais) {
+
         return paisesLimitrofes.contains(otroPais);
     }
 

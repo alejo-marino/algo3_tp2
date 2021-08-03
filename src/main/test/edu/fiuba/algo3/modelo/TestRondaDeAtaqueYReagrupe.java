@@ -77,10 +77,10 @@ public class TestRondaDeAtaqueYReagrupe {
 //    }
 
     @Test
-    public void test05CreoUnaRondaDeAtaqueYReagrupeYNoPuedoSeleccionarUnPaisPropioLaSegundaVez() {
+    public void test05CreoUnaRondaDeAtaqueYReagrupeYPuedoSeleccionarUnPaisPropioLaSegundaVez() {
         ronda.seleccionarPais("Argentina");
 
-        assertThrows(AtaqueAPaisPropioException.class , () -> ronda.seleccionarPais("Chile"));
+        ronda.seleccionarPais("Chile");
     }
 
 //    @Test

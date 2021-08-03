@@ -5,6 +5,7 @@ import edu.fiuba.algo3.modelo.Pais;
 import edu.fiuba.algo3.modelo.excepciones.AtaqueAPaisNoLimitrofeException;
 import edu.fiuba.algo3.modelo.excepciones.AtaqueAPaisPropioException;
 import edu.fiuba.algo3.modelo.excepciones.AtaqueInvalidoException;
+import edu.fiuba.algo3.modelo.excepciones.EjercitosInvalidosException;
 
 public class PaisAtacanteSeleccionado implements EstadoSeleccionarPaisAtaque {
 
@@ -19,14 +20,18 @@ public class PaisAtacanteSeleccionado implements EstadoSeleccionarPaisAtaque {
     }
 
     @Override
-    public void seleccionarPais(Pais paisDefensor) {
-        if (!paisDefensor.esLimitrofe(paisAtacante)) {
-            throw new AtaqueAPaisNoLimitrofeException(paisDefensor + " no limita con " + paisAtacante.toString());
+    public void seleccionarPais(Pais pais) {
+        if (!pais.esLimitrofe(paisAtacante)) {
+            throw new AtaqueAPaisNoLimitrofeException(pais + " no limita con " + paisAtacante.toString());
         }
-        if (paisDefensor.esAliado(paisAtacante)) {
-            throw new AtaqueAPaisPropioException("No podes atacar a un pais propio");
+        if (pais.esAliado(paisAtacante)) {
+            if (pais.puedeAtacar()) {
+                turnoAtaque.cambiarEstado(new PaisAtacanteSeleccionado(turnoAtaque, jugador, pais));
+            } else {
+                throw new EjercitosInvalidosException(pais + " no tiene suficientes ejércitos para atacar.");
+            }
         }
-        turnoAtaque.cambiarEstado(new PaisDefensorSeleccionado(turnoAtaque, jugador, paisAtacante, paisDefensor));
+        turnoAtaque.cambiarEstado(new PaisDefensorSeleccionado(turnoAtaque, jugador, paisAtacante, pais));
     }
 
     @Override
@@ -37,6 +42,21 @@ public class PaisAtacanteSeleccionado implements EstadoSeleccionarPaisAtaque {
     @Override
     public void cancelarAccion() {
         turnoAtaque.cambiarEstado(new NingunPaisSeleccionadoAtaque(turnoAtaque, jugador));
+    }
+
+    @Override
+    public int getEjercitosParaAtacar() {
+        return 0;
+    }
+
+    @Override
+    public boolean puedoAtacar() {
+        return false;
+    }
+
+    @Override
+    public boolean puedoCancelar() {
+        return true;
     }
 
 }

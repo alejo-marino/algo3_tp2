@@ -54,4 +54,39 @@ public abstract class Fase {
         this.ronda.activarTarjeta(nombreTarjeta);
     }
 
+    public boolean puedoAtacar() {
+        return this.ronda.puedoAtacar();
+    }
+
+    public int getEjercitosParaAtacar() {
+        return this.ronda.getEjercitosParaAtacar();
+    }
+
+    public boolean puedoReforzar() {
+        return this.ronda.puedoReforzar();
+    }
+
+    public int getEjercitosParaReforzar() {
+        return this.ronda.getEjercitosParaReforzar();
+    }
+
+    public void cancelarAccion() {
+        this.ronda.cancelarAccion();
+    }
+
+    public boolean puedoCancelar() {
+        return this.ronda.puedoCancelar();
+    }
+
+    public boolean estoyEnTurnoAtaque() {
+        return this.ronda.estoyEnTurnoAtaque();
+    }
+
+    public boolean puedoPasarDeTurno() {
+        return this.ronda.puedoPasarDeTurno();
+    }
+
+    public boolean puedoReagrupar() {
+        return this.ronda.puedoReagrupar();
+    }
 }

@@ -16,7 +16,7 @@ public class MisionComun implements Mision{
     }
 
     public String verMision() {
-        return "Ocupar" + numeroPaisesAConquistar +  "paises";
+        return "Misión Comun: Ocupar " + numeroPaisesAConquistar + " paises";
     }
 
     public boolean completoMision() {
