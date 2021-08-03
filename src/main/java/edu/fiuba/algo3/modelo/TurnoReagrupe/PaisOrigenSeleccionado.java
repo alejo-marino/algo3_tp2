@@ -56,4 +56,9 @@ public class PaisOrigenSeleccionado implements EstadoSeleccionarPaisReagrupe {
     public int getEjercitosParaReagrupar() {
         return 0;
     }
+
+    @Override
+    public boolean paisPuedeSeleccionarse(Pais pais) {
+        return pais.esDuenio(jugador) && pais.esLimitrofe(paisOrigen);
+    }
 }

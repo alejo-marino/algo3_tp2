@@ -89,4 +89,8 @@ public abstract class Fase {
     public boolean puedoReagrupar() {
         return this.ronda.puedoReagrupar();
     }
+
+    public boolean paisPuedeSeleccionarse(String nombrePais) {
+        return this.ronda.paisPuedeSeleccionarse(nombrePais);
+    }
 }

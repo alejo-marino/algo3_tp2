@@ -55,12 +55,15 @@ public class PaisDefensorSeleccionado implements EstadoSeleccionarPaisAtaque {
         return true;
     }
 
+    @Override
+    public boolean paisPuedeSeleccionarse(Pais pais) {
+        return false;
+    }
+
     private void paisPuedeAtacar(int cantidadEjercitos) {
         if (cantidadEjercitos > 3 || (cantidadEjercitos < 1) || ((cantidadEjercitos > paisAtacante.getEjercitosParaAtacar()))) {
             throw new EjercitosInvalidosException("No hay suficientes ejércitos para atacar");
         }
     }
-
-
 
 }

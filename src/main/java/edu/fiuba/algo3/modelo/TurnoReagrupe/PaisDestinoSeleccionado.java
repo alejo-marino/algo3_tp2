@@ -60,6 +60,11 @@ public class PaisDestinoSeleccionado implements EstadoSeleccionarPaisReagrupe {
         return paisOrigen.getEjercitosParaAtacar();
     }
 
+    @Override
+    public boolean paisPuedeSeleccionarse(Pais pais) {
+        return false;
+    }
+
     private void paisPuedeReagrupar(int cantidadEjercitosAMovilizar) {
         if ((this.paisOrigen == null) || (this.paisDestino == null)) {
             throw new AtaqueInvalidoException("Pais origen o destino faltante");

@@ -107,4 +107,9 @@ public class TurnoReagrupe implements EstadoTurno {
     public boolean puedoReagrupar() {
         return estadoSeleccionarPaisReagrupe.puedoReagrupar();
     }
+
+    @Override
+    public boolean paisPuedeSeleccionarse(Pais pais) {
+        return estadoSeleccionarPaisReagrupe.paisPuedeSeleccionarse(pais);
+    }
 }

@@ -59,4 +59,11 @@ public class PaisAtacanteSeleccionado implements EstadoSeleccionarPaisAtaque {
         return true;
     }
 
+    @Override
+    public boolean paisPuedeSeleccionarse(Pais pais) {
+        return (pais != paisAtacante &&
+                ((!pais.esAliado(paisAtacante) && paisAtacante.esLimitrofe(pais)) ||
+                        (pais.puedeAtacar() && pais.esAliado(paisAtacante))));
+    }
+
 }

@@ -99,12 +99,17 @@ public class TurnoRefuerzo implements EstadoTurno {
 
     @Override
     public boolean puedoPasarDeTurno() {
-        return true;
+        return estadoSeleccionarPaisRefuerzo.puedoPasarDeTurno();
     }
 
     @Override
     public boolean puedoReagrupar() {
         return false;
+    }
+
+    @Override
+    public boolean paisPuedeSeleccionarse(Pais pais) {
+        return estadoSeleccionarPaisRefuerzo. paisPuedeSeleccionarse(pais);
     }
 
 }

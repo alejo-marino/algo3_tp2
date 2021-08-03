@@ -69,4 +69,14 @@ public class PaisAReforzarSeleccionado implements EstadoSeleccionarPaisRefuerzo 
         return true;
     }
 
+    @Override
+    public boolean puedoPasarDeTurno() {
+        return ejercitosDisponibles == 0;
+    }
+
+    @Override
+    public boolean paisPuedeSeleccionarse(Pais pais) {
+        return pais.esDuenio(jugador);
+    }
+
 }

@@ -49,4 +49,9 @@ public class NingunPaisSeleccionadoAtaque implements EstadoSeleccionarPaisAtaque
     public boolean puedoCancelar() {
         return false;
     }
+
+    @Override
+    public boolean paisPuedeSeleccionarse(Pais pais) {
+        return pais.esDuenio(jugador) && pais.puedeAtacar();
+    }
 }

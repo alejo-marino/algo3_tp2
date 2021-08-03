@@ -27,6 +27,7 @@ public class BotonReagrupe implements Observer {
             for (int i = 1; i <= sistema.getEjercitosParaAtacar(); i++) {
                 choiceBoxReagrupe.getItems().add(i);
             }
+            choiceBoxReagrupe.getSelectionModel().selectFirst();
         } else {
             botonReagrupe.setDisable(true);
             choiceBoxReagrupe.setDisable(true);

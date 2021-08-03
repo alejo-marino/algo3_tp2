@@ -86,4 +86,9 @@ public abstract class Ronda {
     public boolean puedoReagrupar() {
         return this.estadoTurno.puedoReagrupar();
     }
+
+    public boolean paisPuedeSeleccionarse(String nombrePais) {
+        Pais pais = juego.seleccionarPais(nombrePais);
+        return this.estadoTurno.paisPuedeSeleccionarse(pais);
+    }
 }

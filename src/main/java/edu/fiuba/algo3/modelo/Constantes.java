@@ -12,6 +12,7 @@ public class Constantes {
     public final static String colorVerde = "#009988";
     public final static String colorRosa = "#ee3377";
     public final static String colorNegro = "#000000";
+    public final static String colorBlanco = "#ffffff";
 
     public final static Integer numeroJugadorMisionComun = 30;
     public final static Integer numeroMinimoDeJugadores = 2;
@@ -39,5 +40,6 @@ public class Constantes {
     public final static Integer numeroEjercitosPrimerCanje = 4;
     public final static Integer numeroEjercitosSegundoCanje = 7;
     public final static Integer numeroEjercitosTercerCanje = 10;
+
 
 }

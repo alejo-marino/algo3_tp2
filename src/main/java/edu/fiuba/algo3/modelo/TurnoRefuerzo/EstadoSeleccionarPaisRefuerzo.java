@@ -19,4 +19,8 @@ public interface EstadoSeleccionarPaisRefuerzo {
     int getEjercitosParaReforzar();
 
     boolean puedoCancelar();
+
+    boolean puedoPasarDeTurno();
+
+    boolean paisPuedeSeleccionarse(Pais pais);
 }

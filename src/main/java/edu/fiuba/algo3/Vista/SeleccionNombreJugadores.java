@@ -26,9 +26,9 @@ public class SeleccionNombreJugadores {
 
         VBox layout = new VBox(20);
         ArrayList<TextField> nombreJugadores = new ArrayList<>();
-        for ( int x = 0; x < cantidadJugadores; x++) {
+        for ( int x = 1; x <= cantidadJugadores; x++) {
             TextField  nombreJugador = new TextField();
-            String label = "Nombre Jugador " + x;
+            String label = "Jugador " + x;
             nombreJugador.setPadding(new Insets(10));
             nombreJugador.setMaxWidth(300);
             nombreJugador.setText(label);

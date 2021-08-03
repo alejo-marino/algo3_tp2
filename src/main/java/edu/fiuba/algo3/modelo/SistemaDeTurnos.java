@@ -161,4 +161,17 @@ public class SistemaDeTurnos extends Observable {
     public String verMisiones() {
         return this.turnoDe().verMisiones();
     }
+
+    public boolean paisPuedeSeleccionarse(String nombrePais) {
+        return this.faseActual.paisPuedeSeleccionarse(nombrePais);
+    }
+
+    public String getColorDePais(String nombrePais) {
+        return juego.getColorDe(nombrePais);
+    }
+
+    public String getColorTurnoActual() {
+        return this.turnoDe().getColor();
+    }
+
 }

@@ -15,4 +15,7 @@ public interface EstadoSeleccionarPaisAtaque {
     boolean puedoAtacar();
 
     boolean puedoCancelar();
+
+    boolean paisPuedeSeleccionarse(Pais pais);
+
 }

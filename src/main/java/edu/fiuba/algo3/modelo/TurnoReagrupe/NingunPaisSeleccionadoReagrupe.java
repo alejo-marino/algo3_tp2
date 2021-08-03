@@ -55,4 +55,9 @@ public class NingunPaisSeleccionadoReagrupe implements EstadoSeleccionarPaisReag
     public int getEjercitosParaReagrupar() {
         return 0;
     }
+
+    @Override
+    public boolean paisPuedeSeleccionarse(Pais pais) {
+        return pais.esDuenio(jugador) && pais.puedeAtacar();
+    }
 }

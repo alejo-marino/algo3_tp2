@@ -15,4 +15,6 @@ public interface EstadoSeleccionarPaisReagrupe {
     boolean puedoReagrupar();
 
     int getEjercitosParaReagrupar();
+
+    boolean paisPuedeSeleccionarse(Pais pais);
 }
