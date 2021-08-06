@@ -15,7 +15,7 @@ public class TurnoAtaque implements EstadoTurno {
         this.estadoSeleccionarPaisAtaque = new NingunPaisSeleccionadoAtaque(this, jugador);
     }
 
-    public void cambiarEstado(EstadoSeleccionarPaisAtaque estadoSeleccionarPaisAtaque) {
+    protected void cambiarEstado(EstadoSeleccionarPaisAtaque estadoSeleccionarPaisAtaque) {
         this.estadoSeleccionarPaisAtaque = estadoSeleccionarPaisAtaque;
     }
 
@@ -34,7 +34,7 @@ public class TurnoAtaque implements EstadoTurno {
 
     @Override
     public void reagrupar(int cantidadEjercitos) {
-        throw new ReagrupeInvalidoException("No es posible reagrupar mientras estas atacando");
+        estadoSeleccionarPaisAtaque.reagrupar(cantidadEjercitos);
     }
 
     @Override
@@ -89,7 +89,7 @@ public class TurnoAtaque implements EstadoTurno {
 
     @Override
     public boolean puedoReagrupar() {
-        return false;
+        return estadoSeleccionarPaisAtaque.puedoReagrupar();
     }
 
     @Override

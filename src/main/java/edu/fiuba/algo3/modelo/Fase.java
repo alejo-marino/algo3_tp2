@@ -14,9 +14,9 @@ public abstract class Fase {
         ronda.empezarTurno(jugador);
     }
 
-    abstract Fase siguienteRonda();
+    abstract void siguienteRonda();
 
-    abstract String getFaseActual();
+    abstract String getNombreDeFaseActual();
 
     public void seleccionarPais(String nombrePais) {
         ronda.seleccionarPais(nombrePais);

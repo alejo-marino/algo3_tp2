@@ -39,5 +39,4 @@ public class menuController implements Initializable {
         System.exit(0);
     }
 
-
 }

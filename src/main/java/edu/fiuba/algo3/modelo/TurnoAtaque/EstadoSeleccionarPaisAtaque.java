@@ -18,4 +18,8 @@ public interface EstadoSeleccionarPaisAtaque {
 
     boolean paisPuedeSeleccionarse(Pais pais);
 
+    boolean puedoReagrupar();
+
+    void reagrupar(int cantidadEjercitos);
+
 }

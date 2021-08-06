@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
@@ -261,7 +262,7 @@ public class TableroController implements Initializable {
     }
 
     public void handleBotonReforzar(ActionEvent actionEvent) {
-        sistema.reforzar((int) choiceBoxReforzar.getSelectionModel().getSelectedItem());
+        sistema.reforzar(choiceBoxReforzar.getSelectionModel().getSelectedItem());
     }
 
     public void handleBotonSiguienteTurno(ActionEvent actionEvent) {
@@ -276,9 +277,9 @@ public class TableroController implements Initializable {
 
     public void handleBotonAtacar(ActionEvent actionEvent) {
         try {
-            sistema.atacar((Integer) choiceBoxAtacar.getSelectionModel().getSelectedItem());
+            sistema.atacar(choiceBoxAtacar.getSelectionModel().getSelectedItem());
         } catch (JugadorGanoException e) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText(e.getMessage());
             alert.show();
         } catch (AtaqueInvalidoException e) {
@@ -291,7 +292,7 @@ public class TableroController implements Initializable {
 
     public void handleBotonReagrupar(ActionEvent actionEvent) {
         try {
-            sistema.reagrupar((Integer) choiceBoxReagrupar.getSelectionModel().getSelectedItem());
+            sistema.reagrupar(choiceBoxReagrupar.getSelectionModel().getSelectedItem());
         } catch (PaisNoSeleccionadoException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
@@ -313,6 +314,14 @@ public class TableroController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText(sistema.verMisiones());
         alert.show();
+    }
+
+    public void handleTarjetas(ActionEvent actionEvent) {
+        try {
+            MenuTarjetas.display(sistema);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private Map<String, Label> crearDiccionarioLabelsPais() {

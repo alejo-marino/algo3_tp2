@@ -37,11 +37,6 @@ public class Pais extends Observable {
         return this.getEjercitosParaAtacar() > 0;
     }
 
-
-    public Jugador getDuenio() {
-        return duenio;
-    }
-
     public void reforzar(int cantidadEjercitos) {
         this.batallon.agregarEjercitos(cantidadEjercitos);
         setChanged();
@@ -65,7 +60,7 @@ public class Pais extends Observable {
 
     public boolean esAliado(Pais pais) {
         if (duenio != null) {
-        return this.duenio == pais.getDuenio();
+        return this.duenio == pais.duenio;
         } else {
             throw new PaisSinDuenioAsignadoException(nombre + " no tiene duenio.");
         }
@@ -112,5 +107,9 @@ public class Pais extends Observable {
     public void actualizar() {
         setChanged();
         notifyObservers();
+    }
+
+    public int getEjercitosParaReagruparEnAtaque() {
+        return this.batallon.getEjercitosParaReagruparEnAtaque();
     }
 }

@@ -5,6 +5,7 @@ import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Pais;
 import edu.fiuba.algo3.modelo.excepciones.EjercitosInvalidosException;
 import edu.fiuba.algo3.modelo.excepciones.PaisesYaSeleccionadosException;
+import edu.fiuba.algo3.modelo.excepciones.ReagrupeInvalidoException;
 
 public class PaisDefensorSeleccionado implements EstadoSeleccionarPaisAtaque {
 
@@ -30,7 +31,9 @@ public class PaisDefensorSeleccionado implements EstadoSeleccionarPaisAtaque {
         this.paisPuedeAtacar(cantidadEjercitos);
         Combate combate = new Combate(paisAtacante, paisDefensor, cantidadEjercitos);
         combate.combatir();
-        if (!this.paisAtacante.puedeAtacar() || paisDefensor.esAliado(paisAtacante)) {
+        if (paisDefensor.esAliado(paisAtacante)) {
+            this.turnoAtaque.cambiarEstado(new PaisConquistado(turnoAtaque, jugador, paisAtacante, paisDefensor));
+        } else if (!this.paisAtacante.puedeAtacar()) {
             this.turnoAtaque.cambiarEstado(new NingunPaisSeleccionadoAtaque(turnoAtaque, jugador));
         }
     }
@@ -58,6 +61,16 @@ public class PaisDefensorSeleccionado implements EstadoSeleccionarPaisAtaque {
     @Override
     public boolean paisPuedeSeleccionarse(Pais pais) {
         return false;
+    }
+
+    @Override
+    public boolean puedoReagrupar() {
+        return false;
+    }
+
+    @Override
+    public void reagrupar(int cantidadEjercitos) {
+        throw new ReagrupeInvalidoException("No es posible reagrupar mientras estás atacando");
     }
 
     private void paisPuedeAtacar(int cantidadEjercitos) {

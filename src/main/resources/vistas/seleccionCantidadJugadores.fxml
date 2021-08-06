@@ -6,15 +6,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="139.0" prefWidth="312.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.fiuba.algo3.controlador.cantidadJugadoresController" >
-   <children>
-      
-      <ChoiceBox fx:id="cantidadJugadoresChoiceBox" layoutX="75.0" layoutY="62.0" onMouseClicked="#handleChoiceBoxCantidaJugadores" prefWidth="150.0" value="2"/>
-      <Label layoutX="50.0" layoutY="14.0" text="Cantidad Jugadores" textFill="#da1414">
-         <font>
-            <Font size="23.0" />
-         </font>
-      </Label>
-      <Button fx:id="botonSiguienteCantJugadores" layoutX="117.0" layoutY="100.0" mnemonicParsing="false" onAction="#handleBotonSiguienteCantJugadores" text="Siguiente" />
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="139.0"
+            prefWidth="312.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="edu.fiuba.algo3.controlador.cantidadJugadoresController">
+   <ChoiceBox fx:id="cantidadJugadoresChoiceBox" layoutX="75.0" layoutY="62.0" prefWidth="150.0" value="2"/>
+   <Label layoutX="50.0" layoutY="14.0" text="Cantidad Jugadores" textFill="#da1414">
+      <font>
+         <Font size="23.0"/>
+      </font>
+   </Label>
+   <Button layoutX="117.0" layoutY="100.0" mnemonicParsing="false" onAction="#handleBotonSiguienteCantJugadores"
+           text="Siguiente"/>
 </AnchorPane>

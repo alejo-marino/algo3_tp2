@@ -30,11 +30,6 @@ public class TestPais {
     }
 
     @Test
-    public void test02CreoUnPaisYLeAsignoDuenio (){
-        assertEquals(argentina.getDuenio(), jugador1);
-    }
-
-    @Test
     public void test03CreoUnPaisYTieneUnEjercito (){
         assertEquals(argentina.getEjercitos(), 1);
     }

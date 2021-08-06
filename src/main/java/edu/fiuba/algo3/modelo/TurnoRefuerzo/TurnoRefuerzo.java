@@ -22,7 +22,7 @@ public class TurnoRefuerzo implements EstadoTurno {
         this.estadoSeleccionarPaisRefuerzo = new NingunPaisSeleccionadoRefuerzo(this, jugador, ejercitosAReforzar);
     }
 
-    public void cambiarEstado(EstadoSeleccionarPaisRefuerzo estadoSeleccionarPaisRefuerzo) {
+    protected void cambiarEstado(EstadoSeleccionarPaisRefuerzo estadoSeleccionarPaisRefuerzo) {
         this.estadoSeleccionarPaisRefuerzo = estadoSeleccionarPaisRefuerzo;
     }
 

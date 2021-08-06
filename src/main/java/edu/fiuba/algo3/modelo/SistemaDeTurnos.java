@@ -19,7 +19,7 @@ public class SistemaDeTurnos extends Observable {
     public SistemaDeTurnos(ArrayList<Jugador> listaJugadores, Juego juego, Queue<Integer> colaDeNumerosDeRefuerzoPorRonda) {
         this.colaJugadores = this.crearColaDeLista(listaJugadores);
         this.movimientos = 0;
-        this.faseActual = new FaseInicial(colaDeNumerosDeRefuerzoPorRonda, juego);
+        this.faseActual = new FaseInicial(colaDeNumerosDeRefuerzoPorRonda, juego, this);
         this.esPrimerTurno = true;
         this.juego = juego;
         this.cantidadPaisesPrincipioDeRonda = 50;
@@ -39,7 +39,7 @@ public class SistemaDeTurnos extends Observable {
         }
         movimientos++;
         if ((movimientos % (colaJugadores.size() + 1)) == 0) {  // se pasa de ronda
-            faseActual = faseActual.siguienteRonda();
+            faseActual.siguienteRonda();
             movimientos++;
         }
         if (!esPrimerTurno) {
@@ -54,7 +54,7 @@ public class SistemaDeTurnos extends Observable {
     }
 
     public String getFaseActual() {
-        return faseActual.getFaseActual();
+        return faseActual.getNombreDeFaseActual();
     }
 
     public void reforzar(int cantidadEjercitos) {
@@ -172,6 +172,10 @@ public class SistemaDeTurnos extends Observable {
 
     public String getColorTurnoActual() {
         return this.turnoDe().getColor();
+    }
+
+    public void cambiarFase(Fase fase) {
+        this.faseActual = fase;
     }
 
 }

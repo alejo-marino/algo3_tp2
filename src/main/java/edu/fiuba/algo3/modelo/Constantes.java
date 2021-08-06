@@ -20,6 +20,7 @@ public class Constantes {
 
     public final static Integer ejercitosParaAtacarMaximo = 3;
     public final static Integer ejercitosParaDefenderMaximo = 3;
+    public final static Integer ejercitosParaReagruparEnAtaqueMaximo = 2;
 
     public final static Integer ejercitosMinimosTurnoRefuerzo = 3;
 
@@ -41,5 +42,7 @@ public class Constantes {
     public final static Integer numeroEjercitosSegundoCanje = 7;
     public final static Integer numeroEjercitosTercerCanje = 10;
 
+    public final static Integer cantidadJugadoresMinima = 2;
+    public final static Integer cantidadJugadoresMaxima = 6;
 
 }

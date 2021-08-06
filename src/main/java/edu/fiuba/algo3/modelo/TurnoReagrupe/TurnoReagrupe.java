@@ -23,7 +23,7 @@ public class TurnoReagrupe implements EstadoTurno {
         this.estadoSeleccionarPaisReagrupe = new NingunPaisSeleccionadoReagrupe(this, jugador, datosRefuerzo);
     }
 
-    public void cambiarEstado(EstadoSeleccionarPaisReagrupe estadoSeleccionarPaisReagrupe) {
+    protected void cambiarEstado(EstadoSeleccionarPaisReagrupe estadoSeleccionarPaisReagrupe) {
         this.estadoSeleccionarPaisReagrupe = estadoSeleccionarPaisReagrupe;
     }
 
@@ -58,9 +58,7 @@ public class TurnoReagrupe implements EstadoTurno {
     }
 
     public void efectivizarReagrupe() {
-        datosRefuerzo.forEach((pais, ejercitosAEfectivizar) -> {
-            pais.reforzar(ejercitosAEfectivizar);
-        });
+        datosRefuerzo.forEach(Pais::reforzar);
     }
 
     @Override

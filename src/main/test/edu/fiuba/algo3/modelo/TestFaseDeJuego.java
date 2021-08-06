@@ -165,7 +165,7 @@ public class TestFaseDeJuego {
     @Test
     void test13CreoUnaFaseDeJuegoYEstoyEnLaFaseCorrecta () {
         String resultadoEsperado = "Fase de juego";
-        String resultado = faseDeJuego.getFaseActual();
+        String resultado = faseDeJuego.getNombreDeFaseActual();
 
         assertEquals(resultadoEsperado, resultado);
     }

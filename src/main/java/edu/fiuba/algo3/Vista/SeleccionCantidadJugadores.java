@@ -25,4 +25,5 @@ public class SeleccionCantidadJugadores {
 
         stage.show();
     }
+
 }

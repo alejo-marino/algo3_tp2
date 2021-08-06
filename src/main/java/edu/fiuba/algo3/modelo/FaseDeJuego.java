@@ -7,15 +7,14 @@ public class FaseDeJuego extends Fase {
     }
 
     @Override
-    public Fase siguienteRonda() {
+    public void siguienteRonda() {
         Ronda ronda = super.getRonda();
         ronda = ronda.siguienteRonda();
         super.setRonda(ronda);
-        return this;
     }
 
     @Override
-    public String getFaseActual() {
+    public String getNombreDeFaseActual() {
         return "Fase de juego";
     }
 

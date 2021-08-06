@@ -44,7 +44,7 @@
       <Button fx:id="botonSiguienteTurno" mnemonicParsing="false" onAction="#handleBotonSiguienteTurno" text="Siguiente Turno" />
    </VBox>
    <VBox alignment="CENTER" layoutX="1111.0" layoutY="320.0" prefHeight="100.0" prefWidth="100.0" spacing="20.0">
-      <Button fx:id="botonTarjetas" mnemonicParsing="false" text="Tarjetas" />
+      <Button fx:id="botonTarjetas" mnemonicParsing="false" onAction="#handleTarjetas" text="Tarjetas" />
       <Button fx:id="botonMisiones" mnemonicParsing="false" onAction="#handleVerMisiones" text="Ver Misiones" />
    </VBox>
 

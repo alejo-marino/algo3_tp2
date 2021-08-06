@@ -4,22 +4,26 @@ import java.util.Queue;
 
 public class FaseInicial extends Fase {
 
-    public FaseInicial(Queue<Integer> colaDeNumerosDeRefuerzoPorRonda, Juego juego) {
+    private final SistemaDeTurnos sistema;
+    private final Juego juego;
+
+    public FaseInicial(Queue<Integer> colaDeNumerosDeRefuerzoPorRonda, Juego juego, SistemaDeTurnos sistema) {
         super(new RondaInicial(colaDeNumerosDeRefuerzoPorRonda, juego));   // {5, 3}
+        this.juego = juego;
+        this.sistema = sistema;
     }
 
-    public Fase siguienteRonda() {
+    public void siguienteRonda() {
         RondaInicial rondaInicial = (RondaInicial) super.getRonda();
         if (rondaInicial.puedeContinuar()) {
             rondaInicial.siguienteRonda();
-            return this;
+        } else {
+            sistema.cambiarFase(new FaseDeJuego(juego));
         }
-
-        return new FaseDeJuego(rondaInicial.pedirJuego());
     }
 
     @Override
-    public String getFaseActual(){
+    public String getNombreDeFaseActual(){
         return "Fase inicial";
     }
 

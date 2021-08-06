@@ -2,10 +2,7 @@ package edu.fiuba.algo3.modelo.TurnoAtaque;
 
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Pais;
-import edu.fiuba.algo3.modelo.excepciones.AtaqueAPaisNoLimitrofeException;
-import edu.fiuba.algo3.modelo.excepciones.AtaqueAPaisPropioException;
-import edu.fiuba.algo3.modelo.excepciones.AtaqueInvalidoException;
-import edu.fiuba.algo3.modelo.excepciones.EjercitosInvalidosException;
+import edu.fiuba.algo3.modelo.excepciones.*;
 
 public class PaisAtacanteSeleccionado implements EstadoSeleccionarPaisAtaque {
 
@@ -64,6 +61,16 @@ public class PaisAtacanteSeleccionado implements EstadoSeleccionarPaisAtaque {
         return (pais != paisAtacante &&
                 ((!pais.esAliado(paisAtacante) && paisAtacante.esLimitrofe(pais)) ||
                         (pais.puedeAtacar() && pais.esAliado(paisAtacante))));
+    }
+
+    @Override
+    public boolean puedoReagrupar() {
+        return false;
+    }
+
+    @Override
+    public void reagrupar(int cantidadEjercitos) {
+        throw new ReagrupeInvalidoException("No es posible reagrupar mientras estás atacando");
     }
 
 }
