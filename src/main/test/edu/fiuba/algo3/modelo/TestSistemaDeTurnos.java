@@ -296,7 +296,6 @@ public class TestSistemaDeTurnos {
 
         this.pasarAFaseDeJuego();
         sistema.empezarTurno();
-        System.out.println(sistema.turnoDe());
         when(juegoMock.obtenerCantidadPaisesSegunJugador(jugador1)).thenReturn(30);
         sistema.seleccionarPais("Argentina");
         sistema.seleccionarPais("Uruguay");

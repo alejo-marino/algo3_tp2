@@ -160,7 +160,7 @@ public class Juego {
         return this.mazoDeTarjetas.obtenerNombreTarjetasDe(jugador);
     }
 
-    // TODO: método para tests
+
     public ArrayList<Jugador> obtenerJugadores() {
         return this.listaJugadores;
     }
@@ -171,6 +171,10 @@ public class Juego {
 
     public String getColorDe(String nombrePais){
         return tablero.getColor(nombrePais);
+    }
+
+    public  SistemaDeTurnos getSistema(){
+        return sistema;
     }
 
 }

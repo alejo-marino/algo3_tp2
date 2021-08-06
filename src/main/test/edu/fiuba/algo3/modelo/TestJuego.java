@@ -36,9 +36,7 @@ public class TestJuego {
     // TODO: Arreglar este test (encontrar forma de testear un Singleton)
 //    @Test
 //    void test02CreoUnJuegoYNoPuedoIniciarElJuegoSinAsignarJugadores () {
-//        System.out.println(juego);
-//        System.out.println(juego.obtenerJugadores());
-//        assertThrows(NumeroDeJugadoresNoAsignadoException.class, () -> juego.iniciarJuego());
+//        S//        assertThrows(NumeroDeJugadoresNoAsignadoException.class, () -> juego.iniciarJuego());
 //    }
 
     @Test

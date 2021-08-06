@@ -24,8 +24,6 @@ public class LabelPais implements Observer {
         int cantidadEjercitos = Juego.getInstancia().getEjercitosDe(nombrePais);
         String colorDuenio = Juego.getInstancia().getColorDe(nombrePais);
         label.setText(String.valueOf(cantidadEjercitos));
-        System.out.println(String.valueOf(cantidadEjercitos));
-        System.out.println(label.getText());
         label.setTextFill(Color.valueOf(colorDuenio));
     }
 
