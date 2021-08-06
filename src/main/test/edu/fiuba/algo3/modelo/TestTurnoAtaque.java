@@ -349,4 +349,107 @@ public class TestTurnoAtaque {
         assertTrue(turnoAtaque.puedoAtacar());
     }
 
+    @Test
+    public void test47SeleccionoPaisAtacanteYDefensorYObtengoEjercitosParaAtacar() {
+        turnoAtaque.seleccionarPais(argentina);
+        turnoAtaque.seleccionarPais(uruguay);
+
+        assertEquals(3, turnoAtaque.getEjercitosParaAtacar());
+    }
+
+    @Test
+    public void test48SeleccionoPaisAtacanteYDefensorYPuedoAtacarCon1Ejercito() {
+        turnoAtaque.seleccionarPais(argentina);
+        turnoAtaque.seleccionarPais(uruguay);
+
+        turnoAtaque.atacar(1);
+    }
+
+    @Test
+    public void test49SeleccionoPaisAtacanteYDefensorYPuedoAtacarCon2Ejercitos() {
+        turnoAtaque.seleccionarPais(argentina);
+        turnoAtaque.seleccionarPais(uruguay);
+
+        turnoAtaque.atacar(2);
+    }
+
+    @Test
+    public void test50SeleccionoPaisAtacanteYDefensorYPuedoAtacarCon3Ejercitos() {
+        turnoAtaque.seleccionarPais(argentina);
+        turnoAtaque.seleccionarPais(uruguay);
+
+        turnoAtaque.atacar(3);
+    }
+
+    @Test
+    public void test50SeleccionoPaisAtacanteYDefensorYIntentoAtacarCon4EjercitosYLanzaUnaExcepcion() {
+        turnoAtaque.seleccionarPais(argentina);
+        turnoAtaque.seleccionarPais(uruguay);
+        assertThrows(EjercitosInvalidosException.class, () -> turnoAtaque.atacar(4));
+    }
+
+    @Test
+    public void test50SeleccionoPaisAtacanteYDefensorYIntentoAtacarCon0EjercitosYLanzaUnaExcepcion() {
+        turnoAtaque.seleccionarPais(argentina);
+        turnoAtaque.seleccionarPais(uruguay);
+        assertThrows(EjercitosInvalidosException.class, () -> turnoAtaque.atacar(0));
+    }
+
+    @Test
+    public void test51SeleccionoPaisAtacanteYDefensorYAtacanteConquistaADefensorAtacanteNoPuedeAtacarSinMoverTropas() {
+        turnoAtaque.seleccionarPais(argentina);
+        turnoAtaque.seleccionarPais(uruguay);
+        argentina.conquistar(uruguay);
+        turnoAtaque.atacar(1);
+        assertFalse(turnoAtaque.puedoAtacar());
+    }
+
+    @Test
+    public void test52SeleccionoPaisAtacanteYDefensorYAtacanteConquistaADefensorAtacantePuedeReagrupar() {
+        turnoAtaque.seleccionarPais(argentina);
+        turnoAtaque.seleccionarPais(uruguay);
+        argentina.conquistar(uruguay);
+        turnoAtaque.atacar(1);
+        assertTrue(turnoAtaque.puedoReagrupar());
+    }
+
+    @Test
+    public void test53SeleccionoPaisAtacanteYDefensorYAtacanteConquistaADefensorAtacanteNoPuedeReforzar() {
+        turnoAtaque.seleccionarPais(argentina);
+        turnoAtaque.seleccionarPais(uruguay);
+        argentina.conquistar(uruguay);
+        turnoAtaque.atacar(1);
+        assertFalse(turnoAtaque.puedoReforzar());
+    }
+
+    @Test
+    public void test54SeleccionoPaisAtacanteYDefensorYAtacanteConquistaADefensorNoPuedoSeleccionarOtroPais() {
+        turnoAtaque.seleccionarPais(argentina);
+        turnoAtaque.seleccionarPais(uruguay);
+        argentina.conquistar(uruguay);
+        turnoAtaque.atacar(1);
+        assertThrows(PaisesYaSeleccionadosException.class, ()->turnoAtaque.seleccionarPais(argentina));
+    }
+
+    @Test
+    public void test55SeleccionoPaisAtacanteYDefensorYAtacanteConquistaADefensorAtacantePuedeReagrupar() {
+        turnoAtaque.seleccionarPais(argentina);
+        turnoAtaque.seleccionarPais(uruguay);
+        argentina.conquistar(uruguay);
+        turnoAtaque.atacar(1);
+        assertThrows(PaisYaConquistadoException.class, ()->turnoAtaque.atacar(1));
+    }
+
+
+    @Test
+    public void test56SeleccionoPaisAtacanteYDefensorYAtacanteConquistaADefensorYPuedoCancelarLaAccion() {
+        turnoAtaque.seleccionarPais(argentina);
+        turnoAtaque.seleccionarPais(uruguay);
+        argentina.conquistar(uruguay);
+        turnoAtaque.atacar(1);
+        assertTrue(turnoAtaque.puedoCancelar());
+    }
+
+
+
 }
