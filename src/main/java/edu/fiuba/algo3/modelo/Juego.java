@@ -18,6 +18,7 @@ public class Juego {
 
     private static Juego instancia = new Juego();
     private ArrayList<Mision> misiones;
+    private SistemaDeTurnos sistema;
 
     private Juego() {
         this.colores = new LinkedList<>();
@@ -33,15 +34,16 @@ public class Juego {
         return instancia;
     }
 
-    public void setearCantidadJugadores(Integer numeroJugadores) {
+    public void setearJugadores(ArrayList<String> nombreJugadores) {
+        int numeroJugadores = nombreJugadores.size();
         if (numeroJugadores < numeroMinimoDeJugadores || numeroJugadores > numeroMaximoDeJugadores) {
             throw new NumeroDeJugadoresInvalidoException();
         }
         this.listaJugadores = new ArrayList<>();
-        for (int i = 0; i < numeroJugadores; i++) {
+        for (String nombreJugador: nombreJugadores) {
             String color = colores.remove();
             colores.add(color);
-            listaJugadores.add(new Jugador(color));
+            listaJugadores.add(new Jugador(color, nombreJugador));
         }
     }
 
@@ -56,7 +58,7 @@ public class Juego {
         return colaDeNumerosDeRefuerzoPorRonda;
     }
 
-    public SistemaDeTurnos iniciarJuego() {
+    public SistemaDeTurnos iniciarJuego(Map<String, ArrayList<Observer>> diccionarioObserversPais) {
         if (listaJugadores == null) {
             throw new NumeroDeJugadoresNoAsignadoException();
         }
@@ -66,19 +68,39 @@ public class Juego {
         ArrayList<Continente> listaContinentes = datosInicializados.get("Continentes");
         ArrayList<Tarjeta> listaTarjetas = datosInicializados.get("Tarjetas");
         this.misiones = datosInicializados.get("Misiones");
-        this.darPaises(listaPaisesSinAsignar);
+
         this.tablero = new Tablero(listaPaisesSinAsignar, listaContinentes);
+        this.darPaises(listaPaisesSinAsignar);
+        setObservadoresPaises(listaPaisesSinAsignar, diccionarioObserversPais);
+        for (Pais pais: listaPaisesSinAsignar) {
+            pais.actualizar();
+        }
+        ArrayList<Pais> listaPaisesAsignados = listaPaisesSinAsignar;
+
+
+
         mazoDeTarjetas = new MazoDeTarjetas(listaTarjetas);
-
-
 
         this.darMisiones();
 
-        return new SistemaDeTurnos(listaJugadores, this, this.setearRondasIniciales());
+        sistema = new SistemaDeTurnos(listaJugadores, this, this.setearRondasIniciales());
+        return sistema;
+    }
+
+    private void setObservadoresPaises(ArrayList<Pais> listaPaisesAsignados, Map<String, ArrayList<Observer>> diccionarioObserversPais) {
+        for (Pais pais: listaPaisesAsignados) {
+            if (diccionarioObserversPais.containsKey(pais.toString())) {
+                ArrayList<Observer> observers = diccionarioObserversPais.get(pais.toString());
+                for (Observer observer: observers) {
+                    pais.addObserver(observer);
+                }
+            }
+        }
     }
 
     private void darPaises(ArrayList<Pais> paisesSinAsignar) {
         Queue<Jugador> colaJugadores = new LinkedList<>(listaJugadores);
+        Collections.shuffle(paisesSinAsignar);
         for (Pais paisSinAsignar: paisesSinAsignar) {
             Jugador jugador = colaJugadores.remove();
             paisSinAsignar.asignarDuenio(jugador);
@@ -138,8 +160,21 @@ public class Juego {
         return this.mazoDeTarjetas.obtenerNombreTarjetasDe(jugador);
     }
 
-    // TODO: método para tests
+
     public ArrayList<Jugador> obtenerJugadores() {
         return this.listaJugadores;
     }
+
+    public int getEjercitosDe(String nombrePais) {
+        return tablero.getEjercitosDe(nombrePais);
+    }
+
+    public String getColorDe(String nombrePais){
+        return tablero.getColor(nombrePais);
+    }
+
+    public  SistemaDeTurnos getSistema(){
+        return sistema;
+    }
+
 }

@@ -3,10 +3,11 @@ package edu.fiuba.algo3.modelo;
 import edu.fiuba.algo3.modelo.excepciones.JugadorGanoException;
 
 import java.util.ArrayList;
+import java.util.Observable;
 import java.util.Queue;
 import java.util.LinkedList;
 
-public class SistemaDeTurnos {
+public class SistemaDeTurnos extends Observable {
 
     private final Juego juego;
     Queue<Jugador> colaJugadores;
@@ -18,7 +19,7 @@ public class SistemaDeTurnos {
     public SistemaDeTurnos(ArrayList<Jugador> listaJugadores, Juego juego, Queue<Integer> colaDeNumerosDeRefuerzoPorRonda) {
         this.colaJugadores = this.crearColaDeLista(listaJugadores);
         this.movimientos = 0;
-        this.faseActual = new FaseInicial(colaDeNumerosDeRefuerzoPorRonda, juego);
+        this.faseActual = new FaseInicial(colaDeNumerosDeRefuerzoPorRonda, juego, this);
         this.esPrimerTurno = true;
         this.juego = juego;
         this.cantidadPaisesPrincipioDeRonda = 50;
@@ -38,7 +39,7 @@ public class SistemaDeTurnos {
         }
         movimientos++;
         if ((movimientos % (colaJugadores.size() + 1)) == 0) {  // se pasa de ronda
-            faseActual = faseActual.siguienteRonda();
+            faseActual.siguienteRonda();
             movimientos++;
         }
         if (!esPrimerTurno) {
@@ -48,18 +49,24 @@ public class SistemaDeTurnos {
         faseActual.empezarTurno(this.turnoDe());
         esPrimerTurno = false;
         this.cantidadPaisesPrincipioDeRonda = juego.obtenerCantidadPaisesSegunJugador(this.turnoDe());
+        setChanged();
+        notifyObservers();
     }
 
     public String getFaseActual() {
-        return faseActual.getFaseActual();
+        return faseActual.getNombreDeFaseActual();
     }
 
     public void reforzar(int cantidadEjercitos) {
         faseActual.reforzar(cantidadEjercitos);
+        setChanged();
+        notifyObservers();
     }
 
     public void seleccionarPais(String nombrePais) {
         faseActual.seleccionarPais(nombrePais);
+        setChanged();
+        notifyObservers();
     }
 
     public void atacar(int cantidadEjercitos) {
@@ -81,10 +88,14 @@ public class SistemaDeTurnos {
         if(jugadorAEliminar != null) {
             colaJugadores.remove(jugadorAEliminar);
         }
+        setChanged();
+        notifyObservers();
     }
 
     public void reagrupar(int cantidadEjercitos) {
         faseActual.reagrupar(cantidadEjercitos);
+        setChanged();
+        notifyObservers();
     }
 
     public ArrayList<String> obtenerNombreTarjetas() {
@@ -97,10 +108,85 @@ public class SistemaDeTurnos {
 
     public void terminarAtaque() {
         faseActual.terminarAtaque(turnoDe());
+        setChanged();
+        notifyObservers();
     }
 
     public void activarTarjeta(String nombreTarjeta) {
         this.faseActual.activarTarjeta(nombreTarjeta);
     }
 
+    public boolean puedoAtacar() {
+        return this.faseActual.puedoAtacar();
+    }
+
+    public int getEjercitosParaAtacar() {
+        return this.faseActual.getEjercitosParaAtacar();
+    }
+
+    public boolean puedoReforzar() {
+        return this.faseActual.puedoReforzar();
+    }
+
+    public int getEjercitosParaReforzar() {
+        return this.faseActual.getEjercitosParaReforzar();
+    }
+
+    public void cancelarAccion() {
+        this.faseActual.cancelarAccion();
+        setChanged();
+        notifyObservers();
+    }
+
+    public boolean puedoCancelar() {
+        return this.faseActual.puedoCancelar();
+    }
+
+    public boolean estoyEnTurnoAtaque() {
+        return this.faseActual.estoyEnTurnoAtaque();
+    }
+
+    public boolean puedoPasarDeTurno() {
+        return this.faseActual.puedoPasarDeTurno();
+    }
+
+    public String nombreTurnoDe() {
+        return this.turnoDe().getNombre();
+    }
+
+    public boolean puedoReagrupar() {
+        return this.faseActual.puedoReagrupar();
+    }
+
+    public String verMisiones() {
+        return this.turnoDe().verMisiones();
+    }
+
+    public boolean paisPuedeSeleccionarse(String nombrePais) {
+        return this.faseActual.paisPuedeSeleccionarse(nombrePais);
+    }
+
+    public String getColorDePais(String nombrePais) {
+        return juego.getColorDe(nombrePais);
+    }
+
+    public String getColorTurnoActual() {
+        return this.turnoDe().getColor();
+    }
+
+    public void cambiarFase(Fase fase) {
+        this.faseActual = fase;
+    }
+
+    public boolean puedoActivarTarjeta(String nombreTarjeta) {
+        return this.faseActual.puedoActivarTarjeta(nombreTarjeta);
+    }
+
+    public boolean puedoCanjearTarjetas(){
+        return this.faseActual.puedoCanjearTatjeta();
+    }
+
+    public boolean paisSeleccionado(String nombrePais) {
+        return faseActual.paisSeleccionado(nombrePais);
+    }
 }

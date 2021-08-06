@@ -18,4 +18,27 @@ public interface EstadoTurno {
 
     void activarTarjeta(String nombreTarjeta, Juego juego);
 
+    boolean puedoAtacar();
+
+    int getEjercitosParaAtacar();
+
+    boolean puedoReforzar();
+
+    int getEjercitosParaReforzar();
+
+    boolean puedoCancelar();
+
+    boolean estoyEnTurnoAtaque();
+
+    boolean puedoPasarDeTurno();
+
+    boolean puedoReagrupar();
+
+    boolean puedoSeleccionarPais(Pais pais);
+
+    boolean puedoActivarTarjeta(String nombreTarjeta);
+
+    boolean puedoCanjearTarjeta();
+
+    boolean paisSeleccionado(String nombrePais);
 }

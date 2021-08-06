@@ -42,13 +42,37 @@ public class PaisDestinoSeleccionado implements EstadoSeleccionarPaisReagrupe {
             this.datosRefuerzo.put(paisDestino, 0);
         }
         this.datosRefuerzo.put(paisDestino, this.datosRefuerzo.get(paisDestino) + cantidadEjercitos);
-        this.cancelarAccion();
+        if (!paisOrigen.puedeAtacar()) {
+            this.turnoReagrupe.cambiarEstado(new NingunPaisSeleccionadoReagrupe(turnoReagrupe, jugador, datosRefuerzo));
+        }
+    }
+
+    @Override
+    public boolean puedoCancelar() {
+        return true;
+    }
+
+    @Override
+    public boolean puedoReagrupar() {
+        return true;
+    }
+
+    @Override
+    public int getEjercitosParaReagrupar() {
+        return paisOrigen.getEjercitosParaAtacar();
+    }
+
+    @Override
+    public boolean paisPuedeSeleccionarse(Pais pais) {
+        return false;
+    }
+
+    @Override
+    public boolean paisSeleccionado(String nombrePais) {
+        return paisOrigen.toString().equals(nombrePais) || paisDestino.toString().equals(nombrePais);
     }
 
     private void paisPuedeReagrupar(int cantidadEjercitosAMovilizar) {
-        if ((this.paisOrigen == null) || (this.paisDestino == null)) {
-            throw new AtaqueInvalidoException("Pais origen o destino faltante");
-        }
         if (cantidadEjercitosAMovilizar < 1) {
             throw new EjercitosInvalidosException("Cantidad de ejércitos a realocar invalida");
         }

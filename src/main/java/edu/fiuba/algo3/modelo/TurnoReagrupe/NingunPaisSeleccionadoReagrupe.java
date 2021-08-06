@@ -40,4 +40,29 @@ public class NingunPaisSeleccionadoReagrupe implements EstadoSeleccionarPaisReag
     public void reagrupar(int cantidadEjercitos) {
         throw new PaisNoSeleccionadoException("No selecciono ningún país.");
     }
+
+    @Override
+    public boolean puedoCancelar() {
+        return false;
+    }
+
+    @Override
+    public boolean puedoReagrupar() {
+        return false;
+    }
+
+    @Override
+    public int getEjercitosParaReagrupar() {
+        return 0;
+    }
+
+    @Override
+    public boolean paisPuedeSeleccionarse(Pais pais) {
+        return pais.esDuenio(jugador) && pais.puedeAtacar();
+    }
+
+    @Override
+    public boolean paisSeleccionado(String nombrePais) {
+        return false;
+    }
 }

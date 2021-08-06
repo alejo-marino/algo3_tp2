@@ -1,7 +1,5 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.modelo.excepciones.CanjeConTarjetaAjenaException;
-
 import java.util.ArrayList;
 
 import static edu.fiuba.algo3.modelo.Constantes.*;
@@ -10,11 +8,13 @@ public class Jugador {
 
 
 
+    private final String colorJugador;
     private final String nombreJugador;
     private Integer numeroDeCanje;
     private final ArrayList<Mision> misiones;
 
-    public Jugador(String nombreJugador) {
+    public Jugador(String colorJugador, String nombreJugador) {
+        this.colorJugador = colorJugador;
         this.nombreJugador = nombreJugador;
         this.misiones = new ArrayList<>();
         this.numeroDeCanje = 0;
@@ -26,11 +26,15 @@ public class Jugador {
             return false;
         }
         Jugador otroJugador = (Jugador) o;
-        return this.nombreJugador.equals(otroJugador.toString());
+        return this.colorJugador.equals(otroJugador.toString());
     }
 
     @Override
     public String toString() {
+        return this.colorJugador;
+    }
+
+    public String getNombre() {
         return this.nombreJugador;
     }
 
@@ -72,6 +76,18 @@ public class Jugador {
             default:
                 return (numeroDeCanje - 1) * 5;
         }
+    }
+
+    public String getColor() {
+        return colorJugador;
+    }
+
+    public String verMisiones() {
+        String resultado = "";
+        for (Mision mision: misiones) {
+            resultado += " - " + mision.verMision() + "\n";
+        }
+        return resultado;
     }
 
 }

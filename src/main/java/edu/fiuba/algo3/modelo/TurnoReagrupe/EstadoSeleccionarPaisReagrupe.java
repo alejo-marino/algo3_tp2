@@ -10,4 +10,13 @@ public interface EstadoSeleccionarPaisReagrupe {
 
     void reagrupar(int cantidadEjercitos);
 
+    boolean puedoCancelar();
+
+    boolean puedoReagrupar();
+
+    int getEjercitosParaReagrupar();
+
+    boolean paisPuedeSeleccionarse(Pais pais);
+
+    boolean paisSeleccionado(String nombrePais);
 }

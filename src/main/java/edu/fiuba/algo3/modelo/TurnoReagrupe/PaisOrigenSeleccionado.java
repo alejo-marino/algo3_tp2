@@ -2,10 +2,8 @@ package edu.fiuba.algo3.modelo.TurnoReagrupe;
 
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Pais;
-import edu.fiuba.algo3.modelo.excepciones.PaisNoSeleccionadoException;
-import edu.fiuba.algo3.modelo.excepciones.PaisesYaSeleccionadosException;
-import edu.fiuba.algo3.modelo.excepciones.ReagrupeAPaisAjenoException;
-import edu.fiuba.algo3.modelo.excepciones.ReagrupeAPaisNoLimitrofeException;
+import edu.fiuba.algo3.modelo.TurnoAtaque.PaisAtacanteSeleccionado;
+import edu.fiuba.algo3.modelo.excepciones.*;
 
 import java.util.Hashtable;
 
@@ -24,14 +22,14 @@ public class PaisOrigenSeleccionado implements EstadoSeleccionarPaisReagrupe {
     }
 
     @Override
-    public void seleccionarPais(Pais paisDestino) {
-        if (!paisDestino.esLimitrofe(paisOrigen)) {
-            throw new ReagrupeAPaisNoLimitrofeException(paisDestino.toString() + " no limita con " + paisOrigen.toString());
+    public void seleccionarPais(Pais pais) {
+        if (!pais.esLimitrofe(paisOrigen)) {
+            throw new ReagrupeAPaisNoLimitrofeException(pais.toString() + " no limita con " + paisOrigen.toString());
         }
-        if (!paisDestino.esAliado(paisOrigen)) {
+        if (!pais.esAliado(paisOrigen)) {
             throw new ReagrupeAPaisAjenoException("No podes reagrupar con un pais ajeno como destino");
         }
-        turnoReagrupe.cambiarEstado(new PaisDestinoSeleccionado(turnoReagrupe, jugador, datosRefuerzo, paisOrigen, paisDestino));
+        turnoReagrupe.cambiarEstado(new PaisDestinoSeleccionado(turnoReagrupe, jugador, datosRefuerzo, paisOrigen, pais));
     }
 
     @Override
@@ -42,5 +40,30 @@ public class PaisOrigenSeleccionado implements EstadoSeleccionarPaisReagrupe {
     @Override
     public void reagrupar(int cantidadEjercitos) {
         throw new PaisNoSeleccionadoException("No selecciono un país destino.");
+    }
+
+    @Override
+    public boolean puedoCancelar() {
+        return true;
+    }
+
+    @Override
+    public boolean puedoReagrupar() {
+        return false;
+    }
+
+    @Override
+    public int getEjercitosParaReagrupar() {
+        return 0;
+    }
+
+    @Override
+    public boolean paisPuedeSeleccionarse(Pais pais) {
+        return pais.esDuenio(jugador) && pais.esLimitrofe(paisOrigen);
+    }
+
+    @Override
+    public boolean paisSeleccionado(String nombrePais) {
+        return paisOrigen.toString().equals(nombrePais);
     }
 }

@@ -14,4 +14,15 @@ public interface EstadoSeleccionarPaisRefuerzo {
 
     boolean tieneEjercitosParaReforzar();
 
+    boolean puedoReforzar();
+
+    int getEjercitosParaReforzar();
+
+    boolean puedoCancelar();
+
+    boolean puedoPasarDeTurno();
+
+    boolean paisPuedeSeleccionarse(Pais pais);
+
+    boolean paisSeleccionado(String nombrePais);
 }

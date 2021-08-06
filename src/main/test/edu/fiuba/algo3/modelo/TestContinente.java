@@ -18,8 +18,8 @@ public class TestContinente {
     @BeforeEach
     void setUp() {
         continente = new Continente("America Del Sur", BONUS_AMERICA_DEL_SUR);
-        jugador1 = new Jugador("000000");
-        jugador2 = new Jugador("ffffff");
+        jugador1 = new Jugador("000000", "Jugador 1");
+        jugador2 = new Jugador("ffffff", "Jugador 2");
         argentina = new Pais("Argentina");
         argentina.asignarDuenio(jugador1);
         uruguay = new Pais("Uruguay");

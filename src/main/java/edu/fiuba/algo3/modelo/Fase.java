@@ -14,9 +14,9 @@ public abstract class Fase {
         ronda.empezarTurno(jugador);
     }
 
-    abstract Fase siguienteRonda();
+    abstract void siguienteRonda();
 
-    abstract String getFaseActual();
+    abstract String getNombreDeFaseActual();
 
     public void seleccionarPais(String nombrePais) {
         ronda.seleccionarPais(nombrePais);
@@ -54,4 +54,55 @@ public abstract class Fase {
         this.ronda.activarTarjeta(nombreTarjeta);
     }
 
+    public boolean puedoAtacar() {
+        return this.ronda.puedoAtacar();
+    }
+
+    public int getEjercitosParaAtacar() {
+        return this.ronda.getEjercitosParaAtacar();
+    }
+
+    public boolean puedoReforzar() {
+        return this.ronda.puedoReforzar();
+    }
+
+    public int getEjercitosParaReforzar() {
+        return this.ronda.getEjercitosParaReforzar();
+    }
+
+    public void cancelarAccion() {
+        this.ronda.cancelarAccion();
+    }
+
+    public boolean puedoCancelar() {
+        return this.ronda.puedoCancelar();
+    }
+
+    public boolean estoyEnTurnoAtaque() {
+        return this.ronda.estoyEnTurnoAtaque();
+    }
+
+    public boolean puedoPasarDeTurno() {
+        return this.ronda.puedoPasarDeTurno();
+    }
+
+    public boolean puedoReagrupar() {
+        return this.ronda.puedoReagrupar();
+    }
+
+    public boolean paisPuedeSeleccionarse(String nombrePais) {
+        return this.ronda.paisPuedeSeleccionarse(nombrePais);
+    }
+
+    public boolean puedoActivarTarjeta(String nombreTarjeta) {
+        return this.ronda.puedoActivarTarjeta(nombreTarjeta);
+    }
+
+    public boolean puedoCanjearTatjeta(){
+        return this.ronda.puedoCanjearTarjeta();
+    }
+
+    public boolean paisSeleccionado(String nombrePais) {
+        return this.ronda.paisSeleccionado(nombrePais);
+    }
 }

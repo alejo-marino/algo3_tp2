@@ -20,8 +20,8 @@ public class TestMisionDestruccion {
 
     @BeforeEach
     public void setUp() {
-        this.jugador1 = new Jugador("Negro");
-        this.jugador2 = new Jugador("Rojo");
+        this.jugador1 = new Jugador("Negro", "Jugador 1");
+        this.jugador2 = new Jugador("Rojo", "Jugador 2");
 
         this.juegoMock = mock(Juego.class);
 
@@ -38,7 +38,7 @@ public class TestMisionDestruccion {
 
     @Test
     public void test02CreoMisionDeDestruccionYLePidoElObjetivo () {
-        String objetivo = "Rojo";
+        String objetivo = "Jugador 2";
         assertTrue(misionDestruccion.verMision().contains(objetivo));
     }
 

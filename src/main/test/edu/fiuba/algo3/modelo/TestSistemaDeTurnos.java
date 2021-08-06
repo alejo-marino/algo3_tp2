@@ -28,9 +28,9 @@ public class TestSistemaDeTurnos {
 
     @BeforeEach
     void setUp() {
-        this.jugador1 = new Jugador("000000");
-        this.jugador2 = new Jugador("ffffff");
-        this.jugador3 = new Jugador("fff000");
+        this.jugador1 = new Jugador("000000", "Jugador 1");
+        this.jugador2 = new Jugador("ffffff", "Jugador 2");
+        this.jugador3 = new Jugador("fff000", "Jugador 3");
         ArrayList<Jugador> listaJugadores = new ArrayList<>();
         listaJugadores.add(jugador1);
         listaJugadores.add(jugador2);
@@ -69,8 +69,6 @@ public class TestSistemaDeTurnos {
         this.tarjetas.add(tarjeta3.toString());
 
         this.juegoMock = mock(Juego.class);
-        juegoMock.setearCantidadJugadores(3);
-        juegoMock.iniciarJuego();
         when(juegoMock.seleccionarPais("Argentina")).thenReturn(argentina);
         when(juegoMock.seleccionarPais("China")).thenReturn(china);
         when(juegoMock.seleccionarPais("Uruguay")).thenReturn(uruguay);

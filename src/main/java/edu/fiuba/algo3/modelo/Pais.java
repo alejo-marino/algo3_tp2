@@ -3,8 +3,9 @@ package edu.fiuba.algo3.modelo;
 import edu.fiuba.algo3.modelo.excepciones.PaisSinDuenioAsignadoException;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
-public class Pais {
+public class Pais extends Observable {
 
     private Jugador duenio;
     private final Batallon batallon;
@@ -20,6 +21,8 @@ public class Pais {
 
     public void asignarDuenio(Jugador jugador) {
         this.duenio = jugador;
+        setChanged();
+        notifyObservers();
     }
 
     public int getEjercitos() {
@@ -34,17 +37,16 @@ public class Pais {
         return this.getEjercitosParaAtacar() > 0;
     }
 
-
-    public Jugador getDuenio() {
-        return duenio;
-    }
-
     public void reforzar(int cantidadEjercitos) {
         this.batallon.agregarEjercitos(cantidadEjercitos);
+        setChanged();
+        notifyObservers();
     }
 
     public void disminuirEjercitos(int cantidadEjercitos) {
         batallon.disminuirEjercitos(cantidadEjercitos);
+        setChanged();
+        notifyObservers();
     }
 
     public boolean tengoEjercitos() {
@@ -58,7 +60,7 @@ public class Pais {
 
     public boolean esAliado(Pais pais) {
         if (duenio != null) {
-        return this.duenio == pais.getDuenio();
+        return this.duenio == pais.duenio;
         } else {
             throw new PaisSinDuenioAsignadoException(nombre + " no tiene duenio.");
         }
@@ -67,12 +69,18 @@ public class Pais {
 
     public void conquistar(Pais conquistado) {
         if (duenio != null) {
-            conquistado.duenio = this.duenio;
+            conquistado.setDuenio(this.duenio);
             conquistado.reforzar(1);
             this.disminuirEjercitos(1);
         } else {
             throw new PaisSinDuenioAsignadoException(nombre + " no tiene duenio.");
         }
+    }
+
+    private void setDuenio(Jugador duenio) {
+        this.duenio = duenio;
+        setChanged();
+        notifyObservers();
     }
 
     public void hacerLimitrofe(Pais pais) {
@@ -88,6 +96,20 @@ public class Pais {
     }
 
     public boolean esLimitrofe(Pais otroPais) {
+
         return paisesLimitrofes.contains(otroPais);
+    }
+
+    public String getColor() {
+        return duenio.getColor();
+    }
+
+    public void actualizar() {
+        setChanged();
+        notifyObservers();
+    }
+
+    public int getEjercitosParaReagruparEnAtaque() {
+        return this.batallon.getEjercitosParaReagruparEnAtaque();
     }
 }

@@ -4,6 +4,7 @@ import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Pais;
 import edu.fiuba.algo3.modelo.excepciones.NoPuedeColocarTantosEjercitosException;
 import edu.fiuba.algo3.modelo.excepciones.PaisesYaSeleccionadosException;
+import edu.fiuba.algo3.modelo.excepciones.SeleccionaPaisAjenoException;
 
 public class PaisAReforzarSeleccionado implements EstadoSeleccionarPaisRefuerzo {
 
@@ -12,16 +13,20 @@ public class PaisAReforzarSeleccionado implements EstadoSeleccionarPaisRefuerzo 
     private final Pais paisAReforzar;
     private Integer ejercitosDisponibles;
 
-    public PaisAReforzarSeleccionado(TurnoRefuerzo turnoRefuerzo, Jugador jugador, Integer ejercitosAReforzar, Pais paisAReforzar) {
+    public PaisAReforzarSeleccionado(TurnoRefuerzo turnoRefuerzo, Jugador jugador, Integer ejercitosDisponibles, Pais paisAReforzar) {
         this.turnoRefuerzo = turnoRefuerzo;
         this.jugador = jugador;
         this.paisAReforzar = paisAReforzar;
-        this.ejercitosDisponibles = ejercitosAReforzar;
+        this.ejercitosDisponibles = ejercitosDisponibles;
     }
 
     @Override
     public void seleccionarPais(Pais pais) {
-        throw new PaisesYaSeleccionadosException(paisAReforzar + " ya esta seleccionado, apreta 'Reforzar' o 'Cancelar accion'.");
+        if (pais.esAliado(paisAReforzar)) {
+            turnoRefuerzo.cambiarEstado(new PaisAReforzarSeleccionado(turnoRefuerzo, jugador, ejercitosDisponibles, pais));
+        } else {
+            throw new SeleccionaPaisAjenoException("El pais " + paisAReforzar + " no te pertenece");
+        }
     }
 
     @Override
@@ -47,6 +52,36 @@ public class PaisAReforzarSeleccionado implements EstadoSeleccionarPaisRefuerzo 
     @Override
     public boolean tieneEjercitosParaReforzar() {
         return ejercitosDisponibles > 0;
+    }
+
+    @Override
+    public boolean puedoReforzar() {
+        return ejercitosDisponibles > 0;
+    }
+
+    @Override
+    public int getEjercitosParaReforzar() {
+        return ejercitosDisponibles;
+    }
+
+    @Override
+    public boolean puedoCancelar() {
+        return true;
+    }
+
+    @Override
+    public boolean puedoPasarDeTurno() {
+        return ejercitosDisponibles == 0;
+    }
+
+    @Override
+    public boolean paisPuedeSeleccionarse(Pais pais) {
+        return pais.esDuenio(jugador);
+    }
+
+    @Override
+    public boolean paisSeleccionado(String nombrePais) {
+        return paisAReforzar.toString().equals(nombrePais);
     }
 
 }

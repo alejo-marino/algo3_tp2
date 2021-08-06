@@ -19,7 +19,7 @@ public class TestMisionComun {
 
     @BeforeEach
     public void setUp() {
-        this.jugador1 = new Jugador("Negro");
+        this.jugador1 = new Jugador("Negro", "Jugador 1");
         this.juegoMock = mock(Juego.class);
         this.cantidadDePaisesParaGanar = 30;
         this.misionComun = new MisionComun(jugador1, juegoMock, cantidadDePaisesParaGanar);

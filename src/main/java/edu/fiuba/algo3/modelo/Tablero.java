@@ -27,46 +27,29 @@ public class Tablero {
         throw new PaisInexistenteException(nombrePais + " no se encuentra en el tablero.");
     }
 
-
-    public Dictionary<Jugador, ArrayList<Pais>> obtenerPaisesSegunJugador() {
-        Hashtable<Jugador, ArrayList<Pais>> paisesSegunJugador = new Hashtable<>();
-        for (Pais paisActual : paises) {
-            Jugador jugadorActual = paisActual.getDuenio();
-            if (!paisesSegunJugador.containsKey(jugadorActual)) {
-                ArrayList<Pais> paisesDeJugador = new ArrayList<>();
-                paisesDeJugador.add(paisActual);
-                paisesSegunJugador.put(jugadorActual,paisesDeJugador);
-            }
-            else {
-                paisesSegunJugador.get(jugadorActual).add(paisActual);
+    public Integer obtenerCantidadPaisesSegunJugador (Jugador jugador) {
+        Integer contador = 0;
+        for (Pais pais: paises) {
+            if (pais.esDuenio(jugador)) {
+                contador++;
             }
         }
-        return paisesSegunJugador;
-    }
-
-    public Integer obtenerCantidadPaisesSegunJugador (Jugador jugador) {
-        Dictionary<Jugador, ArrayList<Pais>> paisesPorJugador = this.obtenerPaisesSegunJugador();
-        return numeroPaisesDeJugador(paisesPorJugador, jugador);
+        return contador;
     }
 
 
     public Integer calcularEjercitosDisponibles(Jugador jugador) {
         int ejercitosAAgregar = 0;
-        Dictionary paisesPorJugador = this.obtenerPaisesSegunJugador();
 
         // ejercitos a agregar por paises
-        ejercitosAAgregar += (this.numeroPaisesDeJugador(paisesPorJugador, jugador) / 2);
+        int cantidadPaisesJugador = obtenerCantidadPaisesSegunJugador(jugador);
+        ejercitosAAgregar += (cantidadPaisesJugador / 2);
         // ejercitos a agregar por continentes
         for (Continente continente: continentes) {
             ejercitosAAgregar += continente.obtenerBonusDeContinentePara(jugador);
         }
         if (ejercitosAAgregar < ejercitosMinimosTurnoRefuerzo) { ejercitosAAgregar = ejercitosMinimosTurnoRefuerzo; }
         return ejercitosAAgregar;
-    }
-
-
-    private Integer numeroPaisesDeJugador(Dictionary<Jugador, ArrayList<Pais>> paisesPorJugador, Jugador jugador) {
-        return (paisesPorJugador.get(jugador)).size();
     }
 
     private Continente seleccionarContinente(String nombreContinente) {
@@ -86,4 +69,13 @@ public class Tablero {
         return paises.size();
     }
 
+    public int getEjercitosDe(String nombrePais) {
+        Pais pais = seleccionarPais(nombrePais);
+        return pais.getEjercitos();
+    }
+
+    public String getColor(String nombrePais) {
+        Pais pais = seleccionarPais(nombrePais);
+        return pais.getColor();
+    }
 }

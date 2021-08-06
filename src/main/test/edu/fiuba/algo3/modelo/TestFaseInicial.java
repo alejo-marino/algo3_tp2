@@ -19,7 +19,7 @@ public class TestFaseInicial {
         cola.add(5);
         cola.add(3);
         Juego juegoMock = mock(Juego.class);
-        this.faseInicial = new FaseInicial(cola, juegoMock);
+        this.faseInicial = new FaseInicial(cola, juegoMock, null);
     }
 
     @Test
@@ -29,13 +29,13 @@ public class TestFaseInicial {
 
     @Test
     public void test02SeCreaUnaFaceInicialYEsLaCorrecta() {
-        assertEquals("Fase inicial", faseInicial.getFaseActual());
+        assertEquals("Fase inicial", faseInicial.getNombreDeFaseActual());
     }
 
     @Test
     public void test03SeCreaUnaFaceInicialYLaSiguienteSiguieFaseInicial() {
         faseInicial.siguienteRonda();
-        assertEquals("Fase inicial", faseInicial.getFaseActual());
+        assertEquals("Fase inicial", faseInicial.getNombreDeFaseActual());
     }
 
     @Test

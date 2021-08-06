@@ -1,6 +1,5 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.modelo.excepciones.CanjeConTarjetaAjenaException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,8 +24,8 @@ public class TestJugador {
 
     @BeforeEach
     void setUp() {
-        this.jugador = new Jugador("000000");
-        this.otroJugador = new Jugador("ffffff");
+        this.jugador = new Jugador("000000", "Jugador 1");
+        this.otroJugador = new Jugador("ffffff", "Jugador 2");
 
         Pais argentina = new Pais("Argentina");
         argentina.asignarDuenio(jugador);

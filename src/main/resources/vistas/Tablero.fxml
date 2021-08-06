@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="742.0" prefWidth="1245.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.fiuba.algo3.controlador.TableroController">
+   <Label layoutX="1099.0" layoutY="25.0" text="Nombre Jugadores">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font>
+   </Label>
+   <VBox fx:id="infoJugadores" layoutX="1099.0" layoutY="66.0" prefHeight="183.0" prefWidth="124.0" style="-fx-padding: 10" />
+
+   <ImageView fitHeight="741.0" fitWidth="1079.0" layoutX="15.0" pickOnBounds="true" preserveRatio="true">
+      <Image url="@../imagenes/mapa-teg.jpg" />
+   </ImageView>
+
+   <VBox fx:id="menuAcciones" alignment="CENTER" layoutX="1094.0" layoutY="448.0" prefHeight="295.0" prefWidth="151.0" spacing="20.0">
+      <padding>
+         <Insets bottom="20" top="20.0" />
+      </padding>
+      <HBox alignment="CENTER" prefHeight="41.0" prefWidth="100.0" spacing="10.0">
+         <Button fx:id="botonReforzar" mnemonicParsing="false" onAction="#handleBotonReforzar" prefHeight="25.0" prefWidth="71.0" text="Reforzar" />
+         <ChoiceBox fx:id="choiceBoxReforzar" prefHeight="25.0" prefWidth="32.0" />
+      </HBox>
+      <VBox alignment="CENTER" prefHeight="86.0" prefWidth="134.0">
+         <padding>
+            <Insets top="-10.0" />
+         </padding>
+         <HBox alignment="CENTER" prefHeight="41.0" prefWidth="100.0" spacing="10.0">
+            <Button fx:id="botonAtacar" mnemonicParsing="false" onAction="#handleBotonAtacar" prefHeight="25.0" prefWidth="71.0" text="Atacar" />
+            <ChoiceBox fx:id="choiceBoxAtacar" prefHeight="25.0" prefWidth="32.0" />
+         </HBox>
+         <Button fx:id="botonTerminarAtaque" mnemonicParsing="false" onAction="#handleBotonTerminarAtaque" prefHeight="7.0" prefWidth="105.0" text="Terminar Ataque" />
+      </VBox>
+      <HBox alignment="CENTER" layoutX="10.0" layoutY="145.0" prefHeight="41.0" prefWidth="100.0" spacing="10.0">
+         <Button fx:id="botonReagrupar" mnemonicParsing="false" onAction="#handleBotonReagrupar" prefHeight="25.0" prefWidth="71.0" text="Reagrupar" />
+         <ChoiceBox fx:id="choiceBoxReagrupar" prefHeight="25.0" prefWidth="32.0" />
+      </HBox>
+      <Button fx:id="botonCancelarAccion" cancelButton="true" mnemonicParsing="false" onAction="#handleBotonCancelarAccion" text="Cancelar" />
+      <Button fx:id="botonSiguienteTurno" mnemonicParsing="false" onAction="#handleBotonSiguienteTurno" text="Siguiente Turno" />
+   </VBox>
+   <VBox alignment="CENTER" layoutX="1111.0" layoutY="320.0" prefHeight="100.0" prefWidth="100.0" spacing="20.0">
+      <Button fx:id="botonTarjetas" mnemonicParsing="false" onAction="#handleTarjetas" text="Tarjetas" />
+      <Button fx:id="botonMisiones" mnemonicParsing="false" onAction="#handleVerMisiones" text="Ver Misiones" />
+   </VBox>
+
+
+   <Button fx:id="botonCanada" layoutX="167.0" layoutY="140.0" mnemonicParsing="false" onAction="#handleBotonPais" rotate="-26.6" text="Canada">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonOregon" layoutX="99.0" layoutY="274.0" mnemonicParsing="false" onAction="#handleBotonPais" prefHeight="25.0" prefWidth="68.0" rotate="-38.7" text="Oregon">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonAlaska" layoutX="21.0" layoutY="249.0" mnemonicParsing="false" onAction="#handleBotonPais" prefHeight="25.0" prefWidth="57.0" rotate="-55.3" text="Alaska">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonGroenlandia" layoutX="324.0" layoutY="113.0" mnemonicParsing="false" onAction="#handleBotonPais" rotate="42.0" text="Groenlandia">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonYukon" layoutX="78.0" layoutY="210.0" mnemonicParsing="false" onAction="#handleBotonPais" prefHeight="25.0" prefWidth="57.0" rotate="-38.7" text="Yukon">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonLabrador" layoutX="265.0" layoutY="188.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Labrador">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonTerranova" layoutX="226.0" layoutY="218.0" mnemonicParsing="false" onAction="#handleBotonPais" rotate="24.0" text="Terranova">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonNuevaYork" layoutX="175.0" layoutY="238.0" mnemonicParsing="false" onAction="#handleBotonPais" prefHeight="25.0" prefWidth="85.0" rotate="32.5" text="Nueva York">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonCalifornia" layoutX="161.0" layoutY="297.0" mnemonicParsing="false" onAction="#handleBotonPais" rotate="-35.0" text="California">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonMexico" layoutX="211.0" layoutY="334.0" mnemonicParsing="false" onAction="#handleBotonPais" rotate="48.8" text="Mexico">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonBrasil" layoutX="393.0" layoutY="431.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Brasil">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonColombia" layoutX="305.0" layoutY="395.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Colombia">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonPeru" layoutX="339.0" layoutY="444.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Peru">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonUruguay" layoutX="408.0" layoutY="498.0" mnemonicParsing="false" onAction="#handleBotonPais" prefHeight="25.0" prefWidth="65.0" rotate="-33.7" text="Uruguay">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonArgentina" layoutX="338.0" layoutY="535.0" mnemonicParsing="false" onAction="#handleBotonPais" rotate="-49.4" text="Argentina">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonChile" layoutX="319.0" layoutY="501.0" mnemonicParsing="false" onAction="#handleBotonPais" rotate="-77.5" text="Chile">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonEspania" layoutX="550.0" layoutY="385.0" mnemonicParsing="false" onAction="#handleBotonPais" text="España">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonFrancia" layoutX="620.0" layoutY="340.0" mnemonicParsing="false" onAction="#handleBotonPais" rotate="-42.5" text="Francia">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonAlemania" layoutX="675.0" layoutY="321.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Alemania">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonPolonia" layoutX="738.0" layoutY="297.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Polonia">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonItalia" layoutX="693.0" layoutY="403.0" mnemonicParsing="false" onAction="#handleBotonPais" rotate="45.0" text="Italia">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonSuecia" layoutX="647.0" layoutY="156.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Suecia">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonGranBretania" layoutX="549.0" layoutY="261.0" mnemonicParsing="false" onAction="#handleBotonPais" rotate="-50.7" text="Gran Bretaña">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonIslandia" layoutX="448.0" layoutY="248.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Islandia">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonRusia" layoutX="736.0" layoutY="213.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Rusia">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonKamtchatka" layoutX="916.0" layoutY="102.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Kamtchatka">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonChina" layoutX="950.0" layoutY="248.0" mnemonicParsing="false" onAction="#handleBotonPais" text="China">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonAral" layoutX="791.0" layoutY="152.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Aral">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonIran" layoutX="847.0" layoutY="259.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Iran">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonGobi" layoutX="895.0" layoutY="248.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Gobi">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonMongolia" layoutX="862.0" layoutY="210.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Mongolia">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonTurquia" layoutX="802.0" layoutY="321.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Turquia">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+
+   <Button fx:id="botonIsrael" layoutX="814.0" layoutY="363.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Israel">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonArabia" layoutX="851.0" layoutY="386.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Arabia">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonSiberia" layoutX="865.0" layoutY="152.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Siberia">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonTartaria" layoutX="800.0" layoutY="89.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Tartaria">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonTaymir" layoutX="852.0" layoutY="113.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Taymir">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonIndia" layoutX="937.0" layoutY="355.0" mnemonicParsing="false" onAction="#handleBotonPais" rotate="-58.6" text="India">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonMalasia" layoutX="988.0" layoutY="309.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Malasia">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonJapon" layoutX="997.0" layoutY="140.0" mnemonicParsing="false" onAction="#handleBotonPais" rotate="35.0" text="Japon">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+
+   <Button fx:id="botonJava" layoutX="1018.0" layoutY="395.0" mnemonicParsing="false" onAction="#handleBotonPais" rotate="-68.6" text="Java">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonAustralia" layoutX="992.0" layoutY="511.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Australia">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonSumatra" layoutX="892.0" layoutY="445.0" mnemonicParsing="false" onAction="#handleBotonPais" rotate="36.9" text="Sumatra">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonBorneo" layoutX="966.0" layoutY="395.0" mnemonicParsing="false" onAction="#handleBotonPais" rotate="-79.5" text="Borneo">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+
+   <Button fx:id="botonSahara" layoutX="646.0" layoutY="486.0" mnemonicParsing="false" onAction="#handleBotonPais" rotate="-22.6" text="Sahara">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonEgipto" layoutX="758.0" layoutY="457.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Egipto">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonZaire" layoutX="701.0" layoutY="525.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Zaire">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonSudafrica" layoutX="759.0" layoutY="553.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Sudafrica">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonMadagascar" layoutX="819.0" layoutY="541.0" mnemonicParsing="false" onAction="#handleBotonPais" rotate="-73.6" text="Madagascar">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="botonEtiopia" layoutX="732.0" layoutY="498.0" mnemonicParsing="false" onAction="#handleBotonPais" text="Etiopia">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+
+
+   <Label fx:id="labelOregon" layoutX="100.0" layoutY="316.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelCalifornia" layoutX="145.0" layoutY="332.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelMexico" layoutX="261.0" layoutY="328.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelColombia" layoutX="376.0" layoutY="379.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelBrasil" layoutX="462.0" layoutY="438.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelUruguay" layoutX="455.0" layoutY="513.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelArgentina" layoutX="396.0" layoutY="559.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelChile" layoutX="317.0" layoutY="529.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelPeru" layoutX="298.0" layoutY="451.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelTerranova" layoutX="298.0" layoutY="225.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelLabrador" layoutX="291.0" layoutY="156.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelGroenlandia" layoutX="399.0" layoutY="108.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelIslandia" layoutX="484.0" layoutY="217.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelSuecia" layoutX="615.0" layoutY="168.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelRusia" layoutX="751.0" layoutY="174.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelAlemania" layoutX="701.0" layoutY="283.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelFrancia" layoutX="647.0" layoutY="301.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelGranBretania" layoutX="547.0" layoutY="306.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelEspania" layoutX="520.0" layoutY="362.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelItalia" layoutX="701.0" layoutY="361.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelPolonia" layoutX="751.0" layoutY="268.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelAral" layoutX="797.0" layoutY="120.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelTartaria" layoutX="778.0" layoutY="66.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelKamtchatka" layoutX="943.0" layoutY="120.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelJapon" layoutX="1040.0" layoutY="182.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelChina" layoutX="965.0" layoutY="205.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelGobi" layoutX="910.0" layoutY="271.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelMongolia" layoutX="903.0" layoutY="177.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelIran" layoutX="835.0" layoutY="223.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelTurquia" layoutX="877.0" layoutY="327.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelIsrael" layoutX="797.0" layoutY="367.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelArabia" layoutX="858.0" layoutY="426.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelSumatra" layoutX="894.0" layoutY="453.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelIndia" layoutX="936.0" layoutY="385.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelMalasia" layoutX="1030.0" layoutY="334.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelJava" layoutX="1056.0" layoutY="433.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelBorneo" layoutX="987.0" layoutY="435.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelAustralia" layoutX="1030.0" layoutY="480.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelMadagascar" layoutX="902.0" layoutY="547.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelSahara" layoutX="655.0" layoutY="453.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelEtiopia" layoutX="807.0" layoutY="506.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelEgipto" layoutX="828.0" layoutY="472.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelZaire" layoutX="683.0" layoutY="546.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelSudafrica" layoutX="784.0" layoutY="577.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelAlaska" layoutX="69.0" layoutY="256.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelYukon" layoutX="138.0" layoutY="220.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelCanada" layoutX="167.0" layoutY="182.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelNuevaYork" layoutX="306.0" layoutY="256.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelSiberia" layoutX="840.0" layoutY="151.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelTaymir" layoutX="888.0" layoutY="66.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+
+
+</AnchorPane>

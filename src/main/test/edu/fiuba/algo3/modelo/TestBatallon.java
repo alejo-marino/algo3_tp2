@@ -94,4 +94,17 @@ public class TestBatallon {
     public void test14CreoUnBatallonYTengo1EjercitoParaDefender (){
         assertEquals(batallon.getEjercitosParaDefender(), 1);
     }
+
+    @Test
+    public void test15CreoUnBatallonYAgrego2EjercitosYTengo1EjercitoParaReagruparEnAtaque() {
+        batallon.agregarEjercitos(2);
+        assertEquals(1, batallon.getEjercitosParaReagruparEnAtaque());
+    }
+
+    @Test
+    public void test16CreoUnBatallonYAgrego5EjercitosYTengo2EjercitosParaReagruparEnAtaque() {
+        batallon.agregarEjercitos(5);
+        assertEquals(2, batallon.getEjercitosParaReagruparEnAtaque());
+    }
+
 }

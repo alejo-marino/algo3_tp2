@@ -22,7 +22,6 @@ public class Combate {
 
         int cantEjercitosDefensores = this.defensor.getEjercitosParaDefender();
 
-        DadosDeSeisCaras dados = new DadosDeSeisCaras();
         ArrayList<Integer> tiradaAtacante = obtenerTirada(cantEjercitosAtacantes);
         ArrayList<Integer> tiradaDefensor = obtenerTirada(cantEjercitosDefensores);
 

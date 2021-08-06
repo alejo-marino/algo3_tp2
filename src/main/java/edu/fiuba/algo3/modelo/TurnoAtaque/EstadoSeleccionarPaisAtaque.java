@@ -10,4 +10,17 @@ public interface EstadoSeleccionarPaisAtaque {
 
     void cancelarAccion();
 
+    int getEjercitosParaAtacar();
+
+    boolean puedoAtacar();
+
+    boolean puedoCancelar();
+
+    boolean puedoSeleccionarPais(Pais pais);
+
+    boolean puedoReagrupar();
+
+    void reagrupar(int cantidadEjercitos);
+
+    boolean paisSeleccionado(String nombrePais);
 }

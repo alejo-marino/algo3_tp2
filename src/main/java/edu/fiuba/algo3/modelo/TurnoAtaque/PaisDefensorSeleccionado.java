@@ -5,6 +5,7 @@ import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Pais;
 import edu.fiuba.algo3.modelo.excepciones.EjercitosInvalidosException;
 import edu.fiuba.algo3.modelo.excepciones.PaisesYaSeleccionadosException;
+import edu.fiuba.algo3.modelo.excepciones.ReagrupeInvalidoException;
 
 public class PaisDefensorSeleccionado implements EstadoSeleccionarPaisAtaque {
 
@@ -31,13 +32,50 @@ public class PaisDefensorSeleccionado implements EstadoSeleccionarPaisAtaque {
         Combate combate = new Combate(paisAtacante, paisDefensor, cantidadEjercitos);
         combate.combatir();
         if (!this.paisAtacante.puedeAtacar()) {
-            turnoAtaque.cambiarEstado(new NingunPaisSeleccionadoAtaque(turnoAtaque, jugador));
+            this.turnoAtaque.cambiarEstado(new NingunPaisSeleccionadoAtaque(turnoAtaque, jugador));
+        } else if (paisDefensor.esAliado(paisAtacante)) {
+            this.turnoAtaque.cambiarEstado(new PaisConquistado(turnoAtaque, jugador, paisAtacante, paisDefensor));
         }
     }
 
     @Override
     public void cancelarAccion() {
         turnoAtaque.cambiarEstado(new PaisAtacanteSeleccionado(turnoAtaque, jugador, paisAtacante));
+    }
+
+    @Override
+    public int getEjercitosParaAtacar() {
+        return paisAtacante.getEjercitosParaAtacar();
+    }
+
+    @Override
+    public boolean puedoAtacar() {
+        return true;
+    }
+
+    @Override
+    public boolean puedoCancelar() {
+        return true;
+    }
+
+    @Override
+    public boolean puedoSeleccionarPais(Pais pais) {
+        return false;
+    }
+
+    @Override
+    public boolean puedoReagrupar() {
+        return false;
+    }
+
+    @Override
+    public void reagrupar(int cantidadEjercitos) {
+        throw new ReagrupeInvalidoException("No es posible reagrupar mientras estás atacando");
+    }
+
+    @Override
+    public boolean paisSeleccionado(String nombrePais) {
+        return paisAtacante.toString().equals(nombrePais) || paisDefensor.toString().equals(nombrePais);
     }
 
     private void paisPuedeAtacar(int cantidadEjercitos) {

@@ -1,19 +1,19 @@
 package edu.fiuba.algo3.modelo;
 
-import java.util.Queue;
-
 public class Constantes {
 
     public final static String rutaJsonFronteras = "src/main/java/edu/fiuba/algo3/modelo/JSON/Fronteras.json";
     public final static String rutaJsonTarjetas = "src/main/java/edu/fiuba/algo3/modelo/JSON/Cartas.json";
     public final static String rutaJsonMisiones = "src/main/java/edu/fiuba/algo3/modelo/JSON/Misiones.json";
 
-    public final static String colorAzul = "077bb";
-    public final static String colorRojo = "cc3311";
-    public final static String colorAmarillo = "ee7733";
-    public final static String colorVerde = "009988";
-    public final static String colorRosa = "ee3377";
-    public final static String colorNegro = "000000";
+    public final static String colorAzul = "#0077bb";
+    public final static String colorRojo = "#cc3311";
+    public final static String colorAmarillo = "#ee7733";
+    public final static String colorVerde = "#009988";
+    public final static String colorRosa = "#ee3377";
+    public final static String colorNegro = "#000000";
+    public final static String colorBlanco = "#ffffff";
+    public final static String colorGris = "#9b9b9b";
 
     public final static Integer numeroJugadorMisionComun = 30;
     public final static Integer numeroMinimoDeJugadores = 2;
@@ -21,6 +21,7 @@ public class Constantes {
 
     public final static Integer ejercitosParaAtacarMaximo = 3;
     public final static Integer ejercitosParaDefenderMaximo = 3;
+    public final static Integer ejercitosParaReagruparEnAtaqueMaximo = 2;
 
     public final static Integer ejercitosMinimosTurnoRefuerzo = 3;
 
@@ -41,5 +42,8 @@ public class Constantes {
     public final static Integer numeroEjercitosPrimerCanje = 4;
     public final static Integer numeroEjercitosSegundoCanje = 7;
     public final static Integer numeroEjercitosTercerCanje = 10;
+
+    public final static Integer cantidadJugadoresMinima = 2;
+    public final static Integer cantidadJugadoresMaxima = 6;
 
 }

@@ -1,6 +1,5 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.modelo.excepciones.CanjeConTarjetaAjenaException;
 import edu.fiuba.algo3.modelo.excepciones.CanjeInvalidoException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,8 +26,8 @@ public class TestMazoDeCartas {
 
     @BeforeEach
     void setUp() {
-        this.jugador = new Jugador("000000");
-        this.otroJugador = new Jugador("ffffff");
+        this.jugador = new Jugador("000000", "Jugador 1");
+        this.otroJugador = new Jugador("ffffff", "Jugador 2");
 
         Pais argentina = new Pais("Argentina");
         argentina.asignarDuenio(jugador);
@@ -112,7 +111,7 @@ public class TestMazoDeCartas {
         tarjetas.add(tarjetaUruguay.toString());
         tarjetas.add(tarjetaBrasil.toString());
 
-        assertEquals(0, mazo.canjearTarjetas(tarjetas, jugador));
+        assertThrows(CanjeInvalidoException.class, () -> mazo.canjearTarjetas(tarjetas, jugador));
     }
 
     @Test

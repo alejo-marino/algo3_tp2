@@ -23,7 +23,7 @@ public class TurnoReagrupe implements EstadoTurno {
         this.estadoSeleccionarPaisReagrupe = new NingunPaisSeleccionadoReagrupe(this, jugador, datosRefuerzo);
     }
 
-    public void cambiarEstado(EstadoSeleccionarPaisReagrupe estadoSeleccionarPaisReagrupe) {
+    protected void cambiarEstado(EstadoSeleccionarPaisReagrupe estadoSeleccionarPaisReagrupe) {
         this.estadoSeleccionarPaisReagrupe = estadoSeleccionarPaisReagrupe;
     }
 
@@ -58,13 +58,71 @@ public class TurnoReagrupe implements EstadoTurno {
     }
 
     public void efectivizarReagrupe() {
-        datosRefuerzo.forEach((pais, ejercitosAEfectivizar) -> {
-            pais.reforzar(ejercitosAEfectivizar);
-        });
+        datosRefuerzo.forEach(Pais::reforzar);
     }
 
     @Override
     public void activarTarjeta(String nombreTarjeta, Juego juego) {
         throw new ActivacionTarjetaInvalidaException("No podés activar la tarjeta en un turno de reagrupe.");
+    }
+
+    @Override
+    public boolean puedoAtacar() {
+        return false;
+    }
+
+    @Override
+    public int getEjercitosParaAtacar() {
+        return this.estadoSeleccionarPaisReagrupe.getEjercitosParaReagrupar();
+    }
+
+    @Override
+    public boolean puedoReforzar() {
+        return false;
+    }
+
+    @Override
+    public int getEjercitosParaReforzar() {
+        return 0;
+    }
+
+    @Override
+    public boolean puedoCancelar() {
+        return estadoSeleccionarPaisReagrupe.puedoCancelar();
+    }
+
+    @Override
+    public boolean estoyEnTurnoAtaque() {
+        return false;
+    }
+
+    @Override
+    public boolean puedoPasarDeTurno() {
+        return true;
+    }
+
+    @Override
+    public boolean puedoReagrupar() {
+        return estadoSeleccionarPaisReagrupe.puedoReagrupar();
+    }
+
+    @Override
+    public boolean puedoSeleccionarPais(Pais pais) {
+        return estadoSeleccionarPaisReagrupe.paisPuedeSeleccionarse(pais);
+    }
+
+    @Override
+    public boolean puedoActivarTarjeta(String nombreTarjeta) {
+        return false;
+    }
+
+    @Override
+    public boolean puedoCanjearTarjeta() {
+        return false;
+    }
+
+    @Override
+    public boolean paisSeleccionado(String nombrePais) {
+        return estadoSeleccionarPaisReagrupe.paisSeleccionado(nombrePais);
     }
 }

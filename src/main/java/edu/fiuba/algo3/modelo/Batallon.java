@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
-import static edu.fiuba.algo3.modelo.Constantes.ejercitosParaAtacarMaximo;
-import static edu.fiuba.algo3.modelo.Constantes.ejercitosParaDefenderMaximo;
+import static edu.fiuba.algo3.modelo.Constantes.*;
 
 public class Batallon {
 
@@ -43,5 +42,12 @@ public class Batallon {
             return ejercitosParaDefenderMaximo;
         }
         return ejercitos;
+    }
+
+    public int getEjercitosParaReagruparEnAtaque() {
+        if ((ejercitos - 2) > ejercitosParaReagruparEnAtaqueMaximo) {
+            return ejercitosParaReagruparEnAtaqueMaximo;
+        }
+        return ejercitos - 2;
     }
 }
