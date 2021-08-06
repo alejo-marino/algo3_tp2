@@ -178,4 +178,15 @@ public class SistemaDeTurnos extends Observable {
         this.faseActual = fase;
     }
 
+    public boolean puedoActivarTarjeta(String nombreTarjeta) {
+        return this.faseActual.puedoActivarTarjeta(nombreTarjeta);
+    }
+
+    public boolean puedoCanjearTarjetas(){
+        return this.faseActual.puedoCanjearTatjeta();
+    }
+
+    public boolean paisSeleccionado(String nombrePais) {
+        return faseActual.paisSeleccionado(nombrePais);
+    }
 }
