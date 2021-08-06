@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.excepciones.CanjeInvalidoException;
-import edu.fiuba.algo3.modelo.excepciones.TarjetaInexistenteException;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,11 +19,7 @@ public class MazoDeTarjetas {
     }
 
     private Queue<Tarjeta> convertirListaDeTarjetasACola(ArrayList<Tarjeta> tarjetas) {
-        Queue<Tarjeta> colaTarjetas = new LinkedList<>();
-        for (Tarjeta tarjeta: tarjetas) {
-            colaTarjetas.add(tarjeta);
-        }
-        return colaTarjetas;
+        return new LinkedList<>(tarjetas);
     }
 
     public void darTarjeta(Jugador jugador) {

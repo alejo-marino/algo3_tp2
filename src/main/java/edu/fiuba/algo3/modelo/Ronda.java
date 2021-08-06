@@ -89,6 +89,6 @@ public abstract class Ronda {
 
     public boolean paisPuedeSeleccionarse(String nombrePais) {
         Pais pais = juego.seleccionarPais(nombrePais);
-        return this.estadoTurno.paisPuedeSeleccionarse(pais);
+        return this.estadoTurno.puedoSeleccionarPais(pais);
     }
 }

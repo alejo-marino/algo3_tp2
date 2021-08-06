@@ -8,10 +8,8 @@ import java.util.ArrayList;
 public class TurnoAtaque implements EstadoTurno {
 
     private EstadoSeleccionarPaisAtaque estadoSeleccionarPaisAtaque;
-    private Jugador jugador;
 
     public TurnoAtaque(Jugador jugador) {
-        this.jugador = jugador;
         this.estadoSeleccionarPaisAtaque = new NingunPaisSeleccionadoAtaque(this, jugador);
     }
 
@@ -93,7 +91,7 @@ public class TurnoAtaque implements EstadoTurno {
     }
 
     @Override
-    public boolean paisPuedeSeleccionarse(Pais pais) {
-        return estadoSeleccionarPaisAtaque.paisPuedeSeleccionarse(pais);
+    public boolean puedoSeleccionarPais(Pais pais) {
+        return estadoSeleccionarPaisAtaque.puedoSeleccionarPais(pais);
     }
 }

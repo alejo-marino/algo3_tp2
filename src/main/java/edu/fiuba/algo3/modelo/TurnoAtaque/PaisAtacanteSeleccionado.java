@@ -18,17 +18,18 @@ public class PaisAtacanteSeleccionado implements EstadoSeleccionarPaisAtaque {
 
     @Override
     public void seleccionarPais(Pais pais) {
-        if (!pais.esLimitrofe(paisAtacante)) {
-            throw new AtaqueAPaisNoLimitrofeException(pais + " no limita con " + paisAtacante.toString());
-        }
         if (pais.esAliado(paisAtacante)) {
-            if (pais.puedeAtacar()) {
-                turnoAtaque.cambiarEstado(new PaisAtacanteSeleccionado(turnoAtaque, jugador, pais));
-            } else {
+            if (!pais.puedeAtacar()) {
                 throw new EjercitosInvalidosException(pais + " no tiene suficientes ejércitos para atacar.");
             }
+            turnoAtaque.cambiarEstado(new PaisAtacanteSeleccionado(turnoAtaque, jugador, pais));
+        } else {
+            if (!pais.esLimitrofe(paisAtacante)) {
+                throw new AtaqueAPaisNoLimitrofeException(pais + " no limita con " + paisAtacante.toString());
+            }
+            turnoAtaque.cambiarEstado(new PaisDefensorSeleccionado(turnoAtaque, jugador, paisAtacante, pais));
         }
-        turnoAtaque.cambiarEstado(new PaisDefensorSeleccionado(turnoAtaque, jugador, paisAtacante, pais));
+
     }
 
     @Override
@@ -57,7 +58,7 @@ public class PaisAtacanteSeleccionado implements EstadoSeleccionarPaisAtaque {
     }
 
     @Override
-    public boolean paisPuedeSeleccionarse(Pais pais) {
+    public boolean puedoSeleccionarPais(Pais pais) {
         return (pais != paisAtacante &&
                 ((!pais.esAliado(paisAtacante) && paisAtacante.esLimitrofe(pais)) ||
                         (pais.puedeAtacar() && pais.esAliado(paisAtacante))));

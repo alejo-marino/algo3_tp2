@@ -45,9 +45,9 @@ public class Batallon {
     }
 
     public int getEjercitosParaReagruparEnAtaque() {
-        if (ejercitos > ejercitosParaReagruparEnAtaqueMaximo) {
+        if ((ejercitos - 2) > ejercitosParaReagruparEnAtaqueMaximo) {
             return ejercitosParaReagruparEnAtaqueMaximo;
         }
-        return ejercitos - 1;
+        return ejercitos - 2;
     }
 }

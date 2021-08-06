@@ -54,7 +54,7 @@ public class PaisConquistado implements EstadoSeleccionarPaisAtaque {
     }
 
     @Override
-    public boolean paisPuedeSeleccionarse(Pais pais) {
+    public boolean puedoSeleccionarPais(Pais pais) {
         return false;
     }
 

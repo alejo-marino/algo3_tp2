@@ -108,7 +108,7 @@ public class TurnoRefuerzo implements EstadoTurno {
     }
 
     @Override
-    public boolean paisPuedeSeleccionarse(Pais pais) {
+    public boolean puedoSeleccionarPais(Pais pais) {
         return estadoSeleccionarPaisRefuerzo. paisPuedeSeleccionarse(pais);
     }
 

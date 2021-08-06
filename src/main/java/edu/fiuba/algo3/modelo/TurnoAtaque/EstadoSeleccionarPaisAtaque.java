@@ -16,7 +16,7 @@ public interface EstadoSeleccionarPaisAtaque {
 
     boolean puedoCancelar();
 
-    boolean paisPuedeSeleccionarse(Pais pais);
+    boolean puedoSeleccionarPais(Pais pais);
 
     boolean puedoReagrupar();
 

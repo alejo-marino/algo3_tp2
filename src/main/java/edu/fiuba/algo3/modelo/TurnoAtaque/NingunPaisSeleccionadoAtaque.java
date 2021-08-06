@@ -52,7 +52,7 @@ public class NingunPaisSeleccionadoAtaque implements EstadoSeleccionarPaisAtaque
     }
 
     @Override
-    public boolean paisPuedeSeleccionarse(Pais pais) {
+    public boolean puedoSeleccionarPais(Pais pais) {
         return pais.esDuenio(jugador) && pais.puedeAtacar();
     }
 

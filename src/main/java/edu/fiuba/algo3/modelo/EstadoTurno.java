@@ -34,5 +34,5 @@ public interface EstadoTurno {
 
     boolean puedoReagrupar();
 
-    boolean paisPuedeSeleccionarse(Pais pais);
+    boolean puedoSeleccionarPais(Pais pais);
 }
