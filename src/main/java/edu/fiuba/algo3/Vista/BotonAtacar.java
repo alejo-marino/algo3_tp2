@@ -30,7 +30,7 @@ public class BotonAtacar implements Observer {
             for (int i = 1; i <= sistema.getEjercitosParaAtacar(); i++) {
                 choiceBoxAtacar.getItems().add(i);
             }
-            choiceBoxAtacar.getSelectionModel().selectFirst();
+            choiceBoxAtacar.getSelectionModel().selectLast();
         } else {
             botonAtacar.setDisable(true);
             choiceBoxAtacar.setDisable(true);

@@ -57,6 +57,7 @@ public class TurnoRefuerzo implements EstadoTurno {
             throw new CanjeInvalidoException("Cantidad erronea de tarjetas para el canje.");
         }
         estadoSeleccionarPaisRefuerzo.agregarEjercitos(juego.canjearTarjetas(tarjetasACanjear, jugador));
+        estadoSeleccionarPaisRefuerzo.cancelarAccion();
     }
 
     public boolean tieneEjercitosParaReforzar() {
@@ -110,6 +111,21 @@ public class TurnoRefuerzo implements EstadoTurno {
     @Override
     public boolean puedoSeleccionarPais(Pais pais) {
         return estadoSeleccionarPaisRefuerzo. paisPuedeSeleccionarse(pais);
+    }
+
+    @Override
+    public boolean puedoActivarTarjeta(String nombreTarjeta) {
+        return true;
+    }
+
+    @Override
+    public boolean puedoCanjearTarjeta(){
+        return true;
+    }
+
+    @Override
+    public boolean paisSeleccionado(String nombrePais) {
+        return estadoSeleccionarPaisRefuerzo.paisSeleccionado(nombrePais);
     }
 
 }

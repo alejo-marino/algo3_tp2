@@ -12,6 +12,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 
 import java.io.IOException;
 import java.net.URL;
@@ -133,6 +134,8 @@ public class TableroController implements Initializable {
     public Label labelEgipto;
     public Label labelZaire;
     public Label labelSudafrica;
+    public Label labelSiberia;
+    public Label labelTaymir;
     public Button botonTarjetas;
     public VBox menuAcciones;
     private SistemaDeTurnos sistema;
@@ -257,6 +260,7 @@ public class TableroController implements Initializable {
                 | ReagrupeAPaisAjenoException | ReagrupeAPaisNoLimitrofeException | EjercitosInvalidosException e) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setContentText(e.getMessage());
+            alert.initModality(Modality.APPLICATION_MODAL);
             alert.show();
         }
     }
@@ -271,6 +275,7 @@ public class TableroController implements Initializable {
         } catch(NoReforzoTodosLosEjercitosException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("No reforzó todos los ejércitos.");
+            alert.initModality(Modality.APPLICATION_MODAL);
             alert.show();
         }
     }
@@ -281,10 +286,12 @@ public class TableroController implements Initializable {
         } catch (JugadorGanoException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText(e.getMessage());
+            alert.initModality(Modality.APPLICATION_MODAL);
             alert.show();
         } catch (AtaqueInvalidoException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
+            alert.initModality(Modality.APPLICATION_MODAL);
             alert.show();
         }
 
@@ -296,6 +303,7 @@ public class TableroController implements Initializable {
         } catch (PaisNoSeleccionadoException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
+            alert.initModality(Modality.APPLICATION_MODAL);
             alert.show();
         }
 
@@ -313,12 +321,13 @@ public class TableroController implements Initializable {
     public void handleVerMisiones(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText(sistema.verMisiones());
+        alert.initModality(Modality.APPLICATION_MODAL);
         alert.show();
     }
 
     public void handleTarjetas(ActionEvent actionEvent) {
         try {
-            MenuTarjetas.display(sistema);
+            MenuTarjetas.display();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -374,6 +383,8 @@ public class TableroController implements Initializable {
         diccionarioLabels.put("Zaire", labelZaire);
         diccionarioLabels.put("Sudafrica", labelSudafrica);
         diccionarioLabels.put("Canada", labelCanada);
+        diccionarioLabels.put("Siberia", labelSiberia);
+        diccionarioLabels.put("Taymir", labelTaymir);
         return diccionarioLabels;
     }
 

@@ -110,4 +110,19 @@ public class TurnoReagrupe implements EstadoTurno {
     public boolean puedoSeleccionarPais(Pais pais) {
         return estadoSeleccionarPaisReagrupe.paisPuedeSeleccionarse(pais);
     }
+
+    @Override
+    public boolean puedoActivarTarjeta(String nombreTarjeta) {
+        return false;
+    }
+
+    @Override
+    public boolean puedoCanjearTarjeta() {
+        return false;
+    }
+
+    @Override
+    public boolean paisSeleccionado(String nombrePais) {
+        return estadoSeleccionarPaisReagrupe.paisSeleccionado(nombrePais);
+    }
 }

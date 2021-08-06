@@ -48,22 +48,30 @@ public class MazoDeTarjetas {
         if (!tarjetasPertenecenAJugador(tarjetasACanjear, jugador)) {
             throw new CanjeInvalidoException("Las tarjetas no te pertenecen.");
         }
-
-        if (tarjetasACanjear.get(0).tieneIgualSimbolo(tarjetasACanjear.get(1))) {
-            for (Tarjeta tarjeta: tarjetasACanjear) {
-                if (!tarjeta.tieneIgualSimbolo(tarjetasACanjear.get(0))) {
-                    return 0;
-                }
+        boolean comodin = false;
+        for (Tarjeta tarjeta : tarjetasACanjear) {
+            if (tarjeta.getSimbolo().equals("Comodin")) {
+                comodin = true;
+                break;
             }
-        } else {
-            ArrayList<Tarjeta> tarjetasACanjearCopia = new ArrayList<>(tarjetasACanjear);
+        }
+        if (!comodin) {
+            if (tarjetasACanjear.get(0).tieneIgualSimbolo(tarjetasACanjear.get(1))) {
+                for (Tarjeta tarjeta : tarjetasACanjear) {
+                    if (!tarjeta.tieneIgualSimbolo(tarjetasACanjear.get(0))) {
+                        throw new CanjeInvalidoException("Las tarjetas deben ser de igual simbolo o todas distintas.");
+                    }
+                }
+            } else {
+                ArrayList<Tarjeta> tarjetasACanjearCopia = new ArrayList<>(tarjetasACanjear);
 
-            Tarjeta tarjeta;
-            while (!tarjetasACanjearCopia.isEmpty()) {
-                tarjeta = tarjetasACanjearCopia.remove(0);
-                for (Tarjeta otraTarjeta: tarjetasACanjearCopia) {
-                    if (tarjeta.tieneIgualSimbolo(otraTarjeta)) {
-                        return 0;
+                Tarjeta tarjeta;
+                while (!tarjetasACanjearCopia.isEmpty()) {
+                    tarjeta = tarjetasACanjearCopia.remove(0);
+                    for (Tarjeta otraTarjeta : tarjetasACanjearCopia) {
+                        if (tarjeta.tieneIgualSimbolo(otraTarjeta)) {
+                            throw new CanjeInvalidoException("Las tarjetas deben ser de igual simbolo o todas distintas.");
+                        }
                     }
                 }
             }

@@ -21,11 +21,11 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Inicio {
 
-    public static ArrayList jugadores;
-    public static ArrayList<Button> botonesPaises = new ArrayList();
+    public static ArrayList<String> jugadores;
     public static Pane content;
 
     public static void display(ArrayList<TextField> nombreJugadores) throws IOException {
@@ -37,8 +37,9 @@ public class Inicio {
             nombreDeJugadores.add(nombre.getText());
         }
         jugadores = nombreDeJugadores;
+        Collections.shuffle(jugadores);
         Juego juego = Juego.getInstancia();
-        juego.setearJugadores(nombreDeJugadores);
+        juego.setearJugadores(jugadores);
 
         FXMLLoader loader = new FXMLLoader();
 
@@ -46,17 +47,11 @@ public class Inicio {
         loader.setLocation(fxmlLocation);
 
         content = loader.load();
-        for (Node nodo : content.getChildren()) {
-            if (nodo.getClass() == Button.class) {
-                botonesPaises.add((Button) nodo);
-            }
-        }
-
 
         Scene scene = new Scene(content);
         stage.setScene(scene);
         stage.setTitle("ALGOTEG");
-        
+        stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
 
     }

@@ -35,4 +35,10 @@ public interface EstadoTurno {
     boolean puedoReagrupar();
 
     boolean puedoSeleccionarPais(Pais pais);
+
+    boolean puedoActivarTarjeta(String nombreTarjeta);
+
+    boolean puedoCanjearTarjeta();
+
+    boolean paisSeleccionado(String nombrePais);
 }

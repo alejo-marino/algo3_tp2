@@ -60,4 +60,9 @@ public class NingunPaisSeleccionadoReagrupe implements EstadoSeleccionarPaisReag
     public boolean paisPuedeSeleccionarse(Pais pais) {
         return pais.esDuenio(jugador) && pais.puedeAtacar();
     }
+
+    @Override
+    public boolean paisSeleccionado(String nombrePais) {
+        return false;
+    }
 }

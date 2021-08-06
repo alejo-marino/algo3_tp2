@@ -67,4 +67,9 @@ public class NingunPaisSeleccionadoRefuerzo implements EstadoSeleccionarPaisRefu
     public boolean paisPuedeSeleccionarse(Pais pais) {
         return pais.esDuenio(jugador);
     }
+
+    @Override
+    public boolean paisSeleccionado(String nombrePais) {
+        return false;
+    }
 }

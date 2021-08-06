@@ -74,4 +74,9 @@ public class PaisAtacanteSeleccionado implements EstadoSeleccionarPaisAtaque {
         throw new ReagrupeInvalidoException("No es posible reagrupar mientras estás atacando");
     }
 
+    @Override
+    public boolean paisSeleccionado(String nombrePais) {
+        return paisAtacante.toString().equals(nombrePais);
+    }
+
 }

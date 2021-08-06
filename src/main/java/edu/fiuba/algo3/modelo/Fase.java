@@ -93,4 +93,16 @@ public abstract class Fase {
     public boolean paisPuedeSeleccionarse(String nombrePais) {
         return this.ronda.paisPuedeSeleccionarse(nombrePais);
     }
+
+    public boolean puedoActivarTarjeta(String nombreTarjeta) {
+        return this.ronda.puedoActivarTarjeta(nombreTarjeta);
+    }
+
+    public boolean puedoCanjearTatjeta(){
+        return this.ronda.puedoCanjearTarjeta();
+    }
+
+    public boolean paisSeleccionado(String nombrePais) {
+        return this.ronda.paisSeleccionado(nombrePais);
+    }
 }

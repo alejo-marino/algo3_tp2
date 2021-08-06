@@ -18,6 +18,7 @@ public class Juego {
 
     private static Juego instancia = new Juego();
     private ArrayList<Mision> misiones;
+    private SistemaDeTurnos sistema;
 
     private Juego() {
         this.colores = new LinkedList<>();
@@ -82,7 +83,8 @@ public class Juego {
 
         this.darMisiones();
 
-        return new SistemaDeTurnos(listaJugadores, this, this.setearRondasIniciales());
+        sistema = new SistemaDeTurnos(listaJugadores, this, this.setearRondasIniciales());
+        return sistema;
     }
 
     private void setObservadoresPaises(ArrayList<Pais> listaPaisesAsignados, Map<String, ArrayList<Observer>> diccionarioObserversPais) {
@@ -98,6 +100,7 @@ public class Juego {
 
     private void darPaises(ArrayList<Pais> paisesSinAsignar) {
         Queue<Jugador> colaJugadores = new LinkedList<>(listaJugadores);
+        Collections.shuffle(paisesSinAsignar);
         for (Pais paisSinAsignar: paisesSinAsignar) {
             Jugador jugador = colaJugadores.remove();
             paisSinAsignar.asignarDuenio(jugador);

@@ -55,6 +55,6 @@ public class SeleccionNombreJugadores {
         });
         window.setScene(scene);
         window.show();
-
+        SeleccionCantidadJugadores.close();
     }
 }

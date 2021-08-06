@@ -28,7 +28,7 @@ public class BotonReforzar implements Observer {
             for (int i = 1; i <= sistema.getEjercitosParaReforzar(); i++) {
                 choiceBoxReforzar.getItems().add(i);
             }
-            choiceBoxReforzar.getSelectionModel().selectFirst();
+            choiceBoxReforzar.getSelectionModel().selectLast();
         } else {
             botonReforzar.setDisable(true);
             choiceBoxReforzar.setDisable(true);

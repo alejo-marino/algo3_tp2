@@ -73,6 +73,11 @@ public class PaisDefensorSeleccionado implements EstadoSeleccionarPaisAtaque {
         throw new ReagrupeInvalidoException("No es posible reagrupar mientras estás atacando");
     }
 
+    @Override
+    public boolean paisSeleccionado(String nombrePais) {
+        return paisAtacante.toString().equals(nombrePais) || paisDefensor.toString().equals(nombrePais);
+    }
+
     private void paisPuedeAtacar(int cantidadEjercitos) {
         if (cantidadEjercitos > 3 || (cantidadEjercitos < 1) || ((cantidadEjercitos > paisAtacante.getEjercitosParaAtacar()))) {
             throw new EjercitosInvalidosException("No hay suficientes ejércitos para atacar");

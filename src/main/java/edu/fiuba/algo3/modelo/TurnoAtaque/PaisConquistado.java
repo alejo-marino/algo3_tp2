@@ -71,6 +71,11 @@ public class PaisConquistado implements EstadoSeleccionarPaisAtaque {
         this.turnoAtaque.cambiarEstado(new NingunPaisSeleccionadoAtaque(turnoAtaque, jugador));
     }
 
+    @Override
+    public boolean paisSeleccionado(String nombrePais) {
+        return paisAtacante.toString().equals(nombrePais) || paisDefensor.toString().equals(nombrePais);
+    }
+
     private void paisPuedeReagruparEnAtaque(int cantidadEjercitosAReagrupar) {
         if (cantidadEjercitosAReagrupar < 1) {
             throw new EjercitosInvalidosException("Cantidad de ejércitos a reagrupar invalida");

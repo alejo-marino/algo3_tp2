@@ -22,4 +22,5 @@ public interface EstadoSeleccionarPaisAtaque {
 
     void reagrupar(int cantidadEjercitos);
 
+    boolean paisSeleccionado(String nombrePais);
 }

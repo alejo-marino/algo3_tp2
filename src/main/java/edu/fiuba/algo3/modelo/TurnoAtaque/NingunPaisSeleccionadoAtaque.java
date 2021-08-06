@@ -65,4 +65,9 @@ public class NingunPaisSeleccionadoAtaque implements EstadoSeleccionarPaisAtaque
     public void reagrupar(int cantidadEjercitos) {
         throw new ReagrupeInvalidoException("No es posible reagrupar mientras estás atacando");
     }
+
+    @Override
+    public boolean paisSeleccionado(String nombrePais) {
+        return false;
+    }
 }

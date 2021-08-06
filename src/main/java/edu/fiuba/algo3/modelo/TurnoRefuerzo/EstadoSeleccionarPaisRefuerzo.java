@@ -23,4 +23,6 @@ public interface EstadoSeleccionarPaisRefuerzo {
     boolean puedoPasarDeTurno();
 
     boolean paisPuedeSeleccionarse(Pais pais);
+
+    boolean paisSeleccionado(String nombrePais);
 }

@@ -61,4 +61,9 @@ public class PaisOrigenSeleccionado implements EstadoSeleccionarPaisReagrupe {
     public boolean paisPuedeSeleccionarse(Pais pais) {
         return pais.esDuenio(jugador) && pais.esLimitrofe(paisOrigen);
     }
+
+    @Override
+    public boolean paisSeleccionado(String nombrePais) {
+        return paisOrigen.toString().equals(nombrePais);
+    }
 }

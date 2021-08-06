@@ -94,4 +94,20 @@ public class TurnoAtaque implements EstadoTurno {
     public boolean puedoSeleccionarPais(Pais pais) {
         return estadoSeleccionarPaisAtaque.puedoSeleccionarPais(pais);
     }
+
+    @Override
+    public boolean puedoActivarTarjeta(String nombreTarjeta) {
+        return false;
+    }
+
+    @Override
+    public boolean puedoCanjearTarjeta() {
+        return false;
+    }
+
+    @Override
+    public boolean paisSeleccionado(String nombrePais) {
+        return estadoSeleccionarPaisAtaque.paisSeleccionado(nombrePais);
+    }
+
 }

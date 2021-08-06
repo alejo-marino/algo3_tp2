@@ -339,7 +339,7 @@
          <Font name="System Bold" size="25.0" />
       </font>
    </Label>
-   <Label fx:id="labelGranBretania" layoutX="542.0" layoutY="301.0" text="0">
+   <Label fx:id="labelGranBretania" layoutX="547.0" layoutY="306.0" text="0">
       <font>
          <Font name="System Bold" size="25.0" />
       </font>
@@ -490,6 +490,16 @@
       </font>
    </Label>
    <Label fx:id="labelNuevaYork" layoutX="306.0" layoutY="256.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelSiberia" layoutX="840.0" layoutY="151.0" text="0">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <Label fx:id="labelTaymir" layoutX="888.0" layoutY="66.0" text="0">
       <font>
          <Font name="System Bold" size="25.0" />
       </font>

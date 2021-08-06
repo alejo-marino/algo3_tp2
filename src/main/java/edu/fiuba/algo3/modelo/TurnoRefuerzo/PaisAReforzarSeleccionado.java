@@ -79,4 +79,9 @@ public class PaisAReforzarSeleccionado implements EstadoSeleccionarPaisRefuerzo 
         return pais.esDuenio(jugador);
     }
 
+    @Override
+    public boolean paisSeleccionado(String nombrePais) {
+        return paisAReforzar.toString().equals(nombrePais);
+    }
+
 }

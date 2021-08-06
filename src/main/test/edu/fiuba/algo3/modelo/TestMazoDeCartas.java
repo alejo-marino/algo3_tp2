@@ -111,7 +111,7 @@ public class TestMazoDeCartas {
         tarjetas.add(tarjetaUruguay.toString());
         tarjetas.add(tarjetaBrasil.toString());
 
-        assertEquals(0, mazo.canjearTarjetas(tarjetas, jugador));
+        assertThrows(CanjeInvalidoException.class, () -> mazo.canjearTarjetas(tarjetas, jugador));
     }
 
     @Test

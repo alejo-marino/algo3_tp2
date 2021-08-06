@@ -17,11 +17,9 @@ import static com.sun.javafx.scene.control.skin.Utils.getResource;
 
 public class MenuTarjetas {
 
-    public static void display(SistemaDeTurnos sistema) throws IOException {
+    public static void display() throws IOException {
         URL url = new File("src/main/resources/vistas/Tarjetas.fxml").toURI().toURL();
         Parent root = FXMLLoader.load(url);
-        FXMLLoader loader = new FXMLLoader(getResource("src/main/resources/vistas/Tarjetas.fxml"));
-        TarjetasController controller = loader.getController();
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -29,7 +27,6 @@ public class MenuTarjetas {
         stage.initModality(Modality.APPLICATION_MODAL);
 
         stage.show();
-        controller.inicializar(sistema);
     }
 
 }

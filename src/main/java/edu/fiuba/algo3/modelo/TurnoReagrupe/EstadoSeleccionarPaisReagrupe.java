@@ -17,4 +17,6 @@ public interface EstadoSeleccionarPaisReagrupe {
     int getEjercitosParaReagrupar();
 
     boolean paisPuedeSeleccionarse(Pais pais);
+
+    boolean paisSeleccionado(String nombrePais);
 }

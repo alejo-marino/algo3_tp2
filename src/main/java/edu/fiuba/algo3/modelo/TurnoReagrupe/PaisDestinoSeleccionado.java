@@ -67,6 +67,11 @@ public class PaisDestinoSeleccionado implements EstadoSeleccionarPaisReagrupe {
         return false;
     }
 
+    @Override
+    public boolean paisSeleccionado(String nombrePais) {
+        return paisOrigen.toString().equals(nombrePais) || paisDestino.toString().equals(nombrePais);
+    }
+
     private void paisPuedeReagrupar(int cantidadEjercitosAMovilizar) {
         if (cantidadEjercitosAMovilizar < 1) {
             throw new EjercitosInvalidosException("Cantidad de ejércitos a realocar invalida");

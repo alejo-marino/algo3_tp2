@@ -13,19 +13,18 @@ import java.net.URL;
  * JavaFX App
  */
 public class App extends Application{
-    Stage window;
+    static Stage window;
 
     @Override
     public void start(Stage stage) throws Exception {
         URL url = new File("src/main/resources/vistas/menuInicio.fxml").toURI().toURL();
         Parent root = FXMLLoader.load(url);
 
-
         Scene scene = new Scene(root);
+        window = stage;
         stage.setOnCloseRequest(e -> cerrarPrograma());
         stage.setScene(scene);
         stage.show();
-
     }
 
     public void cerrarPrograma() {
@@ -34,6 +33,11 @@ public class App extends Application{
             window.close();
         }
     }
+
+    public static void close () {
+        window.close();
+    }
+
     public static void main(String[] args) {
         launch(args);
     }

@@ -12,6 +12,8 @@ import java.net.URL;
 
 public class SeleccionCantidadJugadores {
 
+    public static Stage window;
+
     public static void display() throws IOException {
         URL url = new File("src/main/resources/vistas/seleccionCantidadJugadores.fxml").toURI().toURL();
         Parent root = FXMLLoader.load(url);
@@ -19,11 +21,14 @@ public class SeleccionCantidadJugadores {
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();
+        window = stage;
         stage.setScene(scene);
         stage.setTitle("Cantidad Jugadores");
-
-
         stage.show();
+    }
+
+    public static void close() {
+        window.close();
     }
 
 }

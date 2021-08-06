@@ -91,4 +91,16 @@ public abstract class Ronda {
         Pais pais = juego.seleccionarPais(nombrePais);
         return this.estadoTurno.puedoSeleccionarPais(pais);
     }
+
+    public boolean puedoActivarTarjeta(String nombreTarjeta) {
+        return this.estadoTurno.puedoActivarTarjeta(nombreTarjeta);
+    }
+
+    public boolean puedoCanjearTarjeta() {
+        return this.estadoTurno.puedoCanjearTarjeta();
+    }
+
+    public boolean paisSeleccionado(String nombrePais) {
+        return this.estadoTurno.paisSeleccionado(nombrePais);
+    }
 }

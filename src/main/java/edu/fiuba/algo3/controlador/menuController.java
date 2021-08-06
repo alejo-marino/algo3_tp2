@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.controlador;
 
+import edu.fiuba.algo3.Vista.App;
 import edu.fiuba.algo3.Vista.ReglasJuego;
 import edu.fiuba.algo3.Vista.SeleccionCantidadJugadores;
 import javafx.collections.FXCollections;
@@ -27,6 +28,7 @@ public class menuController implements Initializable {
     private void handleBotonEmpezarJuego(ActionEvent event) throws IOException {
         System.out.println("Tocaste el boton comenzar juego");
         SeleccionCantidadJugadores.display();
+        App.close();
     }
 
     public void handleBotonReglas(ActionEvent actionEvent) {
